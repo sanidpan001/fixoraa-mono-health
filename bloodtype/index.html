@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blood Type Compatibility Checker | BloodType</title>
+<meta name="description" content="Blood type compatibility checker: see exactly who can donate to whom across all 8 ABO/Rh types, with a full interactive matrix. Free online tool.">
+<link rel="canonical" href="https://health.fixoraa.tech/bloodtype/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Blood Type Compatibility Checker | BloodType">
+<meta property="og:description" content="Blood type compatibility checker: see exactly who can donate to whom across all 8 ABO/Rh types, with a full interactive matrix. Free online tool.">
+<meta property="og:url" content="https://health.fixoraa.tech/bloodtype/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "BloodType",
+      "url": "https://health.fixoraa.tech/bloodtype/",
+      "applicationCategory": "Health Tools",
+      "operatingSystem": "Web",
+      "description": "Blood type compatibility checker: see exactly who can donate to whom across all 8 ABO/Rh types, with a full interactive matrix. Free online tool.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the universal blood donor type?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O-negative: its red cells carry no A, B, or Rh antigens, so no recipient's antibodies can attack them. That's why emergency rooms stock O\u2212 for trauma patients whose type is unknown. Only about 7% of people are O\u2212, so donors are always in demand."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the universal blood recipient type?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AB-positive for red blood cells: AB+ recipients carry all the antigens and none of the opposing antibodies, so they can receive any ABO/Rh type. (For plasma it's reversed \u2014 AB plasma is the universal plasma donor.)"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can O+ donate to O\u2212?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No \u2014 not for red cells. O+ blood carries the Rh (D) antigen, and an O\u2212 recipient's immune system can react against it. O+ can donate to any Rh-positive type (O+, A+, B+, AB+), but O\u2212 recipients need Rh-negative blood."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does Rh type matter in pregnancy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If an Rh\u2212 mother carries an Rh+ baby, exposure to the baby's blood can make her produce anti-D antibodies that threaten future Rh+ pregnancies (haemolytic disease of the newborn). A preventive anti-D injection during pregnancy and after delivery stops this \u2014 which is why maternal blood typing is routine."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the rarest blood type?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AB\u2212 is the rarest of the eight major types at under 1% of most populations, followed by B\u2212 at around 2%. O+ is the most common (roughly 35\u201340%), and O\u2212 \u2014 the universal donor \u2014 sits around 7%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does blood type affect plasma and platelet donation too?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, with reversed logic for plasma: AB plasma is the universal plasma donor (no anti-A or anti-B antibodies), while O plasma can only go to O recipients. Platelets carry ABO antigens in small amounts, so they are ideally ABO-matched but the rules are less strict than for red cells. Blood services will tell you which component your type is most needed for."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#FDF5F6; --surface:#FFFFFF; --accent:#BE123C; --accent-ink:#FFFFFF;
+  --ink:#25181C; --muted:#6A5257; --line:#F2DCE1;
+  --display:'Libre Franklin',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.bt-wrap{font-family:'Libre Franklin',Inter,system-ui,sans-serif;background:#FDF5F6;color:#25181C;padding:56px 20px 72px;}.bt-hero{max-width:800px;margin:0 auto 36px;text-align:center;}.bt-logo{width:76px;height:76px;margin:0 auto 18px;border-radius:50%;background:linear-gradient(135deg,#BE123C,#f06a8a);color:#fff;font-size:38px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(190,18,60,.25);}.bt-hero h1{font-size:clamp(32px,5vw,52px);line-height:1.08;margin:0 0 14px;letter-spacing:-0.02em;font-weight:800;}.bt-tag{font-size:18px;color:#6A5257;margin:0;}.bt-card{max-width:800px;margin:0 auto;background:#FFFFFF;border:1px solid #F2DCE1;border-radius:28px;padding:40px;box-shadow:0 24px 60px rgba(190,18,60,.10);}.bt-pickers{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:end;margin-bottom:20px;}.bt-field label{display:block;font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#6A5257;margin-bottom:8px;}.bt-field select{width:100%;padding:14px 12px;font-size:20px;font-weight:800;border:2px solid #F2DCE1;border-radius:14px;font-family:inherit;color:#25181C;background:#FDF5F6;min-height:58px;text-align:center;}.bt-field select:focus{outline:none;border-color:#BE123C;}.bt-arrow{font-size:34px;color:#BE123C;padding-bottom:10px;}.bt-verdict{border-radius:18px;padding:22px;text-align:center;font-size:18px;line-height:1.55;display:none;margin-bottom:8px;}.bt-verdict.show{display:block;}.bt-verdict.yes{background:#EAF4EA;border:2px solid #2E7D5B;}.bt-verdict.no{background:#FBE9E9;border:2px solid #BE123C;}.bt-verdict strong{display:block;font-size:24px;margin-bottom:6px;}.bt-callouts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 8px;}.bt-callout{border-radius:16px;padding:18px;font-size:14.5px;line-height:1.6;}.bt-callout strong{display:block;font-size:16px;margin-bottom:4px;}.bt-callout.donor{background:#FDEEF1;border:1px solid #BE123C;}.bt-callout.recip{background:#F3EAFB;border:1px solid #6D28D9;}.bt-mtitle{font-size:20px;font-weight:800;margin:26px 0 4px;}.bt-msub{color:#6A5257;font-size:14.5px;margin:0 0 14px;}.bt-matrix{width:100%;border-collapse:collapse;font-size:13.5px;}.bt-matrix th,.bt-matrix td{padding:9px 4px;text-align:center;border:1px solid #F2DCE1;}.bt-matrix th{background:#FDF5F6;font-weight:800;}.bt-matrix td.donor-h{background:#FDF5F6;font-weight:800;}.bt-matrix td.ok{background:#EAF4EA;color:#2E7D5B;font-weight:800;cursor:default;}.bt-matrix td.no{background:#FBF1F1;color:#c9a3ab;}.bt-matrix td.hl{outline:3px solid #BE123C;outline-offset:-3px;}.bt-explore{margin-top:14px;font-size:14.5px;color:#6A5257;}.bt-explore select{padding:10px 12px;font-size:15px;border:2px solid #F2DCE1;border-radius:12px;font-family:inherit;font-weight:700;color:#BE123C;background:#fff;min-height:46px;}@media (max-width:600px){.bt-card{padding:26px 18px;border-radius:22px;}.bt-pickers{grid-template-columns:1fr;}.bt-arrow{transform:rotate(90deg);text-align:center;padding:0;}.bt-callouts{grid-template-columns:1fr;}.bt-matrix{font-size:11px;}.bt-matrix th,.bt-matrix td{padding:6px 2px;}.bt-wrap{padding:40px 14px 56px;}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="BloodType home">
+      <span class="fx-logo-tile" aria-hidden="true">🩸</span>
+      <span class="fx-brand">BloodType</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-hero-card" aria-label="BloodType tool">
+<section class='bt-wrap'><div class='bt-hero'><div class='bt-logo' aria-hidden='true'>🩸</div><h1>Blood Type Compatibility Checker</h1><p class='bt-tag'>Who can give to whom? Explore every ABO and Rh combination.</p></div><div class='bt-card'><div class='bt-pickers'><div class='bt-field'><label for='bt-donor'>Donor</label><select id='bt-donor'></select></div><div class='bt-arrow' aria-hidden='true'>→</div><div class='bt-field'><label for='bt-recip'>Recipient</label><select id='bt-recip'></select></div></div><div class='bt-verdict' id='bt-verdict' role='status'></div><div class='bt-callouts'><div class='bt-callout donor'><strong>🩸 O− · Universal donor</strong>Can donate red cells to all 8 types. Emergency rooms stock O− for untyped trauma patients.</div><div class='bt-callout recip'><strong>💜 AB+ · Universal recipient</strong>Can receive red cells from all 8 types. (For plasma, AB is the universal <em>donor</em>.)</div></div><p class='bt-mtitle'>Full compatibility matrix</p><p class='bt-msub'>Rows = donor, columns = recipient. Pick a donor below to highlight their row.</p><div class='bt-explore'><label for='bt-explore'>Highlight donor: </label><select id='bt-explore'><option value=''>— show all —</option></select></div><div style='overflow-x:auto;margin-top:12px'><table class='bt-matrix' id='bt-matrix'></table></div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>What Blood Type Actually Means</h2><p>Your blood type describes <strong>antigens</strong> — protein markers on the surface of your red blood cells. The ABO system tracks two of them, A and B: type A blood carries A antigens, type B carries B, type AB carries both, and type O carries neither. The Rh system tracks a third marker, the D antigen: if you have it you are Rh-positive, if not, Rh-negative. Combine them and you get the eight familiar types: O−, O+, A−, A+, B−, B+, AB−, AB+.</p><p>Why does it matter? Because your plasma carries <strong>antibodies</strong> against the ABO antigens you <em>lack</em>. Type A blood contains anti-B antibodies; type O contains both anti-A and anti-B. Transfuse the wrong type and those antibodies attack the donated cells — an acute haemolytic reaction that can be fatal. Compatibility is simply the science of avoiding that collision.</p><h2>The Compatibility Rules</h2><p>Two independent rules decide every transfusion:</p><ol><li><strong>ABO rule:</strong> the donor's antigens must not meet antibodies against them in the recipient. O has no antigens, so O red cells can go to anyone. AB recipients have no anti-A or anti-B antibodies, so they can receive from anyone.</li><li><strong>Rh rule:</strong> Rh-negative blood can go to Rh-positive or Rh-negative recipients, but Rh-positive blood can only go to Rh-positive recipients. (Giving Rh-positive blood to an Rh-negative person can trigger antibody production that endangers future transfusions and pregnancies.)</li></ol><h2>The Full Donor–Recipient Matrix</h2><table><thead><tr><th>Donor ↓ · Recipient →</th><th>O−</th><th>O+</th><th>A−</th><th>A+</th><th>B−</th><th>B+</th><th>AB−</th><th>AB+</th></tr></thead><tbody><tr><td><strong>O−</strong></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td><strong>O+</strong></td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td></tr><tr><td><strong>A−</strong></td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td></tr><tr><td><strong>A+</strong></td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td></tr><tr><td><strong>B−</strong></td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td><strong>B+</strong></td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✗</td><td>✓</td></tr><tr><td><strong>AB−</strong></td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td><td>✓</td></tr><tr><td><strong>AB+</strong></td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓</td></tr></tbody></table><p>Try any combination in the explorer above — the matrix highlights instantly. Note the asymmetry: compatibility is <em>directional</em>. O− can give to AB+, but AB+ can only give to AB+.</p><h2>Universal Donor and Universal Recipient</h2><p><strong>O− is the universal red-cell donor:</strong> no A, B, or Rh antigens means nothing for a recipient's antibodies to attack. That is why ambulances and emergency rooms stock O− — when there is no time to type a trauma patient's blood, O− is the safe default. Only about 7% of the population is O−, so demand chronically exceeds supply, and blood services plead for O− donors constantly.</p><p><strong>AB+ is the universal red-cell recipient:</strong> carrying all three antigens and no opposing antibodies, AB+ patients can receive any type. The twist: for <strong>plasma</strong> donation the roles reverse. Plasma carries the antibodies, not the antigens, so AB plasma (no anti-A, no anti-B) is the universal plasma donor, while O plasma can only go to O recipients. Blood services value AB donors enormously for plasma.</p><h2>Why Rh Matters in Pregnancy</h2><p>If an Rh-negative mother carries an Rh-positive baby, small amounts of the baby's blood can enter her circulation during birth, prompting her immune system to manufacture anti-D antibodies. Those antibodies are harmless to her but can attack the red cells of a <em>future</em> Rh-positive baby — a condition called haemolytic disease of the newborn. The preventive is elegantly simple: an <strong>anti-D injection</strong> given during pregnancy and after delivery mops up the fetal cells before the mother's immune system notices them. It is one of modern medicine's quiet triumphs, and it is why maternal blood typing is routine worldwide.</p><h2>Blood Type and Donation: What to Know</h2><ul><li><strong>Whole blood</strong> donation takes about 10 minutes; the body replaces the fluid within a day and red cells within weeks. Most healthy adults can donate every 8–12 weeks.</li><li><strong>O− donors</strong> are the most requested for whole blood; <strong>AB donors</strong> are the most requested for plasma.</li><li><strong>Rare types</strong> (AB− is under 1% of the population; B− around 2%) are disproportionately valuable because compatible matches are hard to find.</li><li>Donation eligibility covers haemoglobin level, recent travel, medications, and tattoos/piercings — rules vary by country, so check your national blood service.</li></ul><h2>Myths Worth Retiring</h2><ul><li><strong>'Blood type diets are scientific.'</strong> There is no credible evidence that eating for your blood type improves health; the claim's own cited studies do not support it.</li><li><strong>'O− people are better humans.'</strong> Blood type does not determine personality — the Japanese 'ketsueki-gata' personality theory has no scientific basis.</li><li><strong>'Rare blood is always needed most.'</strong> Rare types are precious per-unit, but O− and O+ drive the greatest total demand because they serve the most patients.</li><li><strong>'You can't donate with a tattoo.'</strong> In most countries you can, after a short deferral period (often 3–12 months) if the parlour was unregulated.</li></ul><p>Knowing your type is useful beyond trivia: it speeds emergency care, informs family planning, and tells you exactly how your donation helps. Check a combination above, learn your matrix row — and if you are eligible, consider donating. Someone's worst day is someone else's ten minutes.</p><h2>How Blood Typing Is Actually Done</h2><p>Typing your blood takes minutes and works by watching for clumping. In the classic <strong>slide test</strong>, a drop of your blood is mixed with three reagents: anti-A serum, anti-B serum, and anti-D (Rh) serum. If the anti-A drop clumps, you carry the A antigen; if anti-B clumps, the B antigen; if anti-D clumps, you are Rh-positive. No clumping with any of them means O−. Modern labs automate this with gel cards that trap clumped cells in a visible band, but the principle is identical to the 1901 test that won Landsteiner his Nobel Prize.</p><p>A full pre-transfusion workup adds a <strong>crossmatch</strong>: your serum is mixed directly with the donor unit's cells to catch rare antibodies beyond ABO and Rh. This is why the compatibility checker above is an educational tool, not a clinical one — real transfusions always require laboratory crossmatching.</p><h2>Donating Blood: What Happens Step by Step</h2><ol><li><strong>Registration and screening:</strong> ID check, a short health questionnaire, and a finger-prick haemoglobin test. Be honest on the questionnaire — it protects recipients.</li><li><strong>The donation:</strong> about 10 minutes in a reclining chair while roughly 470 ml (one pint) is collected. Squeeze the stress ball; look away if needles bother you.</li><li><strong>Recovery:</strong> 10–15 minutes of juice and biscuits while staff watch for light-headedness. This is not optional — fainting in the car park is the classic rookie error.</li><li><strong>Aftercare:</strong> keep the bandage on a few hours, avoid heavy lifting with that arm for the day, drink extra fluids, and skip intense exercise for 24 hours.</li></ol><p>Your donation is then typed, tested for infectious diseases, separated into red cells, plasma, and platelets (one donation can help up to three patients), and dispatched. Most donors feel completely normal within hours — and the body replaces the donated red cells within a few weeks.</p><h2>How Often Can You Donate?</h2><p>Whole blood can be donated every 12 weeks (about 3 months) in most countries — every 8 weeks in the US — because red cells take that long to fully replenish. Platelet donors can give far more often, typically every 2 weeks, since platelets regenerate in days; plasma donors usually every 2–4 weeks. Your blood service tracks your eligibility dates automatically and will invite you when you are due. If you donate regularly, keep an eye on iron levels: frequent donors, especially premenopausal women, can drift into iron deficiency, so iron-rich food (or a supplement on medical advice) between donations keeps you eligible and feeling well.</p><h2>Blood Types Around the World: Distribution and Rare Variants</h2><p>Blood type is one of the most geographically lopsided human traits. <strong>Type O</strong> dominates the Americas — over 60% in many Indigenous populations, a legacy of the original settler groups — while <strong>type B</strong> reaches its global peak across Central and South Asia. <strong>Type A</strong> is most common in Northern and Central Europe, and <strong>type AB</strong> is the rarest almost everywhere, seldom exceeding 5–10% of any population. The pattern has practical consequences: blood services in Europe recruit O− donors especially aggressively, while services in Asia plan for proportionally higher B demand.</p><p>Beyond the famous eight lie rarer phenotypes that break the simple rules. The <strong>Bombay phenotype</strong> (hh) lacks the H antigen from which A and B antigens are built, so carriers test as O yet can only receive Bombay blood — though they can donate to anyone. It occurs in roughly 1 in 10,000 people in parts of India and is vanishingly rare elsewhere. <strong>Rh-null</strong> blood, missing all 61 Rh antigens, is the rarest of all — fewer than 50 documented cases worldwide — and its carriers can donate to any Rh type but receive only Rh-null. International rare-donor registries exist precisely because a transfusion for such a person cannot be sourced from any normal blood bank.</p><h2>Does Blood Type Affect Health? What the Evidence Says</h2><p>Researchers have probed blood type as a disease-risk factor for decades, and a few findings survive scrutiny. People with <strong>type O</strong> appear slightly less susceptible to severe COVID-19 and to infection by some norovirus strains, while <strong>type A</strong> shows a modest association with cardiovascular disease and stomach cancer — likely because ABO antigens influence clotting proteins like von Willebrand factor. Type O individuals also clear clots faster, correlating with slightly higher bleeding risk during surgery.</p><p>Keep these associations in perspective: the effects are small (typically 10–20% relative shifts), observational studies cannot prove causation, and blood type is dwarfed by lifestyle factors like smoking, diet, and exercise. <em>Nothing here is medical advice — discuss any health concern with a clinician, and never make donation or treatment decisions based on a compatibility tool.</em></p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>What is the universal blood donor type?</summary><p>O-negative: its red cells carry no A, B, or Rh antigens, so no recipient's antibodies can attack them. That's why emergency rooms stock O− for trauma patients whose type is unknown. Only about 7% of people are O−, so donors are always in demand.</p></details>
+<details><summary>What is the universal blood recipient type?</summary><p>AB-positive for red blood cells: AB+ recipients carry all the antigens and none of the opposing antibodies, so they can receive any ABO/Rh type. (For plasma it's reversed — AB plasma is the universal plasma donor.)</p></details>
+<details><summary>Can O+ donate to O−?</summary><p>No — not for red cells. O+ blood carries the Rh (D) antigen, and an O− recipient's immune system can react against it. O+ can donate to any Rh-positive type (O+, A+, B+, AB+), but O− recipients need Rh-negative blood.</p></details>
+<details><summary>Why does Rh type matter in pregnancy?</summary><p>If an Rh− mother carries an Rh+ baby, exposure to the baby's blood can make her produce anti-D antibodies that threaten future Rh+ pregnancies (haemolytic disease of the newborn). A preventive anti-D injection during pregnancy and after delivery stops this — which is why maternal blood typing is routine.</p></details>
+<details><summary>What is the rarest blood type?</summary><p>AB− is the rarest of the eight major types at under 1% of most populations, followed by B− at around 2%. O+ is the most common (roughly 35–40%), and O− — the universal donor — sits around 7%.</p></details>
+<details><summary>Does blood type affect plasma and platelet donation too?</summary><p>Yes, with reversed logic for plasma: AB plasma is the universal plasma donor (no anti-A or anti-B antibodies), while O plasma can only go to O recipients. Platelets carry ABO antigens in small amounts, so they are ideally ABO-matched but the rules are less strict than for red cells. Blood services will tell you which component your type is most needed for.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">BloodType</div>
+    <p>BloodType maps ABO and Rh blood compatibility — who can donate to whom — with a full interactive matrix.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function canDonate(donor,recipient){function parse(s){var m=/^\s*(AB|A|B|O)\s*([+-])\s*$/i.exec(String(s==null?'':s));if(!m)return null;return {abo:m[1].toUpperCase(),rh:m[2]};}var d=parse(donor),r=parse(recipient);if(!d||!r)return false;var aboOk=d.abo==='O'||(d.abo==='A'&&(r.abo==='A'||r.abo==='AB'))||(d.abo==='B'&&(r.abo==='B'||r.abo==='AB'))||(d.abo==='AB'&&r.abo==='AB');var rhOk=d.rh==='-'||r.rh==='+';return !!(aboOk&&rhOk);}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var TYPES=['O-','O+','A-','A+','B-','B+','AB-','AB+'];var donorSel=document.getElementById('bt-donor'),recipSel=document.getElementById('bt-recip'),exploreSel=document.getElementById('bt-explore');TYPES.forEach(function(t){var o1=document.createElement('option');o1.value=t;o1.textContent=t;donorSel.appendChild(o1);var o2=document.createElement('option');o2.value=t;o2.textContent=t;recipSel.appendChild(o2);var o3=document.createElement('option');o3.value=t;o3.textContent=t;exploreSel.appendChild(o3);});donorSel.value='O-';recipSel.value='AB+';var table=document.getElementById('bt-matrix');function buildMatrix(hl){table.innerHTML='';var hr=document.createElement('tr');hr.innerHTML='<th></th>';TYPES.forEach(function(t){var th=document.createElement('th');th.textContent=t;hr.appendChild(th);});table.appendChild(hr);TYPES.forEach(function(d){var tr=document.createElement('tr');var dh=document.createElement('td');dh.className='donor-h';dh.textContent=d;tr.appendChild(dh);TYPES.forEach(function(r){var td=document.createElement('td');var ok=canDonate(d,r);td.className=ok?'ok':'no';td.textContent=ok?'✓':'–';if(hl&&d===hl)td.classList.add('hl');tr.appendChild(td);});table.appendChild(tr);});}function render(){var d=donorSel.value,r=recipSel.value;var ok=canDonate(d,r);var v=document.getElementById('bt-verdict');v.className='bt-verdict show '+(ok?'yes':'no');v.innerHTML=ok?'<strong>✅ Yes — compatible</strong>'+d+' red cells can be safely transfused to an '+r+' recipient.': '<strong>❌ No — not compatible</strong>'+d+' red cells cannot go to an '+r+' recipient ('+(d.replace(/[-+]/,'')!==r.replace(/[-+]/,'')&&d.charAt(0)!=='O'?'ABO mismatch':'Rh mismatch')+'). Always confirm with a proper crossmatch.';}donorSel.addEventListener('change',render);recipSel.addEventListener('change',render);exploreSel.addEventListener('change',function(){buildMatrix(exploreSel.value||null);});buildMatrix(null);render();});}
+</script>
+</body>
+</html>
