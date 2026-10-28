@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GymSplit — Workout Split Planner (PPL, Upper/Lower)</title>
+<meta name="description" content="Build your perfect workout split free. Pick days per week and your goal — get push/pull/legs, upper-lower plans with exercises, sets and reps.">
+<link rel="canonical" href="https://health.fixoraa.tech/gymsplit/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="GymSplit — Workout Split Planner (PPL, Upper/Lower)">
+<meta property="og:description" content="Build your perfect workout split free. Pick days per week and your goal — get push/pull/legs, upper-lower plans with exercises, sets and reps.">
+<meta property="og:url" content="https://health.fixoraa.tech/gymsplit/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "GymSplit",
+      "url": "https://health.fixoraa.tech/gymsplit/",
+      "applicationCategory": "Fitness Tools",
+      "operatingSystem": "Web",
+      "description": "Build your perfect workout split free. Pick days per week and your goal \u2014 get push/pull/legs, upper-lower plans with exercises, sets and reps.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the best workout split for 4 days a week?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Three days: push/pull/legs. Four days: upper/lower/upper/lower \u2014 arguably the best all-round split. Five or six days only if you can sustain the schedule at 90%+ compliance for months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What muscles do push pull legs train?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Push day = chest, shoulders, triceps (bench, overhead press). Pull day = back, biceps (rows, pull-ups). Leg day = quads, hamstrings, glutes (squats, deadlifts). Muscles that work together recover together."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is training 2 days a week enough to build muscle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No \u2014 consistency beats frequency. Two full-body or upper/lower days done every week outperforms four days done sporadically. Pick the day count you'll actually sustain, then progress from there."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many reps and sets per muscle group?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For muscle: 6\u201312 reps, 10\u201320 sets per muscle weekly. For strength: 3\u20136 reps on heavy compounds with longer rests. For general fitness: 8\u201312 reps with 60\u201390 second rests."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long should I stick with one workout split?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At least 8\u201312 weeks. Changing programs weekly prevents the progressive overload that drives growth. Switch only when progress stalls for 3+ weeks, your schedule changes, or compliance is slipping."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are rest days important for muscle growth?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Muscle grows during recovery, not during the workout. Take 1\u20132 full rest days weekly, sleep 7\u20139 hours, and eat ~1.6\u20132.2g protein per kg bodyweight. Soreness isn't progress \u2014 rising performance over weeks is."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#F3FAF5; --surface:#FFFFFF; --accent:#0B7444; --accent-ink:#FFFFFF;
+  --ink:#1E2B24; --muted:#47564C; --line:#D5E5D9;
+  --display:'Exo 2',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.gs-wrap{max-width:760px;margin:0 auto;padding:6px}.gs-kicker{display:inline-block;background:#DFF2E5;color:#0B7444;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin:0 0 10px}.gs-wrap h1{font-family:'Exo 2',Inter,sans-serif;font-size:clamp(2.2rem,5vw,3.2rem);margin:0 0 6px;color:#1E2B24}.gs-tag{color:#47564C;margin:0 0 22px;font-size:1.05rem}.gs-steps{display:flex;gap:0;margin-bottom:20px}.gs-step{flex:1;text-align:center;position:relative;padding-top:34px;font-size:13px;font-weight:700;color:#47564C}.gs-step::before{content:attr(data-n);position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:#fff;border:2px solid #D5E5D9;color:#47564C;display:flex;align-items:center;justify-content:center;font-weight:800}.gs-step.done::before{background:#0B7444;border-color:#0B7444;color:#fff}.gs-step.now::before{border-color:#0B7444;color:#0B7444;box-shadow:0 0 0 4px #DFF2E5}.gs-panel{display:none;background:#fff;border:2px solid #D5E5D9;border-radius:22px;padding:28px}.gs-panel.active{display:block}.gs-panel h2{margin:0 0 6px;font-size:1.5rem}.gs-sub{color:#47564C;margin:0 0 18px}.gs-daygrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:20px}.gs-day{border:2px solid #D5E5D9;background:#F3FAF5;border-radius:14px;padding:14px 4px;font-size:1.3rem;font-weight:800;cursor:pointer;min-height:60px;color:#1E2B24}.gs-day.on{background:#0B7444;border-color:#0B7444;color:#fff}.gs-goalgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}.gs-goal{border:2px solid #D5E5D9;background:#F3FAF5;border-radius:14px;padding:16px 8px;cursor:pointer;min-height:76px;color:#1E2B24}.gs-goal b{display:block;font-size:15px}.gs-goal span{font-size:12px;color:#47564C}.gs-goal.on{background:#0B7444;border-color:#0B7444;color:#fff}.gs-goal.on span{color:#EAF7EE}.gs-btn{background:#0B7444;color:#fff;border:none;font-weight:800;font-size:16px;padding:14px 34px;border-radius:14px;cursor:pointer;min-height:52px}.gs-btn.ghost{background:#fff;color:#0B7444;border:2px solid #0B7444}.gs-btnrow{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}.gs-plan-day{border:2px solid #D5E5D9;border-radius:16px;padding:16px;margin-bottom:12px;background:#F3FAF5}.gs-plan-day h3{margin:0 0 4px;color:#0B7444;font-size:1.1rem}.gs-plan-day .f{font-size:13px;color:#47564C;font-weight:600;margin-bottom:10px}.gs-ex{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border:1px solid #D5E5D9;border-radius:10px;padding:10px 12px;margin-bottom:6px;font-size:14px}.gs-ex button{border:2px solid #D5E5D9;background:#fff;border-radius:8px;font-size:12px;font-weight:700;padding:8px 10px;cursor:pointer;min-height:36px;color:#0B7444}.gs-rest{text-align:center;padding:22px;color:#47564C;font-weight:600}@media(max-width:640px){.gs-daygrid{grid-template-columns:repeat(4,1fr)}.gs-goalgrid{grid-template-columns:1fr}.gs-panel{padding:20px}.gs-step{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="GymSplit home">
+      <span class="fx-logo-tile" aria-hidden="true">💪</span>
+      <span class="fx-brand">GymSplit</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-wizard-steps" aria-label="GymSplit tool">
+<div class="gs-wrap"><p class="gs-kicker">Strength programming</p><h1>GymSplit</h1><p class="gs-tag">Tell GymSplit your days and goal — get a complete week of training.</p><div class="gs-steps"><div class="gs-step now" data-n="1" id="gsS1">Days</div><div class="gs-step" data-n="2" id="gsS2">Goal</div><div class="gs-step" data-n="3" id="gsS3">Exercises</div><div class="gs-step" data-n="4" id="gsS4">Your plan</div></div><div class="gs-panel active" id="gsP1"><h2>How many days can you train?</h2><p class="gs-sub">Be honest — pick the number you'll hit at 90%+ compliance.</p><div class="gs-daygrid" id="gsDays"></div><div class="gs-btnrow"><button class="gs-btn" id="gsNext1">Continue →</button></div></div><div class="gs-panel" id="gsP2"><h2>What's your main goal?</h2><p class="gs-sub">This sets your exercises, rep ranges and session structure.</p><div class="gs-goalgrid" id="gsGoals"><button class="gs-goal on" data-g="muscle"><b>💪 Muscle</b><span>6–12 reps, hypertrophy focus</span></button><button class="gs-goal" data-g="strength"><b>🏋️ Strength</b><span>3–6 reps, heavy compounds</span></button><button class="gs-goal" data-g="general"><b>⚡ General fitness</b><span>8–12 reps, balanced mix</span></button></div><div class="gs-btnrow"><button class="gs-btn ghost" id="gsBack2">← Back</button><button class="gs-btn" id="gsNext2">Continue →</button></div></div><div class="gs-panel" id="gsP3"><h2>Fine-tune your exercises</h2><p class="gs-sub">Swap any exercise — the session structure stays intact. Then generate your plan.</p><div id="gsTune"></div><div class="gs-btnrow"><button class="gs-btn ghost" id="gsBack3">← Back</button><button class="gs-btn" id="gsNext3">Generate my plan →</button></div></div><div class="gs-panel" id="gsP4"><h2>Your weekly split</h2><p class="gs-sub" id="gsPlanSub"></p><div id="gsPlan"></div><div class="gs-btnrow"><button class="gs-btn ghost" id="gsBack4">← Start over</button><button class="gs-btn" id="gsCopy">Copy plan</button></div></div></div>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>What a workout split actually is</h2><p>A workout split is simply how you divide training across the week. The split matters less than beginners think and more than advanced lifters admit: what matters most is that every muscle gets trained, recovered, and trained again. A good split organises that rhythm around your real life — the number of days you can actually train, consistently, for months.</p><p>GymSplit starts from the only input that really constrains the answer: days per week. Three days gives you the classic push/pull/legs. Four days gives you upper/lower twice through. Six days gives you push/pull/legs twice. The "best" split is the one you'll still be doing in six months.</p><h2>The big three split families</h2><h3>Push / Pull / Legs</h3><p>Push day trains chest, shoulders and triceps (bench press, overhead press, dips). Pull day trains back and biceps (rows, pull-ups, curls). Leg day trains quads, hamstrings and glutes (squats, deadlifts, lunges). PPL is the most popular split in existence because the logic is airtight: muscles that work together recover together. Run it once per week on 3 days, or twice on 6 days for higher frequency.</p><h3>Upper / Lower</h3><p>Upper day hits everything above the waist; lower day everything below. On 2 days it's the minimum effective program. On 4 days (upper, lower, upper, lower) it's arguably the best balance of frequency and recovery ever devised — each muscle gets trained twice weekly with 48–72 hours between sessions, which is the sweet spot research keeps confirming.</p><h3>Bro split (one muscle per day)</h3><p>Chest day, back day, leg day, shoulder day, arm day — the classic bodybuilder week. It works, but each muscle waits a full week between sessions, which is suboptimal for natural lifters. GymSplit uses it only as a component (inside 5-day plans) rather than a pure 5-day bro split, so frequency stays higher.</p><h2>How many days should YOU train?</h2><table><thead><tr><th>Days/week</th><th>Split</th><th>Best for</th></tr></thead><tbody><tr><td>2</td><td>Upper / Lower</td><td>Busy schedules; minimum effective dose</td></tr><tr><td>3</td><td>Push / Pull / Legs</td><td>Beginners; the classic starter</td></tr><tr><td>4</td><td>Upper / Lower / Upper / Lower</td><td>Best all-rounder for intermediates</td></tr><tr><td>5</td><td>Push / Pull / Legs / Upper / Lower</td><td>Higher volume without 6-day commitment</td></tr><tr><td>6</td><td>PPL × 2</td><td>Advanced; high frequency</td></tr></tbody></table><p>Honesty check: pick the number of days you'll hit at 90%+ compliance. A 4-day split done consistently beats a 6-day split done sporadically. You can always add a day later — GymSplit regenerates the plan instantly.</p><h2>Matching the plan to your goal</h2><h3>Goal: build muscle (hypertrophy)</h3><p>Train each muscle 2× per week, 10–20 hard sets per muscle per week, mostly 6–12 reps, resting 60–90 seconds. Exercise selection favours movements you can progress and feel: dumbbell presses, rows, Romanian deadlifts, leg presses. The last 1–2 reps of each set should be genuinely hard.</p><h3>Goal: get stronger</h3><p>Centre the plan on heavy compounds — squat, bench, deadlift, overhead press — in the 3–6 rep range with 3–5 minutes rest. Assistance work stays lighter. Strength is a skill; practising the big lifts frequently (the 4-day upper/lower is ideal) with patient 2.5–5 lb jumps is the entire game.</p><h3>Goal: general fitness</h3><p>Mix it up: compounds for strength, machines and dumbbells for muscle, and finishers or conditioning for the heart. Rep ranges 8–12, rest 60–90 seconds, and include something you enjoy — adherence is the program.</p><h2>Exercise selection rules</h2><p>Every session needs: one primary compound (the heavy lift of the day), 2–3 secondary compounds or machines, and 1–2 isolation finishers. That's 4–6 exercises per session — more is junk volume for most people. Pick exercises your joints tolerate; the "best" exercise you can't do pain-free is never the best exercise for you. GymSplit's exercise picker lets you swap any movement while keeping the session's structure intact.</p><h2>Rest days are training days</h2><p>Muscle is built in recovery, not in the gym — training is the stimulus, rest is the adaptation. Schedule at least one full rest day per week (two on 5–6 day plans), sleep 7–9 hours, and eat enough protein (roughly 1.6–2.2 g per kg of bodyweight daily). Soreness is not a progress metric; performance trending upward over weeks is.</p><h2>When to change your split</h2><p>Run a split for at least 8–12 weeks before judging it. Change when: progress stalls for 3+ weeks despite good sleep and food, your schedule changes, you're bored enough that compliance is slipping, or nagging joint pain suggests a movement pattern needs rotating. Change the split — don't program-hop weekly. Consistency with a good plan beats novelty every time.</p><h2>Sample week: the 3-day push/pull/legs</h2><p>Monday — Push: barbell bench press 4×6–8, overhead press 3×8–10, incline dumbbell press 3×10–12, lateral raises 3×12–15, triceps pushdowns 3×10–12. Wednesday — Pull: deadlift 3×5, pull-ups 4×max, barbell row 4×8–10, face pulls 3×12–15, barbell curls 3×10–12. Friday — Legs: back squat 4×6–8, Romanian deadlift 3×8–10, leg press 3×10–12, walking lunges 3×12 per leg, standing calf raises 4×12–15. Rest days between sessions let each muscle group recover fully — this is the highest-compliance starter program in existence for a reason.</p><h2>Sample week: the 4-day upper/lower</h2><p>Monday — Upper (strength): bench 5×5, Pendlay row 5×5, overhead press 3×6–8, weighted pull-ups 3×6–8. Tuesday — Lower (strength): squat 5×5, Romanian deadlift 3×6–8, Bulgarian split squats 3×8–10. Thursday — Upper (volume): incline dumbbell press 4×8–12, lat pulldown 4×10–12, lateral raises 3×12–15, hammer curls + pushdowns 3×10–12. Friday — Lower (volume): front squat 4×8–10, leg press 3×12–15, walking lunges 3×12, calf raises 4×15. Heavy days build the strength base; volume days build the muscle — the combination is why intermediates thrive on this split.</p><h2>Deload weeks: the scheduled step back</h2><p>Every 6–8 weeks, take a deload: cut volume roughly in half (same exercises, ~50% of the sets, lighter loads) for one week. You'll feel like you're slacking — that's the point. Fatigue masks fitness; the deload dissipates accumulated fatigue and you return stronger. Lifters who skip deloads don't avoid them; they take them involuntarily as injuries or burnout. Schedule it like a training day.</p><h2>Where cardio fits</h2><p>Cardio doesn't kill gains — badly timed cardio does. Keep hard conditioning away from leg day (24+ hours of separation), favour low-impact options (cycling, incline walking, rowing) during heavy strength blocks, and cap intense sessions at 2 per week. Two to three easy 20–30 minute sessions actually improve recovery by increasing blood flow. Your heart is a muscle too; train it deliberately rather than guiltily.</p><h2>Adjusting when life happens</h2><p>Missed a day? Don't stack two sessions into one mega-workout — just slide the week forward or drop the least important session (isolation work goes first, compounds stay). Travelling? One full-body dumbbell session per week maintains nearly all your progress for up to three weeks. The split is a template, not a religion: GymSplit regenerates around your new schedule in seconds, which is exactly what it's for.</p><h2>Tracking progressive overload</h2><p>The program only works if the weights go up over time. Log every session's top set (weight × reps) in any notes app, and review monthly: a 2.5–5% monthly climb on your main lifts means the split is working. When progress stalls for three weeks despite good sleep and food, change one variable — add a set, swap an exercise, or take a deload week — not the whole program. Small, patient adjustments beat program-hopping every time.</p><h2>The warm-up protocol: ramp to your working weight</h2><p>Jumping straight to working weight is the fastest route to a strained shoulder and a wasted first set. A proper ramp-up wakes up the nervous system, rehearses the movement pattern and tells you how today's strength feels — all in about ten minutes.</p><p>The protocol: take your working weight and do four to five warm-up sets with climbing load and falling reps, resting 60–90 seconds between them. Worked example for a 100 kg squat day:</p><ul><li>Bar (20 kg) × 10 — groove the pattern, deep and controlled.</li><li>40 kg × 8 — easy, find your rhythm.</li><li>60 kg × 5 — moderate, brace properly.</li><li>80 kg × 3 — heavy-ish, rehearse the full setup.</li><li>90 kg × 1 — feel what today's strength is.</li></ul><p>Then start your 100 kg working sets. Notice the reps fall as the weight climbs: warm-ups are rehearsal, not training, and should never fatigue you. The single at ~90% is the key set — it calibrates your body so the first work set never feels like a shock. For upper-body lifts, three to four ramp sets are enough; for deadlifts, add one extra single.</p><p>Rule of thumb: you should break a light sweat but still feel fresh. If your warm-up leaves you winded, you did too much.</p><h2>Five mistakes that stall every beginner</h2><p>Most first-year plateaus aren't genetic — they're these five habits:</p><ul><li><em>Program hopping.</em> Switching plans every three weeks means you never accumulate enough practice on any lift to progress. Pick a split and commit to twelve weeks.</li><li><em>Adding weight before owning the form.</em> A heavier squat with collapsing knees is not progress; it's a future injury. Film your main lifts monthly and fix what you see before loading more.</li><li><em>Training to failure on everything.</em> Grinding every set to the last possible rep wrecks recovery. Leave 1–2 reps in reserve on most sets; go all-out only on the final set of an isolation move.</li><li><em>Ignoring protein and sleep.</em> Muscle is built from protein and consolidated during sleep. Around 1.6–2.2 g of protein per kg of bodyweight and 7–9 hours of sleep matter more than any supplement.</li><li><em>Skipping legs.</em> Half your muscle mass sits below the waist. A split that trains legs properly builds your whole body faster — squats and deadlifts drive systemic growth.</li></ul>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>What is the best workout split for 4 days a week?</summary><p>Three days: push/pull/legs. Four days: upper/lower/upper/lower — arguably the best all-round split. Five or six days only if you can sustain the schedule at 90%+ compliance for months.</p></details>
+<details><summary>What muscles do push pull legs train?</summary><p>Push day = chest, shoulders, triceps (bench, overhead press). Pull day = back, biceps (rows, pull-ups). Leg day = quads, hamstrings, glutes (squats, deadlifts). Muscles that work together recover together.</p></details>
+<details><summary>Is training 2 days a week enough to build muscle?</summary><p>No — consistency beats frequency. Two full-body or upper/lower days done every week outperforms four days done sporadically. Pick the day count you'll actually sustain, then progress from there.</p></details>
+<details><summary>How many reps and sets per muscle group?</summary><p>For muscle: 6–12 reps, 10–20 sets per muscle weekly. For strength: 3–6 reps on heavy compounds with longer rests. For general fitness: 8–12 reps with 60–90 second rests.</p></details>
+<details><summary>How long should I stick with one workout split?</summary><p>At least 8–12 weeks. Changing programs weekly prevents the progressive overload that drives growth. Switch only when progress stalls for 3+ weeks, your schedule changes, or compliance is slipping.</p></details>
+<details><summary>Why are rest days important for muscle growth?</summary><p>Muscle grows during recovery, not during the workout. Take 1–2 full rest days weekly, sleep 7–9 hours, and eat ~1.6–2.2g protein per kg bodyweight. Soreness isn't progress — rising performance over weeks is.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">GymSplit</div>
+    <p>GymSplit builds your weekly workout split from training days and goal — with exercise picks for every session.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+var GS_SPLITS={1:['Full Body'],2:['Upper','Lower'],3:['Push','Pull','Legs'],4:['Upper','Lower','Upper','Lower'],5:['Push','Pull','Legs','Upper','Lower'],6:['Push','Pull','Legs','Push','Pull','Legs'],7:['Push','Pull','Legs','Push','Pull','Legs','Rest']};
+var GS_FOCUS={'Push':'Chest · Shoulders · Triceps','Pull':'Back · Biceps','Legs':'Quads · Glutes · Hamstrings','Upper':'Chest · Back · Shoulders · Arms','Lower':'Quads · Glutes · Hamstrings · Core','Full Body':'Full-body compound lifts','Rest':'Recovery'};
+var GS_EX={'Push':{muscle:['Barbell Bench Press','Overhead Press','Incline Dumbbell Press','Lateral Raises','Triceps Pushdowns'],strength:['Barbell Bench Press','Overhead Press','Close-Grip Bench','Weighted Dips'],general:['Dumbbell Bench Press','Dumbbell Shoulder Press','Push-Ups','Lateral Raises','Triceps Pushdowns']},'Pull':{muscle:['Deadlift','Pull-Ups','Barbell Row','Face Pulls','Barbell Curls'],strength:['Deadlift','Weighted Pull-Ups','Pendlay Row','Barbell Curls'],general:['Lat Pulldown','Seated Cable Row','Face Pulls','Dumbbell Curls','Back Extensions']},'Legs':{muscle:['Back Squat','Romanian Deadlift','Leg Press','Walking Lunges','Standing Calf Raises'],strength:['Back Squat','Front Squat','Romanian Deadlift','Standing Calf Raises'],general:['Goblet Squat','Romanian Deadlift','Leg Press','Walking Lunges','Plank']},'Upper':{muscle:['Barbell Bench Press','Barbell Row','Overhead Press','Lat Pulldown','Hammer Curls','Triceps Pushdowns'],strength:['Barbell Bench Press','Pendlay Row','Overhead Press','Weighted Pull-Ups','Barbell Curls'],general:['Dumbbell Bench Press','Lat Pulldown','Dumbbell Shoulder Press','Cable Row','Plank']},'Lower':{muscle:['Back Squat','Romanian Deadlift','Leg Press','Walking Lunges','Standing Calf Raises','Hanging Knee Raises'],strength:['Back Squat','Deadlift','Front Squat','Bulgarian Split Squats'],general:['Goblet Squat','Romanian Deadlift','Leg Press','Walking Lunges','Hanging Knee Raises']},'Full Body':{muscle:['Back Squat','Barbell Bench Press','Barbell Row','Overhead Press','Romanian Deadlift'],strength:['Back Squat','Barbell Bench Press','Deadlift','Overhead Press'],general:['Goblet Squat','Dumbbell Bench Press','Lat Pulldown','Dumbbell Row','Plank']},'Rest':{muscle:[],strength:[],general:[]}};
+var GS_ALT=['Barbell Bench Press','Dumbbell Bench Press','Overhead Press','Dumbbell Shoulder Press','Incline Dumbbell Press','Push-Ups','Lateral Raises','Triceps Pushdowns','Close-Grip Bench','Weighted Dips','Deadlift','Romanian Deadlift','Pull-Ups','Weighted Pull-Ups','Lat Pulldown','Barbell Row','Pendlay Row','Seated Cable Row','Cable Row','Dumbbell Row','Face Pulls','Barbell Curls','Dumbbell Curls','Hammer Curls','Back Squat','Front Squat','Goblet Squat','Leg Press','Walking Lunges','Bulgarian Split Squats','Standing Calf Raises','Back Extensions','Plank','Hanging Knee Raises'];
+function gymPlan(daysPerWeek,goal){var g=(goal==='strength'||goal==='general')?goal:'muscle';var split=(GS_SPLITS[daysPerWeek]||GS_SPLITS[3]).slice();var sessions=split.map(function(day){return {day:day,focus:GS_FOCUS[day],exercises:(GS_EX[day][g]||[]).slice()};});return {split:split,sessions:sessions};}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){
+var days=4,goal='muscle',custom={};
+var dayGrid=document.getElementById('gsDays');
+for(var d=1;d<=7;d++){var b=document.createElement('button');b.className='gs-day'+(d===4?' on':'');b.textContent=d;b.dataset.d=d;b.addEventListener('click',function(){days=+this.dataset.d;dayGrid.querySelectorAll('.gs-day').forEach(function(x){x.classList.remove('on');});this.classList.add('on');});dayGrid.appendChild(b);}
+document.querySelectorAll('#gsGoals .gs-goal').forEach(function(g){g.addEventListener('click',function(){document.querySelectorAll('#gsGoals .gs-goal').forEach(function(x){x.classList.remove('on');});g.classList.add('on');goal=g.dataset.g;});});
+function go(n){[1,2,3,4].forEach(function(i){document.getElementById('gsP'+i).classList.remove('active');var s=document.getElementById('gsS'+i);s.classList.remove('now');if(i<n)s.classList.add('done');else s.classList.remove('done');});document.getElementById('gsP'+n).classList.add('active');document.getElementById('gsS'+n).classList.add('now');}
+document.getElementById('gsNext1').addEventListener('click',function(){go(2);});
+document.getElementById('gsBack2').addEventListener('click',function(){go(1);});
+document.getElementById('gsNext2').addEventListener('click',function(){buildTune();go(3);});
+document.getElementById('gsBack3').addEventListener('click',function(){go(2);});
+document.getElementById('gsNext3').addEventListener('click',function(){buildPlan();go(4);});
+document.getElementById('gsBack4').addEventListener('click',function(){go(1);});
+function currentPlan(){var p=gymPlan(days,goal);p.sessions.forEach(function(s,i){if(custom[i])s.exercises=custom[i].slice();});return p;}
+function buildTune(){var p=gymPlan(days,goal);var el=document.getElementById('gsTune');el.innerHTML='';p.sessions.forEach(function(s,i){if(s.day==='Rest')return;var d=document.createElement('div');d.className='gs-plan-day';d.innerHTML='<h3>Day '+(i+1)+' — '+s.day+'</h3><div class="f">'+s.focus+'</div>';var list=custom[i]||s.exercises;list.forEach(function(ex,ei){var row=document.createElement('div');row.className='gs-ex';var span=document.createElement('span');span.textContent=(ei+1)+'. '+ex;var btn=document.createElement('button');btn.textContent='⇄ Swap';btn.addEventListener('click',function(){var alt=GS_ALT[Math.floor(Math.random()*GS_ALT.length)];if(!custom[i])custom[i]=s.exercises.slice();custom[i][ei]=alt;buildTune();});row.appendChild(span);row.appendChild(btn);d.appendChild(row);});el.appendChild(d);});}
+function buildPlan(){var p=currentPlan();document.getElementById('gsPlanSub').textContent=days+' days/week · goal: '+goal+' · train each session, rest on off days.';var el=document.getElementById('gsPlan');el.innerHTML='';p.sessions.forEach(function(s,i){var d=document.createElement('div');d.className='gs-plan-day';if(s.day==='Rest'){d.innerHTML='<div class="gs-rest">🛋️ Day '+(i+1)+' — Rest. Walk, stretch, sleep. Growth happens here.</div>';}else{d.innerHTML='<h3>Day '+(i+1)+' — '+s.day+'</h3><div class="f">'+s.focus+'</div>'+s.exercises.map(function(e,j){return '<div class="gs-ex"><span>'+(j+1)+'. '+e+'</span></div>';}).join('');}el.appendChild(d);});}
+document.getElementById('gsCopy').addEventListener('click',function(){var p=currentPlan();var lines=['My GymSplit plan ('+days+' days/week, goal: '+goal+')',''];p.sessions.forEach(function(s,i){lines.push('Day '+(i+1)+' — '+s.day+' ('+s.focus+')');s.exercises.forEach(function(e){lines.push('  • '+e);});lines.push('');});var txt=lines.join('\n');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt);} });
+});}
+</script>
+</body>
+</html>
