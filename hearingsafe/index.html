@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safe Listening Time by Decibel Level (NIOSH Chart) | HearingSafe</title>
+<meta name="description" content="Safe listening time by decibels: NIOSH-based limits with real-world examples, a weekly noise dose tracker, and headphone volume estimator. Free tool.">
+<link rel="canonical" href="https://health.fixoraa.tech/hearingsafe/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Safe Listening Time by Decibel Level (NIOSH Chart) | HearingSafe">
+<meta property="og:description" content="Safe listening time by decibels: NIOSH-based limits with real-world examples, a weekly noise dose tracker, and headphone volume estimator. Free tool.">
+<meta property="og:url" content="https://health.fixoraa.tech/hearingsafe/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "HearingSafe",
+      "url": "https://health.fixoraa.tech/hearingsafe/",
+      "applicationCategory": "Health Tools",
+      "operatingSystem": "Web",
+      "description": "Safe listening time by decibels: NIOSH-based limits with real-world examples, a weekly noise dose tracker, and headphone volume estimator. Free tool.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long can I safely listen at 100 decibels?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "About 15 minutes per day, according to NIOSH limits. Every 3 dB above 85 halves the safe time: 88 dB allows 4 hours, 91 dB allows 2 hours, and 100 dB allows 15 minutes. Maxed-out headphones often reach this level."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the 60/60 rule for headphones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Listen at no more than 60% of maximum volume for no more than 60 minutes at a time, then take a break. It is a simple habit that keeps most listening near the safe zone. Noise-cancelling headphones help by letting you listen at lower volumes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are earbuds worse than over-ear headphones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They can be, because earbuds seal the ear canal and sit closer to the eardrum, which can make the same volume setting louder at the ear. Keep volumes moderate with either type, and consider volume-limited models for children."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I really need ear protection for mowing the lawn?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A typical mower runs around 95 dB, where the safe limit is under an hour \u2014 and many people mow longer than that weekly. Foam plugs or earmuffs make mowing safe, and the habit protects you during all loud DIY work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can hearing damage from loud noise heal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The hair cells in the inner ear that loud noise destroys do not regenerate, so noise-induced hearing loss is permanent. Temporary ringing or muffled hearing after noise is a warning sign, not proof of recovery. Talk to an audiologist if symptoms persist."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I see a doctor about my hearing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "See an audiologist or doctor for ringing that lasts more than a day, muffled hearing that does not clear, trouble following conversations in noise, or any sudden hearing change. Sudden hearing loss needs same-day evaluation."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#F9F1FA; --surface:#FFFFFF; --accent:#A21CAF; --accent-ink:#FFFFFF;
+  --ink:#27272A; --muted:#606A76; --line:#EED6F0;
+  --display:'Heebo',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.hs-wrap{font-family:'Heebo',system-ui,sans-serif;background:#F9F1FA;color:#27272A;padding:56px 20px 72px;}.hs-hero{max-width:820px;margin:0 auto 34px;text-align:center;}.hs-logo{width:76px;height:76px;margin:0 auto 18px;border-radius:50%;background:linear-gradient(135deg,#A21CAF,#E879F9);color:#fff;font-size:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(162,28,175,.3);}.hs-hero h1{font-size:clamp(30px,4.8vw,48px);margin:0 0 12px;font-weight:800;letter-spacing:-.02em;}.hs-tag{font-size:17px;color:#606A76;margin:0;}.hs-card{max-width:820px;margin:0 auto 20px;background:#FFFFFF;border:1px solid #EED6F0;border-radius:26px;padding:38px;box-shadow:0 24px 60px rgba(162,28,175,.10);}.hs-db{font-size:64px;font-weight:800;color:#A21CAF;line-height:1;margin:6px 0 2px;}.hs-db small{font-size:22px;color:#606A76;font-weight:700;}.hs-time{font-size:20px;font-weight:700;margin:8px 0 0;}.hs-time span{color:#A21CAF;}.hs-slider{width:100%;margin:22px 0 6px;accent-color:#A21CAF;min-height:44px;}.hs-scale{display:flex;justify-content:space-between;font-size:12px;color:#606A76;font-weight:700;}.hs-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}.hs-chip{font-family:inherit;font-size:14px;font-weight:700;padding:10px 16px;border-radius:999px;border:2px solid #EED6F0;background:#F9F1FA;color:#27272A;cursor:pointer;min-height:44px;}.hs-chip:hover,.hs-chip.on{border-color:#A21CAF;background:#A21CAF;color:#fff;}.hs-note{font-size:14px;line-height:1.65;color:#606A76;margin:18px 0 0;}.hs-grid{max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;}.hs-mini{background:#fff;border:1px solid #EED6F0;border-radius:20px;padding:28px;box-shadow:0 16px 40px rgba(162,28,175,.08);}.hs-mini h2{font-size:18px;margin:0 0 14px;font-weight:800;}.hs-field{margin-bottom:12px;}.hs-field label{display:block;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#606A76;margin-bottom:7px;}.hs-field input,.hs-field select{width:100%;box-sizing:border-box;padding:12px;font-size:16px;font-family:inherit;border:2px solid #EED6F0;border-radius:12px;background:#F9F1FA;color:#27272A;min-height:50px;}.hs-btn{width:100%;padding:14px;font-size:16px;font-weight:800;font-family:inherit;color:#fff;background:#A21CAF;border:none;border-radius:13px;cursor:pointer;min-height:52px;margin-top:4px;}.hs-btn:hover{background:#86198F;}.hs-list{list-style:none;margin:14px 0 0;padding:0;font-size:14.5px;}.hs-list li{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px dashed #EED6F0;}.hs-list button{background:none;border:none;color:#B91C1C;font-size:16px;cursor:pointer;min-width:32px;min-height:32px;}.hs-dose{margin-top:12px;font-size:16px;font-weight:800;}.hs-bar{height:12px;background:#F9F1FA;border:1px solid #EED6F0;border-radius:999px;overflow:hidden;margin-top:8px;}.hs-bar i{display:block;height:100%;background:linear-gradient(90deg,#A21CAF,#E879F9);width:0;transition:width .4s;}.hs-disclaimer{max-width:820px;margin:20px auto 0;font-size:13.5px;line-height:1.7;color:#606A76;background:#fff;border:1px solid #EED6F0;border-radius:14px;padding:18px 22px;}@media (max-width:680px){.hs-grid{grid-template-columns:1fr;}.hs-card{padding:28px 20px;}.hs-db{font-size:52px;}.hs-wrap{padding:40px 14px 56px;}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="HearingSafe home">
+      <span class="fx-logo-tile" aria-hidden="true">👂</span>
+      <span class="fx-brand">HearingSafe</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-hero-card" aria-label="HearingSafe tool">
+<section class='hs-wrap'><div class='hs-hero'><div class='hs-logo' aria-hidden='true'>👂</div><h1>Safe Listening Time Calculator</h1><p class='hs-tag'>Know your limit before the ringing starts.</p></div><div class='hs-card'><div class='hs-db'><span id='hs-dbv'>85</span> <small>dB</small></div><input class='hs-slider' id='hs-slider' type='range' min='60' max='120' step='1' value='85' aria-label='Decibel level'><div class='hs-scale'><span>60 dB</span><span>90 dB</span><span>120 dB</span></div><p class='hs-time'>Safe listening time: <span id='hs-time'>8 hours</span></p><p class='hs-note' id='hs-note'>85 dB is the NIOSH recommended exposure limit — about the level of city traffic or a noisy restaurant.</p><div class='hs-chips' id='hs-chips'></div></div><div class='hs-grid'><div class='hs-mini'><h2>Weekly dose tracker</h2><div class='hs-field'><label for='hs-sdb'>Sound level (dB)</label><input id='hs-sdb' type='number' min='60' max='130' value='100'></div><div class='hs-field'><label for='hs-smin'>Minutes exposed</label><input id='hs-smin' type='number' min='1' value='60'></div><button class='hs-btn' id='hs-add' type='button'>Log exposure</button><ul class='hs-list' id='hs-list'></ul><div class='hs-dose' id='hs-dose'></div><div class='hs-bar'><i id='hs-bar'></i></div></div><div class='hs-mini'><h2>Headphone volume estimator</h2><div class='hs-field'><label for='hs-vol'>Phone volume (%)</label><input id='hs-vol' type='range' min='0' max='100' value='60' style='accent-color:#A21CAF;min-height:44px;'></div><p class='hs-note' style='margin-top:0'>Estimated earbud output: <strong id='hs-est'>—</strong></p><p class='hs-note'>Rough estimate for typical earbuds — actual output varies by device and earbuds. If others can hear your music, it is too loud. The 60/60 rule is a good habit: max 60% volume for 60 minutes, then a break.</p><p class='hs-note' id='hs-volsafe'></p></div></div><div class='hs-disclaimer'>General information only — this tool is not a medical device and cannot diagnose hearing damage. If you have ringing ears, muffled hearing after noise, or any concern about your hearing, talk to an audiologist or your doctor.</div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>How Loud Is Too Loud</h2><p>Hearing damage is sneaky. It does not hurt, it does not bleed, and by the time you notice it — the ringing after a concert that used to fade by morning now never quite fades — the damage is permanent. The tiny hair cells in your inner ear that convert sound into nerve signals do not regenerate. Once they are gone, they are gone. The good news is that noise-induced hearing loss is almost entirely preventable, and prevention comes down to two numbers: how loud, and for how long.</p><p>The calculator above is built on the exposure limits published by NIOSH, the US National Institute for Occupational Safety and Health. Their headline number: <strong>85 decibels for 8 hours per day</strong>. That is roughly city traffic, a noisy restaurant, or a food blender. For every 3 dB above 85, the safe time halves — 88 dB gets 4 hours, 91 dB gets 2 hours, 100 dB gets 15 minutes. This 3-dB exchange rate reflects physics: every 3 dB doubles the sound intensity hitting your ears, so the ear's budget gets spent twice as fast.</p><p>Why 85 dB and not some rounder number? It is where large studies of workers' hearing found the risk of permanent threshold shift starts climbing meaningfully. Below 85 dB, a full day of exposure shows little measurable effect in most people. Above it, the damage accumulates silently, shift after shift, concert after concert.</p><h2>The Decibel Scale Is Not Like a Ruler</h2><p>Decibels are logarithmic, which makes intuition unreliable. A 90 dB sound is not slightly louder than 80 dB — it carries ten times the sound intensity. A rock concert at 110 dB is not twice as loud as an 85 dB restaurant; it is hundreds of times more intense, and your safe exposure shrinks from 8 hours to under two minutes. This is why volume knobs are deceptive: the difference between 60% and 80% on your phone can be the difference between all-day safe and fifteen minutes.</p><p>It also explains why distance matters so much. Sound intensity falls fast as you move away from the source — doubling your distance from a speaker cuts the intensity to a quarter. At a concert, moving from the front row to the back can drop your exposure by 10 dB or more, multiplying your safe time many times over. The cheapest hearing protection ever invented is taking ten steps back.</p><h2>Everyday Sounds, Ranked by Risk</h2><p>Most hearing damage does not come from dramatic one-off events. It comes from ordinary loud things, repeated for years: the daily commute on a loud subway, mowing the lawn every weekend without ear protection, hours of headphones at high volume. Here is how common sounds line up against the NIOSH limits.</p><table><thead><tr><th>Sound</th><th>Typical dB</th><th>NIOSH safe time</th></tr></thead><tbody><tr><td>Normal conversation</td><td>60</td><td>All day</td></tr><tr><td>City traffic / noisy restaurant</td><td>85</td><td>8 hours</td></tr><tr><td>Food blender</td><td>88</td><td>4 hours</td></tr><tr><td>Lawn mower</td><td>95</td><td>47 minutes</td></tr><tr><td>Headphones at max</td><td>100–105</td><td>15 minutes or less</td></tr><tr><td>Sporting event crowd</td><td>105</td><td>About 5 minutes</td></tr><tr><td>Rock concert, front rows</td><td>110</td><td>Under 2 minutes</td></tr><tr><td>Siren at close range</td><td>120</td><td>Immediate risk</td></tr></tbody></table><p>Two entries deserve attention. Headphones at maximum volume are one of the most common routes to damage in young people, because the sound source sits millimeters from the eardrum for hours. And lawn equipment surprises everyone — almost nobody wears hearing protection to mow, yet a riding mower can exceed the 8-hour limit in under an hour of weekend work.</p><h2>Headphones: The 60/60 Rule and Volume Habits</h2><p>Earbuds are riskier than over-ear headphones at the same volume setting because they seal the ear canal and sit closer to the eardrum. But the biggest variable is simply how high you turn it up. A widely recommended habit is the <strong>60/60 rule</strong>: no more than 60% of maximum volume, for no more than 60 minutes at a stretch, then a break. It is not a magic formula — it is a memorable proxy for staying near the safe zone.</p><p>Use the estimator in the tool to translate your volume percentage into an approximate decibel level and safe time. Two practical tests beat any estimate: if someone an arm's length away can hear your music, it is too loud; and if your ears ring or sound feels muffled after you take the earbuds out, you have already exceeded your budget for the day. Noise-cancelling headphones are genuinely protective here — by blocking background noise, they let you listen at lower volumes in loud environments like planes and trains.</p><h2>Hearing Protection That People Actually Wear</h2><p>The best ear protection is the kind you will use. Foam earplugs, properly rolled and inserted, cut about 25–30 dB — enough to make a concert safe for hours — and cost pennies. They do muffle music, which is why concert-goers prefer <strong>high-fidelity (musician's) earplugs</strong>: they turn everything down evenly, like a volume knob for the world, preserving sound quality at a safe level. Earmuffs are the easiest to use correctly and the best choice for mowing, power tools, and shooting.</p><p>Fit matters enormously. A foam plug jammed in halfway provides a fraction of its rated protection, which is why earmuffs often outperform plugs in practice despite similar ratings on paper. Whatever you choose, the rule is simple: if you have to shout to be heard by someone three feet away, the environment is above 85 dB and protection is warranted.</p><h2>Children's Ears Need Extra Care</h2><p>Children's ear canals are smaller, which can make the same headphone volume louder at their eardrums than at an adult's. Pediatric guidance is conservative for good reason: kids' hearing has to last eighty-plus years, and damage in childhood compounds over a lifetime. Volume-limited headphones (capped around 85 dB) are a sensible default for children, along with the same 60/60 habits. Toys that exceed 90 dB at the child's ear — and testing has found plenty — should be returned or have their speakers taped over.</p><p>Watch for the behavioral signs rather than waiting for complaints: a child who turns the TV up progressively louder, says what a lot, or complains of ringing may already have a measurable loss. Any persistent concern deserves a professional hearing test — early detection changes outcomes, and this tool cannot substitute for one.</p><h2>When to Talk to a Professional</h2><p>This calculator gives general information, not medical advice, and it cannot tell you whether your hearing is damaged. See an audiologist or your doctor if you experience ringing that lasts more than a day after noise exposure, muffled hearing that does not clear, difficulty following conversations in background noise, or any sudden change in hearing. Sudden hearing loss is treated as urgent in audiology — same-day evaluation matters.</p><p>A professional hearing test is quick, painless, and establishes a baseline you can compare against for life. Many audiologists recommend one in your twenties or thirties as a reference point, then periodic retests — especially if you work in noise, play loud music, or hunt. Prevention is ideal, but early detection is the next best thing, and modern hearing technology helps far more when loss is caught early.</p><h2>Building a Quieter Life</h2><ul><li><strong>Track your dose.</strong> Use the weekly tracker above during loud weeks — concerts, DIY projects, travel — to see your real exposure.</li><li><strong>Keep protection handy.</strong> A pair of foam plugs in every bag, the car, and the toolbox means you never have an excuse.</li><li><strong>Buy quiet.</strong> Appliances and tools now publish dB ratings; a 5 dB quieter dishwasher or mower is a meaningful lifetime difference.</li><li><strong>Protect sleep.</strong> Chronic nighttime noise above 55 dB is linked to stress and cardiovascular strain; earplugs or white noise help in noisy homes.</li><li><strong>Give ears recovery days.</strong> After a loud event, the ear needs quiet time — avoid stacking loud days back to back.</li></ul><p>Hearing is one of those senses you never think about until it is diminished, and then you think about it every day. The math is on your side, though: small, consistent habits — turning it down a notch, stepping back, pocketing earplugs — compound over decades into hearing that lasts as long as you do.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How long can I safely listen at 100 decibels?</summary><p>About 15 minutes per day, according to NIOSH limits. Every 3 dB above 85 halves the safe time: 88 dB allows 4 hours, 91 dB allows 2 hours, and 100 dB allows 15 minutes. Maxed-out headphones often reach this level.</p></details>
+<details><summary>What is the 60/60 rule for headphones?</summary><p>Listen at no more than 60% of maximum volume for no more than 60 minutes at a time, then take a break. It is a simple habit that keeps most listening near the safe zone. Noise-cancelling headphones help by letting you listen at lower volumes.</p></details>
+<details><summary>Are earbuds worse than over-ear headphones?</summary><p>They can be, because earbuds seal the ear canal and sit closer to the eardrum, which can make the same volume setting louder at the ear. Keep volumes moderate with either type, and consider volume-limited models for children.</p></details>
+<details><summary>Do I really need ear protection for mowing the lawn?</summary><p>Yes. A typical mower runs around 95 dB, where the safe limit is under an hour — and many people mow longer than that weekly. Foam plugs or earmuffs make mowing safe, and the habit protects you during all loud DIY work.</p></details>
+<details><summary>Can hearing damage from loud noise heal?</summary><p>The hair cells in the inner ear that loud noise destroys do not regenerate, so noise-induced hearing loss is permanent. Temporary ringing or muffled hearing after noise is a warning sign, not proof of recovery. Talk to an audiologist if symptoms persist.</p></details>
+<details><summary>When should I see a doctor about my hearing?</summary><p>See an audiologist or doctor for ringing that lasts more than a day, muffled hearing that does not clear, trouble following conversations in noise, or any sudden hearing change. Sudden hearing loss needs same-day evaluation.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">HearingSafe</div>
+    <p>HearingSafe shows your NIOSH-based safe listening time at any decibel level, with real-world examples and a weekly dose tracker.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function safeMinutes(db){var d=Number(db);if(!isFinite(d))return 0;if(d<=85)return 480;return Math.round(480/Math.pow(2,(d-85)/3));}
+function hsFmt(mins){if(mins>=60){var h=Math.floor(mins/60),m=mins%60;return m?h+' hr '+m+' min':h+(h===1?' hour':' hours');}return mins+(mins===1?' minute':' minutes');}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){function el(id){return document.getElementById(id);}var EX=[[70,'Shower'],[80,'Alarm clock'],[85,'City traffic'],[88,'Food blender'],[91,'Subway train'],[94,'Hair dryer'],[95,'Lawn mower'],[100,'Headphones max'],[105,'Sporting event'],[110,'Rock concert'],[115,'Car horn'],[120,'Siren']];var NOTE={70:'A shower is safe all day — damage risk starts climbing past 85 dB.',80:'An alarm clock all morning is fine; risk starts with louder, longer exposure.',85:'The NIOSH recommended limit: 8 hours per day at 85 dB.',88:'Every 3 dB doubles the intensity — 88 dB is safe for 4 hours.',91:'Subway-level noise: under 2 hours per day.',94:'A hair dryer: about 1 hour per day.',95:'Mower noise: under an hour — wear ear protection when mowing.',100:'Maxed-out headphones: 15 minutes per day. Turn it down.',105:'Sporting events regularly exceed safe limits — bring earplugs.',110:'A rock concert: under 2 minutes unprotected at this level.',115:'A car horn at close range: seconds, not minutes.',120:'A siren up close: immediate risk — cover your ears and move away.'};var chips=el('hs-chips');if(chips){EX.forEach(function(e){var b=document.createElement('button');b.type='button';b.className='hs-chip';b.textContent=e[1]+' · '+e[0]+' dB';b.addEventListener('click',function(){var s=el('hs-slider');if(s){s.value=e[0];s.dispatchEvent(new Event('input'));}var cs=chips.querySelectorAll('.hs-chip');for(var i=0;i<cs.length;i++)cs[i].classList.remove('on');b.classList.add('on');});chips.appendChild(b);});}var slider=el('hs-slider');function renderDb(){var d=parseInt(slider.value,10);var dv=el('hs-dbv'),tm=el('hs-time'),nt=el('hs-note');if(dv)dv.textContent=d;var mins=safeMinutes(d);if(tm)tm.innerHTML='Safe listening time: <span>'+hsFmt(mins)+'</span> per day';if(nt){var k=Object.keys(NOTE).map(Number).sort(function(a,b){return a-b;});var pick=k[0];for(var i=0;i<k.length;i++){if(k[i]<=d)pick=k[i];}nt.textContent=NOTE[pick];}}if(slider){slider.addEventListener('input',renderDb);renderDb();}var sessions=[];function renderDose(){var ul=el('hs-list'),dz=el('hs-dose'),bar=el('hs-bar');if(!ul)return;ul.innerHTML='';var total=0;sessions.forEach(function(s,idx){var lim=safeMinutes(s.db)||1;var pct=s.min/lim*100;total+=pct;var li=document.createElement('li');li.innerHTML='<span><strong>'+s.db+' dB</strong> for '+s.min+' min — '+pct.toFixed(0)+'% of daily dose</span>';var b=document.createElement('button');b.type='button';b.textContent='✕';b.setAttribute('aria-label','Remove entry');b.addEventListener('click',function(){sessions.splice(idx,1);renderDose();});li.appendChild(b);ul.appendChild(li);});if(dz)dz.textContent=sessions.length?('Weekly dose so far: '+total.toFixed(0)+'% of a full daily allowance'+(total>100?' — over the limit, give your ears quiet days.':'')):'No exposures logged yet.';if(bar)bar.style.width=Math.min(100,total)+'%';}var add=el('hs-add');if(add){add.addEventListener('click',function(){var db=parseFloat(el('hs-sdb').value),mn=parseFloat(el('hs-smin').value);if(!isFinite(db)||!isFinite(mn)||mn<=0)return;sessions.push({db:db,min:mn});renderDose();});}var vol=el('hs-vol');function renderVol(){var v=parseInt(vol.value,10);var estEl=el('hs-est'),vs=el('hs-volsafe');var est=Math.round(70+(v/100)*35);if(estEl)estEl.textContent='about '+est+' dB';if(vs){var mins=safeMinutes(est);vs.innerHTML='At that level, NIOSH safe time is about <strong>'+hsFmt(mins)+'</strong> per day. This is a rough estimate — earbuds and devices vary.';}}if(vol){vol.addEventListener('input',renderVol);renderVol();}});}
+</script>
+</body>
+</html>
