@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medication Schedule Planner: Dose Times | PillPlan</title>
+<meta name="description" content="Build your daily medication schedule from your wake time: evenly spaced dose times, food and water reminders, and a printable day plan. Free tool.">
+<link rel="canonical" href="https://health.fixoraa.tech/pillplan/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Medication Schedule Planner: Dose Times | PillPlan">
+<meta property="og:description" content="Build your daily medication schedule from your wake time: evenly spaced dose times, food and water reminders, and a printable day plan. Free tool.">
+<meta property="og:url" content="https://health.fixoraa.tech/pillplan/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PillPlan",
+      "url": "https://health.fixoraa.tech/pillplan/",
+      "applicationCategory": "Health Tools",
+      "operatingSystem": "Web",
+      "description": "Build your daily medication schedule from your wake time: evenly spaced dose times, food and water reminders, and a printable day plan. Free tool.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What should I do if I miss a dose?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The general rule from most patient leaflets: take it as soon as you remember, unless it is nearly time for your next dose \u2014 then skip the missed one and carry on. Never take a double dose to make up for it unless your leaflet specifically says to. For critical medicines, call your pharmacist for advice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I take my pills with food or on an empty stomach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "'With food' usually means the drug irritates the stomach or absorbs better with a meal \u2014 a snack is often enough. 'On an empty stomach' (1 hour before or 2 hours after eating) means food significantly blocks absorption, and this instruction should be followed precisely. When in doubt, ask your pharmacist."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I really need to take pills at the same time every day?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For most daily medicines, taking them at roughly the same time each day keeps blood levels steady and builds a reliable habit. Some prescriptions require strict intervals (e.g. every 8 hours including overnight) \u2014 in that case the label's interval overrides any daytime schedule."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I manage my medication schedule across time zones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shift doses gradually (1\u20132 hours per day) toward the new time zone, or keep your home schedule for trips under 3\u20134 days. Carry medicines in hand luggage in original labelled containers, bring a few days' surplus, and keep a photo of each prescription on your phone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I split or crush my pills to make them easier to swallow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No \u2014 never split or crush tablets without checking first. Extended-release, enteric-coated, and capsule formulations depend on staying intact; crushing them can dump the full dose at once or destroy the drug in stomach acid. Ask your pharmacist for a liquid or smaller-dose alternative if swallowing is difficult."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I take two different medicines at the same time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sometimes yes, sometimes no \u2014 certain combinations need spacing. A classic example: thyroid hormones should be taken well apart from calcium, iron, or antacids, which block their absorption. Never assume two medicines can share a dose time; check each leaflet's interaction section or ask your pharmacist, who can spot these clashes in seconds."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#F2FAF8; --surface:#FFFFFF; --accent:#115e59; --accent-ink:#FFFFFF;
+  --ink:#17251F; --muted:#4C625C; --line:#D5E8E3;
+  --display:'Newsreader',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.pp-wrap{font-family:'Newsreader',Georgia,serif;background:#F2FAF8;color:#17251F;padding:56px 20px 72px;}.pp-hero{max-width:780px;margin:0 auto 36px;text-align:center;}.pp-logo{width:76px;height:76px;margin:0 auto 18px;border-radius:24px;background:linear-gradient(135deg,#115e59,#34b3a7);color:#fff;font-size:38px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(17,94,89,.25);}.pp-hero h1{font-size:clamp(32px,5vw,52px);line-height:1.1;margin:0 0 14px;letter-spacing:-0.01em;font-weight:700;}.pp-tag{font-size:18px;color:#4C625C;margin:0;line-height:1.5;}.pp-card{max-width:780px;margin:0 auto;background:#FFFFFF;border:1px solid #D5E8E3;border-radius:28px;padding:40px;box-shadow:0 24px 60px rgba(17,94,89,.10);}.pp-ctl{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;}.pp-field label{display:block;font-family:Inter,system-ui,sans-serif;font-weight:700;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:#4C625C;margin-bottom:8px;}.pp-field input,.pp-stepper{display:flex;align-items:center;gap:10px;}.pp-field input[type='time']{width:100%;box-sizing:border-box;padding:13px 14px;font-size:17px;border:2px solid #D5E8E3;border-radius:14px;font-family:Inter,system-ui,sans-serif;color:#17251F;min-height:52px;background:#F2FAF8;}.pp-field input[type='time']:focus{outline:none;border-color:#115e59;}.pp-stepbtn{width:52px;height:52px;border-radius:14px;border:2px solid #D5E8E3;background:#F2FAF8;font-size:22px;font-weight:700;cursor:pointer;color:#115e59;font-family:Inter,system-ui,sans-serif;}.pp-doseval{font-size:34px;font-weight:700;min-width:56px;text-align:center;}.pp-toggles{display:flex;gap:16px;flex-wrap:wrap;margin:18px 0 6px;font-family:Inter,system-ui,sans-serif;font-size:15px;}.pp-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;min-height:44px;}.pp-toggle input{width:20px;height:20px;accent-color:#115e59;}.pp-schedule{margin-top:22px;border-top:1px solid #D5E8E3;}.pp-dose{display:flex;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid #D5E8E3;}.pp-time{font-size:30px;font-weight:700;color:#115e59;min-width:96px;letter-spacing:-0.01em;}.pp-meta{flex:1;}.pp-meta strong{display:block;font-size:16.5px;}.pp-meta span{font-family:Inter,system-ui,sans-serif;font-size:13.5px;color:#4C625C;}.pp-taken{width:26px;height:26px;accent-color:#115e59;flex-shrink:0;}.pp-dose.done .pp-meta strong{text-decoration:line-through;color:#4C625C;}.pp-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;}.pp-btn{background:#115e59;color:#FFFFFF;border:none;border-radius:14px;padding:13px 26px;font-size:16px;font-weight:700;font-family:Inter,system-ui,sans-serif;cursor:pointer;min-height:52px;}.pp-btn.ghost{background:transparent;color:#115e59;border:2px solid #D5E8E3;}.pp-disclaimer{margin:22px 0 0;font-size:13px;color:#4C625C;line-height:1.65;font-family:Inter,system-ui,sans-serif;background:#F2FAF8;border-radius:12px;padding:14px 16px;}@media (max-width:560px){.pp-card{padding:26px 18px;border-radius:22px;}.pp-ctl{grid-template-columns:1fr;}.pp-time{font-size:24px;min-width:80px;}.pp-actions{flex-direction:column;}.pp-btn{width:100%;}.pp-wrap{padding:40px 14px 56px;}}@media print{.pp-hero,.pp-ctl,.pp-toggles,.pp-actions,.pp-disclaimer{display:none !important;}.pp-card{box-shadow:none;border:none;}.pp-wrap{padding:0;background:#fff;}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="PillPlan home">
+      <span class="fx-logo-tile" aria-hidden="true">💊</span>
+      <span class="fx-brand">PillPlan</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-hero-card" aria-label="PillPlan tool">
+<section class='pp-wrap'><div class='pp-hero'><div class='pp-logo' aria-hidden='true'>💊</div><h1>Medication Schedule Planner</h1><p class='pp-tag'>Your doses, evenly spaced from the moment you wake — printable, too.</p></div><div class='pp-card'><div class='pp-ctl'><div class='pp-field'><label>Doses per day</label><div class='pp-stepper'><button class='pp-stepbtn' id='pp-minus' aria-label='Fewer doses'>−</button><span class='pp-doseval' id='pp-doseval'>3</span><button class='pp-stepbtn' id='pp-plus' aria-label='More doses'>+</button></div></div><div class='pp-field'><label for='pp-wake'>Wake time</label><input type='time' id='pp-wake' value='07:00'></div></div><div class='pp-toggles'><label class='pp-toggle'><input type='checkbox' id='pp-food'> Remind me about food instructions</label><label class='pp-toggle'><input type='checkbox' id='pp-water' checked> Remind me to take with water</label></div><div class='pp-schedule' id='pp-schedule' role='list' aria-label='Dose schedule'></div><div class='pp-actions'><button class='pp-btn' id='pp-print'>🖨️ Print day plan</button><button class='pp-btn ghost' id='pp-reset'>Reset checkmarks</button></div><p class='pp-disclaimer'><strong>Not medical advice.</strong> PillPlan is an organizational aid only. Always follow your prescription label and your doctor's or pharmacist's instructions — including strict intervals like 'every 8 hours' and any food requirements.</p></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why Dose Timing Matters</h2><p>Most medicines work best when the amount of drug in your bloodstream stays within a steady range. Take doses too close together and levels spike (raising the risk of side effects); stretch them too far apart and levels dip below the effective threshold. That is why prescriptions say 'twice daily' or 'every 8 hours' rather than 'whenever you remember.' Even spacing across your waking hours — the approach this planner uses — keeps levels as even as practically possible for a daytime schedule.</p><p>This matters most for medicines with a <strong>short half-life</strong> (cleared from the body quickly), such as many antibiotics and pain relievers, and for drugs where consistent levels prevent harm, such as blood pressure medicines, thyroid hormones, and anti-seizure drugs. For these, the difference between a disciplined schedule and a casual one can be the difference between the drug working and not.</p><p><strong>Important:</strong> PillPlan is an organizational aid, not medical advice. Always follow your prescription label and your doctor or pharmacist's instructions — if they say every 8 hours around the clock, that overrides any daytime schedule below.</p><h2>Building Your Schedule: The 16-Hour Method</h2><p>PillPlan spaces your doses evenly across 16 waking hours starting from your wake time. With a 7:00 AM wake-up:</p><table><thead><tr><th>Doses per day</th><th>Schedule</th></tr></thead><tbody><tr><td>1</td><td>7:00 AM</td></tr><tr><td>2</td><td>7:00 AM, 3:00 PM</td></tr><tr><td>3</td><td>7:00 AM, 12:20 PM, 5:40 PM</td></tr><tr><td>4</td><td>7:00 AM, 11:00 AM, 3:00 PM, 7:00 PM</td></tr></tbody></table><p>This is a practical approximation, not a pharmacokinetic model. If your prescription specifies strict intervals (e.g. 'every 6 hours'), use those instead — set an alarm for the overnight doses too, because sleeping through them breaks the interval the prescriber intended.</p><h2>With Food or on an Empty Stomach?</h2><p>The food instruction on your label exists for a reason, and it cuts both ways:</p><ul><li><strong>'Take with food'</strong> usually means the drug irritates the stomach lining (common with NSAIDs like ibuprofen) or absorbs better with a meal. A full meal is rarely needed — a snack or glass of milk often suffices, but check your leaflet.</li><li><strong>'Take on an empty stomach'</strong> (typically 1 hour before or 2 hours after eating) means food significantly reduces absorption — classic examples are thyroid hormones and certain antibiotics. This one is worth obeying precisely.</li><li><strong>'Take with a full glass of water'</strong> helps the pill reach the stomach quickly and prevents it lodging in the oesophagus, which can cause painful irritation (notably with doxycycline and bisphosphonates — stay upright for 30 minutes after those).</li></ul><p>PillPlan's food/water reminder toggles let you attach these instructions to each dose so the reminder carries the instruction, not just the time.</p><h2>What to Do About a Missed Dose</h2><p>Everyone misses a dose eventually. The general guidance found in most patient leaflets: <strong>take it as soon as you remember, unless it is nearly time for the next dose</strong> — in which case skip the missed one and continue normally. <strong>Never double up</strong> to make up for a missed dose unless your leaflet explicitly says to. For critical medicines (blood thinners, anti-seizure drugs, HIV medication), call your pharmacist for specific advice rather than guessing — that phone call is free and they answer this question daily.</p><h2>Systems That Make Adherence Automatic</h2><ul><li><strong>Anchor doses to existing habits:</strong> breakfast, brushing teeth, the evening news. Habits you never skip make the most reliable triggers.</li><li><strong>Use a weekly pill organizer:</strong> one glance tells you whether today's doses are done. Refill it on the same day each week — Sunday evening works for most people.</li><li><strong>Keep a backup dose where you need it:</strong> desk drawer, bag, or jacket pocket (in original labelled packaging) for the dose most often missed away from home.</li><li><strong>Print the day plan:</strong> a paper schedule on the fridge helps everyone in the household — including carers — stay aligned. Use the print button above.</li><li><strong>Set phone alarms with labels:</strong> 'Blood pressure pill + water' beats a generic chime you will swipe away and forget.</li></ul><h2>Travelling With Medication</h2><p>Crossing time zones scrambles any schedule. The practical approach: shift doses gradually by an hour or two per day toward the new zone, or keep your home-zone schedule for short trips (under 3–4 days). Always carry medicines in <strong>hand luggage in original labelled containers</strong>, bring a few days' surplus, and keep a photo of each prescription on your phone. For refrigerated medicines, an insulated pouch with a cool pack covers most travel days — check the leaflet for the allowed temperature excursion.</p><h2>Storage: The Bathroom Cabinet Is the Worst Spot</h2><p>Despite the name, the medicine cabinet above a steamy shower is one of the worst storage locations — heat and humidity degrade many drugs. Store medicines in a <strong>cool, dry place</strong> away from direct light, keep them in original containers (the label is your dosing reference and legal proof), and keep everything out of children's reach — child-resistant caps slow children down but do not stop them. Check expiry dates twice a year and return expired medicines to a pharmacy take-back programme rather than binning or flushing them.</p><h2>When to Talk to Your Pharmacist</h2><p>Pharmacists are the most underused resource in medication management. Ask them about: new side effects, whether a supplement interacts with your prescription (St John's Wort, for example, interacts with dozens of drugs), what to do if you vomit shortly after a dose, and whether your pills can be split or crushed if swallowing is difficult — <strong>never split or crush without asking</strong>, since extended-release and enteric-coated tablets depend on staying whole.</p><p>A good schedule is the foundation all of this builds on. Set yours up above, print it, anchor it to your day's unmissable habits — and let the routine carry the remembering for you.</p><h2>Making the Routine Survive Bad Days</h2><p>The schedule that works on a calm Tuesday must also survive a chaotic one. Three design choices make adherence resilient:</p><ul><li><strong>Pair doses with unmissable anchors, not clock times.</strong> 'With breakfast' survives a late meeting; '8:00 AM sharp' does not. PillPlan's times are the skeleton — hang them on meals, commutes, or bedtime rituals.</li><li><strong>Keep a 'go bag' dose.</strong> One labelled dose in your work bag or jacket pocket covers the forgotten-morning scenario without a risky double-up later. Rotate it so it never expires unnoticed.</li><li><strong>Plan for the 10 PM realisation.</strong> Decide <em>now</em> what you will do when you discover a missed evening dose at bedtime — for most once-daily medicines the leaflet says take it and continue normally, but confirm yours in advance so a tired brain is not making pharmacology decisions.</li></ul><h2>A Note for Carers</h2><p>If you manage medication for a parent, child, or partner, the printed day plan is your shared source of truth — stick it on the fridge where everyone sees it. A few carer-specific practices help: keep a simple log of actual taken times for the first two weeks (it reveals patterns like a consistently missed midday dose that needs re-anchoring), store medicines in one clearly labelled location rather than scattered across rooms, and do a monthly expiry and stock check so refills never become emergencies. Most importantly, involve the person taking the medicine in the routine as far as they are able — adherence imposed entirely from outside rarely survives the carer's absence.</p><h2>Drug Interactions: The Ones People Forget</h2><p>Your pill organiser keeps doses on schedule, but some interactions have nothing to do with timing. Grapefruit juice changes how dozens of medicines are absorbed, including certain statins and blood-pressure drugs. Antacids and calcium or iron supplements can blunt antibiotics and thyroid medicine, which is why spacing them two to four hours apart is standard advice. Over-the-counter painkillers like ibuprofen can clash with blood-pressure tablets and blood thinners, and "natural" supplements such as St John's Wort quietly alter the effectiveness of antidepressants and contraceptives.</p><p><em>Keep an interaction list, not just a dose list.</em> Bring every supplement, herbal remedy and occasional painkiller to your pharmacist for a single review — it takes ten minutes and catches the combinations most people never think to mention. This is information, not medical advice: always confirm any change with your pharmacist or doctor before acting on it.</p><h2>The 7-Day Refill Buffer</h2><p>Most missed doses are not forgetfulness; they are logistics — a prescription that ran out on a Friday evening. Build a permanent 7-day buffer by requesting each refill when you have one week of tablets left, not when the bottle is empty. Ask your pharmacy about automatic refills, but stay in charge of the schedule yourself: auto-refills that arrive early or late can quietly shift your doses. A monthly two-minute stock check — count what's left, check expiry dates, note what's due — turns refills from emergencies into background noise.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>What should I do if I miss a dose?</summary><p>The general rule from most patient leaflets: take it as soon as you remember, unless it is nearly time for your next dose — then skip the missed one and carry on. Never take a double dose to make up for it unless your leaflet specifically says to. For critical medicines, call your pharmacist for advice.</p></details>
+<details><summary>Should I take my pills with food or on an empty stomach?</summary><p>'With food' usually means the drug irritates the stomach or absorbs better with a meal — a snack is often enough. 'On an empty stomach' (1 hour before or 2 hours after eating) means food significantly blocks absorption, and this instruction should be followed precisely. When in doubt, ask your pharmacist.</p></details>
+<details><summary>Do I really need to take pills at the same time every day?</summary><p>For most daily medicines, taking them at roughly the same time each day keeps blood levels steady and builds a reliable habit. Some prescriptions require strict intervals (e.g. every 8 hours including overnight) — in that case the label's interval overrides any daytime schedule.</p></details>
+<details><summary>How do I manage my medication schedule across time zones?</summary><p>Shift doses gradually (1–2 hours per day) toward the new time zone, or keep your home schedule for trips under 3–4 days. Carry medicines in hand luggage in original labelled containers, bring a few days' surplus, and keep a photo of each prescription on your phone.</p></details>
+<details><summary>Can I split or crush my pills to make them easier to swallow?</summary><p>No — never split or crush tablets without checking first. Extended-release, enteric-coated, and capsule formulations depend on staying intact; crushing them can dump the full dose at once or destroy the drug in stomach acid. Ask your pharmacist for a liquid or smaller-dose alternative if swallowing is difficult.</p></details>
+<details><summary>Can I take two different medicines at the same time?</summary><p>Sometimes yes, sometimes no — certain combinations need spacing. A classic example: thyroid hormones should be taken well apart from calcium, iron, or antacids, which block their absorption. Never assume two medicines can share a dose time; check each leaflet's interaction section or ask your pharmacist, who can spot these clashes in seconds.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">PillPlan</div>
+    <p>PillPlan turns doses-per-day and wake time into a timed daily medication schedule with reminders and a printable plan.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function pillSchedule(dosesPerDay,wakeHour){var n=parseInt(dosesPerDay,10);var w=parseFloat(wakeHour);if(!(n>=1&&n<=12)||!(w>=0&&w<24))return [];var spacing=16/n;var out=[];for(var i=0;i<n;i++){var mins=Math.round((w+i*spacing)*60)%1440;if(mins<0)mins+=1440;var hh=Math.floor(mins/60),mm=mins%60;var t=(hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm;out.push({time:t,label:'Dose '+(i+1)});}return out;}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var doses=3;var doseVal=document.getElementById('pp-doseval');var wake=document.getElementById('pp-wake');var food=document.getElementById('pp-food');var water=document.getElementById('pp-water');var sched=document.getElementById('pp-schedule');function render(){doseVal.textContent=doses;var parts=wake.value.split(':');var wh=parseInt(parts[0],10)+(parseInt(parts[1],10)/60);var list=pillSchedule(doses,isNaN(wh)?7:wh);sched.innerHTML='';list.forEach(function(d){var row=document.createElement('div');row.className='pp-dose';row.setAttribute('role','listitem');var notes=[];if(food.checked)notes.push('check food instructions');if(water.checked)notes.push('full glass of water');var note=notes.length?notes.join(' · '):'as directed on your label';row.innerHTML='<input type="checkbox" class="pp-taken" aria-label="Mark '+d.label+' taken"><span class="pp-time">'+d.time+'</span><span class="pp-meta"><strong>'+d.label+'</strong><span>'+note+'</span></span>';var box=row.querySelector('.pp-taken');box.addEventListener('change',function(){row.classList.toggle('done',box.checked);});sched.appendChild(row);});}document.getElementById('pp-minus').addEventListener('click',function(){if(doses>1){doses--;render();}});document.getElementById('pp-plus').addEventListener('click',function(){if(doses<8){doses++;render();}});wake.addEventListener('input',render);food.addEventListener('change',render);water.addEventListener('change',render);document.getElementById('pp-reset').addEventListener('click',render);document.getElementById('pp-print').addEventListener('click',function(){window.print();});render();});}
+</script>
+</body>
+</html>
