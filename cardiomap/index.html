@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://health.fixoraa.tech/cardiomap/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardioMap — Heart Rate Zones Calculator</title>
+<meta name="description" content="CardioMap is a free heart rate zones calculator. Find your five training zones from max heart rate or with Karvonen mode using resting heart rate, plus a plain-English zone guide.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',system-ui,sans-serif;background:#0b0b10;color:#e2e8f0}
+.font-display{font-family:'Space Grotesk',sans-serif}
+.ecg{stroke-dasharray:600;stroke-dashoffset:600;animation:draw 3s linear infinite}
+@keyframes draw{to{stroke-dashoffset:-600}}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+.pulse-dot{animation:pulseDot 1s ease-in-out infinite}
+.zone-bar{transition:width .7s cubic-bezier(.22,1,.36,1)}
+input[type=range]{accent-color:#f43f5e}
+details summary::-webkit-details-marker{display:none}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I calculate my heart rate zones?","acceptedAnswer":{"@type":"Answer","text":"Estimate your maximum heart rate, then take percentages of it. Zone 1 is 50–60%, Zone 2 is 60–70%, Zone 3 is 70–80%, Zone 4 is 80–90% and Zone 5 is 90–100% of max. CardioMap does this instantly and can also use the Karvonen method for a more personal result."}},{"@type":"Question","name":"What is the Karvonen formula and when should I use it?","acceptedAnswer":{"@type":"Answer","text":"The Karvonen formula uses your heart rate reserve — max heart rate minus resting heart rate — then adds resting heart rate back: Target = ((Max − Resting) × intensity) + Resting. Use it if you know your true resting heart rate, because it reflects your personal fitness better than percentages of max alone."}},{"@type":"Question","name":"How do I measure my resting heart rate accurately?","acceptedAnswer":{"@type":"Answer","text":"Measure it in the morning before getting out of bed, after a normal night of sleep and before coffee. Count your pulse for 60 seconds or use a watch reading from overnight. Repeat for three mornings and use the average for the most reliable Karvonen result."}},{"@type":"Question","name":"Is 220 minus age accurate for max heart rate?","acceptedAnswer":{"@type":"Answer","text":"220 minus age is a rough population estimate and can be off by 10–12 beats for an individual. Alternatives like Tanaka (208 − 0.7 × age) are often closer for adults. For precision, a supervised field test or lab test is best, and you can enter a measured max directly in CardioMap."}},{"@type":"Question","name":"Which heart rate zone burns the most fat?","acceptedAnswer":{"@type":"Answer","text":"Zone 2 uses the highest proportion of fat for fuel and is sustainable for long sessions, which is why it is called the fat-burn zone. Higher zones burn more total calories per minute but rely more on carbohydrate. For fat loss, total weekly volume — mostly in Zone 2 — matters most."}},{"@type":"Question","name":"How long should I train in each zone?","acceptedAnswer":{"@type":"Answer","text":"A balanced week for most people is roughly 70–80% easy Zone 1–2 work, 10–15% Zone 3 tempo work, and 5–10% Zone 4–5 intervals with full recovery. Beginners should build Zone 2 volume first. Always progress gradually and rest if you feel pain, dizziness or unusual breathlessness."}}]}
+</script>
+</head>
+<body id="top">
+<header class="sticky top-0 z-50 bg-[#0b0b10]/90 backdrop-blur border-b border-white/10">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <span class="w-9 h-9 rounded-xl bg-rose-600 flex items-center justify-center text-white font-bold">♥</span>
+      <span class="font-display font-700 text-xl tracking-tight text-white">Cardio<span class="text-rose-500">Map</span></span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm font-semibold">
+      <a href="#top" class="text-slate-300 hover:text-white">Home</a>
+      <a href="https://fixoraa.tech" class="text-rose-400 hover:text-rose-300">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-2 text-center">
+  <div class="flex justify-center mb-4"><svg width="320" height="48" viewBox="0 0 320 48" fill="none" aria-hidden="true"><polyline class="ecg" points="0,24 90,24 105,24 115,6 128,42 138,24 170,24 182,10 194,38 204,24 320,24" stroke="#f43f5e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+  <h1 class="font-display text-4xl sm:text-5xl font-bold text-white leading-tight">Heart Rate Zones <span class="text-rose-500">Calculator</span></h1>
+  <p class="mt-3 text-slate-400 max-w-2xl mx-auto">See exactly where your heart should be for recovery, fat burn, endurance and peak performance — in seconds, with a chart you can actually read while you train.</p>
+  <div class="mt-4 flex flex-wrap justify-center gap-2">
+    <span class="inline-flex items-center gap-1.5 bg-rose-500/15 text-rose-300 border border-rose-500/30 text-xs font-bold px-3 py-1.5 rounded-full"><span class="w-2 h-2 rounded-full bg-rose-500 pulse-dot"></span> Unlimited Free Usage</span>
+    <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300">No signup · No watermark</span>
+    <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300">Karvonen mode included</span>
+  </div>
+</section>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+  <div class="grid lg:grid-cols-5 gap-6 items-start">
+    <!-- Controls -->
+    <div class="lg:col-span-2 bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 shadow-2xl">
+      <h2 class="font-display font-bold text-white text-lg">Your numbers</h2>
+      <p class="text-xs text-slate-400 mt-1">Fill in what you know. A measured max heart rate always beats a formula.</p>
+
+      <div class="mt-5">
+        <label class="text-xs font-bold tracking-wide text-slate-300 uppercase">Calculation method</label>
+        <div class="grid grid-cols-2 gap-2 mt-2" role="group" aria-label="Method">
+          <button id="btnMax" class="methodBtn py-2.5 rounded-xl text-sm font-bold border bg-rose-600 text-white border-rose-500">% of Max HR</button>
+          <button id="btnKarv" class="methodBtn py-2.5 rounded-xl text-sm font-bold border bg-white/5 text-slate-300 border-white/10">Karvonen (HRR)</button>
+        </div>
+        <p id="methodHint" class="text-xs text-slate-500 mt-2">Classic method: zones are simple percentages of your maximum heart rate.</p>
+      </div>
+
+      <div class="mt-5 space-y-4">
+        <div>
+          <label for="age" class="text-sm font-semibold text-slate-200">Age <span class="text-slate-500 font-normal">(years)</span></label>
+          <input id="age" type="number" min="5" max="110" value="35" class="mt-1.5 w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-rose-500">
+        </div>
+        <div id="restingWrap">
+          <label for="resting" class="text-sm font-semibold text-slate-200">Resting heart rate <span class="text-slate-500 font-normal">(bpm, morning)</span></label>
+          <input id="resting" type="number" min="30" max="120" value="62" class="mt-1.5 w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white text-lg font-bold focus:outline-none focus:ring-2 focus:ring-rose-500">
+          <p class="text-[11px] text-slate-500 mt-1">Tip: check it before getting out of bed, averaged over 3 mornings.</p>
+        </div>
+        <div>
+          <label for="formula" class="text-sm font-semibold text-slate-200">Max HR formula</label>
+          <select id="formula" class="mt-1.5 w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+            <option value="fox">Fox — 220 − age (classic)</option>
+            <option value="tanaka">Tanaka — 208 − 0.7 × age</option>
+            <option value="gellish">Gellish — 207 − 0.7 × age</option>
+            <option value="nes">Nes — 211 − 0.64 × age</option>
+          </select>
+        </div>
+        <div>
+          <label for="maxhr" class="text-sm font-semibold text-slate-200">Measured max HR <span class="text-slate-500 font-normal">(optional override)</span></label>
+          <input id="maxhr" type="number" min="100" max="230" placeholder="Leave blank to estimate from age" class="mt-1.5 w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-rose-500">
+        </div>
+        <div>
+          <label for="checkBpm" class="text-sm font-semibold text-slate-200">“Which zone am I in?” — enter current BPM</label>
+          <input id="checkBpm" type="number" min="40" max="230" placeholder="e.g. 142" class="mt-1.5 w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-rose-500">
+          <p id="checkResult" class="text-sm font-semibold text-rose-300 mt-1.5 min-h-[20px]"></p>
+        </div>
+      </div>
+
+      <button id="calcBtn" class="mt-6 w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3.5 rounded-xl text-base transition">Calculate My Zones →</button>
+      <p id="errorBox" class="hidden mt-3 text-sm bg-red-500/10 border border-red-500/30 text-red-300 rounded-xl px-4 py-3"></p>
+      <div class="flex gap-2 mt-3">
+        <button id="copyBtn" class="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 text-sm font-semibold py-2.5 rounded-xl">Copy zones</button>
+        <button id="printBtn" class="flex-1 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 text-sm font-semibold py-2.5 rounded-xl">Print chart</button>
+      </div>
+      <p id="copyMsg" class="text-xs text-emerald-400 mt-2 min-h-[16px]"></p>
+    </div>
+
+    <!-- Results / zone chart -->
+    <div class="lg:col-span-3 space-y-5">
+      <div class="grid grid-cols-3 gap-3">
+        <div class="bg-[#14141c] border border-white/10 rounded-2xl p-4 text-center"><p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">Max HR</p><p id="statMax" class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">185 <span class="text-sm text-slate-400">bpm</span></p></div>
+        <div class="bg-[#14141c] border border-white/10 rounded-2xl p-4 text-center"><p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">Resting HR</p><p id="statRest" class="font-display text-2xl sm:text-3xl font-bold text-white mt-1">62 <span class="text-sm text-slate-400">bpm</span></p></div>
+        <div class="bg-[#14141c] border border-white/10 rounded-2xl p-4 text-center"><p class="text-[11px] uppercase tracking-widest text-slate-500 font-bold">Heart Rate Reserve</p><p id="statHrr" class="font-display text-2xl sm:text-3xl font-bold text-rose-400 mt-1">123 <span class="text-sm text-slate-400">bpm</span></p></div>
+      </div>
+
+      <div class="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6">
+        <div class="flex items-center justify-between flex-wrap gap-2"><h2 class="font-display font-bold text-white text-lg">Zone chart</h2><span id="methodBadge" class="text-xs font-bold bg-rose-500/15 text-rose-300 border border-rose-500/30 px-2.5 py-1 rounded-full">% of Max HR</span></div>
+        <p class="text-xs text-slate-400 mt-1">Bars show each zone's share of your range. Hover or tap a bar to see how it should feel.</p>
+        <div id="chart" class="mt-5 space-y-3"></div>
+        <div class="flex justify-between text-[11px] text-slate-500 mt-3 font-semibold"><span>← Easier · Recovery</span><span>Harder · Peak →</span></div>
+      </div>
+
+      <div class="bg-[#14141c] border border-white/10 rounded-3xl p-5 sm:p-6 overflow-x-auto">
+        <h2 class="font-display font-bold text-white text-lg">Plain-English zone guide</h2>
+        <p class="text-xs text-slate-400 mt-1 mb-4">No jargon. If you can talk, breathe and feel the effort described, you are in the right place.</p>
+        <table class="w-full text-sm min-w-[520px]">
+          <thead><tr class="text-left text-slate-400 border-b border-white/10"><th class="py-2 pr-3">Zone</th><th class="py-2 pr-3">Your range</th><th class="py-2 pr-3">How it feels</th><th class="py-2">Best for</th></tr></thead>
+          <tbody id="guideBody"></tbody>
+        </table>
+      </div>
+
+      <div class="bg-gradient-to-br from-rose-600/20 to-transparent border border-rose-500/25 rounded-3xl p-5">
+        <h3 class="font-bold text-white">A simple week that works for most people</h3>
+        <p class="text-sm text-slate-300 mt-1.5 leading-relaxed">Do 3–4 easy Zone 2 sessions of 30–60 minutes, add one Zone 4 interval session (for example 4 × 4 minutes hard with 3 minutes easy between), and finish the week with one longer, relaxed Zone 1–2 outing. Keep at least one full rest day. That mix builds endurance, burns fat and improves top-end fitness without burning you out.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+(function(grnp){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = grnp || {};
+s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+    </div>
+  </div>
+</div>
+
+<article class="max-w-4xl mx-auto px-4 sm:px-6 py-10 prose prose-invert max-w-none">
+  <h2 class="font-display text-3xl font-bold text-white">Heart Rate Zones Explained: Train at the Right Intensity, Every Time</h2>
+  <p class="text-slate-300 leading-relaxed mt-4">Your heart is the most honest coach you own. It does not care about your plans, your ego or the speed showing on the treadmill — it simply reports, beat by beat, how hard your body is actually working. Heart rate zones turn that raw signal into something useful: five bands of intensity, each with a different purpose, a different feeling and a different training benefit. CardioMap exists to make those bands personal to you in under ten seconds, whether you are a first-time walker, a weekend runner, a cyclist chasing a personal best or someone returning to exercise on a doctor's advice. This guide explains what the zones are, how the maths behind them works, where the common formulas succeed and fail, and how to use your numbers week after week without overtraining.</p>
+  <h3 class="text-xl font-bold text-white mt-8">What are heart rate training zones?</h3>
+  <p class="text-slate-300 leading-relaxed mt-3">A heart rate zone is a range of beats per minute that corresponds to a particular level of effort. The standard five-zone model divides your range from easy to maximum into Zone 1 (50–60 percent of maximum heart rate), Zone 2 (60–70 percent), Zone 3 (70–80 percent), Zone 4 (80–90 percent) and Zone 5 (90–100 percent). The model is popular because it is simple enough to remember mid-workout and accurate enough to structure real training. Lower zones rely more on aerobic metabolism and fat oxidation; higher zones depend increasingly on carbohydrate, produce more lactate and can only be sustained for shorter periods. None of the zones is “the best” in isolation. Fitness comes from using the right zone for the right job: recovery work in Zone 1, endurance building in Zone 2, stamina in Zone 3, threshold strength in Zone 4 and maximum aerobic power in Zone 5.</p>
+  <p class="text-slate-300 leading-relaxed mt-3">Think of the zones as gears on a bicycle rather than as good and bad. You would not drive everywhere in first gear, and you would not try to climb a steep hill in your highest gear either. A beginner who spends every session in Zone 4 will feel constantly exhausted and may quit, while an experienced athlete who never leaves Zone 2 will plateau. The chart CardioMap draws for you — with colour-coded bars, exact beat ranges and a plain-English description of how each zone should feel — is designed so you can glance at it before a session, set a target, and then check your watch during the workout with confidence.</p>
+  <h3 class="text-xl font-bold text-white mt-8">Zone by zone: what each one does for you</h3>
+  <p class="text-slate-300 leading-relaxed mt-3"><strong class="text-white">Zone 1 — Recovery (50–60%).</strong> This is very light movement: an easy walk, gentle cycling or a relaxed warm-up. You can breathe through your nose, hold a full conversation and feel you could continue for hours. Zone 1 increases blood flow without adding training stress, which helps clear metabolic waste after hard days and keeps joints moving. It is also the correct intensity for warm-ups and cool-downs, and for complete beginners whose first goal is simply to move daily without soreness or dread.</p>
+  <p class="text-slate-300 leading-relaxed mt-3"><strong class="text-white">Zone 2 — Fat Burn and Base (60–70%).</strong> Zone 2 is the foundation of endurance. Effort feels light to moderate: you can speak in full sentences, though singing would be difficult. Your body uses a high proportion of fat for fuel here, your mitochondria — the energy factories inside your cells — become more numerous and efficient, and you can sustain the pace for a long time. Most of your weekly training volume should live in Zone 2. It is the zone of long Sunday rides, relaxed long runs, brisk incline walks and steady swims. It rarely feels heroic, but it is where durable fitness is actually built.</p>
+  <p class="text-slate-300 leading-relaxed mt-3"><strong class="text-white">Zone 3 — Aerobic and Tempo (70–80%).</strong> In Zone 3 you are working purposefully. Breathing deepens, conversation shrinks to short phrases, and the effort feels like a “comfortably hard” tempo. This zone improves aerobic capacity, teaches your body to sustain a stronger pace and bridges the gap between easy endurance and threshold work. It is useful in moderation — for example a 20 to 40 minute tempo segment inside a longer session — but it is also the zone athletes accidentally live in when every easy day drifts too hard and every hard day is not hard enough. Use Zone 3 deliberately, not by default.</p>
+  <p class="text-slate-300 leading-relaxed mt-3"><strong class="text-white">Zone 4 — Threshold (80–90%).</strong> Zone 4 sits around your lactate threshold: the fastest pace you can hold for roughly 40 to 60 minutes when fresh. It feels hard, focus narrows, and you can manage only a few words at a time. Training here — typically in intervals of 5 to 20 minutes with easy recoveries — raises the threshold itself, so paces that once felt hard gradually feel manageable. This is high-value training, but it is also fatiguing, so one or two threshold sessions per week is plenty for most people.</p>
+  <p class="text-slate-300 leading-relaxed mt-3"><strong class="text-white">Zone 5 — Peak and VO2 Max (90–100%).</strong> Zone 5 is near-maximal effort: sprint finishes, steep hill repeats and short intervals of one to five minutes. Breathing is ragged, talking is nearly impossible and the effort cannot be sustained for long. These sessions improve maximum oxygen uptake, power and speed, and they should be a small, spicy fraction of your week — with full recovery between repetitions and an easy day afterwards. If you have a heart condition, are pregnant, take medication that affects heart rate, or are new to vigorous exercise, discuss Zone 4 and Zone 5 work with a clinician first.</p>
+  <h3 class="text-xl font-bold text-white mt-8">How maximum heart rate is estimated — and its limits</h3>
+  <p class="text-slate-300 leading-relaxed mt-3">Every percentage-based zone starts from maximum heart rate, the highest rate your heart can achieve in an all-out effort. The famous formula, 220 minus age, was never designed as a precise individual prescription; it was a rough population shortcut, and individual values commonly vary by ten to twelve beats on either side. That is why CardioMap also offers the Tanaka formula (208 minus 0.7 times age), derived from a large meta-analysis and often closer for adults over 40; the Gellish formula (207 minus 0.7 times age); and the Nes formula (211 minus 0.64 times age), based on a large Norwegian cohort. Trying two formulas and seeing how much your zones move is itself informative: if the estimates differ by only a few beats, you can train confidently; if you race regularly, consider a field test.</p>
+  <p class="text-slate-300 leading-relaxed mt-3">A simple field test, done only when you are healthy, rested and ideally supervised, is to warm up thoroughly, then run or cycle hard up a gradual hill for two to three minutes, push the final 30 seconds to a true maximum, and note the highest heart rate your device records. Enter that measured value in CardioMap's override box and every zone recalculates around reality rather than a formula. Chest-strap monitors are generally more accurate during intense, bouncy exercise than wrist-based optical sensors, which can lag or lock onto your cadence. Whichever device you use, consistency matters more than perfection: test with the same device, in similar conditions, and treat the zones as guides rather than as legal limits.</p>
+  <h3 class="text-xl font-bold text-white mt-8">The Karvonen method: why resting heart rate changes everything</h3>
+  <p class="text-slate-300 leading-relaxed mt-3">Two 35-year-olds share the same estimated maximum of 185 beats per minute, but one has a resting heart rate of 48 and the other rests at 78. Simple percentages give them identical zones, yet their bodies are plainly different. The Karvonen formula fixes this by using heart rate reserve — maximum minus resting — which reflects current fitness. The calculation is: target heart rate equals ((maximum minus resting) multiplied by the desired intensity) plus resting. A fitter heart with a low resting rate gets a wider reserve and subtly different targets; a deconditioned heart gets zones that respect its higher starting point. Research and coaching practice both suggest Karvonen zones align better with percentages of VO2 reserve, which is why many coaches prefer them when a reliable resting value is available.</p>
+  <p class="text-slate-300 leading-relaxed mt-3">The catch is that resting heart rate must be measured well. A single rushed reading after coffee, a poor night of sleep or an anxious morning can be five to ten beats too high, which shifts every Karvonen zone. Measure it lying in bed, before sitting up, on three normal mornings and average the results. Illness, alcohol the night before, travel across time zones and the late stages of a hard training block all raise resting heart rate temporarily — which is itself useful information. Many athletes check it daily: a resting rate suddenly seven or more beats above normal is a classic early warning to take an easy day. CardioMap's Karvonen mode makes switching methods one tap, so you can compare both sets of zones and choose the one that matches how the effort actually feels.</p>
+  <h3 class="text-xl font-bold text-white mt-8">How to use your zones in real training</h3>
+  <p class="text-slate-300 leading-relaxed mt-3">Start by anchoring your week in low intensity. A widely used distribution, sometimes called the 80/20 or polarised approach, keeps roughly 80 percent of training time in Zones 1 and 2 and the remaining 20 percent in Zones 4 and 5, with Zone 3 used sparingly. Beginners can simplify further: three or four Zone 2 sessions a week, progressing duration before intensity, will transform fitness within two to three months. Use the talk test alongside your watch — if you cannot speak a full sentence on an “easy” day, you are not in Zone 2 no matter what the number says, because heat, hills, fatigue and sensor error all distort readings.</p>
+  <p class="text-slate-300 leading-relaxed mt-3">For fat loss, Zone 2 deserves its reputation but needs honest context. It uses the highest percentage of fat during the session and, crucially, it is repeatable: you can do an hour of Zone 2 today and again tomorrow, which a Zone 5 session does not allow. Total energy expenditure across the week, combined with nutrition and sleep, drives fat loss. Higher zones burn more calories per minute and create a modest afterburn, so a programme that is mostly Zone 2 with one interval session usually beats a programme of daily exhausting workouts that collapses after two weeks. Consistency is the real fat-burning zone.</p>
+  <p class="text-slate-300 leading-relaxed mt-3">Runners can translate zones into sessions directly: recovery runs in Zone 1, long runs in Zone 2, tempo runs in upper Zone 3 to low Zone 4, and repetitions in Zone 5. Cyclists often hold Zone 2 for endurance rides and use Zone 4 sweet-spot intervals for time-crunched training. Swimmers should note that heart rate runs roughly ten beats lower in the water because of hydrostatic pressure and the horizontal position, so aquatic zones need a sport-specific test. Rowers, skiers and team-sport athletes all use the same five-zone language, which is exactly its power: once you learn your numbers, you can walk into almost any sport and immediately know how hard to go.</p>
+  <h3 class="text-xl font-bold text-white mt-8">Common mistakes and safety notes</h3>
+  <p class="text-slate-300 leading-relaxed mt-3">The most common mistake is training in the grey middle every day — too hard to recover from, too easy to force adaptation — and then wondering why progress stalls. The second is trusting a single formula forever: retest or recalculate every six to twelve months, and after significant changes in fitness, weight or medication. Beta blockers and several other medicines lower heart rate substantially; if you take them, percentage zones may be inappropriate and a clinician-guided rating-of-effort scale is safer. Heat and humidity raise heart rate at a given pace, altitude raises it further, and dehydration raises it again, so allow your pace to slow on hard-weather days while holding the zone steady. That is not weakness; that is the entire point of training by internal load rather than by external speed.</p>
+  <p class="text-slate-300 leading-relaxed mt-3">Stop exercising and seek medical advice if you experience chest pain or pressure, severe breathlessness out of proportion to effort, dizziness, palpitations that feel irregular, or pain spreading to the jaw or arm. A calculator is an educational tool, not a medical device, and CardioMap's zones are estimates for healthy adults. Children, elite athletes and people with cardiac history all need individualised guidance. Used sensibly, though, heart rate training is one of the safest ways to exercise: it automatically adjusts for your bad days, your good days and everything in between, because it listens to the organ doing the work.</p>
+  <p class="text-slate-300 leading-relaxed mt-3">Finally, keep perspective. Zones are a map, not the territory. The best session is the one you complete with good form and enough energy to train again this week. Calculate your numbers, glance at the colour chart, note the range for today's session — then go and move. Over months, those small, correctly-dosed efforts compound into a stronger heart, a lower resting rate and the quiet confidence of knowing exactly how hard you are working, and why.</p>
+
+  <h2 class="font-display text-2xl font-bold text-white mt-10">Frequently asked questions</h2>
+  <div class="space-y-3 mt-4" id="faqList">
+    <details class="bg-[#14141c] border border-white/10 rounded-2xl p-4"><summary class="font-bold text-white cursor-pointer">How do I calculate my heart rate zones?</summary><p class="text-slate-300 mt-2 text-sm leading-relaxed">Estimate your maximum heart rate, then take percentages of it. Zone 1 is 50–60%, Zone 2 is 60–70%, Zone 3 is 70–80%, Zone 4 is 80–90% and Zone 5 is 90–100% of max. CardioMap does this instantly and can also use the Karvonen method for a more personal result.</p></details>
+    <details class="bg-[#14141c] border border-white/10 rounded-2xl p-4"><summary class="font-bold text-white cursor-pointer">What is the Karvonen formula and when should I use it?</summary><p class="text-slate-300 mt-2 text-sm leading-relaxed">The Karvonen formula uses your heart rate reserve — max heart rate minus resting heart rate — then adds resting heart rate back: Target = ((Max − Resting) × intensity) + Resting. Use it if you know your true resting heart rate, because it reflects your personal fitness better than percentages of max alone.</p></details>
+    <details class="bg-[#14141c] border border-white/10 rounded-2xl p-4"><summary class="font-bold text-white cursor-pointer">How do I measure my resting heart rate accurately?</summary><p class="text-slate-300 mt-2 text-sm leading-relaxed">Measure it in the morning before getting out of bed, after a normal night of sleep and before coffee. Count your pulse for 60 seconds or use a watch reading from overnight. Repeat for three mornings and use the average for the most reliable Karvonen result.</p></details>
+    <details class="bg-[#14141c] border border-white/10 rounded-2xl p-4"><summary class="font-bold text-white cursor-pointer">Is 220 minus age accurate for max heart rate?</summary><p class="text-slate-300 mt-2 text-sm leading-relaxed">220 minus age is a rough population estimate and can be off by 10–12 beats for an individual. Alternatives like Tanaka (208 − 0.7 × age) are often closer for adults. For precision, a supervised field test or lab test is best, and you can enter a measured max directly in CardioMap.</p></details>
+    <details class="bg-[#14141c] border border-white/10 rounded-2xl p-4"><summary class="font-bold text-white cursor-pointer">Which heart rate zone burns the most fat?</summary><p class="text-slate-300 mt-2 text-sm leading-relaxed">Zone 2 uses the highest proportion of fat for fuel and is sustainable for long sessions, which is why it is called the fat-burn zone. Higher zones burn more total calories per minute but rely more on carbohydrate. For fat loss, total weekly volume — mostly in Zone 2 — matters most.</p></details>
+    <details class="bg-[#14141c] border border-white/10 rounded-2xl p-4"><summary class="font-bold text-white cursor-pointer">How long should I train in each zone?</summary><p class="text-slate-300 mt-2 text-sm leading-relaxed">A balanced week for most people is roughly 70–80% easy Zone 1–2 work, 10–15% Zone 3 tempo work, and 5–10% Zone 4–5 intervals with full recovery. Beginners should build Zone 2 volume first. Always progress gradually and rest if you feel pain, dizziness or unusual breathlessness.</p></details>
+  </div>
+  <p class="text-xs text-slate-500 mt-8">Disclaimer: CardioMap provides educational estimates only and is not medical advice. Consult a qualified professional before starting vigorous training, especially if you have a medical condition or take heart-rate-affecting medication.</p>
+</article>
+
+<footer class="border-t border-white/10 py-6 text-center text-xs text-slate-500">© 2026 CardioMap — Train by heart, not by guesswork.<p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+
+<script id="lib-cardiomap">
+var CardioMapLib = {
+  ZONE_DEFS: [
+    { id: 1, name: 'Zone 1 — Recovery', short: 'Recovery', pctLow: 0.50, pctHigh: 0.60, color: '#94a3b8', feel: 'Very light', benefit: 'Warm-up, cool-down and active recovery' },
+    { id: 2, name: 'Zone 2 — Fat Burn', short: 'Fat Burn', pctLow: 0.60, pctHigh: 0.70, color: '#38bdf8', feel: 'Light & conversational', benefit: 'Base endurance and fat metabolism' },
+    { id: 3, name: 'Zone 3 — Aerobic', short: 'Aerobic', pctLow: 0.70, pctHigh: 0.80, color: '#4ade80', feel: 'Moderate, steady effort', benefit: 'Aerobic capacity and stamina' },
+    { id: 4, name: 'Zone 4 — Threshold', short: 'Threshold', pctLow: 0.80, pctHigh: 0.90, color: '#facc15', feel: 'Hard, comfortably uncomfortable', benefit: 'Lactate threshold and speed endurance' },
+    { id: 5, name: 'Zone 5 — Peak', short: 'Peak', pctLow: 0.90, pctHigh: 1.00, color: '#f43f5e', feel: 'Maximum, unsustainable', benefit: 'VO2 max, power and top-end speed' }
+  ],
+  estimateMaxHR: function (age, formula) {
+    var a = Number(age);
+    if (!isFinite(a) || a < 5 || a > 110) return null;
+    if (formula === 'tanaka') return Math.round(208 - 0.7 * a);
+    if (formula === 'gellish') return Math.round(207 - 0.7 * a);
+    if (formula === 'nes') return Math.round(211 - 0.64 * a);
+    // default fox
+    return Math.round(220 - a);
+  },
+  isValidAge: function (age) {
+    var a = Number(age);
+    return isFinite(a) && a >= 5 && a <= 110;
+  },
+  isValidResting: function (resting, maxHR) {
+    var r = Number(resting);
+    if (!isFinite(r) || r < 30 || r > 120) return false;
+    if (maxHR != null && r >= Number(maxHR)) return false;
+    return true;
+  },
+  isValidMaxHR: function (maxHR) {
+    var m = Number(maxHR);
+    return isFinite(m) && m >= 100 && m <= 230;
+  },
+  bpmForPercent: function (maxHR, restingHR, pct, method) {
+    var m = Number(maxHR), p = Number(pct);
+    if (!isFinite(m) || !isFinite(p)) return null;
+    if (method === 'karvonen') {
+      var r = Number(restingHR);
+      if (!isFinite(r)) return null;
+      return Math.round((m - r) * p + r);
+    }
+    return Math.round(m * p);
+  },
+  calculateZones: function (maxHR, restingHR, method) {
+    var m = Number(maxHR);
+    if (!this.isValidMaxHR(m)) return null;
+    var useKarvonen = method === 'karvonen';
+    var r = useKarvonen ? Number(restingHR) : null;
+    if (useKarvonen && !this.isValidResting(r, m)) return null;
+    var self = this;
+    return this.ZONE_DEFS.map(function (z) {
+      return {
+        id: z.id,
+        name: z.name,
+        short: z.short,
+        pctLow: z.pctLow,
+        pctHigh: z.pctHigh,
+        pctLabel: Math.round(z.pctLow * 100) + '–' + Math.round(z.pctHigh * 100) + '%',
+        low: self.bpmForPercent(m, r, z.pctLow, method),
+        high: self.bpmForPercent(m, r, z.pctHigh, method),
+        color: z.color,
+        feel: z.feel,
+        benefit: z.benefit
+      };
+    });
+  },
+  calculate: function (opts) {
+    if (!opts || typeof opts !== 'object') return { error: 'Please enter your age or a measured max heart rate.' };
+    var method = opts.method === 'karvonen' ? 'karvonen' : 'maxhr';
+    var formula = opts.formula || 'fox';
+    var maxHR = null;
+    if (opts.maxHR != null && String(opts.maxHR).trim() !== '') {
+      if (!this.isValidMaxHR(opts.maxHR)) return { error: 'Max heart rate must be between 100 and 230 bpm.' };
+      maxHR = Math.round(Number(opts.maxHR));
+    } else {
+      if (!this.isValidAge(opts.age)) return { error: 'Please enter a valid age between 5 and 110.' };
+      maxHR = this.estimateMaxHR(opts.age, formula);
+    }
+    var restingHR = null;
+    if (method === 'karvonen') {
+      if (opts.restingHR == null || String(opts.restingHR).trim() === '') return { error: 'Karvonen mode needs your resting heart rate. Measure it first thing in the morning.' };
+      if (!this.isValidResting(opts.restingHR, maxHR)) return { error: 'Resting heart rate must be 30–120 bpm and below your max heart rate.' };
+      restingHR = Math.round(Number(opts.restingHR));
+    } else if (opts.restingHR != null && String(opts.restingHR).trim() !== '') {
+      var rv = Number(opts.restingHR);
+      if (isFinite(rv) && rv >= 30 && rv <= 120) restingHR = Math.round(rv);
+    }
+    var zones = this.calculateZones(maxHR, restingHR, method);
+    if (!zones) return { error: 'Could not calculate zones. Check your numbers and try again.' };
+    return {
+      maxHR: maxHR,
+      restingHR: restingHR,
+      hrr: restingHR != null ? maxHR - restingHR : null,
+      method: method,
+      formula: formula,
+      zones: zones
+    };
+  },
+  zoneForBPM: function (bpm, zones) {
+    var b = Number(bpm);
+    if (!isFinite(b) || !zones || !zones.length) return null;
+    for (var i = 0; i < zones.length; i++) {
+      var z = zones[i];
+      var isLast = i === zones.length - 1;
+      if (b >= z.low && (b < z.high || (isLast && b <= z.high))) return z;
+    }
+    if (b < zones[0].low) return null;
+    return zones[zones.length - 1];
+  },
+  formatRange: function (zone) {
+    if (!zone) return '';
+    return zone.low + '–' + zone.high + ' bpm';
+  }
+};
+if (typeof module !== 'undefined' && module.exports) { module.exports = CardioMapLib; }
+
+</script>
+<script>
+var method='maxhr';
+var lastResult=null;
+function $(id){return document.getElementById(id);}
+function setMethod(m){
+  method=m;
+  var isK=m==='karvonen';
+  $('btnMax').className='methodBtn py-2.5 rounded-xl text-sm font-bold border '+( !isK?'bg-rose-600 text-white border-rose-500':'bg-white/5 text-slate-300 border-white/10');
+  $('btnKarv').className='methodBtn py-2.5 rounded-xl text-sm font-bold border '+( isK?'bg-rose-600 text-white border-rose-500':'bg-white/5 text-slate-300 border-white/10');
+  $('methodHint').textContent=isK?'Karvonen uses your heart rate reserve (max − resting) for zones personalised to your fitness.':'Classic method: zones are simple percentages of your maximum heart rate.';
+  $('methodBadge').textContent=isK?'Karvonen · Heart Rate Reserve':'% of Max HR';
+  calculate();
+}
+function calculate(){
+  var res=CardioMapLib.calculate({age:$('age').value,restingHR:$('resting').value,maxHR:$('maxhr').value,formula:$('formula').value,method:method});
+  var err=$('errorBox');
+  if(res.error){err.textContent=res.error;err.classList.remove('hidden');return;}
+  err.classList.add('hidden'); lastResult=res;
+  $('statMax').innerHTML=res.maxHR+' <span class="text-sm text-slate-400">bpm</span>';
+  $('statRest').innerHTML=(res.restingHR!=null?res.restingHR:'—')+' <span class="text-sm text-slate-400">bpm</span>';
+  $('statHrr').innerHTML=(res.hrr!=null?res.hrr:'—')+' <span class="text-sm text-slate-400">bpm</span>';
+  var chart=$('chart'); chart.innerHTML='';
+  var guide=$('guideBody'); guide.innerHTML='';
+  res.zones.forEach(function(z){
+    var width=Math.round(z.pctHigh*100);
+    var row=document.createElement('div');
+    row.innerHTML='<div class="flex justify-between text-xs font-bold mb-1"><span style="color:'+z.color+'">'+z.name+'</span><span class="text-slate-300">'+z.low+'–'+z.high+' bpm · '+z.pctLabel+'</span></div><div class="h-7 bg-black/50 rounded-lg overflow-hidden border border-white/5"><div class="zone-bar h-full rounded-lg flex items-center px-2 text-[11px] font-bold text-black/80" style="width:'+width+'%;background:'+z.color+'" title="'+z.feel+' — '+z.benefit+'">'+z.feel+'</div></div>';
+    chart.appendChild(row);
+    var tr=document.createElement('tr'); tr.className='border-b border-white/5';
+    tr.innerHTML='<td class="py-2.5 pr-3 font-bold" style="color:'+z.color+'">'+z.short+'</td><td class="py-2.5 pr-3 text-white font-semibold">'+z.low+'–'+z.high+' bpm</td><td class="py-2.5 pr-3 text-slate-300">'+z.feel+'</td><td class="py-2.5 text-slate-300">'+z.benefit+'</td>';
+    guide.appendChild(tr);
+  });
+  checkBpm();
+}
+function checkBpm(){
+  var v=$('checkBpm').value; var out=$('checkResult');
+  if(!v||!lastResult){out.textContent='';return;}
+  var z=CardioMapLib.zoneForBPM(Number(v),lastResult.zones);
+  if(Number(v)<lastResult.zones[0].low){out.textContent='Below Zone 1 — warm-up / very easy recovery pace.';return;}
+  out.textContent=z?('You are in '+z.name+' ('+z.low+'–'+z.high+' bpm) — '+z.feel+'.'):'';
+}
+$('btnMax').addEventListener('click',function(){setMethod('maxhr');});
+$('btnKarv').addEventListener('click',function(){setMethod('karvonen');});
+$('calcBtn').addEventListener('click',calculate);
+['age','resting','formula','maxhr'].forEach(function(id){$(id).addEventListener('input',calculate);$(id).addEventListener('change',calculate);});
+$('checkBpm').addEventListener('input',checkBpm);
+$('copyBtn').addEventListener('click',function(){
+  if(!lastResult)return;
+  var txt='CardioMap — Heart Rate Zones (Max '+lastResult.maxHR+' bpm, '+(lastResult.method==='karvonen'?'Karvonen':'% Max HR')+')\n'+lastResult.zones.map(function(z){return z.name+': '+z.low+'-'+z.high+' bpm ('+z.pctLabel+')';}).join('\n');
+  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){$('copyMsg').textContent='Copied to clipboard.';});}
+});
+$('printBtn').addEventListener('click',function(){window.print();});
+calculate();
+</script>
+</body>
+</html>
