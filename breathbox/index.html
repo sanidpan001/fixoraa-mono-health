@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://health.fixoraa.tech/breathbox/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BreathBox — Box Breathing Trainer | 4-4-4-4 Breathing Guide</title>
+<meta name="description" content="BreathBox is a free box breathing trainer with an animated 4-4-4-4 guide shape, custom phase lengths, cycle counter, session timer and a silent visual-only mode.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif;background:#eef0ff;color:#1e1b4b}
+  .font-display{font-family:'Fraunces',serif}
+  .stage-bg{background:radial-gradient(600px 400px at 50% 0%,#c7d2fe 0%,transparent 60%),linear-gradient(180deg,#312e81,#1e1b4b)}
+  #breathShape{transition:none;will-change:transform,border-radius,background}
+  #guideDot{will-change:transform}
+  input[type=range]{accent-color:#4f46e5}
+  .phase-on{background:#4f46e5!important;color:#fff!important;border-color:#4f46e5!important}
+  details summary::-webkit-details-marker{display:none}
+</style>
+<script id="lib-breathbox">
+var BreathBoxLib = {
+  PHASE_KEYS: ['inhale', 'holdIn', 'exhale', 'holdOut'],
+  PHASE_LABELS: { inhale: 'Breathe In', holdIn: 'Hold', exhale: 'Breathe Out', holdOut: 'Hold' },
+  PRESETS: {
+    box: { name: 'Box Breathing', inhale: 4, holdIn: 4, exhale: 4, holdOut: 4 },
+    relax478: { name: '4-7-8 Relax', inhale: 4, holdIn: 7, exhale: 8, holdOut: 0 },
+    coherent: { name: 'Coherent 5-5', inhale: 5, holdIn: 0, exhale: 5, holdOut: 0 },
+    calm: { name: 'Calm 4-6', inhale: 4, holdIn: 0, exhale: 6, holdOut: 0 },
+    energize: { name: 'Energize 2-1-4-1', inhale: 2, holdIn: 1, exhale: 4, holdOut: 1 }
+  },
+  clampPhase: function (v) {
+    var n = Number(v);
+    if (!isFinite(n) || isNaN(n)) return null;
+    n = Math.round(n * 10) / 10;
+    if (n < 0) return 0;
+    if (n > 60) return 60;
+    return n;
+  },
+  normalizeConfig: function (inhale, holdIn, exhale, holdOut) {
+    var c = {
+      inhale: BreathBoxLib.clampPhase(inhale),
+      holdIn: BreathBoxLib.clampPhase(holdIn),
+      exhale: BreathBoxLib.clampPhase(exhale),
+      holdOut: BreathBoxLib.clampPhase(holdOut)
+    };
+    if (c.inhale === null || c.holdIn === null || c.exhale === null || c.holdOut === null) return null;
+    if (c.inhale <= 0 || c.exhale <= 0) return null;
+    return c;
+  },
+  isValidConfig: function (cfg) {
+    if (!cfg) return false;
+    return BreathBoxLib.normalizeConfig(cfg.inhale, cfg.holdIn, cfg.exhale, cfg.holdOut) !== null;
+  },
+  cycleDuration: function (cfg) {
+    if (!BreathBoxLib.isValidConfig(cfg)) return 0;
+    return cfg.inhale + cfg.holdIn + cfg.exhale + cfg.holdOut;
+  },
+  activePhases: function (cfg) {
+    if (!cfg) return [];
+    var out = [];
+    for (var i = 0; i < BreathBoxLib.PHASE_KEYS.length; i++) {
+      var k = BreathBoxLib.PHASE_KEYS[i];
+      if (cfg[k] > 0) out.push({ key: k, label: BreathBoxLib.PHASE_LABELS[k], duration: cfg[k] });
+    }
+    return out;
+  },
+  totalDuration: function (cfg, cycles) {
+    var c = BreathBoxLib.normalizeCycles(cycles);
+    if (c === null) return 0;
+    return BreathBoxLib.cycleDuration(cfg) * c;
+  },
+  normalizeCycles: function (n) {
+    var v = Number(n);
+    if (!isFinite(v) || isNaN(v)) return null;
+    v = Math.floor(v);
+    if (v < 1) return null;
+    if (v > 999) return 999;
+    return v;
+  },
+  getPhaseAt: function (elapsedSeconds, cfg) {
+    if (!BreathBoxLib.isValidConfig(cfg)) return null;
+    var elapsed = Number(elapsedSeconds);
+    if (!isFinite(elapsed) || elapsed < 0) elapsed = 0;
+    var cycleDur = BreathBoxLib.cycleDuration(cfg);
+    if (cycleDur <= 0) return null;
+    var cycleIndex = Math.floor(elapsed / cycleDur);
+    var within = elapsed - cycleIndex * cycleDur;
+    var phases = BreathBoxLib.activePhases(cfg);
+    var acc = 0;
+    for (var i = 0; i < phases.length; i++) {
+      var p = phases[i];
+      if (within < acc + p.duration || i === phases.length - 1) {
+        var inPhase = Math.min(within - acc, p.duration);
+        var progress = p.duration > 0 ? inPhase / p.duration : 1;
+        return {
+          phase: p.key, label: p.label, phaseIndex: i,
+          elapsedInPhase: Math.round(inPhase * 1000) / 1000,
+          remainingInPhase: Math.round((p.duration - inPhase) * 1000) / 1000,
+          progress: Math.round(progress * 10000) / 10000,
+          cycleNumber: cycleIndex + 1, cycleIndex: cycleIndex,
+          elapsedInCycle: Math.round(within * 1000) / 1000
+        };
+      }
+      acc += p.duration;
+    }
+    return null;
+  },
+  scaleForPhase: function (phase, progress) {
+    var p = Math.max(0, Math.min(1, Number(progress) || 0));
+    var min = 0.62, max = 1;
+    if (phase === 'inhale') return Math.round((min + (max - min) * p) * 10000) / 10000;
+    if (phase === 'holdIn') return max;
+    if (phase === 'exhale') return Math.round((max - (max - min) * p) * 10000) / 10000;
+    if (phase === 'holdOut') return min;
+    return min;
+  },
+  cyclesCompletedAt: function (elapsedSeconds, cfg) {
+    if (!BreathBoxLib.isValidConfig(cfg)) return 0;
+    var d = BreathBoxLib.cycleDuration(cfg);
+    if (d <= 0) return 0;
+    var e = Math.max(0, Number(elapsedSeconds) || 0);
+    return Math.floor(e / d);
+  },
+  sessionProgress: function (elapsedSeconds, cfg, totalCycles) {
+    var total = BreathBoxLib.totalDuration(cfg, totalCycles);
+    if (total <= 0) return 0;
+    var e = Math.max(0, Math.min(total, Number(elapsedSeconds) || 0));
+    return Math.round((e / total) * 10000) / 10000;
+  },
+  remainingSeconds: function (elapsedSeconds, cfg, totalCycles) {
+    var total = BreathBoxLib.totalDuration(cfg, totalCycles);
+    var e = Math.max(0, Number(elapsedSeconds) || 0);
+    return Math.max(0, Math.round((total - e) * 10) / 10);
+  },
+  formatTime: function (totalSeconds) {
+    var s = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+    var m = Math.floor(s / 60);
+    var r = s % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  },
+  formatDurationLabel: function (seconds) {
+    var s = Number(seconds) || 0;
+    if (s < 60) return s + ' sec';
+    var m = Math.floor(s / 60), r = s % 60;
+    return r === 0 ? m + ' min' : m + ' min ' + r + ' sec';
+  },
+  presetByKey: function (key) {
+    return BreathBoxLib.PRESETS[key] || null;
+  }
+};
+if (typeof module !== 'undefined' && module.exports) { module.exports = BreathBoxLib; }
+
+</script>
+</head>
+<body id="top" class="min-h-screen">
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-indigo-100">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <span class="w-9 h-9 rounded-xl bg-indigo-600 text-white grid place-items-center text-lg" aria-hidden="true">◐</span>
+      <span class="font-display font-bold text-xl tracking-tight text-indigo-950">BreathBox</span>
+    </a>
+    <nav class="flex items-center gap-1 sm:gap-2 text-sm font-semibold">
+      <a href="#top" class="px-3 py-2 rounded-full hover:bg-indigo-50 text-indigo-900">Home</a>
+      <a href="https://fixoraa.tech" class="px-3 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+  <div class="text-center max-w-2xl mx-auto">
+    <span class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1.5 rounded-full">✦ Unlimited Free Usage &nbsp;·&nbsp; No signup</span>
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-indigo-950 mt-4 leading-tight">Breathe in a box.<br>Calm in minutes.</h1>
+    <p class="text-indigo-900/70 mt-3">Follow the moving guide around the square — in, hold, out, hold. Customise every phase, count your cycles, and practise in complete silence if you prefer.</p>
+  </div>
+
+  <!-- BREATHING STAGE -->
+  <section aria-label="Breathing stage" class="stage-bg mt-8 rounded-[2rem] p-5 sm:p-10 text-white shadow-xl shadow-indigo-900/20 overflow-hidden">
+    <div class="flex flex-wrap items-center justify-between gap-3 text-sm">
+      <div class="flex gap-2" role="group" aria-label="Phase indicator">
+        <span id="chip-inhale" class="phase-chip px-3 py-1.5 rounded-full border border-white/30 bg-white/10 font-semibold">1 · Breathe In</span>
+        <span id="chip-holdIn" class="phase-chip px-3 py-1.5 rounded-full border border-white/30 bg-white/10 font-semibold">2 · Hold</span>
+        <span id="chip-exhale" class="phase-chip px-3 py-1.5 rounded-full border border-white/30 bg-white/10 font-semibold">3 · Breathe Out</span>
+        <span id="chip-holdOut" class="phase-chip px-3 py-1.5 rounded-full border border-white/30 bg-white/10 font-semibold">4 · Hold</span>
+      </div>
+      <label class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1.5 cursor-pointer">
+        <input type="checkbox" id="silentToggle" checked class="accent-indigo-300 w-4 h-4">
+        <span class="font-semibold">Silent visual-only mode</span>
+      </label>
+    </div>
+
+    <div class="relative mx-auto mt-8 w-[280px] h-[280px] sm:w-[340px] sm:h-[340px]">
+      <!-- square track -->
+      <div class="absolute inset-0 rounded-[2rem] border-2 border-white/25" aria-hidden="true"></div>
+      <div id="guideDot" class="absolute w-5 h-5 -ml-2.5 -mt-2.5 rounded-full bg-amber-300 shadow-lg shadow-amber-300/50 z-20" style="left:0;top:0" aria-hidden="true"></div>
+      <!-- breathing shape -->
+      <div class="absolute inset-0 grid place-items-center">
+        <div id="breathShape" class="w-40 h-40 sm:w-48 sm:h-48 rounded-[2rem] bg-gradient-to-br from-indigo-300 via-indigo-400 to-violet-400 shadow-2xl grid place-items-center text-center px-4">
+          <div>
+            <p id="phaseLabel" class="font-display text-2xl sm:text-3xl font-bold text-white drop-shadow">Ready?</p>
+            <p id="phaseCount" class="text-5xl font-extrabold text-white/95 mt-1" aria-live="polite">4</p>
+            <p id="phaseHint" class="text-xs text-white/80 font-medium mt-1">Press Start when you are ready</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- progress -->
+    <div class="max-w-xl mx-auto mt-8">
+      <div class="h-2.5 bg-white/15 rounded-full overflow-hidden"><div id="sessionBar" class="h-full bg-amber-300 rounded-full" style="width:0%"></div></div>
+      <div class="flex justify-between text-xs text-indigo-200 mt-2 font-medium"><span id="progressText">0% of session</span><span id="bpmText">3.8 breaths / min</span></div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3 max-w-xl mx-auto mt-6 text-center">
+      <div class="bg-white/10 rounded-2xl py-3"><p class="text-[11px] uppercase tracking-widest text-indigo-200">Cycles done</p><p id="cycleCount" class="text-2xl font-extrabold mt-0.5">0</p></div>
+      <div class="bg-white/10 rounded-2xl py-3"><p class="text-[11px] uppercase tracking-widest text-indigo-200">Session time</p><p id="sessionTimer" class="text-2xl font-extrabold mt-0.5">00:00</p></div>
+      <div class="bg-white/10 rounded-2xl py-3"><p class="text-[11px] uppercase tracking-widest text-indigo-200">Time left</p><p id="timeLeft" class="text-2xl font-extrabold mt-0.5">02:40</p></div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 mt-7">
+      <button id="startBtn" class="px-8 py-3.5 rounded-full bg-white text-indigo-900 font-bold hover:bg-indigo-50 shadow-lg">▶ Start breathing</button>
+      <button id="pauseBtn" disabled class="px-6 py-3.5 rounded-full bg-white/15 border border-white/30 font-bold disabled:opacity-40 hover:bg-white/25">Pause</button>
+      <button id="resetBtn" class="px-6 py-3.5 rounded-full bg-white/15 border border-white/30 font-bold hover:bg-white/25">Reset</button>
+    </div>
+    <p id="statusMsg" class="text-center text-sm text-indigo-200 mt-4 min-h-[1.25rem]" aria-live="polite">Box breathing is set: 4 seconds in, 4 hold, 4 out, 4 hold — for 10 cycles.</p>
+  </section>
+
+  <!-- CONTROLS -->
+  <section class="grid md:grid-cols-5 gap-5 mt-6">
+    <div class="md:col-span-3 bg-white rounded-3xl border border-indigo-100 shadow-sm p-5 sm:p-6">
+      <h2 class="font-display font-bold text-xl text-indigo-950">Customise your phases</h2>
+      <p class="text-sm text-slate-500 mt-1">Drag or type. Set a hold to 0 to skip it — try 4-7-8 for sleep or 5-5 for steady focus. Changes apply to the next cycle.</p>
+      <div class="space-y-5 mt-5" id="phaseControls">
+        <div><div class="flex justify-between text-sm font-semibold"><label for="inInhale">Breathe in</label><span><input id="inInhale" type="number" min="1" max="60" step="0.5" value="4" class="w-16 text-right border border-indigo-200 rounded-lg px-2 py-1"> sec</span></div><input id="rgInhale" type="range" min="1" max="20" step="0.5" value="4" class="w-full mt-1"></div>
+        <div><div class="flex justify-between text-sm font-semibold"><label for="inHoldIn">Hold (lungs full)</label><span><input id="inHoldIn" type="number" min="0" max="60" step="0.5" value="4" class="w-16 text-right border border-indigo-200 rounded-lg px-2 py-1"> sec</span></div><input id="rgHoldIn" type="range" min="0" max="20" step="0.5" value="4" class="w-full mt-1"></div>
+        <div><div class="flex justify-between text-sm font-semibold"><label for="inExhale">Breathe out</label><span><input id="inExhale" type="number" min="1" max="60" step="0.5" value="4" class="w-16 text-right border border-indigo-200 rounded-lg px-2 py-1"> sec</span></div><input id="rgExhale" type="range" min="1" max="20" step="0.5" value="4" class="w-full mt-1"></div>
+        <div><div class="flex justify-between text-sm font-semibold"><label for="inHoldOut">Hold (lungs empty)</label><span><input id="inHoldOut" type="number" min="0" max="60" step="0.5" value="4" class="w-16 text-right border border-indigo-200 rounded-lg px-2 py-1"> sec</span></div><input id="rgHoldOut" type="range" min="0" max="20" step="0.5" value="4" class="w-full mt-1"></div>
+      </div>
+      <p id="configError" class="hidden mt-4 text-sm bg-rose-50 text-rose-700 border border-rose-200 rounded-xl px-4 py-3"></p>
+      <div class="flex flex-wrap items-end gap-4 mt-6 pt-5 border-t border-indigo-100">
+        <div><label for="inCycles" class="text-sm font-semibold block mb-1">Target cycles</label><input id="inCycles" type="number" min="1" max="999" value="10" class="w-24 border border-indigo-200 rounded-xl px-3 py-2.5"></div>
+        <div class="text-sm text-slate-600 pb-2.5">One cycle: <strong id="cycleDurText" class="text-indigo-900">16 sec</strong> · Session: <strong id="sessionDurText" class="text-indigo-900">2 min 40 sec</strong></div>
+      </div>
+    </div>
+
+    <div class="md:col-span-2 space-y-5">
+      <div class="bg-white rounded-3xl border border-indigo-100 shadow-sm p-5 sm:p-6">
+        <h2 class="font-display font-bold text-xl text-indigo-950">Presets</h2>
+        <div class="grid gap-2 mt-4" id="presetList">
+          <button data-preset="box" class="preset-btn text-left px-4 py-3 rounded-2xl border-2 border-indigo-600 bg-indigo-50"><span class="font-bold text-indigo-950 block">Box Breathing · 4-4-4-4</span><span class="text-xs text-slate-500">The classic. Focus, steadiness, pre-performance calm.</span></button>
+          <button data-preset="relax478" class="preset-btn text-left px-4 py-3 rounded-2xl border border-indigo-200 hover:border-indigo-400"><span class="font-bold text-indigo-950 block">4-7-8 Relax · 4-7-8-0</span><span class="text-xs text-slate-500">Long exhale. A wind-down pattern before sleep.</span></button>
+          <button data-preset="coherent" class="preset-btn text-left px-4 py-3 rounded-2xl border border-indigo-200 hover:border-indigo-400"><span class="font-bold text-indigo-950 block">Coherent · 5-0-5-0</span><span class="text-xs text-slate-500">Smooth, hold-free rhythm at about 6 breaths a minute.</span></button>
+          <button data-preset="calm" class="preset-btn text-left px-4 py-3 rounded-2xl border border-indigo-200 hover:border-indigo-400"><span class="font-bold text-indigo-950 block">Calm · 4-0-6-0</span><span class="text-xs text-slate-500">Gentle longer exhale for everyday stress.</span></button>
+          <button data-preset="energize" class="preset-btn text-left px-4 py-3 rounded-2xl border border-indigo-200 hover:border-indigo-400"><span class="font-bold text-indigo-950 block">Energize · 2-1-4-1</span><span class="text-xs text-slate-500">Shorter, brighter rhythm for a mid-day lift.</span></button>
+        </div>
+      </div>
+      <div class="bg-indigo-950 text-white rounded-3xl p-5 sm:p-6">
+        <h3 class="font-display font-bold text-lg">How to sit</h3>
+        <ul class="text-sm text-indigo-200 space-y-2 mt-3 list-disc pl-5">
+          <li>Sit tall, shoulders down, jaw unclenched.</li>
+          <li>Breathe through your nose if that feels comfortable.</li>
+          <li>Let the shape lead — do not force the breath to fill.</li>
+          <li>In silent mode, rest your phone face-up and just watch the dot travel the square.</li>
+        </ul>
+        <div id="summaryBox" class="mt-4 bg-white/10 rounded-2xl p-4 text-sm">Session summary will appear here when you finish all target cycles.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE -->
+  <article class="bg-white rounded-3xl border border-indigo-100 shadow-sm p-6 sm:p-10 mt-8 prose-like" id="article">
+    <h2 class="font-display text-3xl font-bold text-indigo-950">Box Breathing, Explained: How the 4-4-4-4 Pattern Calms Your Body and Sharpens Your Mind</h2>
+    <p class="mt-4 text-slate-700 leading-relaxed">Breathing is the one part of your stress response that you can control on purpose. Your heart rate, digestion and adrenaline all shift automatically when you feel under pressure, but the rhythm of your breath is yours to set — and when you slow it down deliberately, the rest of the system tends to follow. That simple idea sits at the heart of box breathing, a structured technique that divides every breath into four equal sides, like the four sides of a square. You breathe in for a count, hold for the same count, breathe out for the same count, and hold once more before the next round begins. In its classic form each side lasts four seconds, giving the famous 4-4-4-4 pattern, a full cycle of sixteen seconds, and a breathing rate of under four breaths per minute — far slower than the twelve to twenty breaths most adults take without thinking.</p>
+    <p class="mt-4 text-slate-700 leading-relaxed">The technique is widely associated with military and performance training, where it is used to steady attention before demanding tasks. Pilots, athletes, surgeons, first responders and public speakers all face the same basic problem: the moment matters, nerves spike, and shallow rapid breathing makes thinking narrower exactly when it needs to be clear. A counted pattern gives the mind a simple job to do. Instead of spiralling through worries, attention rests on a count and a moving shape. That is why a visual trainer helps so much. Following a guide that grows as you inhale, pauses as you hold, shrinks as you exhale and rests as you hold again turns an abstract instruction — “breathe slowly” — into something your eyes can track second by second, even in complete silence.</p>
+    <h3 class="font-display text-2xl font-bold text-indigo-950 mt-8">What happens in each of the four phases</h3>
+    <p class="mt-3 text-slate-700 leading-relaxed">The inhale is the gathering phase. Drawing air in slowly through the nose for four seconds lets the diaphragm descend fully, so the belly expands rather than the chest lurching upward. A slow inhale also avoids the gulping that can leave people feeling more wired rather than less. The first hold, with the lungs comfortably full, is where many beginners feel the strongest urge to rush. Sitting with that fullness for four seconds teaches tolerance: nothing bad happens, the air is there, and the body learns that it does not need to snatch at the next breath. The exhale is the release phase, and physiologically it is the most calming side of the box. Long, slow out-breaths are closely linked with increased vagal activity, the parasympathetic “rest and digest” influence that eases heart rate and softens muscle tension. Finally, the hold with empty lungs closes the square. It is the quietest moment of the cycle, a small pause of stillness before the next inhale, and for many people it becomes the part they look forward to most — proof that calm can exist even in an empty, waiting moment.</p>
+    <p class="mt-4 text-slate-700 leading-relaxed">Because all four sides are equal, box breathing feels balanced and predictable, and predictability itself is soothing to a stressed nervous system. There are no surprises in the pattern. Your body quickly learns what comes next, and that learned rhythm can begin to settle you within just a few cycles. Most people notice a difference within ten cycles, which at sixteen seconds each is under three minutes — shorter than a kettle takes to boil. That brevity is a real advantage. A practice that needs forty-five minutes and a special room rarely survives a busy week, while a three-minute breathing reset can fit between meetings, before an exam, in a parked car, or in bed before sleep.</p>
+    <h3 class="font-display text-2xl font-bold text-indigo-950 mt-8">How to practise with BreathBox</h3>
+    <p class="mt-3 text-slate-700 leading-relaxed">Start exactly where the trainer starts: with the classic box. Sit upright with both feet on the floor, rest your hands loosely, and press start. Watch the guide dot travel around the square — up one side as you breathe in, across the top as you hold, down as you breathe out, and along the bottom as you hold again — while the inner shape expands and contracts with your breath. Keep the breath quiet and unforced. The goal is a smooth count, not the deepest possible breath. If four seconds feels like a stretch at first, that is normal; lower every phase to three seconds, or even two, and build up over days. A comfortable pattern practised daily beats an ambitious pattern abandoned after one uncomfortable session.</p>
+    <p class="mt-4 text-slate-700 leading-relaxed">The cycle counter and session timer exist for a reason: they remove decision-making. Before you begin, choose a target — ten cycles is a solid everyday session — and then simply follow the guide until the trainer tells you that you are done. Watching cycles accumulate gives a quiet sense of progress without needing an account, a streak, or a score. When the session completes, pause for a few normal breaths and notice what has changed. Is your heart beating more slowly? Are your shoulders lower? Is your jaw softer? That brief check-in trains interoception, your awareness of your own body, which is the skill that eventually lets you catch stress early in daily life, long before it peaks.</p>
+    <h3 class="font-display text-2xl font-bold text-indigo-950 mt-8">Customising the pattern: holds, long exhales and hold-free rhythms</h3>
+    <p class="mt-3 text-slate-700 leading-relaxed">Once the box feels familiar, custom phase lengths let you shape the practice to your purpose. Lengthening the exhale — as in the 4-7-8 pattern, where you inhale for four, hold for seven and exhale for eight — tilts the balance further toward relaxation, which is why many people use it as part of a wind-down routine before sleep. Removing the holds entirely gives smooth patterns such as coherent breathing at five seconds in and five seconds out, roughly six breaths per minute, a rhythm often used for general balance and heart-rate-variability practice. Shorter, brighter patterns with brief holds can feel energising rather than sedating, and suit a mid-afternoon dip better than a nap-like slow session. There is no single correct pattern for everyone. Comfort, consistency and intention matter more than chasing a fashionable set of numbers, and any pattern that makes you dizzy or strained is the wrong pattern for today — ease off, breathe normally, and try gentler settings next time.</p>
+    <p class="mt-4 text-slate-700 leading-relaxed">A few practical rules help every variation work better. Breathe through the nose where comfortable, since nasal breathing naturally slows airflow and warms it. Keep holds relaxed rather than braced: a hold should feel like pausing a slow walk, not like bracing for a dive. Sit rather than lie down for alert-focus sessions, and lie down if the goal is sleep. Avoid practising while driving or in water, for obvious safety reasons. And treat breathing practice as a complement to — never a replacement for — medical care. If you have a respiratory or cardiac condition, are pregnant, or find breath-holding uncomfortable, check with a qualified clinician about what is appropriate for you, and skip the holds if advised.</p>
+    <h3 class="font-display text-2xl font-bold text-indigo-950 mt-8">Why silent, visual-only practice matters</h3>
+    <p class="mt-3 text-slate-700 leading-relaxed">Many breathing apps rely on spoken instructions or chimes. Those help some people, but they fail in exactly the situations where a breathing reset is most needed: an open-plan office, a quiet train carriage, a classroom before an exam, a meeting room, or a bedroom where someone else is already asleep. BreathBox therefore puts the visual channel first. In silent visual-only mode there are no sounds at all — the expanding shape, the travelling dot, the phase labels and the big countdown number carry everything you need. You can rest the phone on your desk, glance at it between tasks, and breathe along without headphones, without noise, and without anyone around you knowing you are doing anything at all. Discretion is not a minor feature; for many people it is the difference between a technique they admire and a technique they actually use.</p>
+    <p class="mt-4 text-slate-700 leading-relaxed">Visual guidance has another advantage: it gives restless eyes a job. People who find closing their eyes during meditation uncomfortable — a surprisingly large group — often settle far better with a gentle moving focus. The square is a particularly good shape for this. It is stable, symmetrical and easy to remember, so after a few sessions you can picture it with your eyes closed and run the pattern unaided: on a plane, in a waiting room, or in the last minute before you walk into an interview. The trainer is, in that sense, training wheels for a skill you eventually carry in your head.</p>
+    <h3 class="font-display text-2xl font-bold text-indigo-950 mt-8">Building a small daily habit</h3>
+    <p class="mt-3 text-slate-700 leading-relaxed">The research and the lived experience of practitioners point the same way: short and regular beats long and rare. Anchor the practice to something you already do — morning coffee, the start of your commute, the moment you close your laptop, or getting into bed. Begin with five to ten cycles, keep the settings comfortable, and let the session timer handle the counting so your mind can stay on the breath. Over weeks, many people find their resting breathing naturally slows, their tolerance for the holds grows, and the box becomes a reliable switch they can flip when a day turns difficult. Save your favourite custom pattern, return to it, and let familiarity do its quiet work.</p>
+    <p class="mt-4 text-slate-700 leading-relaxed">BreathBox keeps all of this deliberately simple. There is nothing to install, no account to create, and no cost. Choose a preset or craft your own phases, set a target number of cycles, press start, and follow the square. Breathe in, hold, breathe out, hold — four sides, one calmer nervous system, a few minutes at a time.</p>
+
+    <h2 class="font-display text-3xl font-bold text-indigo-950 mt-10">Frequently asked questions</h2>
+    <div class="space-y-3 mt-5" id="faqList">
+      <details class="border border-indigo-100 rounded-2xl p-4"><summary class="font-bold text-indigo-950 cursor-pointer">What is box breathing and why is it called 4-4-4-4?</summary><p class="text-slate-600 text-sm mt-2 leading-relaxed">Box breathing is a counted breathing technique with four equal phases: breathe in, hold, breathe out, and hold again. In its classic form each phase lasts four seconds, written as 4-4-4-4. The four equal sides resemble a square or box, which is where the name comes from.</p></details>
+      <details class="border border-indigo-100 rounded-2xl p-4"><summary class="font-bold text-indigo-950 cursor-pointer">How long should a box breathing session last?</summary><p class="text-slate-600 text-sm mt-2 leading-relaxed">Most people feel a benefit from ten cycles, which takes about two minutes and forty seconds at the classic pace. Beginners can start with five cycles, while experienced practitioners may do twenty or more. Consistency matters more than length, so a short daily session is a great target.</p></details>
+      <details class="border border-indigo-100 rounded-2xl p-4"><summary class="font-bold text-indigo-950 cursor-pointer">Can I change the phase lengths in BreathBox?</summary><p class="text-slate-600 text-sm mt-2 leading-relaxed">Yes. You can set each phase independently, from zero seconds for a hold you want to skip up to sixty seconds. Presets such as 4-7-8 Relax and Coherent 5-5 are included, and any custom combination updates the cycle duration, session length and breaths-per-minute figures automatically.</p></details>
+      <details class="border border-indigo-100 rounded-2xl p-4"><summary class="font-bold text-indigo-950 cursor-pointer">What does silent visual-only mode do?</summary><p class="text-slate-600 text-sm mt-2 leading-relaxed">Silent visual-only mode turns off all sound cues so the session is guided purely by the animated shape, the dot travelling around the square, phase labels and the countdown number. It is ideal for offices, public transport, classrooms and bedrooms where sound would be unwelcome.</p></details>
+      <details class="border border-indigo-100 rounded-2xl p-4"><summary class="font-bold text-indigo-950 cursor-pointer">What if holding my breath feels uncomfortable?</summary><p class="text-slate-600 text-sm mt-2 leading-relaxed">Shorten the holds or set them to zero and use a hold-free pattern such as 5 seconds in and 5 seconds out. Never force a hold, and stop and breathe normally if you feel dizzy. If you have a medical condition, ask a clinician whether breath-holding exercises are suitable for you.</p></details>
+      <details class="border border-indigo-100 rounded-2xl p-4"><summary class="font-bold text-indigo-950 cursor-pointer">Is BreathBox free and do I need an account?</summary><p class="text-slate-600 text-sm mt-2 leading-relaxed">Yes, BreathBox is completely free with unlimited usage, and no account or signup is needed. Everything runs in your browser, so you can start a session immediately and practise as often as you like.</p></details>
+    </div>
+  </article>
+</main>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+(function(grnp){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = grnp || {};
+s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+    </div>
+  </div>
+</div>
+
+<footer class="border-t border-indigo-100 bg-white">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-6 flex flex-col sm:flex-row justify-between gap-2 text-sm text-slate-500">
+    <span><strong class="text-indigo-950">BreathBox</strong> — Breathe in. Hold. Breathe out. Hold.</span>
+    <span>For general wellbeing only — not medical advice.</span>
+  </div>
+<p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is box breathing and why is it called 4-4-4-4?","acceptedAnswer":{"@type":"Answer","text":"Box breathing is a counted breathing technique with four equal phases: breathe in, hold, breathe out, and hold again. In its classic form each phase lasts four seconds, written as 4-4-4-4. The four equal sides resemble a square or box, which is where the name comes from."}},{"@type":"Question","name":"How long should a box breathing session last?","acceptedAnswer":{"@type":"Answer","text":"Most people feel a benefit from ten cycles, which takes about two minutes and forty seconds at the classic pace. Beginners can start with five cycles, while experienced practitioners may do twenty or more. Consistency matters more than length, so a short daily session is a great target."}},{"@type":"Question","name":"Can I change the phase lengths in BreathBox?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can set each phase independently, from zero seconds for a hold you want to skip up to sixty seconds. Presets such as 4-7-8 Relax and Coherent 5-5 are included, and any custom combination updates the cycle duration, session length and breaths-per-minute figures automatically."}},{"@type":"Question","name":"What does silent visual-only mode do?","acceptedAnswer":{"@type":"Answer","text":"Silent visual-only mode turns off all sound cues so the session is guided purely by the animated shape, the dot travelling around the square, phase labels and the countdown number. It is ideal for offices, public transport, classrooms and bedrooms where sound would be unwelcome."}},{"@type":"Question","name":"What if holding my breath feels uncomfortable?","acceptedAnswer":{"@type":"Answer","text":"Shorten the holds or set them to zero and use a hold-free pattern such as 5 seconds in and 5 seconds out. Never force a hold, and stop and breathe normally if you feel dizzy. If you have a medical condition, ask a clinician whether breath-holding exercises are suitable for you."}},{"@type":"Question","name":"Is BreathBox free and do I need an account?","acceptedAnswer":{"@type":"Answer","text":"Yes, BreathBox is completely free with unlimited usage, and no account or signup is needed. Everything runs in your browser, so you can start a session immediately and practise as often as you like."}}]}
+</script>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var shape=$('breathShape'), dot=$('guideDot');
+  var audioCtx=null, running=false, paused=false, startStamp=0, elapsedBefore=0, rafId=null, lastPhase='';
+  function cfg(){ return BreathBoxLib.normalizeConfig(parseFloat($('inInhale').value), parseFloat($('inHoldIn').value), parseFloat($('inExhale').value), parseFloat($('inHoldOut').value)); }
+  function cycles(){ return BreathBoxLib.normalizeCycles($('inCycles').value); }
+  function syncPair(numId, rgId){ var n=$(numId), r=$(rgId); n.addEventListener('input',function(){ r.value=n.value; refreshMeta(); }); r.addEventListener('input',function(){ n.value=r.value; refreshMeta(); }); }
+  syncPair('inInhale','rgInhale'); syncPair('inHoldIn','rgHoldIn'); syncPair('inExhale','rgExhale'); syncPair('inHoldOut','rgHoldOut');
+  $('inCycles').addEventListener('input', refreshMeta);
+  function refreshMeta(){
+    var c=cfg(), err=$('configError');
+    if(!c){ err.textContent='Please check your phases: breathe in and breathe out must be at least 1 second, and every value must be a number between 0 and 60.'; err.classList.remove('hidden'); return; }
+    err.classList.add('hidden');
+    var cd=BreathBoxLib.cycleDuration(c), cy=cycles()||10;
+    $('cycleDurText').textContent=BreathBoxLib.formatDurationLabel(cd);
+    $('sessionDurText').textContent=BreathBoxLib.formatDurationLabel(cd*cy);
+    $('timeLeft').textContent=BreathBoxLib.formatTime(cd*cy);
+    $('bpmText').textContent=(Math.round(600/cd)/10)+' breaths / min';
+    document.querySelectorAll('.phase-chip').forEach(function(ch){ ch.style.opacity='1'; });
+    $('chip-holdIn').style.opacity = c.holdIn===0 ? '0.35' : '1';
+    $('chip-holdOut').style.opacity = c.holdOut===0 ? '0.35' : '1';
+    if(!running) $('statusMsg').textContent='Pattern set: '+c.inhale+' in, '+c.holdIn+' hold, '+c.exhale+' out, '+c.holdOut+' hold — for '+cy+' cycles.';
+  }
+  document.querySelectorAll('.preset-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var p=BreathBoxLib.presetByKey(btn.getAttribute('data-preset')); if(!p) return;
+      $('inInhale').value=p.inhale; $('rgInhale').value=Math.min(20,p.inhale);
+      $('inHoldIn').value=p.holdIn; $('rgHoldIn').value=p.holdIn;
+      $('inExhale').value=p.exhale; $('rgExhale').value=Math.min(20,p.exhale);
+      $('inHoldOut').value=p.holdOut; $('rgHoldOut').value=p.holdOut;
+      document.querySelectorAll('.preset-btn').forEach(function(b){ b.classList.remove('border-indigo-600','bg-indigo-50','border-2'); b.classList.add('border'); });
+      btn.classList.add('border-indigo-600','bg-indigo-50','border-2');
+      refreshMeta();
+    });
+  });
+  function beep(){
+    if($('silentToggle').checked) return;
+    try{ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); var o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.frequency.value=520; g.gain.value=0.06; o.connect(g); g.connect(audioCtx.destination); o.start(); g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime+0.35); o.stop(audioCtx.currentTime+0.4);}catch(e){}
+  }
+  function dotPos(phase, progress){
+    // travel clockwise around square: inhale up left side? Use perimeter mapping by phase index order
+    var phases=BreathBoxLib.activePhases(cfg()); var idx=0; for(var i=0;i<phases.length;i++) if(phases[i].key===phase) idx=i;
+    var side=idx%4, p=progress;
+    if(side===0) return {x:0, y:100-p*100};
+    if(side===1) return {x:p*100, y:0};
+    if(side===2) return {x:100, y:p*100};
+    return {x:100-p*100, y:100};
+  }
+  function tick(){
+    if(!running) return;
+    var c=cfg(); if(!c){ stopSession('Invalid settings — please fix the phase values.'); return; }
+    var cy=cycles()||10, total=BreathBoxLib.totalDuration(c,cy);
+    var elapsed=elapsedBefore+(Date.now()-startStamp)/1000;
+    if(elapsed>=total){ finishSession(c,cy,total); return; }
+    var info=BreathBoxLib.getPhaseAt(elapsed,c); if(!info){ rafId=requestAnimationFrame(tick); return; }
+    if(info.phase!==lastPhase){ lastPhase=info.phase; beep(); if(navigator.vibrate && !$('silentToggle').checked) navigator.vibrate(30); }
+    var scale=BreathBoxLib.scaleForPhase(info.phase, info.progress);
+    shape.style.transform='scale('+scale+')';
+    shape.style.borderRadius = info.phase.indexOf('hold')===0 ? '50%' : '2rem';
+    var pos=dotPos(info.phase, info.progress);
+    dot.style.left=pos.x+'%'; dot.style.top=pos.y+'%';
+    $('phaseLabel').textContent=info.label;
+    $('phaseCount').textContent=Math.ceil(info.remainingInPhase-0.001) || 1;
+    $('phaseHint').textContent='Cycle '+info.cycleNumber+' of '+cy;
+    document.querySelectorAll('.phase-chip').forEach(function(ch){ ch.classList.remove('phase-on'); });
+    var chip=$('chip-'+info.phase); if(chip) chip.classList.add('phase-on');
+    $('cycleCount').textContent=BreathBoxLib.cyclesCompletedAt(elapsed,c);
+    $('sessionTimer').textContent=BreathBoxLib.formatTime(elapsed);
+    $('timeLeft').textContent=BreathBoxLib.formatTime(BreathBoxLib.remainingSeconds(elapsed,c,cy));
+    var pct=Math.round(BreathBoxLib.sessionProgress(elapsed,c,cy)*100);
+    $('sessionBar').style.width=pct+'%'; $('progressText').textContent=pct+'% of session';
+    rafId=requestAnimationFrame(tick);
+  }
+  function startSession(){
+    if(!cfg()){ refreshMeta(); $('statusMsg').textContent='Fix the phase values first, then press Start.'; return; }
+    running=true; paused=false; startStamp=Date.now(); lastPhase='';
+    $('startBtn').disabled=true; $('startBtn').classList.add('opacity-50'); $('pauseBtn').disabled=false; $('pauseBtn').textContent='Pause';
+    $('statusMsg').textContent=$('silentToggle').checked?'Silent session running — follow the shape and the dot.':'Session running — soft tones mark each new phase.';
+    rafId=requestAnimationFrame(tick);
+  }
+  function stopSession(msg){ running=false; if(rafId) cancelAnimationFrame(rafId); $('startBtn').disabled=false; $('startBtn').classList.remove('opacity-50'); $('pauseBtn').disabled=true; if(msg) $('statusMsg').textContent=msg; }
+  function finishSession(c,cy,total){
+    running=false; elapsedBefore=0;
+    $('cycleCount').textContent=cy; $('sessionTimer').textContent=BreathBoxLib.formatTime(total); $('timeLeft').textContent='00:00';
+    $('sessionBar').style.width='100%'; $('progressText').textContent='100% of session';
+    $('phaseLabel').textContent='Well done'; $('phaseCount').textContent='✓'; $('phaseHint').textContent='Take a few normal breaths';
+    shape.style.transform='scale(0.8)';
+    $('summaryBox').innerHTML='<strong>Session complete.</strong><br>You finished '+cy+' cycles in '+BreathBoxLib.formatDurationLabel(total)+' using a '+c.inhale+'-'+c.holdIn+'-'+c.exhale+'-'+c.holdOut+' pattern. Notice how your body feels before you move on.';
+    $('statusMsg').textContent='Session complete — well done. Press Start to go again.';
+    $('startBtn').disabled=false; $('startBtn').classList.remove('opacity-50'); $('pauseBtn').disabled=true;
+    if(!$('silentToggle').checked){ beep(); setTimeout(beep,350); }
+  }
+  $('startBtn').addEventListener('click', startSession);
+  $('pauseBtn').addEventListener('click', function(){
+    if(!running) return;
+    if(!paused){ paused=true; elapsedBefore+= (Date.now()-startStamp)/1000; running=false; cancelAnimationFrame(rafId); this.textContent='Resume'; $('statusMsg').textContent='Paused. Press Resume when you are ready.'; }
+    else { paused=false; running=true; startStamp=Date.now(); this.textContent='Pause'; rafId=requestAnimationFrame(tick); }
+  });
+  $('resetBtn').addEventListener('click', function(){
+    stopSession('Reset. Press Start when you are ready.'); paused=false; elapsedBefore=0; lastPhase='';
+    $('cycleCount').textContent='0'; $('sessionTimer').textContent='00:00'; $('sessionBar').style.width='0%'; $('progressText').textContent='0% of session';
+    $('phaseLabel').textContent='Ready?'; $('phaseCount').textContent='4'; $('phaseHint').textContent='Press Start when you are ready';
+    shape.style.transform='scale(0.62)'; dot.style.left='0%'; dot.style.top='100%';
+    document.querySelectorAll('.phase-chip').forEach(function(ch){ ch.classList.remove('phase-on'); });
+    refreshMeta();
+  });
+  $('silentToggle').addEventListener('change', function(){ $('statusMsg').textContent=this.checked?'Silent visual-only mode on — no sounds, just the guide.':'Sound cues on — a soft tone will mark each phase.'; });
+  shape.style.transform='scale(0.62)'; dot.style.left='0%'; dot.style.top='100%';
+  refreshMeta();
+})();
+</script>
+</body>
+</html>
