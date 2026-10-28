@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dog Chocolate Toxicity Calculator — Is It an Emergency? | ChocoCheck</title>
+<meta name="description" content="Free dog chocolate toxicity calculator: instant theobromine dose (mg/kg), risk level, per-type comparison and emergency steps. No signup.">
+<link rel="canonical" href="https://health.fixoraa.tech/chococheck/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Dog Chocolate Toxicity Calculator — Is It an Emergency? | ChocoCheck">
+<meta property="og:description" content="Free dog chocolate toxicity calculator: instant theobromine dose (mg/kg), risk level, per-type comparison and emergency steps. No signup.">
+<meta property="og:url" content="https://health.fixoraa.tech/chococheck/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "ChocoCheck",
+      "url": "https://health.fixoraa.tech/chococheck/",
+      "applicationCategory": "Pet Tools",
+      "operatingSystem": "Web",
+      "description": "Free dog chocolate toxicity calculator: instant theobromine dose (mg/kg), risk level, per-type comparison and emergency steps. No signup.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much chocolate is toxic to a dog?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the dog's weight and the chocolate type. Vets measure the dose in mg of theobromine per kg of body weight: under 20 mg/kg is usually low risk, 20-40 brings vomiting and restlessness, 40-60 can cause tremors and heart issues, and over 60 mg/kg is severe. Small dogs reach dangerous doses from much smaller amounts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "My dog ate chocolate an hour ago and seems fine. Are we okay?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily - symptoms typically start 2 to 4 hours after ingestion and can escalate over 24 hours, because theobromine clears very slowly in dogs. 'Seems fine' in the first hour means little. Calculate the estimated dose with ChocoCheck and call your vet with the numbers rather than waiting for symptoms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I make my dog vomit after eating chocolate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only if your vet or poison control explicitly tells you to, and only exactly as they instruct. Home vomiting induction with hydrogen peroxide or similar can cause severe stomach damage or fatal aspiration, and it is dangerous if the dog is already showing neurological signs. Call first, act second."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is white chocolate dangerous for dogs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "White chocolate contains almost no theobromine (about 0.25 mg/g), so true theobromine poisoning from it is rare. But its high fat and sugar content can trigger acute pancreatitis, which is painful and can be serious. Monitor your dog and call the vet if vomiting or abdominal pain develops."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which chocolate is most dangerous for dogs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dry cocoa powder is the most dangerous per gram (around 28 mg of theobromine per gram), followed by unsweetened baking chocolate (around 16 mg/g), dark chocolate (5-16 mg/g depending on cacao percentage), milk chocolate (around 2 mg/g), and white chocolate (negligible theobromine)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does chocolate poisoning last in dogs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because theobromine's half-life in dogs is about 17.5 hours, signs can persist for up to 72 hours. Mild cases often resolve within a day with monitoring; severe cases may need 24-72 hours of veterinary hospitalization with IV fluids and heart monitoring."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#17100B; --surface:#241811; --accent:#E8963C; --accent-ink:#1F130A;
+  --ink:#F5EDE3; --muted:#C9B49C; --line:#3D2C1E;
+  --display:'Sora',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.cc-wrap{font-family:'Sora',Inter,system-ui,sans-serif;background:
+radial-gradient(1000px 480px at 50% -100px, #2A1C10 0%, #17100B 55%, #120C08 100%);
+color:#F5EDE3;padding:56px 18px 72px;}
+.cc-inner{max-width:1080px;margin:0 auto;}
+.cc-eyebrow{text-align:center;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#E8963C;margin-bottom:14px;}
+.cc-h1{text-align:center;font-size:clamp(32px,4.8vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.01em;margin:0 0 12px;}
+.cc-tag{text-align:center;color:#C9B49C;font-size:17.5px;margin:0 0 12px;font-family:Inter,system-ui,sans-serif;}
+.cc-calm{text-align:center;color:#C9B49C;font-size:14px;margin:0 0 38px;font-family:Inter,system-ui,sans-serif;}
+.cc-calm strong{color:#E8963C;}
+.cc-bento{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;align-items:stretch;}
+.cc-tile{background:#241811;border:1px solid #3D2C1E;border-radius:18px;padding:26px 24px;
+box-shadow:0 16px 40px rgba(0,0,0,.35);position:relative;overflow:hidden;}
+.cc-tile::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,transparent,#E8963C,transparent);opacity:.5;}
+.cc-cap{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-family:Inter,system-ui,sans-serif;}
+.cc-cap .cc-k{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#E8963C;}
+.cc-cap .cc-t{font-size:12.5px;color:#C9B49C;font-style:italic;}
+.cc-tile h2{font-size:22px;margin:0 0 8px;font-weight:700;}
+.cc-sub{color:#C9B49C;font-size:14.5px;margin:0 0 18px;line-height:1.6;font-family:Inter,system-ui,sans-serif;}
+.cc-inputs{grid-column:span 4;}
+.cc-dialtile{grid-column:span 8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:380px;}
+.cc-compare{grid-column:span 7;}
+.cc-action{grid-column:span 5;}
+.cc-timeline{grid-column:span 12;}
+.cc-field{margin-bottom:15px;font-family:Inter,system-ui,sans-serif;}
+.cc-field label{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#C9B49C;margin-bottom:8px;}
+.cc-row{display:flex;gap:10px;}
+.cc-row input{flex:1;min-width:0;padding:12px 14px;font-size:17px;border:2px solid #3D2C1E;border-radius:12px;
+background:#17100B;color:#F5EDE3;font-family:Inter,system-ui,sans-serif;}
+.cc-row input:focus{outline:none;border-color:#E8963C;}
+.cc-toggle{display:flex;border:2px solid #3D2C1E;border-radius:12px;overflow:hidden;flex-shrink:0;}
+.cc-toggle button{border:none;background:#17100B;padding:12px 14px;font-size:14px;font-weight:700;cursor:pointer;color:#C9B49C;font-family:Inter,system-ui,sans-serif;}
+.cc-toggle button.on{background:#E8963C;color:#1F130A;}
+.cc-types{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cc-types button{border:2px solid #3D2C1E;background:#17100B;color:#F5EDE3;border-radius:12px;padding:10px 8px;
+font-size:13.5px;font-weight:600;cursor:pointer;font-family:Inter,system-ui,sans-serif;line-height:1.35;}
+.cc-types button small{display:block;color:#C9B49C;font-weight:400;font-size:11.5px;}
+.cc-types button.on{border-color:#E8963C;background:#2E2013;}
+.cc-btn{width:100%;background:#E8963C;color:#1F130A;border:none;border-radius:14px;padding:15px;font-size:17px;font-weight:800;
+cursor:pointer;font-family:'Sora',Inter,sans-serif;margin-top:6px;box-shadow:0 10px 26px rgba(232,150,60,.25);}
+.cc-btn:hover{filter:brightness(1.07);}
+.cc-dialwrap{position:relative;width:250px;height:250px;margin:6px auto 4px;}
+.cc-dose{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.cc-dose .cc-num{font-size:52px;font-weight:800;line-height:1;}
+.cc-dose .cc-unit{font-size:13px;color:#C9B49C;font-family:Inter,system-ui,sans-serif;margin-top:4px;}
+.cc-band{display:inline-block;margin-top:14px;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+border-radius:999px;padding:9px 22px;font-family:Inter,system-ui,sans-serif;}
+.cc-bandnote{color:#C9B49C;font-size:14.5px;margin-top:14px;max-width:520px;line-height:1.65;font-family:Inter,system-ui,sans-serif;}
+.cc-bars{display:flex;flex-direction:column;gap:12px;font-family:Inter,system-ui,sans-serif;}
+.cc-bar-row{display:grid;grid-template-columns:118px 1fr 92px;gap:10px;align-items:center;font-size:13.5px;}
+.cc-bar-row .cc-n{color:#F5EDE3;font-weight:600;}
+.cc-bar-track{height:12px;background:#17100B;border-radius:999px;overflow:hidden;border:1px solid #3D2C1E;}
+.cc-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#E8963C,#D64545);width:0;transition:width .6s ease;}
+.cc-bar-row .cc-g{color:#C9B49C;text-align:right;white-space:nowrap;}
+.cc-steps{list-style:none;margin:0;padding:0;counter-reset:st;font-family:Inter,system-ui,sans-serif;}
+.cc-steps li{counter-increment:st;display:flex;gap:14px;padding:12px 0;border-bottom:1px dashed #3D2C1E;font-size:14.5px;line-height:1.6;color:#F5EDE3;}
+.cc-steps li:last-child{border-bottom:none;}
+.cc-steps li::before{content:counter(st);flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#E8963C;color:#1F130A;
+font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;}
+.cc-steps li small{display:block;color:#C9B49C;}
+.cc-tl{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;font-family:Inter,system-ui,sans-serif;}
+.cc-tl div{background:#17100B;border:1px solid #3D2C1E;border-radius:12px;padding:16px;}
+.cc-tl .cc-when{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E8963C;margin-bottom:6px;}
+.cc-tl p{font-size:14px;color:#F5EDE3;margin:0;line-height:1.6;}
+.cc-tl p small{color:#C9B49C;}
+@media (max-width:900px){.cc-inputs{grid-column:span 12;}.cc-dialtile{grid-column:span 12;min-height:340px;}
+.cc-compare{grid-column:span 12;}.cc-action{grid-column:span 12;}.cc-tl{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.cc-tl{grid-template-columns:1fr;}.cc-bar-row{grid-template-columns:96px 1fr 80px;}}
+.cc-tile{transition:transform .25s ease, box-shadow .25s ease;}
+.cc-tile:hover{transform:translateY(-3px);box-shadow:0 22px 48px rgba(0,0,0,.45);}
+@media (max-width:640px){.cc-eyebrow{letter-spacing:.16em;}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="ChocoCheck home">
+      <span class="fx-logo-tile" aria-hidden="true">🍫</span>
+      <span class="fx-brand">ChocoCheck</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-gallery-grid" aria-label="ChocoCheck tool">
+<section class="cc-wrap"><div class="cc-inner">
+<p class="cc-eyebrow">The Calm Triage Gallery &middot; Five Panels</p>
+<h1 class="cc-h1">Dog Chocolate Toxicity Calculator</h1>
+<p class="cc-tag">Your dog ate chocolate? Get a calm, instant risk read.</p>
+<p class="cc-calm">Breathe. Enter what happened below &mdash; <strong>this is triage guidance, not a vet visit.</strong> When in doubt, call your vet now.</p>
+<div class="cc-bento">
+<div class="cc-tile cc-inputs">
+<div class="cc-cap"><span class="cc-k">Panel 1</span><span class="cc-t">what happened</span></div>
+<h2>The Details</h2>
+<p class="cc-sub">Three facts decide everything: your dog's weight, the chocolate type, and how much was eaten.</p>
+<div class="cc-field"><label for="cc-w">Dog's weight</label>
+<div class="cc-row"><input type="number" id="cc-w" min="1" max="400" step="0.5" value="20" inputmode="decimal">
+<div class="cc-toggle" role="group" aria-label="Weight units"><button id="cc-kg" class="on" type="button">kg</button><button id="cc-lb" type="button">lb</button></div></div></div>
+<div class="cc-field"><label>Chocolate type</label>
+<div class="cc-types" id="cc-types">
+<button type="button" data-t="white" data-mg="0.25">White<small>&asymp;0.25 mg/g</small></button>
+<button type="button" data-t="milk" data-mg="2.3" class="on">Milk<small>&asymp;2.3 mg/g</small></button>
+<button type="button" data-t="dark" data-mg="5.5">Dark<small>&asymp;5.5 mg/g</small></button>
+<button type="button" data-t="baking" data-mg="16">Baking<small>&asymp;16 mg/g</small></button>
+<button type="button" data-t="cocoa" data-mg="28.5">Cocoa powder<small>&asymp;28.5 mg/g</small></button>
+</div></div>
+<div class="cc-field"><label for="cc-a">Amount eaten</label>
+<div class="cc-row"><input type="number" id="cc-a" min="1" max="5000" step="1" value="100" inputmode="decimal">
+<div class="cc-toggle" role="group" aria-label="Amount units"><button id="cc-g" class="on" type="button">g</button><button id="cc-oz" type="button">oz</button></div></div></div>
+<button class="cc-btn" id="cc-go" type="button">Check the risk</button>
+</div>
+<div class="cc-tile cc-dialtile">
+<div class="cc-cap" style="width:100%"><span class="cc-k">Panel 2</span><span class="cc-t">the verdict</span></div>
+<div class="cc-dialwrap">
+<svg viewBox="0 0 250 250" width="250" height="250" aria-hidden="true">
+<circle cx="125" cy="125" r="104" fill="none" stroke="#17100B" stroke-width="26"/>
+<circle id="cc-arc" cx="125" cy="125" r="104" fill="none" stroke="#7BC47F" stroke-width="26" stroke-linecap="round"
+stroke-dasharray="653.4" stroke-dashoffset="653.4" transform="rotate(-90 125 125)" style="transition:stroke-dashoffset .8s ease, stroke .4s ease;"/>
+</svg>
+<div class="cc-dose"><span class="cc-num" id="cc-num">&ndash;</span><span class="cc-unit">mg theobromine / kg</span></div>
+</div>
+<span class="cc-band" id="cc-band" style="background:#3D2C1E;color:#C9B49C;">Awaiting details</span>
+<p class="cc-bandnote" id="cc-note">Press &ldquo;Check the risk&rdquo; and this dial will show your dog's estimated dose against veterinary danger thresholds.</p>
+</div>
+<div class="cc-tile cc-compare">
+<div class="cc-cap"><span class="cc-k">Panel 3</span><span class="cc-t">compare types</span></div>
+<h2>What If It Were Another Type?</h2>
+<p class="cc-sub">Same dog, same amount &mdash; how the dose changes by chocolate type. Bars show dose relative to the 60 mg/kg severe line.</p>
+<div class="cc-bars" id="cc-bars"></div>
+</div>
+<div class="cc-tile cc-action">
+<div class="cc-cap"><span class="cc-k">Panel 4</span><span class="cc-t">act now</span></div>
+<h2>The Next 30 Minutes</h2>
+<p class="cc-sub">Do these in order. Speed matters more than perfection.</p>
+<ol class="cc-steps">
+<li><span>Secure the scene<small>Take away remaining chocolate. Note the wrapper: brand, type, and how much is missing.</small></span></li>
+<li><span>Call your vet or poison control<small>Give them: dog's weight, chocolate type, amount, and when it was eaten. Follow their instructions exactly.</small></span></li>
+<li><span>Do NOT induce vomiting on your own<small>Only if the vet tells you to, and only how they tell you. Wrong technique can cause serious harm.</small></span></li>
+<li><span>Watch and note symptoms<small>Vomiting, restlessness, racing heart, tremors &mdash; write down what you see and when. It helps the vet.</small></span></li>
+</ol>
+</div>
+<div class="cc-tile cc-timeline">
+<div class="cc-cap"><span class="cc-k">Panel 5</span><span class="cc-t">what to expect</span></div>
+<h2>Symptom Timeline</h2>
+<p class="cc-sub">Theobromine clears slowly in dogs (half-life &asymp;17.5 hours), so this unfolds over days, not minutes.</p>
+<div class="cc-tl">
+<div><div class="cc-when">0&ndash;2 hours</div><p>Often nothing yet. <small>The calm before &mdash; still the best window to call the vet.</small></p></div>
+<div><div class="cc-when">2&ndash;6 hours</div><p>Vomiting, diarrhea, restlessness, heavy panting. <small>Mild doses often stop here.</small></p></div>
+<div><div class="cc-when">6&ndash;24 hours</div><p>Racing heart, tremors, agitation at higher doses. <small>Severe cases may seize &mdash; emergency care.</small></p></div>
+<div><div class="cc-when">24&ndash;72 hours</div><p>Gradual clearance. <small>Signs fade as theobromine leaves the body; keep monitoring.</small></p></div>
+</div>
+</div>
+</div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why Chocolate Is Dangerous for Dogs</h2><p>Chocolate contains <strong>theobromine</strong> (and smaller amounts of caffeine), compounds in the methylxanthine family. Humans metabolize theobromine quickly &mdash; its half-life in people is two to three hours. Dogs metabolize it <em>far</em> more slowly: the half-life in dogs is roughly <strong>17.5 hours</strong>. That means a single indulgence keeps stimulating your dog's nervous system and heart for days, accumulating faster than the body can clear it.</p><p>As theobromine builds up, it overstimulates the central nervous system, speeds the heart, raises blood pressure, and in high doses triggers tremors, seizures, and dangerous heart rhythms. The darker the chocolate, the more theobromine per gram &mdash; which is why a nibble of baking chocolate can be more dangerous than a whole milk-chocolate bar. Fat and sugar add their own trouble (pancreatitis risk), but theobromine is the killer.</p><h2>The Math: How the Dose Is Calculated</h2><p>Veterinary toxicology reduces the whole question to one number: <strong>milligrams of theobromine per kilogram of body weight (mg/kg)</strong>.</p><p><strong>Dose (mg/kg) = grams eaten &times; theobromine per gram &divide; dog's weight in kg</strong></p><p>Theobromine content varies by type (average values used by vets): white chocolate &asymp;0.25 mg/g, milk &asymp;2.3 mg/g, dark &asymp;5.5 mg/g, baking/unsweetened &asymp;16 mg/g, dry cocoa powder &asymp;28.5 mg/g. Worked example: a 10 kg Beagle eats 50 g of baking chocolate. 50 &times; 16 = 800 mg total; 800 &divide; 10 = <strong>80 mg/kg</strong> &mdash; a severe, emergency-level dose from less than two ounces.</p><p>Notice what the division does: a 5 kg dog eating the same 50 g gets 160 mg/kg &mdash; double the dose, potentially fatal. Small dogs are at dramatically higher risk from the same &ldquo;small bite,&rdquo; which is exactly why the calculator asks for weight first.</p><h2>The Danger Thresholds, Explained</h2><table><thead><tr><th>Dose (mg/kg)</th><th>Risk level</th><th>What to expect</th></tr></thead><tbody><tr><td>Under 20</td><td>Low</td><td>Usually no real trouble; mild stomach upset possible from fat/sugar</td></tr><tr><td>20&ndash;40</td><td>Mild to moderate</td><td>Vomiting, diarrhea, restlessness, increased thirst &mdash; vet guidance advised</td></tr><tr><td>40&ndash;60</td><td>Moderate to severe</td><td>Tremors, racing heart, high blood pressure &mdash; urgent vet care</td></tr><tr><td>60&ndash;100</td><td>Severe</td><td>Seizures, dangerous arrhythmias &mdash; emergency hospitalization</td></tr><tr><td>Over 100</td><td>Critical</td><td>Potentially fatal &mdash; immediate emergency intervention</td></tr></tbody></table><p>These are the thresholds used across veterinary references (including the MSD Veterinary Manual). They are estimates, not guarantees &mdash; elderly dogs, puppies, and dogs with heart conditions can show severe signs at lower doses. When the number lands near a boundary, round your worry <em>up</em>, not down.</p><h2>Which Chocolate Is the Most Dangerous?</h2><p>Per gram, the ranking is clear: <strong>cocoa powder &gt; baking chocolate &gt; dark chocolate &gt; milk chocolate &gt; white chocolate</strong>. Cocoa powder can carry roughly 28 mg of theobromine per gram &mdash; more than ten times milk chocolate. A teaspoon of cocoa powder (about 5 g) delivers ~140 mg of theobromine: enough to push a 5 kg dog to 28 mg/kg, into the mild-to-moderate band, from a <em>teaspoon</em>.</p><p>Baking chocolate is the classic killer because it combines high theobromine (~16 mg/g) with being sold in large bars that dogs happily eat whole. Dark chocolate varies widely (5&ndash;16 mg/g depending on cacao percentage) &mdash; when in doubt, assume the higher end. Milk chocolate is the most <em>commonly</em> eaten and the least potent per gram, which is why so many &ldquo;my dog ate a chocolate bar&rdquo; stories end fine &mdash; but a small dog plus a large bar still lands in danger. White chocolate has negligible theobromine but enough fat and sugar to trigger pancreatitis, so it is not harmless either.</p><h2>Symptoms: What They Look Like and When</h2><p>Signs typically begin <strong>2 to 4 hours</strong> after ingestion and can persist up to <strong>72 hours</strong> because clearance is so slow. Early signs are gastrointestinal and behavioral: vomiting, diarrhea, restlessness, pacing, excessive panting and drinking. These alone warrant a vet call at moderate doses.</p><p>As the dose climbs, cardiac signs appear: a racing heart (often over 160&ndash;180 beats per minute), high blood pressure, irregular rhythms. Neurological signs follow at high doses: muscle tremors, rigid agitation, hyperthermia (overheating), and generalized seizures. The progression is dose-dependent and not strictly linear &mdash; a dog can look merely restless at hour three and be seizing at hour eight. That delayed escalation is why &ldquo;he seems fine&rdquo; in the first hour means nothing, and why the vet wants to know the <em>estimated dose</em>, not just how the dog looks right now.</p><h2>What To Do: The First 30 Minutes</h2><p><strong>Step 1 &mdash; secure the scene.</strong> Remove any remaining chocolate and grab the wrapper. The vet needs: brand and type of chocolate, how much is missing (weigh the remainder if you can), your dog's weight, and when it was eaten.</p><p><strong>Step 2 &mdash; call your vet or an animal poison control line immediately.</strong> Give them the four facts above. They will calculate the dose (exactly what ChocoCheck does) and tell you whether to monitor at home or come in now. This call costs little and buys everything.</p><p><strong>Step 3 &mdash; do NOT induce vomiting unless told to.</strong> This is the mistake well-meaning owners make most. Hydrogen peroxide and other home emetics can cause severe stomach ulceration or fatal aspiration if done wrong, and vomiting is dangerous if the dog is already showing neurological signs. Only induce vomiting under direct veterinary instruction, exactly as instructed.</p><p><strong>Step 4 &mdash; watch and document.</strong> Note symptoms and times: first vomit at 2:15, restless at 3:00, and so on. Bring the notes. If the vet decides on decontamination (activated charcoal, IV fluids, heart monitoring, anti-seizure medication), your timeline helps them dose and time treatment.</p><h2>What the Vet Actually Does</h2><p>Knowing the treatment demystifies the emergency visit. For recent ingestion at a concerning dose, the vet may induce controlled vomiting and give <strong>activated charcoal</strong>, which binds theobromine in the gut &mdash; sometimes in repeated doses, since theobromine recirculates. IV fluids support circulation and help flush the drug; heart rhythm is monitored (ECG) and treated with anti-arrhythmics if needed; tremors and seizures are controlled with medication; body temperature is managed.</p><p>Mild cases often go home the same day with monitoring instructions. Severe cases may need 24&ndash;72 hours of hospitalization &mdash; remember that 17.5-hour half-life. The good news: with prompt treatment, the prognosis for chocolate toxicity is generally good. Dogs die from chocolate when treatment is delayed, not when it is sought.</p><h2>Prevention: Making Your Home Chocolate-Safe</h2><p>Most chocolate poisonings are not dramatic &mdash; they are a counter-surfed holiday stash. The highest-risk calendar: Halloween, Christmas, Valentine's Day, and Easter, when chocolate sits at dog-nose height in decorative bags. Dogs can smell through wrapping, and a determined Lab can clear a coffee table in seconds.</p><p>Practical defenses: store all chocolate above counter height in closed cabinets (not just &ldquo;on the counter&rdquo; &mdash; counters are a suggestion to a motivated dog); teach a rock-solid &ldquo;leave it&rdquo; and &ldquo;drop it&rdquo;; brief every human in the house, especially kids and guests, that chocolate is never a dog treat; and around holidays, do a five-minute &ldquo;dog's-eye&rdquo; sweep of accessible surfaces. Cocoa mulch in gardens is a lesser-known hazard &mdash; it smells like chocolate because it nearly is, and dogs do eat it. If you garden, choose another mulch.</p><p>One more habit worth building: <strong>photograph the wrapper</strong> before you throw it away. In the panic of the moment, &ldquo;it was the dark one, I think&rdquo; is a shaky basis for a dose calculation. A photo gives the vet the exact product, cacao percentage, and net weight &mdash; turning a guessing game into arithmetic. Keep ChocoCheck bookmarked on your phone next to your vet's number; the tool you can reach in ten seconds is the tool that actually gets used.</p><h2>Three Real Scenarios, Worked Through</h2><p>Numbers stick better than thresholds, so here are three cases ChocoCheck sees constantly. <strong>Case one:</strong> a 25 kg Labrador eats an entire 100 g milk-chocolate bar. 100 &times; 2.3 = 230 mg; 230 &divide; 25 = <strong>9.2 mg/kg</strong> &mdash; low risk. The Lab will probably be fine, maybe with mild stomach upset from the fat and sugar. Still worth a vet call, but nobody needs to panic.</p><p><strong>Case two:</strong> a 6 kg Dachshund eats the same 100 g milk-chocolate bar. Same 230 mg, but 230 &divide; 6 = <strong>38 mg/kg</strong> &mdash; mild to moderate, bordering on serious. Vomiting and a racing heart are likely; the vet will want to hear about this one, and may ask you to come in.</p><p><strong>Case three:</strong> a 10 kg Beagle finds 50 g of baking chocolate. 50 &times; 16 = 800 mg; 800 &divide; 10 = <strong>80 mg/kg</strong> &mdash; severe. This is an emergency even though &ldquo;it was only a few squares.&rdquo; Three scenarios, three wildly different answers from the same instinct (&ldquo;he ate chocolate&rdquo;) &mdash; which is exactly why the dose math matters more than the story.</p><h2>Common Myths, Corrected</h2><p><strong>&ldquo;A little chocolate never hurt any dog.&rdquo;</strong> Small amounts of milk chocolate often cause no symptoms in medium and large dogs &mdash; that is luck with the math, not safety. The same amount can hospitalize a Chihuahua.</p><p><strong>&ldquo;White chocolate is safe.&rdquo;</strong> Low theobromine, yes &mdash; but the fat load can trigger acute pancreatitis, which is its own emergency.</p><p><strong>&ldquo;If he vomits it up, we're fine.&rdquo;</strong> Vomiting removes what is still in the stomach, not what is already absorbed &mdash; and absorption starts fast. Still call the vet.</p><p><strong>&ldquo;Dark chocolate is healthy, so it's fine.&rdquo;</strong> The antioxidants are for you. For dogs, darker means more theobromine means more dangerous. There is no healthy chocolate for dogs, at any percentage.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How much chocolate is toxic to a dog?</summary><p>It depends on the dog's weight and the chocolate type. Vets measure the dose in mg of theobromine per kg of body weight: under 20 mg/kg is usually low risk, 20-40 brings vomiting and restlessness, 40-60 can cause tremors and heart issues, and over 60 mg/kg is severe. Small dogs reach dangerous doses from much smaller amounts.</p></details>
+<details><summary>My dog ate chocolate an hour ago and seems fine. Are we okay?</summary><p>Not necessarily - symptoms typically start 2 to 4 hours after ingestion and can escalate over 24 hours, because theobromine clears very slowly in dogs. 'Seems fine' in the first hour means little. Calculate the estimated dose with ChocoCheck and call your vet with the numbers rather than waiting for symptoms.</p></details>
+<details><summary>Should I make my dog vomit after eating chocolate?</summary><p>Only if your vet or poison control explicitly tells you to, and only exactly as they instruct. Home vomiting induction with hydrogen peroxide or similar can cause severe stomach damage or fatal aspiration, and it is dangerous if the dog is already showing neurological signs. Call first, act second.</p></details>
+<details><summary>Is white chocolate dangerous for dogs?</summary><p>White chocolate contains almost no theobromine (about 0.25 mg/g), so true theobromine poisoning from it is rare. But its high fat and sugar content can trigger acute pancreatitis, which is painful and can be serious. Monitor your dog and call the vet if vomiting or abdominal pain develops.</p></details>
+<details><summary>Which chocolate is most dangerous for dogs?</summary><p>Dry cocoa powder is the most dangerous per gram (around 28 mg of theobromine per gram), followed by unsweetened baking chocolate (around 16 mg/g), dark chocolate (5-16 mg/g depending on cacao percentage), milk chocolate (around 2 mg/g), and white chocolate (negligible theobromine).</p></details>
+<details><summary>How long does chocolate poisoning last in dogs?</summary><p>Because theobromine's half-life in dogs is about 17.5 hours, signs can persist for up to 72 hours. Mild cases often resolve within a day with monitoring; severe cases may need 24-72 hours of veterinary hospitalization with IV fluids and heart monitoring.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">ChocoCheck</div>
+    <p>ChocoCheck turns your dog's weight and what they ate into an instant theobromine dose and calm risk read, with a per-type comparison and emergency action steps.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function chocoDose(grams,type,weightKg){var M={white:0.25,milk:2.3,dark:5.5,baking:16,cocoa:28.5};var mg=M[type]||0;var d=Number(grams)*mg/(Number(weightKg)||1);return Math.round(d*10)/10;}
+function chocoBand(d){if(d<20)return['Low','#7BC47F','#12240f','Unlikely to cause real trouble. Mild stomach upset is still possible from the fat and sugar, so keep an eye on your dog for a few hours.'];if(d<40)return['Mild to moderate','#E8B93C','#2a1f08','Vomiting, diarrhea, and restlessness are likely. Call your vet for guidance \u2014 they may want to see your dog.'];if(d<60)return['Moderate to severe','#E07B39','#2a1408','Tremors, racing heart, and high blood pressure can develop. Contact your vet or an emergency clinic promptly.'];if(d<100)return['Severe','#D64545','#2a0d0d','Seizures and dangerous heart rhythms are possible. This is an emergency \u2014 get veterinary help immediately.'];return['Critical','#B03060','#2a0a18','Potentially life-threatening dose. Emergency veterinary care immediately \u2014 do not wait for symptoms.'];}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){
+var wEl=document.getElementById('cc-w'),aEl=document.getElementById('cc-a'),go=document.getElementById('cc-go'),
+num=document.getElementById('cc-num'),band=document.getElementById('cc-band'),note=document.getElementById('cc-note'),
+arc=document.getElementById('cc-arc'),bars=document.getElementById('cc-bars');
+var kgB=document.getElementById('cc-kg'),lbB=document.getElementById('cc-lb'),gB=document.getElementById('cc-g'),ozB=document.getElementById('cc-oz');
+if(!wEl||!go)return;
+var wUnit='kg',aUnit='g',choc='milk';
+function tg(on,off,u){return function(){u.v=u.n;on.classList.add('on');off.classList.remove('on');};}
+var WU={v:'kg',n:'kg'},AU={v:'g',n:'g'};
+kgB.addEventListener('click',function(){WU.v='kg';kgB.classList.add('on');lbB.classList.remove('on');});
+lbB.addEventListener('click',function(){WU.v='lb';lbB.classList.add('on');kgB.classList.remove('on');});
+gB.addEventListener('click',function(){AU.v='g';gB.classList.add('on');ozB.classList.remove('on');});
+ozB.addEventListener('click',function(){AU.v='oz';ozB.classList.add('on');gB.classList.remove('on');});
+var tbs=document.querySelectorAll('#cc-types button');
+for(var i=0;i<tbs.length;i++){tbs[i].addEventListener('click',function(){for(var j=0;j<tbs.length;j++)tbs[j].classList.remove('on');this.classList.add('on');choc=this.getAttribute('data-t');});}
+var CIRC=653.4;
+function paint(){
+var w=parseFloat(wEl.value),a=parseFloat(aEl.value);
+if(!(w>0)||!(a>0)||w>400){note.textContent='Please enter a valid weight and amount.';return;}
+var kg=WU.v==='lb'?w*0.453592:w;
+var g=AU.v==='oz'?a*28.3495:a;
+var dose=chocoDose(g,choc,kg);
+var b=chocoBand(dose);
+num.textContent=dose;
+band.textContent=b[0];band.style.background=b[1];band.style.color=b[2];
+note.textContent=b[3]+' Estimated from '+Math.round(g)+' g of '+choc+' chocolate for a '+kg.toFixed(1)+' kg dog.';
+var frac=Math.min(dose,120)/120;
+arc.style.strokeDashoffset=String(CIRC*(1-frac));
+arc.style.stroke=b[1];
+var names={white:'White',milk:'Milk',dark:'Dark',baking:'Baking',cocoa:'Cocoa powder'};
+var h='';
+for(var k in names){var d2=chocoDose(g,k,kg);var pct=Math.min(d2,72)/72*100;
+h+='<div class="cc-bar-row"><span class="cc-n">'+names[k]+'</span><div class="cc-bar-track"><div class="cc-bar-fill" style="width:'+pct.toFixed(1)+'%"></div></div><span class="cc-g">'+d2+' mg/kg</span></div>';}
+bars.innerHTML=h;
+}
+go.addEventListener('click',paint);
+paint();
+});}
+</script>
+</body>
+</html>
