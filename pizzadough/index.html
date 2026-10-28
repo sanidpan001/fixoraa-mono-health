@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pizza Dough Calculator: Baker&#x27;s Percentages &amp; Hydration</title>
+<meta name="description" content="Calculate perfect pizza dough with baker&#x27;s percentages. Scale by dough balls, adjust hydration, and plan cold fermentation with exact ingredient weights.">
+<link rel="canonical" href="https://health.fixoraa.tech/pizzadough/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Pizza Dough Calculator: Baker&#x27;s Percentages &amp; Hydration">
+<meta property="og:description" content="Calculate perfect pizza dough with baker&#x27;s percentages. Scale by dough balls, adjust hydration, and plan cold fermentation with exact ingredient weights.">
+<meta property="og:url" content="https://health.fixoraa.tech/pizzadough/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PizzaDough",
+      "url": "https://health.fixoraa.tech/pizzadough/",
+      "applicationCategory": "Kitchen Tools",
+      "operatingSystem": "Web",
+      "description": "Calculate perfect pizza dough with baker's percentages. Scale by dough balls, adjust hydration, and plan cold fermentation with exact ingredient weights.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What hydration should I use for pizza dough?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start with 62\u201365% hydration: 620\u2013650 g water per 1000 g flour. It gives an airy crumb while staying easy to handle. Beginners should avoid 70%+ until their shaping improves."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I cold ferment pizza dough overnight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, with better flavour. Use 0.2\u20130.5% instant yeast (2\u20135 g per 1000 g flour), refrigerate 24\u201372 hours, and bring dough to room temperature 2\u20133 hours before baking."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much dough per pizza?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A 10\u201312 inch pizza needs a 200\u2013250 g ball; a 14\u201316 inch pizza needs 280\u2013350 g. Plan one ball per person plus one spare."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the windowpane test?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Stretch a small piece of dough thin. If it forms a translucent membrane without tearing, the gluten is developed and kneading is done."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I shape pizza dough without tearing it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Press from the centre outward with your fingertips, pushing air to the rim. Never flatten the edge, stretch over your knuckles, and rest the dough 10 minutes if it springs back."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the best flour for pizza?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "\"00\" flour gives the silkiest Neapolitan-style dough, but bread flour (12\u201313% protein) works nearly as well. All-purpose flour makes a softer, less chewy crust."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#F5FAF2; --surface:#FFFFFF; --accent:#23703B; --accent-ink:#FFFFFF;
+  --ink:#22301F; --muted:#55604C; --line:#DDE7D2;
+  --display:'Bitter',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.pz-wrap{max-width:860px;margin:0 auto;padding:28px 18px 56px;color:#22301F;font-family:Inter,system-ui,sans-serif}
+.pz-hero{text-align:center;margin-bottom:18px}
+.pz-hero h1{font-family:Bitter,Georgia,serif;font-size:clamp(34px,6vw,52px);margin:0 0 8px;color:#22301F}
+.pz-tagline{font-size:16px;color:#55604C;margin:0}
+.pz-tabs{display:flex;gap:8px;justify-content:center;margin:22px 0;flex-wrap:wrap}
+.pz-tab{border:1px solid #DDE7D2;background:#fff;color:#55604C;font:inherit;font-size:15px;font-weight:600;border-radius:999px;padding:12px 22px;cursor:pointer;min-height:48px}
+.pz-tab.pz-on{background:#23703B;border-color:#23703B;color:#fff}
+.pz-panel{display:none}
+.pz-panel.pz-on{display:block}
+.pz-card{background:#fff;border:1px solid #DDE7D2;border-radius:20px;padding:24px;box-shadow:0 2px 12px rgba(35,112,59,.06)}
+.pz-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pz-field{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:600;color:#55604C}
+.pz-field input[type=number]{font:inherit;font-size:16px;color:#22301F;border:1px solid #DDE7D2;border-radius:12px;padding:12px;background:#F5FAF2;min-height:48px}
+.pz-field input[type=range]{accent-color:#23703B;min-height:44px}
+.pz-hyd-val{font-family:Bitter,Georgia,serif;font-size:26px;color:#23703B}
+.pz-out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.pz-out div{background:#F5FAF2;border:1px solid #DDE7D2;border-radius:14px;padding:12px 8px;text-align:center}
+.pz-out dt{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#55604C}
+.pz-out dd{margin:4px 0 0;font-family:Bitter,Georgia,serif;font-size:22px;color:#23703B}
+.pz-out dd small{font-size:13px;color:#55604C;font-family:Inter,sans-serif}
+.pz-table{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px}
+.pz-table th,.pz-table td{text-align:left;padding:10px 8px;border-bottom:1px solid #DDE7D2}
+.pz-table th{color:#55604C;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+.pz-table td b{color:#23703B}
+.pz-toggle{display:flex;align-items:center;gap:12px;margin:16px 0 4px;font-size:15px;font-weight:600;cursor:pointer}
+.pz-toggle input{width:24px;height:24px;accent-color:#23703B}
+.pz-sched{background:#F5FAF2;border:1px solid #DDE7D2;border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.7;margin-top:12px}
+.pz-sched b{color:#23703B}
+.pz-h2{font-family:Bitter,Georgia,serif;font-size:24px;margin:0 0 10px;color:#22301F}
+.pz-p{font-size:15px;color:#55604C;line-height:1.7;margin:0 0 10px}
+@media(max-width:640px){
+.pz-grid{grid-template-columns:1fr}
+.pz-out{grid-template-columns:repeat(2,1fr)}
+.pz-tabs{justify-content:stretch}
+.pz-tab{flex:1}
+.pz-wrap{padding:20px 12px 44px}
+}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="PizzaDough home">
+      <span class="fx-logo-tile" aria-hidden="true">🍕</span>
+      <span class="fx-brand">PizzaDough</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-tab-bench" aria-label="PizzaDough tool">
+<section class="pz-wrap" aria-label="Pizza dough calculator">
+  <div class="pz-hero">
+    <h1>🍕 Pizza Dough Calculator</h1>
+    <p class="pz-tagline">Baker's percentages, zero maths: perfect dough for any number of pizzas.</p>
+  </div>
+  <div class="pz-tabs" role="tablist">
+    <button class="pz-tab pz-on" data-tab="calc" role="tab">Calculator</button>
+    <button class="pz-tab" data-tab="pct" role="tab">Baker's %</button>
+    <button class="pz-tab" data-tab="cold" role="tab">Cold ferment</button>
+  </div>
+  <div class="pz-panel pz-on" id="pz-calc">
+    <div class="pz-card">
+      <div class="pz-grid">
+        <label class="pz-field">Dough balls
+          <input id="pzBalls" type="number" min="1" max="40" value="4" inputmode="numeric">
+        </label>
+        <label class="pz-field">Ball weight (g)
+          <input id="pzBallG" type="number" min="100" max="500" step="10" value="250" inputmode="numeric">
+        </label>
+      </div>
+      <label class="pz-field" style="margin-top:16px">Hydration: <span class="pz-hyd-val" id="pzHydVal">65%</span>
+        <input id="pzHyd" type="range" min="55" max="75" step="1" value="65">
+      </label>
+      <p class="pz-p" id="pzHydNote" style="margin-top:6px">65% — the sweet spot: airy crumb, still easy to handle.</p>
+      <dl class="pz-out">
+        <div><dt>Flour</dt><dd><span id="pzFlour">595</span> <small>g</small></dd></div>
+        <div><dt>Water</dt><dd><span id="pzWater">387</span> <small>g</small></dd></div>
+        <div><dt>Salt</dt><dd><span id="pzSalt">14.9</span> <small>g</small></dd></div>
+        <div><dt>Yeast</dt><dd><span id="pzYeast">3.0</span> <small>g</small></dd></div>
+        <div><dt>Olive oil</dt><dd><span id="pzOil">11.9</span> <small>g</small></dd></div>
+        <div><dt>Total dough</dt><dd><span id="pzTotal">1000</span> <small>g</small></dd></div>
+      </dl>
+    </div>
+  </div>
+  <div class="pz-panel" id="pz-pct">
+    <div class="pz-card">
+      <h2 class="pz-h2">Baker's percentages reference</h2>
+      <p class="pz-p">Every ingredient is a percentage of flour weight (always 100%). Scale any batch perfectly.</p>
+      <table class="pz-table">
+        <thead><tr><th>Ingredient</th><th>%</th><th>Per 1000 g flour</th></tr></thead>
+        <tbody>
+          <tr><td>Flour</td><td><b>100%</b></td><td>1000 g</td></tr>
+          <tr><td>Water</td><td><b>60–65%</b></td><td>600–650 g</td></tr>
+          <tr><td>Salt</td><td><b>2.5%</b></td><td>25 g</td></tr>
+          <tr><td>Instant yeast</td><td><b>0.5%</b></td><td>5 g</td></tr>
+          <tr><td>Olive oil</td><td><b>2%</b></td><td>20 g</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="pz-panel" id="pz-cold">
+    <div class="pz-card">
+      <h2 class="pz-h2">Cold-ferment planner</h2>
+      <p class="pz-p">Slow fridge fermentation builds flavour. Toggle it on to auto-reduce yeast and see the schedule.</p>
+      <label class="pz-toggle"><input type="checkbox" id="pzCold"> 48-hour cold ferment</label>
+      <div class="pz-sched" id="pzSched">Same-day plan: <b>1%</b> yeast, 4–6 hrs at room temperature, bake today.</div>
+    </div>
+  </div>
+</section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why baker's percentages beat cups and spoons</h2><p>Professional bakers never measure flour in cups. Instead, every ingredient is expressed as a percentage of the flour weight, which is always 100%. This system — called <strong>baker's percentages</strong> — means a recipe scales perfectly from two dough balls to two hundred: double the flour, double everything else, and the dough behaves identically. It also lets you compare recipes at a glance. A dough at 60% hydration will always feel firmer and be easier to handle than one at 70%, regardless of batch size.</p><h2>The classic pizza dough formula</h2><p>Neapolitan-style pizza dough needs just four ingredients. Here are the percentages that work, with the ranges you can play inside:</p><table><thead><tr><th>Ingredient</th><th>Baker's %</th><th>Role</th></tr></thead><tbody><tr><td>Flour ("00" or bread flour)</td><td>100%</td><td>Structure and chew</td></tr><tr><td>Water</td><td>60–65%</td><td>Hydration — higher means airier, harder to handle</td></tr><tr><td>Fine sea salt</td><td>2–3%</td><td>Flavour and gluten strength</td></tr><tr><td>Instant dry yeast</td><td>0.2–1%</td><td>Leavening — less for long cold ferments</td></tr><tr><td>Olive oil (optional)</td><td>1–3%</td><td>Tenderness and browning</td></tr></tbody></table><h2>Hydration: the single biggest lever</h2><p>Hydration is simply water weight divided by flour weight. At <strong>60%</strong>, dough is firm, easy to shape, and bakes into a crisp, crackery crust — ideal for beginners and home ovens. At <strong>65%</strong>, the sweet spot for most home pizza, you get an open, airy crumb with leopard-spotted char while the dough stays manageable. At <strong>70%+</strong>, the crumb becomes spectacularly airy but the dough is slack and sticky, demanding confident handling and a very hot oven. If you are new, start at 62% and raise it 1–2 points each bake as your technique improves.</p><h3>Choosing flour</h3><p>"00" flour (finely milled Italian flour) gives the silky, extensible dough of true Neapolitan pizza, but good bread flour with 12–13% protein works nearly as well and is easier to find. All-purpose flour makes a softer, less chewy crust — fine for weeknight pizza. Wholemeal flour absorbs more water, so add 2–3 extra points of hydration when substituting part of the flour.</p><h2>Cold fermentation: flavour you can't rush</h2><p>A slow, cold ferment in the fridge transforms pizza dough. Over 24–72 hours, enzymes break down starches into sugars (better browning) and produce organic acids (deeper, more complex flavour). The method is simple: mix the dough, knead until smooth, then refrigerate in bulk or as individual balls. Use <strong>much less yeast</strong> — 0.2–0.5% instant yeast instead of 1% — because the long time compensates. Pull the dough out 2–3 hours before baking so it reaches room temperature; cold dough springs back and resists stretching.</p><table><thead><tr><th>Ferment plan</th><th>Instant yeast %</th><th>Time &amp; temperature</th></tr></thead><tbody><tr><td>Same-day</td><td>0.8–1%</td><td>4–6 hrs at room temp</td></tr><tr><td>Overnight</td><td>0.4–0.5%</td><td>18–24 hrs in fridge + 2 hrs room temp</td></tr><tr><td>Weekend project</td><td>0.2–0.3%</td><td>48–72 hrs in fridge + 3 hrs room temp</td></tr></tbody></table><h2>How many dough balls do you need?</h2><p>A 10–12 inch pizza needs a 200–250 g dough ball; a 14–16 inch pizza needs 280–350 g. For a dinner party, plan one 250 g ball per person plus one spare — pizza disappears fast. Weigh each ball after bulk fermentation and round them tightly: tuck the edges underneath to build surface tension, which traps gas and gives you a puffy cornicione (the rim).</p><h2>Kneading and the windowpane test</h2><p>Knead 8–12 minutes by machine or 12–15 by hand until the dough is smooth and elastic. The dough is ready when a small piece stretches thin enough to let light through without tearing — the <strong>windowpane test</strong>. Under-kneaded dough tears when stretched; over-kneaded dough (hard to do by hand) becomes tight and springs back. High-hydration doughs benefit from a series of gentle stretch-and-folds during the first hour instead of aggressive kneading.</p><h2>Shaping without tears</h2><p>Press from the centre outward, pushing air toward the rim — never roll the edge flat or you will deflate the cornicione. Leave a 1-inch puffy border, then stretch over your knuckles, letting gravity do the work. If the dough fights back, rest it 10 minutes; gluten relaxes with time, not force. Launch onto a steel or stone preheated for at least 45 minutes at your oven's maximum temperature.</p><h2>Troubleshooting</h2><ul><li><strong>Dough springs back:</strong> gluten is tight — rest 10–15 minutes and try again.</li><li><strong>Sticky unworkable dough:</strong> hydration too high for your flour; dust lightly and lower hydration next time.</li><li><strong>Pale, soft crust:</strong> oven not hot enough or bake too short; preheat longer and consider a pizza steel.</li><li><strong>Burnt bottom, raw top:</strong> move the pizza higher in the oven or reduce bottom heat.</li><li><strong>Yeasty, flat taste:</strong> too much yeast or over-fermented; cut yeast and shorten the warm ferment.</li></ul><p>Once you think in baker's percentages, every pizza recipe becomes adjustable, scalable, and repeatable. Pick your ball count, choose your hydration, decide your ferment — the calculator handles the arithmetic while you handle the flour.</p><h2>Flour protein: the numbers that matter</h2><p>Protein percentage predicts chew. Italian "00" flour at 11–12% protein gives a tender, puffy Neapolitan crust; bread flour at 12–14% gives a chewier New York-style bite. Below 10% (cake flour) the dough tears; above 14% (high-gluten) it gets tough and bready. When substituting flours, keep hydration matched to protein: low-protein flour cannot absorb 65% water without turning to soup, while high-protein flour drinks it happily. If your dough feels slack and unmanageable, the flour — not your technique — is often the culprit.</p><h2>Same-day vs cold-ferment flavour</h2><p>A same-day dough risen 4 hours at room temperature tastes clean and wheaty — perfectly good pizza. A 48-hour cold ferment tastes like something else entirely: deeper, faintly tangy, with better browning from enzyme-released sugars. The trade-off is planning, not effort — the fridge does the work. Many pizzerias hold dough 24–72 hours as standard practice. If you can only do one upgrade to your pizza, cold fermentation beats a hotter oven.</p><h2>Home oven tactics: steel vs stone</h2><p>Home ovens max out around 250–280°C, far below pizza-oven heat, so thermal mass matters. A <strong>pizza steel</strong> (6–10 mm thick) stores more heat than a stone and gives superior bottom char — the single best equipment upgrade for home pizza. Preheat 45–60 minutes. Bake on the top rack for the last minute to blister the crust, or finish under the grill. A steel plus 65% hydration dough plus cold ferment gets you remarkably close to pizzeria results.</p><h2>Sticky or stiff? Reading your dough</h2><p>Dough troubleshooting is mostly about hydration versus flour. If the dough sticks to everything and will not hold shape, your effective hydration is too high for the flour — dust the bench lightly, give it a few stretch-and-folds, and next time drop hydration 2 points or switch to higher-protein flour. If the dough is stiff, tears when stretched and springs back aggressively, it is under-hydrated or under-rested — add water a tablespoon at a time during kneading, and rest it longer. Temperature matters too: cold dough always feels stiffer, so judge hydration at room temperature.</p><h2>Freezing dough balls for later</h2><p>Pizza dough freezes beautifully. After portioning and balling, coat each ball lightly in olive oil, wrap individually in cling film, and freeze for up to 3 months. Thaw overnight in the fridge, then give 2–3 hours at room temperature before shaping — the thaw counts as part of the ferment, so frozen dough often tastes <em>better</em> than fresh. Never refreeze thawed dough. This is the secret to weeknight pizza: a freezer stash of balls plus a hot steel beats delivery on every metric.</p><h2>A worked example: Friday-night dough for six</h2><p>Say you need six 250 g dough balls at 65% hydration with a 48-hour cold ferment. Total dough: 6 × 250 g = 1,500 g. Flour is 100%, and the other percentages add up (65 + 2.5 salt + 0.3 yeast ≈ 67.8%), so flour = 1,500 ÷ 1.678 ≈ <strong>894 g</strong>. Then water = 894 × 0.65 ≈ 581 g, salt = 894 × 0.025 ≈ 22 g, instant yeast = 894 × 0.003 ≈ 2.7 g. Mix, knead, divide into six balls and refrigerate 48 hours, then bring to room temperature 2–3 hours before baking.</p><h2>Swapping in sourdough starter</h2><p>To convert the formula to sourdough, replace the commercial yeast with <strong>15–20% active starter</strong> (by flour weight) and reduce the water slightly, since a 100%-hydration starter adds equal flour and water. For the 894 g flour example above: 160 g starter, then water = 581 − 80 = 501 g, with flour totalling 894 g (814 g dry flour + 80 g from the starter). Ferment 24 hours in the fridge — wild yeast works slower — and expect a tangier, more open crumb.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>What hydration should I use for pizza dough?</summary><p>Start with 62–65% hydration: 620–650 g water per 1000 g flour. It gives an airy crumb while staying easy to handle. Beginners should avoid 70%+ until their shaping improves.</p></details>
+<details><summary>Can I cold ferment pizza dough overnight?</summary><p>Yes, with better flavour. Use 0.2–0.5% instant yeast (2–5 g per 1000 g flour), refrigerate 24–72 hours, and bring dough to room temperature 2–3 hours before baking.</p></details>
+<details><summary>How much dough per pizza?</summary><p>A 10–12 inch pizza needs a 200–250 g ball; a 14–16 inch pizza needs 280–350 g. Plan one ball per person plus one spare.</p></details>
+<details><summary>What is the windowpane test?</summary><p>Stretch a small piece of dough thin. If it forms a translucent membrane without tearing, the gluten is developed and kneading is done.</p></details>
+<details><summary>How do I shape pizza dough without tearing it?</summary><p>Press from the centre outward with your fingertips, pushing air to the rim. Never flatten the edge, stretch over your knuckles, and rest the dough 10 minutes if it springs back.</p></details>
+<details><summary>What&#x27;s the best flour for pizza?</summary><p>"00" flour gives the silkiest Neapolitan-style dough, but bread flour (12–13% protein) works nearly as well. All-purpose flour makes a softer, less chewy crust.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">PizzaDough</div>
+    <p>PizzaDough uses baker's percentages to scale perfect pizza dough for any number of balls, hydration and ferment schedule.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function pizzaDough(balls, ballG, hydration){
+  var total = balls * ballG;
+  var div = 1 + hydration/100 + 0.025 + 0.005;
+  var flour = total / div;
+  var r1 = function(x){ return Math.round(x*10)/10; };
+  return {
+    flour: r1(flour),
+    water: r1(flour * hydration/100),
+    salt: r1(flour * 0.025),
+    yeast: r1(flour * 0.005),
+    oil: r1(flour * 0.02)
+  };
+}
+if(typeof document !== 'undefined'){
+document.addEventListener('DOMContentLoaded', function(){
+  var balls = document.getElementById('pzBalls'),
+      ballG = document.getElementById('pzBallG'),
+      hyd = document.getElementById('pzHyd');
+  function hydNote(h){
+    if(h < 60) return h + '% — firm and forgiving: great for beginners.';
+    if(h <= 66) return h + '% — the sweet spot: airy crumb, still easy to handle.';
+    return h + '% — slack and airy: for confident hands and very hot ovens.';
+  }
+  function refresh(){
+    var b = Math.max(1, parseInt(balls.value) || 1),
+        g = Math.max(50, parseFloat(ballG.value) || 250),
+        h = parseInt(hyd.value);
+    var d = pizzaDough(b, g, h);
+    document.getElementById('pzHydVal').textContent = h + '%';
+    document.getElementById('pzHydNote').textContent = hydNote(h);
+    document.getElementById('pzFlour').textContent = Math.round(d.flour);
+    document.getElementById('pzWater').textContent = Math.round(d.water);
+    document.getElementById('pzSalt').textContent = d.salt.toFixed(1);
+    document.getElementById('pzYeast').textContent = d.yeast.toFixed(1);
+    document.getElementById('pzOil').textContent = d.oil.toFixed(1);
+    document.getElementById('pzTotal').textContent = b * g;
+    var cold = document.getElementById('pzCold').checked;
+    document.getElementById('pzSched').innerHTML = cold
+      ? 'Cold plan: <b>0.3%</b> yeast (' + (d.flour*0.003).toFixed(1) + ' g) — mix, knead, refrigerate <b>48 hrs</b>, then 3 hrs at room temp before baking.'
+      : 'Same-day plan: <b>1%</b> yeast, 4–6 hrs at room temperature, bake today.';
+  }
+  var tabs = document.querySelectorAll('.pz-tab');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.remove('pz-on'); });
+      t.classList.add('pz-on');
+      document.querySelectorAll('.pz-panel').forEach(function(p){ p.classList.remove('pz-on'); });
+      document.getElementById('pz-' + t.getAttribute('data-tab')).classList.add('pz-on');
+    });
+  });
+  [balls, ballG, hyd].forEach(function(el){ el.addEventListener('input', refresh); });
+  document.getElementById('pzCold').addEventListener('change', refresh);
+  refresh();
+});}
+</script>
+</body>
+</html>
