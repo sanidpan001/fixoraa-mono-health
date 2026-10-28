@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warm-Up Set Calculator — Barbell Ramp &amp; Plate Guide | WarmUpWise</title>
+<meta name="description" content="Warm-up set calculator: build your barbell ramp with exact set weights, reps, rest times and per-side plates. Free.">
+<link rel="canonical" href="https://health.fixoraa.tech/warmupwise/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Warm-Up Set Calculator — Barbell Ramp &amp; Plate Guide | WarmUpWise">
+<meta property="og:description" content="Warm-up set calculator: build your barbell ramp with exact set weights, reps, rest times and per-side plates. Free.">
+<meta property="og:url" content="https://health.fixoraa.tech/warmupwise/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "WarmUpWise",
+      "url": "https://health.fixoraa.tech/warmupwise/",
+      "applicationCategory": "Fitness Tools",
+      "operatingSystem": "Web",
+      "description": "Warm-up set calculator: build your barbell ramp with exact set weights, reps, rest times and per-side plates. Free.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many warm-up sets do I need before my working weight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a main barbell lift at a meaningful weight, 4\u20135 ramping sets is the sweet spot (bar, then roughly 40/50/65/80/90% of working weight). For moderate weights or later exercises in the session, 2\u20133 sets is plenty \u2014 you are already warm."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do the reps decrease as the weight goes up?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Early high-rep sets are about raising tissue temperature and practicing the movement; late sets are about priming the nervous system for heavy load. Doing 8 reps at 90% would create real fatigue \u2014 a working set, not a warm-up. Reps taper so the ramp energizes you instead of exhausting you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I do warm-up sets for every exercise?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No \u2014 warm up the movement pattern, not every exercise. After heavy squats your legs are warm, so leg press or lunges need just one or two feeler sets to dial in the machine. Save the full ramp for the first big lift of each movement pattern."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long should I rest between warm-up sets?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "30\u201360 seconds between the light early sets, 1\u20132 minutes as the weight gets serious, and 2\u20133 minutes before your first working set so ATP energy stores fully recover. Rushing the final rest is the most common warm-up mistake."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I skip warm-ups on light or rushed days?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shorten it, don't skip it. Use the Quick 3-set scheme (bar, 60%, 80%) \u2014 three minutes of ramping beats zero. The lighter the working weight, the less ramp you need, but the empty-bar set is never wasted."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I use a women's bar or trap bar instead of a 20 kg bar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes \u2014 enter your actual bar weight in the calculator. A women's 15 kg bar, a trap bar (~25 kg), or a technique bar changes every set's plate math, and the calculator rebuilds the whole ramp around whatever bar you use."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#EFFDF5; --surface:#FFFFFF; --accent:#0F766E; --accent-ink:#FFFFFF;
+  --ink:#1F2A2E; --muted:#50605B; --line:#CFE7DD;
+  --display:'Space Grotesk',serif; --body:'Public Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.wu-wrap{max-width:1060px;margin:0 auto;padding:54px 20px 70px;font-family:'Public Sans',system-ui,sans-serif;color:#1F2A2E}.wu-hero{text-align:center;margin-bottom:26px}.wu-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#0F766E;background:#D9F2EA;border:1px solid #CFE7DD;padding:6px 14px;border-radius:999px;margin-bottom:14px}.wu-hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4.8vw,50px);line-height:1.06;margin:0 0 10px;letter-spacing:-.02em;font-weight:700}.wu-tag{color:#50605B;font-size:17px;margin:0}.wu-bar{background:#fff;border:1px solid #CFE7DD;border-radius:22px;padding:22px 24px;box-shadow:0 16px 40px rgba(15,118,110,.08);margin-bottom:20px}.wu-bargrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:end}.wu-field label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#50605B;margin-bottom:7px}.wu-field input,.wu-field select{width:100%;padding:11px 12px;font-size:16px;border:2px solid #CFE7DD;border-radius:12px;font-family:inherit;color:#1F2A2E;background:#fff}.wu-field input:focus,.wu-field select:focus{outline:none;border-color:#0F766E}.wu-seg{display:flex;background:#EFFDF5;border:1px solid #CFE7DD;border-radius:12px;padding:3px}.wu-seg button{flex:1;border:none;background:transparent;padding:9px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;color:#50605B;font-family:inherit}.wu-seg button.on{background:#0F766E;color:#fff}.wu-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}.wu-card{background:#fff;border:1px solid #CFE7DD;border-radius:24px;padding:26px;box-shadow:0 16px 40px rgba(15,118,110,.08)}.wu-card h2{font-family:'Space Grotesk',sans-serif;font-size:20px;margin:0 0 4px;font-weight:700}.wu-sub{color:#50605B;font-size:14px;margin:0 0 16px}.wu-steps{display:grid;gap:10px}.wu-step{display:flex;align-items:center;gap:14px;border:1px solid #CFE7DD;border-radius:16px;padding:12px 16px;background:#EFFDF5}.wu-step.work{background:#0F766E;border-color:#0F766E;color:#fff}.wu-step.work .wu-sm{color:#c9e8e1}.wu-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;background:#0F766E;color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}.wu-step.work .wu-num{background:#fff;color:#0F766E}.wu-sw{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px}.wu-sm{font-size:13.5px;color:#50605B}.wu-plates{margin-left:auto;text-align:right}.wu-pl{display:inline-block;font-size:12px;font-weight:700;background:#fff;border:1px solid #CFE7DD;border-radius:8px;padding:3px 8px;margin:2px;color:#1F2A2E}.wu-step.work .wu-pl{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);color:#fff}.wu-rest{font-size:12.5px;color:#50605B;margin-top:2px}.wu-step.work .wu-rest{color:#c9e8e1}.wu-stackbar{display:flex;height:26px;border-radius:8px;overflow:hidden;margin-top:8px;border:1px solid #CFE7DD}.wu-stackbar div{height:100%}.wu-stacklbl{display:flex;justify-content:space-between;font-size:12.5px;color:#50605B;margin-top:6px}.wu-xgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.wu-xcard{background:#fff;border:1px solid #CFE7DD;border-radius:22px;padding:24px}.wu-xcard h3{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 10px;font-weight:700}.wu-xcard p,.wu-xcard li{font-size:14.5px;color:#50605B;line-height:1.65}.wu-xcard ul{padding-left:1.2rem;margin:0}.wu-xcard p{margin:0 0 10px}@media(max-width:900px){.wu-bargrid{grid-template-columns:repeat(2,1fr)}.wu-cols,.wu-xgrid{grid-template-columns:1fr}.wu-wrap{padding:40px 14px 56px}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="WarmUpWise home">
+      <span class="fx-logo-tile" aria-hidden="true">🔥</span>
+      <span class="fx-brand">WarmUpWise</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-chart-dial" aria-label="WarmUpWise tool">
+<section class='wu-wrap'><div class='wu-hero'><span class='wu-eyebrow'>Ramp it right</span><h1>Warm-Up Set Calculator</h1><p class='wu-tag'>The perfect ramp to your working weight — plates included.</p></div><div class='wu-bar'><div class='wu-bargrid'><div class='wu-field'><label for='wu-work'>Working weight</label><input type='number' id='wu-work' value='100' min='20' step='2.5'></div><div class='wu-field'><label for='wu-barw'>Bar weight</label><input type='number' id='wu-barw' value='20' min='5' step='2.5'></div><div class='wu-field'><label>Unit</label><div class='wu-seg' role='group' aria-label='Unit'><button id='wu-kg' class='on' type='button'>kg</button><button id='wu-lb' type='button'>lb</button></div></div><div class='wu-field'><label for='wu-scheme'>Ramp scheme</label><select id='wu-scheme'><option value='standard' selected>Standard · 5 sets</option><option value='quick'>Quick · 3 sets</option><option value='heavy'>Heavy day · 6 sets</option></select></div><div class='wu-field'><label>&nbsp;</label><div class='wu-seg' role='group' aria-label='Show plates'><button id='wu-plon' class='on' type='button'>Plates</button><button id='wu-ploff' type='button'>Hide</button></div></div></div></div><div class='wu-cols'><div class='wu-card'><h2>Plate dial</h2><p class='wu-sub'>Each ring segment is a warm-up set, sized by its share of the working weight.</p><svg id='wu-dial' viewBox='0 0 320 320' width='100%' style='max-width:340px;display:block;margin:0 auto' role='img' aria-label='Warm-up ramp dial'></svg><div class='wu-stacklbl'><span id='wu-totsets'>5 warm-up sets</span><span id='wu-totkg'>200 kg lifted before work sets</span></div></div><div class='wu-card'><h2>Your ramp</h2><p class='wu-sub'>Weights rounded to loadable plates. Rest, then work.</p><div class='wu-steps' id='wu-steps'></div></div></div><div class='wu-xgrid'><div class='wu-xcard'><h3>⏱️ Rest between sets</h3><ul><li><strong>Sets 1–2:</strong> 30–60 seconds. The weight is light — keep the heat.</li><li><strong>Sets 3–4:</strong> 60–120 seconds. Let the nervous system catch up.</li><li><strong>Before working sets:</strong> 2–3 minutes. Arrive fresh, not breathing hard.</li></ul></div><div class='wu-xcard'><h3>💡 Ramp wisdom</h3><ul><li>Warm up <strong>beltless</strong>; add the belt on the final ramp set (~85–90%).</li><li>Rehearse your exact setup ritual from the empty bar up.</li><li>Later exercises for the same muscles need only 1–2 feeler sets.</li><li>If a ramp set feels like a grinder, you jumped too far — add a middle step.</li></ul></div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why Warm-Up Sets Are Non-Negotiable</h2><p>Walk into any serious barbell gym and you will see the same ritual before every heavy lift: an empty bar moved for easy reps, then plates added in jumps, reps dropping as the weight climbs, until the working weight arrives. These <strong>ramping warm-up sets</strong> are not tradition or superstition. They raise muscle temperature, lubricate joints with synovial fluid, rehearse the exact motor pattern under increasing load, and wake up the nervous system — a phenomenon called <strong>post-activation potentiation</strong> — so the working sets feel sharper, not just safer.</p><p>General warm-ups (bike, dynamic stretches) raise your core temperature, but they cannot prepare you for 140 kg on your back. Only the lift itself, loaded progressively, does that. Lifters who skip ramping sets usually pay in one of two currencies: acute injury when cold tissue meets heavy load, or chronically underperforming top sets because the nervous system never got the memo.</p><h2>The Anatomy of a Good Ramp</h2><p>A well-built ramp follows three rules. <strong>Rule one: start with the empty bar.</strong> Ten smooth reps groove the movement pattern when the cost of a mistake is zero. <strong>Rule two: make 3–5 jumps.</strong> Fewer jumps mean scary leaps (bar straight to 70% shocks the system); more jumps turn the warm-up into a workout. <strong>Rule three: taper the reps.</strong> Early sets are about temperature and practice (8–10 reps); late sets are about neural preparation (1–3 reps). Eight reps at 90% is not a warm-up — it is a working set that steals from the real ones.</p><p>The classic 5-set ramp this calculator generates looks like this for a 100 kg working weight:</p><ul><li><strong>Set 1:</strong> 40 kg × 10 — blood flow, movement practice</li><li><strong>Set 2:</strong> 50 kg × 8 — tissue temperature rising</li><li><strong>Set 3:</strong> 65 kg × 5 — strength activation begins</li><li><strong>Set 4:</strong> 80 kg × 3 — nervous system priming</li><li><strong>Set 5:</strong> 90 kg × 1–2 — peak readiness, then the working weight</li></ul><h2>Reading Your Plate Dial</h2><p>The donut dial above is your whole ramp in one glance: each segment is a warm-up set, sized by its share of the working weight, with the working weight in the center. The per-side plate breakdown beneath it answers the eternal gym question — <em>what exactly do I put on the bar?</em> — for every set, using standard plate inventories. Load the plates once per set, biggest plates innermost, collars on from 60 kg up. Between sets, glance at the rest guidance: short rests early (the weight is light), longer as you approach working weight.</p><h2>Choosing a Ramp Scheme</h2><p>Not every session deserves the full five-set treatment. <strong>Standard (5 sets)</strong> is the default for main barbell lifts — squat, bench, deadlift, press — at meaningful weights. <strong>Quick (3 sets)</strong> suits moderate weights, later exercises in the session (you are already warm), and time-pressed days: bar, 60%, 80%, then work. <strong>Heavy day (6 sets)</strong> is for singles, doubles, and PR attempts, where the jumps must be small near the top: nothing kills a max attempt like a 15 kg jump into unknown territory.</p><p>For accessory and machine exercises after the main lift, you are already warm — one or two feeler sets to dial in the movement is plenty. And dumbbell work rarely needs formal ramping: one light set of 10–12 before the working dumbbells covers it.</p><h2>Rest Between Warm-Up Sets</h2><p>Rest scales with the weight. <strong>30–60 seconds</strong> between the early sets — they are easy, and short rests keep tissue temperature up. <strong>1–2 minutes</strong> before the final ramp sets, letting ATP-CP energy stores fully resynthesize so the last warm-up feels crisp, not fatiguing. <strong>2–3 minutes</strong> before the first working set: walk to the water fountain, chalk up, set your mindset. Rushing the final rest is the most common warm-up error — you arrive at the working weight still breathing hard from the 90% single.</p><h2>Technique Cues That Belong in the Ramp</h2><p>Warm-up sets are practice, so practice deliberately. Use the light sets to rehearse your <strong>setup ritual</strong> exactly as you will for heavy sets: foot position, grip, breath and brace, unrack, walkout. Film the 80% and 90% sets occasionally — form breakdown shows up there first, while the weight is still forgiving. Breathe and brace on every rep from the empty bar up; bracing is a skill, and the ramp is where you drill it.</p><p>Most coaches recommend warming up <strong>beltless</strong> and adding the belt on the final ramp set (around 85–90%) to calibrate pressure before the working sets. The same logic applies to knee sleeves, wrist wraps, and lifting shoes: introduce support gear during the ramp, never for the first time under a max.</p><h2>Common Warm-Up Mistakes</h2><ul><li><strong>Static stretching before lifting.</strong> Long holds (60+ seconds per muscle) measurably reduce force output. Save static stretching for after training; before, use dynamic movement.</li><li><strong>Too many reps late in the ramp.</strong> If the 85% set is a grinder, you jumped too far or did too many reps — the ramp should energize, never exhaust.</li><li><strong>Identical consecutive sets.</strong> If rounding gives you 80 kg then 82.5 kg, that second set warms nothing. This calculator drops steps that land within a plate of each other.</li><li><strong>Skipping the bar.</strong> Even elite lifters start with the empty bar. Ego has no place in set one.</li><li><strong>Warming up every exercise fully.</strong> After squats, your legs are warm — leg press needs one feeler set, not five.</li></ul><h2>Special Bars and Setups</h2><p>Enter your actual bar weight — it matters. A women's 15 kg bar, a 25 kg trap bar, or a 10 kg technique bar changes every set's plates. For trap-bar deadlifts and safety-squat bars, the movement is friendlier but the ramp logic is identical. Dumbbell equivalents: halve the barbell numbers per hand as a starting point, then adjust by feel. And if your gym's smallest plates are 2.5 kg, the calculator's rounding already speaks your gym's language — every set it shows is a weight you can actually load.</p><h2>The Science: What Is Actually Happening in Your Body</h2><p>A warm-up ramp triggers four measurable changes. <strong>First, temperature.</strong> Muscle viscosity drops as tissue warms — warm muscle is literally more pliable, contracting faster and with less internal resistance. Core temperature rises only a degree or so, but local muscle temperature climbs more, and performance tracks it closely. <strong>Second, blood flow.</strong> Working muscle demands oxygen; the early ramp sets dilate local blood vessels so that by the time the weight gets serious, delivery already matches demand instead of playing catch-up.</p><p><strong>Third, neural potentiation.</strong> Heavy loading briefly increases the excitability of the motor cortex and the responsiveness of muscle fibers — the same mechanism behind 'contrast training,' where athletes do a heavy lift before an explosive one. The 80–90% ramp sets are a mild version: they tell your nervous system that heavy is coming, so motor-unit recruitment for the working sets is fuller from rep one. <strong>Fourth, motor pattern rehearsal.</strong> Complex movements like the squat involve dozens of muscles firing in sequence. The light sets let you groove that sequence when errors cost nothing, so the pattern is automatic when the load is maximal. None of these four effects comes from a treadmill alone — which is why the specific barbell ramp is irreplaceable.</p><h2>Programming Warm-Ups Into Popular Programs</h2><p>Different programs ramp differently, and the calculator's schemes map onto them. <strong>Starting Strength / StrongLifts 5×5</strong> traditionally use the Standard scheme: the books prescribe sets like bar × 5 × 2, then 40% × 5, 60% × 3, 80% × 2 before the 3 × 5 work sets. Close enough to this calculator's 5-set ramp that you can use it verbatim. <strong>Wendler 5/3/1</strong> famously prescribes its own warm-up (40% × 5, 50% × 5, 60% × 3) — select the Quick scheme and mentally map it, or use Standard on days you feel stale. <strong>Heavy singles and powerlifting peaking</strong> want the Heavy-day 6-set scheme: when the top set is 95%+ of your max, the final jumps should be 2.5–5 kg, never 10.</p><p>For <strong>Olympic lifts</strong> (snatch, clean and jerk), ramping starts from an empty bar or even a PVC pipe, with more sets of fewer reps — technique dominates, so 6–8 small jumps are normal. For <strong>dumbbell and machine work</strong>, halve the fuss: the loads are lighter and the patterns simpler, so the Quick scheme or even a single feeler set suffices. The universal rule across all of them: the ramp should leave you feeling <em>more</em> prepared with each set, never more tired.</p><h2>Cold Gyms, Early Mornings, and Masters Lifters</h2><p>Some lifters need more ramp than the standard scheme. If you train at 6 AM in a cold garage, add one extra easy set at the bottom — cold tissue warms slower, and the first 10 minutes of an early session are when most strains happen. Lifters over 40 typically benefit from an extra intermediate jump too: tendons lose some elasticity with age, and a 6-set ramp to a heavy squat beats a 4-set one for joint comfort. Conversely, in a hot commercial gym after an active warm-up, the Quick scheme is genuinely enough. The calculator gives you the structure; your body and your environment set the volume knob. When in doubt, add a set at the bottom, never at the top.</p><h2>Warm-Up Time Budget</h2><p>A full 5-set ramp takes about <strong>8–12 minutes</strong> including rests — a small fraction of an hour-long session and the highest-ROI minutes in it. Pair it with 5 minutes of general movement beforehand (rower, bike, or dynamic stretches) and your total preparation is under 15 minutes. Lifters who 'don't have time to warm up' invariably find time for the injury rehab later. The ramp is not the obstacle to your workout; it is the doorway into it.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How many warm-up sets do I need before my working weight?</summary><p>For a main barbell lift at a meaningful weight, 4–5 ramping sets is the sweet spot (bar, then roughly 40/50/65/80/90% of working weight). For moderate weights or later exercises in the session, 2–3 sets is plenty — you are already warm.</p></details>
+<details><summary>Why do the reps decrease as the weight goes up?</summary><p>Early high-rep sets are about raising tissue temperature and practicing the movement; late sets are about priming the nervous system for heavy load. Doing 8 reps at 90% would create real fatigue — a working set, not a warm-up. Reps taper so the ramp energizes you instead of exhausting you.</p></details>
+<details><summary>Should I do warm-up sets for every exercise?</summary><p>No — warm up the movement pattern, not every exercise. After heavy squats your legs are warm, so leg press or lunges need just one or two feeler sets to dial in the machine. Save the full ramp for the first big lift of each movement pattern.</p></details>
+<details><summary>How long should I rest between warm-up sets?</summary><p>30–60 seconds between the light early sets, 1–2 minutes as the weight gets serious, and 2–3 minutes before your first working set so ATP energy stores fully recover. Rushing the final rest is the most common warm-up mistake.</p></details>
+<details><summary>Can I skip warm-ups on light or rushed days?</summary><p>Shorten it, don't skip it. Use the Quick 3-set scheme (bar, 60%, 80%) — three minutes of ramping beats zero. The lighter the working weight, the less ramp you need, but the empty-bar set is never wasted.</p></details>
+<details><summary>What if I use a women&#x27;s bar or trap bar instead of a 20 kg bar?</summary><p>Yes — enter your actual bar weight in the calculator. A women's 15 kg bar, a trap bar (~25 kg), or a technique bar changes every set's plate math, and the calculator rebuilds the whole ramp around whatever bar you use.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">WarmUpWise</div>
+    <p>WarmUpWise turns your working weight into an exact warm-up ramp — set weights, reps, rest times and the precise plates to load per side.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function warmupSet(working,bar,idx){var p=[0.4,0.5,0.65,0.8,0.9][idx];if(p===undefined)return 0;var w=Math.max(working*p,bar);return Math.round(w/2.5)*2.5;}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var schemes={standard:{p:[0.4,0.5,0.65,0.8,0.9],r:[10,8,5,3,2]},quick:{p:['bar',0.6,0.8],r:[8,5,3]},heavy:{p:['bar',0.4,0.55,0.7,0.85,0.92],r:[10,8,5,3,2,1]}};var unit='kg',showPlates=true;var workEl=document.getElementById('wu-work'),barEl=document.getElementById('wu-barw'),schEl=document.getElementById('wu-scheme'),stepsEl=document.getElementById('wu-steps'),dial=document.getElementById('wu-dial');if(!workEl||!dial)return;function stepV(){return unit==='kg'?2.5:5;}function platesFor(){return unit==='kg'?[25,20,15,10,5,2.5,1.25]:[45,35,25,10,5,2.5];}function rndW(w){var s=stepV();return Math.round(w/s)*s;}function plateBreakdown(setW,barW){var per=(setW-barW)/2;var out=[],rem=per;var inv=platesFor();for(var i=0;i<inv.length;i++){while(rem>=inv[i]-1e-9&&out.length<12){out.push(inv[i]);rem-=inv[i];}}return {per:per,plates:out};}function setList(){var working=parseFloat(workEl.value)||0,barW=parseFloat(barEl.value)||0;var sch=schemes[schEl.value];var list=[];sch.p.forEach(function(p,i){var w=p==='bar'?barW:rndW(Math.max(working*p,barW));list.push({w:w,reps:sch.r[i]});});var filt=[];list.forEach(function(s){var prev=filt[filt.length-1];if(!prev||s.w-prev.w>=stepV()-1e-9||s===list[list.length-1])filt.push(s);});return {list:filt,working:working,barW:barW};}function render(){var d=setList();var html='';var totW=0;d.list.forEach(function(s,i){totW+=s.w*s.reps;var pb=plateBreakdown(s.w,d.barW);var chips=pb.plates.map(function(p){return '<span class="wu-pl">'+p+'</span>';}).join('');var rest=i<2?'Rest 30–60s':(i<d.list.length-1?'Rest 60–120s':'Rest 2–3 min, then work');html+='<div class="wu-step"><div class="wu-num">'+(i+1)+'</div><div><div class="wu-sw">'+s.w+' '+unit+' × '+s.reps+'</div><div class="wu-rest">'+rest+'</div></div>'+(showPlates?'<div class="wu-plates">'+chips+'<div class="wu-sm">per side</div></div>':'')+'</div>';});html+='<div class="wu-step work"><div class="wu-num">▶</div><div><div class="wu-sw">'+d.working+' '+unit+' × work</div><div class="wu-rest">Your working sets start here</div></div></div>';stepsEl.innerHTML=html;document.getElementById('wu-totsets').textContent=d.list.length+' warm-up sets';document.getElementById('wu-totkg').textContent=Math.round(totW).toLocaleString()+' '+unit+' lifted in warm-up';drawDial(d);}function drawDial(d){var cx=160,cy=160,rO=130,rI=86;var tot=d.working;var s='';s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+((rO+rI)/2)+'" fill="none" stroke="#E4F2EC" stroke-width="'+(rO-rI)+'"/>';var acc=-90;var cols=['#0F766E','#14957F','#2FA98F','#5BBFA4','#8FD4BC','#C4E7D8'];d.list.forEach(function(st,i){var frac=st.w/tot;var sw=frac*360;var col=cols[i%cols.length];s+='<path d="'+arcSeg(cx,cy,(rO+rI)/2,acc,acc+sw)+'" fill="none" stroke="'+col+'" stroke-width="'+(rO-rI)+'"/>';var mid=acc+sw/2;var lx=cx+Math.cos(mid*Math.PI/180)*((rO+rI)/2),ly=cy+Math.sin(mid*Math.PI/180)*((rO+rI)/2);s+='<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#1F2A2E" font-family="Public Sans,sans-serif">'+st.w+'</text>';acc+=sw;});s+='<text x="'+cx+'" y="'+(cy-4)+'" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="34" fill="#0F766E">'+d.working+'</text>';s+='<text x="'+cx+'" y="'+(cy+20)+'" text-anchor="middle" font-family="Public Sans,sans-serif" font-size="12.5" fill="#50605B">'+unit+' working</text>';dial.innerHTML=s;}function arcSeg(cx,cy,r,a0,a1){var r0=a0*Math.PI/180,r1=a1*Math.PI/180;var x0=cx+r*Math.cos(r0),y0=cy+r*Math.sin(r0),x1=cx+r*Math.cos(r1),y1=cy+r*Math.sin(r1);var large=(a1-a0)>180?1:0;return 'M '+x0.toFixed(1)+' '+y0.toFixed(1)+' A '+r+' '+r+' 0 '+large+' 1 '+x1.toFixed(1)+' '+y1.toFixed(1);}document.getElementById('wu-kg').addEventListener('click',function(){unit='kg';this.classList.add('on');document.getElementById('wu-lb').classList.remove('on');render();});document.getElementById('wu-lb').addEventListener('click',function(){unit='lb';this.classList.add('on');document.getElementById('wu-kg').classList.remove('on');render();});document.getElementById('wu-plon').addEventListener('click',function(){showPlates=true;this.classList.add('on');document.getElementById('wu-ploff').classList.remove('on');render();});document.getElementById('wu-ploff').addEventListener('click',function(){showPlates=false;this.classList.add('on');document.getElementById('wu-plon').classList.remove('on');render();});[workEl,barEl,schEl].forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});render();});}
+</script>
+</body>
+</html>
