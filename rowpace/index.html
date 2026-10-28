@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rowing Pace Calculator — Split, Watts &amp; 2K Predictor | RowPace</title>
+<meta name="description" content="Rowing pace calculator: convert split, watts, time and distance with the Concept2 formula. Zone gauge, Paul&#x27;s Law predictions, 2K benchmarks. Free.">
+<link rel="canonical" href="https://health.fixoraa.tech/rowpace/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Rowing Pace Calculator — Split, Watts &amp; 2K Predictor | RowPace">
+<meta property="og:description" content="Rowing pace calculator: convert split, watts, time and distance with the Concept2 formula. Zone gauge, Paul&#x27;s Law predictions, 2K benchmarks. Free.">
+<meta property="og:url" content="https://health.fixoraa.tech/rowpace/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "RowPace",
+      "url": "https://health.fixoraa.tech/rowpace/",
+      "applicationCategory": "Sports Tools",
+      "operatingSystem": "Web",
+      "description": "Rowing pace calculator: convert split, watts, time and distance with the Concept2 formula. Zone gauge, Paul's Law predictions, 2K benchmarks. Free.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a good 2K row time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on sex, age and weight, but broad club benchmarks: men under 7:00 is strong, 7:00\u20137:30 intermediate, 7:30\u20138:30 developing; women under 7:45 is strong, 7:45\u20138:30 intermediate, 8:30\u20139:30 developing. The benchmark table above has full categories \u2014 use it to pick your next target split."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does 'split' mean on a rowing machine?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Split is your pace expressed as the time it would take to row 500 meters at your current speed \u2014 e.g. 2:00/500m. It is the standard unit in indoor rowing: every Concept2 monitor shows it, training plans are written in it, and tests are scored on it. Lower is faster."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What drag factor / damper setting should I use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Set the damper so the monitor reads a drag factor of 110\u2013140 (usually damper 3\u20135, but check the display \u2014 it varies by machine). Damper 10 is not 'harder training'; it just loads your back and wrecks technique. Most rowers 2K test between 120 and 135."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does a small split improvement need so much more power?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because water (and air on the flywheel) resists with the square of velocity, and power is force times velocity \u2014 so power rises with the cube of speed. Halving your split would take eight times the watts. That is why 5 seconds of split improvement costs 13% more power, and why zones are best defined in watts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I predict my 5K time from my 2K?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use Paul's Law: pace\u2082 = pace\u2081 \u00d7 (distance\u2082 \u00f7 distance\u2081)^0.073. Practically, doubling the distance adds about 5 seconds per 500m to your sustainable split. The predictor above does the math for 1K, 5K, 10K and 60 minutes from any result you enter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate are the calorie numbers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a consistent estimate, not a measurement. Concept2's formula (kcal/hr = watts \u00d7 4 + 300) is calibrated for a 175 lb reference rower, so lighter or heavier athletes will differ. Use it to compare your own sessions over time rather than as a dietary number."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I test my 2K?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A 2K test is maximal by definition, so limit true all-out tests to every 8\u201312 weeks. You can row hard intervals weekly, but full 2K tests too often just accumulate fatigue without new information. Test, train the zones the result reveals, retest."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#EFF6FF; --surface:#FFFFFF; --accent:#1D4ED8; --accent-ink:#FFFFFF;
+  --ink:#1B2438; --muted:#55617A; --line:#D3E0F7;
+  --display:'Barlow Condensed',serif; --body:'Work Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.rp-wrap{max-width:1060px;margin:0 auto;padding:54px 20px 70px;font-family:'Work Sans',system-ui,sans-serif;color:#1B2438}.rp-hero{text-align:center;margin-bottom:26px}.rp-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1D4ED8;background:#DEE9FD;border:1px solid #D3E0F7;padding:6px 14px;border-radius:999px;margin-bottom:14px}.rp-hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(38px,6vw,60px);line-height:1;margin:0 0 10px;letter-spacing:.01em;font-weight:700;text-transform:uppercase}.rp-tag{color:#55617A;font-size:17px;margin:0}.rp-gaugecard{background:#fff;border:1px solid #D3E0F7;border-radius:26px;padding:28px 24px 20px;box-shadow:0 18px 44px rgba(29,78,216,.09);margin-bottom:20px;text-align:center}.rp-readouts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:4px}.rp-ro{background:#EFF6FF;border:1px solid #D3E0F7;border-radius:16px;padding:12px 22px;min-width:150px}.rp-ro .rp-v{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:700;color:#1D4ED8;line-height:1.05}.rp-ro .rp-l{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#55617A;margin-top:2px}.rp-conv{background:#fff;border:1px solid #D3E0F7;border-radius:26px;padding:26px;box-shadow:0 18px 44px rgba(29,78,216,.09);margin-bottom:20px}.rp-conv h2{font-family:'Barlow Condensed',sans-serif;font-size:26px;margin:0 0 4px;text-transform:uppercase;letter-spacing:.02em}.rp-sub{color:#55617A;font-size:14px;margin:0 0 18px}.rp-seg{display:inline-flex;background:#EFF6FF;border:1px solid #D3E0F7;border-radius:999px;padding:4px;margin-bottom:18px}.rp-seg button{border:none;background:transparent;padding:10px 20px;font-size:14.5px;font-weight:700;border-radius:999px;cursor:pointer;color:#55617A;font-family:inherit;white-space:nowrap}.rp-seg button.on{background:#1D4ED8;color:#fff}.rp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.rp-field label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#55617A;margin-bottom:7px}.rp-field input,.rp-field select{width:100%;padding:12px;font-size:16px;border:2px solid #D3E0F7;border-radius:12px;font-family:inherit;color:#1B2438;background:#fff}.rp-field input:focus{outline:none;border-color:#1D4ED8}.rp-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}.rp-tile{background:#EFF6FF;border:1px solid #D3E0F7;border-radius:16px;padding:14px 10px;text-align:center}.rp-tile .rp-tv{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;color:#1D4ED8;line-height:1.1}.rp-tile .rp-tl{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#55617A;margin-top:3px}.rp-xgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.rp-xcard{background:#fff;border:1px solid #D3E0F7;border-radius:22px;padding:24px}.rp-xcard h3{font-family:'Barlow Condensed',sans-serif;font-size:22px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.02em}.rp-xcard p{font-size:14px;color:#55617A;margin:0 0 12px;line-height:1.6}.rp-table{width:100%;border-collapse:collapse;font-size:13.5px}.rp-table th,.rp-table td{padding:8px 6px;border-bottom:1px solid #D3E0F7;text-align:left}.rp-table th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:#1D4ED8}.rp-plist{display:grid;gap:8px;font-size:14px}.rp-prow{display:flex;justify-content:space-between;background:#EFF6FF;border-radius:10px;padding:9px 13px}.rp-prow b{font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#1D4ED8}@media(max-width:900px){.rp-grid{grid-template-columns:repeat(2,1fr)}.rp-tiles{grid-template-columns:repeat(2,1fr)}.rp-xgrid{grid-template-columns:1fr}.rp-wrap{padding:40px 14px 56px}.rp-hero h1{font-size:40px}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="RowPace home">
+      <span class="fx-logo-tile" aria-hidden="true">🚣</span>
+      <span class="fx-brand">RowPace</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-chart-dial" aria-label="RowPace tool">
+<section class='rp-wrap'><div class='rp-hero'><span class='rp-eyebrow'>Concept2 formula inside</span><h1>Rowing Pace Calculator</h1><p class='rp-tag'>Split, watts, time, distance — one formula, every answer.</p></div><div class='rp-gaugecard'><svg id='rp-gauge' viewBox='0 0 400 250' width='100%' style='max-width:520px;display:block;margin:0 auto' role='img' aria-label='Effort zone gauge'></svg><div class='rp-readouts'><div class='rp-ro'><div class='rp-v' id='rp-vsplit'>2:00.0</div><div class='rp-l'>Split /500m</div></div><div class='rp-ro'><div class='rp-v' id='rp-vwatts'>203 W</div><div class='rp-l'>Power</div></div><div class='rp-ro'><div class='rp-v' id='rp-vzone'>Steady</div><div class='rp-l'>Effort zone</div></div></div></div><div class='rp-conv'><h2>Converter</h2><p class='rp-sub'>Enter what you know — the rest follows from the Concept2 cubic formula.</p><div class='rp-seg' role='group' aria-label='Converter mode'><button id='rp-mtime' class='on' type='button'>Distance + time → split</button><button id='rp-msplit' type='button'>Split + distance → time</button></div><div class='rp-grid' id='rp-inputs'></div><div class='rp-tiles'><div class='rp-tile'><div class='rp-tv' id='rp-tsplit'>–</div><div class='rp-tl'>Split /500m</div></div><div class='rp-tile'><div class='rp-tv' id='rp-twatts'>–</div><div class='rp-tl'>Watts</div></div><div class='rp-tile'><div class='rp-tv' id='rp-ttime'>–</div><div class='rp-tl'>Total time</div></div><div class='rp-tile'><div class='rp-tv' id='rp-tspeed'>–</div><div class='rp-tl'>Speed m/s</div></div><div class='rp-tile'><div class='rp-tv' id='rp-tkcal'>–</div><div class='rp-tl'>Kcal</div></div></div></div><div class='rp-xgrid'><div class='rp-xcard'><h3>🔮 Paul's Law predictor</h3><p>Enter any result — predicts your sustainable pace at classic distances.</p><div class='rp-field' style='margin-bottom:10px'><label for='rp-pdist'>Your distance (m)</label><input type='number' id='rp-pdist' value='2000' min='500' step='500'></div><div class='rp-field' style='margin-bottom:12px'><label for='rp-ptime'>Your time (m:ss)</label><input type='text' id='rp-ptime' value='7:30' inputmode='numeric'></div><div class='rp-plist' id='rp-plist'></div></div><div class='rp-xcard'><h3>🏅 2K benchmarks</h3><p>Where does your 2K land? Broad club-rower categories.</p><table class='rp-table'><tr><th>Level</th><th>Men</th><th>Women</th></tr><tr><td>Elite</td><td>&lt; 6:10</td><td>&lt; 6:55</td></tr><tr><td>Advanced</td><td>6:10–6:40</td><td>6:55–7:25</td></tr><tr><td>Strong</td><td>6:40–7:10</td><td>7:25–7:55</td></tr><tr><td>Intermediate</td><td>7:10–7:50</td><td>7:55–8:35</td></tr><tr><td>Developing</td><td>7:50–8:40</td><td>8:35–9:30</td></tr><tr><td>New rower</td><td>&gt; 8:40</td><td>&gt; 9:30</td></tr></table></div><div class='rp-xcard'><h3>🎚️ Drag factor guide</h3><p>Damper 1–10 sets <strong>drag factor</strong>, not resistance. Check the number on your monitor, not the lever.</p><table class='rp-table'><tr><th>Use</th><th>Drag factor</th><th>Damper ≈</th></tr><tr><td>Training default</td><td>110–140</td><td>3–5</td></tr><tr><td>2K test</td><td>120–135</td><td>4–5</td></tr><tr><td>Sprint work</td><td>130–150</td><td>5–6</td></tr><tr><td>Too high (avoid)</td><td>180+</td><td>8–10</td></tr></table><p style='margin-top:10px'>Damper 10 does not mean a harder workout — it means heavier, slower strokes that punish your back. Technique first, drag second.</p></div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Thinking in Split: Rowing's Native Language</h2><p>Every other endurance sport thinks in pace per mile or kilometer. Indoor rowing thinks in <strong>split</strong> — the time it would take to row 500 meters at your current speed, written like 2:00/500m. The Concept2 monitor shows it big and central because it is the unit training plans are written in, tests are scored on, and rowers compare. A lower split is faster, which confuses every beginner exactly once: 1:55 is much faster than 2:05, and the gap between them is far bigger than five seconds suggests.</p><p>That gap is the heart of rowing math. This calculator converts between the four quantities that describe any piece of rowing — <strong>distance, total time, 500m split, and power in watts</strong> — using the same formula Concept2's own monitors use. Enter what you know; it fills in the rest.</p><h2>The Cubic Truth: Why Small Gains Cost So Much</h2><p>Split and watts are linked by a cubic relationship, published by Concept2:</p><p><strong>watts = 2.80 ÷ (split in seconds ÷ 500)³</strong></p><p>Because of the cube, speed gets expensive fast. Dropping your split from 2:00 to 1:55 — five seconds, about 4% faster — costs roughly 27 extra watts, a 13% jump in power output (203 W to 230 W). This is why the final seconds of a personal best are brutally harder to find than the first ones, and why training zones are better defined in watts than in split: equal watt jumps mean equal physiological jumps, while equal split jumps do not.</p><p>The gauge above shows this honestly. Its zones are drawn in watts — Easy, Steady, Threshold, Race — so the needle tells you the true cost of your pace, not just the number on the monitor.</p><h2>How to Use the Converter</h2><p><strong>Mode 1 — I know my time:</strong> enter the distance and your total time (for example, 2000 m in 7:30). The calculator derives your average split ((450 ÷ 2000) × 500 = 1:52.5/500m), converts it to watts, and estimates calories. <strong>Mode 2 — I know my split:</strong> enter a split you can hold and a target distance; it gives the finish time, watts, and energy cost. Rowers use mode 2 constantly: 'can I hold 1:58 for 5K?' becomes an exact finish time (19:40) before touching the handle.</p><p>The calorie figure uses Concept2's monitor formula — <strong>kcal/hour = watts × 4 + 300</strong> — calibrated for a 175 lb reference rower. Treat it as a consistent training estimate, not a measurement: your body weight, efficiency, and technique shift the real number, but the formula lets you compare sessions apples to apples.</p><h2>Training Zones on the Erg</h2><p>Most rowing programs prescribe intensity in zones. Anchored to watts for a typical club rower:</p><ul><li><strong>Easy / recovery (UT3):</strong> conversational, ~55–65% of 2K watts. Warm-ups, cool-downs, active recovery days. You should finish feeling better than you started.</li><li><strong>Steady (UT2/UT1):</strong> the aerobic bread and butter — 65–80% of 2K watts, 30–90 minutes. This is where base fitness is built, and most rowers under-do it.</li><li><strong>Threshold (AT):</strong> comfortably hard, ~80–90% of 2K watts, 20–40 minutes in intervals. The fastest sustainable pace; the classic 30-minute test lives here.</li><li><strong>Race / VO2max (TR/AN):</strong> 95%+ of 2K watts, short intervals with full recovery. 2K test pace and faster.</li></ul><p>The 80/20 rule applies: roughly four out of five sessions should be Easy or Steady. The athletes who hammer every session plateau; the ones who go easy easy and hard hard keep improving for years.</p><h2>Paul's Law: Predicting Other Distances</h2><p>Predicting your 5K from your 2K is one of rowing's handiest tricks, and it has a formula — <strong>Paul's Law</strong>: when distance doubles, your sustainable split gets about 5 seconds slower per 500m. More precisely: <strong>pace₂ = pace₁ × (distance₂ ÷ distance₁)^0.073</strong>. Row a 7:00 2K (1:45 split) and Paul's Law predicts roughly a 1:53.7 5K split, an 18:56 5K.</p><p>The predictor above applies it to the standard test distances (1K, 5K, 10K, 60 minutes) from any result you enter. Two caveats: it assumes similar fitness across energy systems — sprinters beat their short predictions and fade long, diesel engines do the opposite — and it assumes you pace well. A fly-and-die 2K predicts a fantasy 5K. Row the test evenly, then trust the law.</p><h2>Drag Factor: The Damper Setting, Demystified</h2><p>The damper lever (1–10) does not set 'resistance' like a bike gear — it sets <strong>drag factor</strong>, how quickly the flywheel slows between strokes. Higher drag feels heavier per stroke but demands more force; lower drag rewards quick, snappy strokes. Concept2 recommends a drag factor of <strong>110–140</strong> for most training (damper roughly 3–5, but check the monitor — every machine differs with dust and altitude).</p><p>Common errors: cranking the damper to 10 for 'a harder workout' (it just trashes your back and ruins technique) and copying an elite's high drag without their force capacity. Set 120, learn to row well, and only experiment once your technique is solid. For 2K tests, most rowers land between 120 and 135.</p><h2>Rowing a Good 2K: Pacing Strategy</h2><p>The 2K is rowing's benchmark test — seven-ish minutes of controlled suffering. The classic strategy: <strong>first 500m</strong> at goal split +1–2 seconds (resist the adrenaline sprint); <strong>middle 1000m</strong> at goal split, the mental grind where races are won; <strong>last 500m</strong> empty the tank, split dropping as low as form allows. Even or slightly negative splits beat the fly-and-die every time — starting 5 seconds too fast costs 10+ seconds by the end. Warm up 15–20 minutes with a few short bursts at race pace, rest 5 minutes, then go. And record the result: the benchmark table below shows where it lands.</p><h2>Technique in Thirty Seconds</h2><p>Numbers mean little with bad technique. The stroke is <strong>legs–body–arms</strong> on the drive, <strong>arms–body–legs</strong> on the recovery, in roughly a 1:2 time ratio — the recovery takes twice as long as the drive. Common faults: yanking with the arms early (the legs are ~60% of the power), rushing the slide forward (kills the ratio), and over-compressing at the catch (shins past vertical strains the knees). Two drills fix most faults: legs-only rowing (10 strokes) and the 'pause at finish' drill. Ten minutes of drill work per week transforms efficiency — and efficiency shows up directly as a lower split at the same watts.</p><h2>Beyond the 2K: Benchmark Workouts That Matter</h2><p>The 2K gets the glory, but three other tests round out a complete rowing profile. The <strong>30-minute test</strong> (maximum distance in 30 minutes) is the purest aerobic benchmark — row it at threshold effort, evenly paced, and it predicts your longer pieces better than any formula. The <strong>5K test</strong> sits between worlds: long enough to demand aerobic depth, short enough that pacing errors are punished immediately. And the <strong>1-minute max-watts test</strong> measures raw power — useful for sprinters and a fun monthly check that your top end is not rusting while you build base.</p><p>Test sparingly and test consistently: same drag factor, same warm-up, same time of day. Log every result with its average split and watts. Over a year, these four numbers draw your complete fitness curve — and the Paul's Law predictor above tells you, after any single test, what the other three <em>should</em> be. When a prediction and reality disagree by a wide margin, you have found your limiter: beat the short predictions but fade long, and you need aerobic base; match the long ones but lag the sprints, and you need power work.</p><h2>Heart Rate Meets the Erg</h2><p>Watts tell you the work; heart rate tells you the cost. Pairing the two deepens every session: if 200 W used to sit at 150 bpm and now sits at 142 bpm, your aerobic fitness improved even though the monitor shows the same split. Most rowers train with both — watts (or split) as the <em>target</em>, heart rate as the <em>governor</em>. On easy days, cap heart rate (roughly 70% of max) and let the split be whatever it is; on interval days, hit the watt target and watch how quickly heart rate recovers between pieces — faster recovery is fitness arriving in real time.</p><p>A practical note: heart-rate lag means the first 60–90 seconds of any piece read low. Do not chase the number early; settle into the watts, let the pulse catch up, then govern. And cardiac drift is real — on long steady pieces, heart rate creeps up at constant watts as you dehydrate and warm up. Holding watts steady while heart rate drifts 5–10 bpm is normal; holding heart rate steady while watts collapse means you started too hard.</p><h2>Fueling Rowing Sessions</h2><p>Rowing is a full-body, glycogen-hungry sport — a hard hour can burn 600–900 kcal. For sessions under 60 minutes, normal daily eating suffices; just avoid rowing hard on a completely empty stomach until you know how your body responds. For 90+ minute steady rows or test days, eat a familiar carbohydrate-rich meal 2–3 hours before, sip water throughout (you sweat more than it feels like — there is no wind on an erg), and have a recovery meal with protein and carbs within a couple of hours after. Save experimentation for training days: test day is never the time for a new gel, a new breakfast, or a new damper setting.</p><h2>Benchmarks: Where Do You Stand?</h2><p>The table below gives 2K categories for men and women. These are broad club-rower benchmarks, not elite standards — the men's world record is 5:35.8 and the women's 6:21.1, numbers that belong to a different species. Use the table to set the next target, not to judge the last result: pick the split at the top of the next category up, train the zones that support it, and retest in 8–12 weeks. Progress on the erg is beautifully measurable — the monitor never lies, which is exactly why rowers love it.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>What is a good 2K row time?</summary><p>It depends on sex, age and weight, but broad club benchmarks: men under 7:00 is strong, 7:00–7:30 intermediate, 7:30–8:30 developing; women under 7:45 is strong, 7:45–8:30 intermediate, 8:30–9:30 developing. The benchmark table above has full categories — use it to pick your next target split.</p></details>
+<details><summary>What does &#x27;split&#x27; mean on a rowing machine?</summary><p>Split is your pace expressed as the time it would take to row 500 meters at your current speed — e.g. 2:00/500m. It is the standard unit in indoor rowing: every Concept2 monitor shows it, training plans are written in it, and tests are scored on it. Lower is faster.</p></details>
+<details><summary>What drag factor / damper setting should I use?</summary><p>Set the damper so the monitor reads a drag factor of 110–140 (usually damper 3–5, but check the display — it varies by machine). Damper 10 is not 'harder training'; it just loads your back and wrecks technique. Most rowers 2K test between 120 and 135.</p></details>
+<details><summary>Why does a small split improvement need so much more power?</summary><p>Because water (and air on the flywheel) resists with the square of velocity, and power is force times velocity — so power rises with the cube of speed. Halving your split would take eight times the watts. That is why 5 seconds of split improvement costs 13% more power, and why zones are best defined in watts.</p></details>
+<details><summary>How do I predict my 5K time from my 2K?</summary><p>Use Paul's Law: pace₂ = pace₁ × (distance₂ ÷ distance₁)^0.073. Practically, doubling the distance adds about 5 seconds per 500m to your sustainable split. The predictor above does the math for 1K, 5K, 10K and 60 minutes from any result you enter.</p></details>
+<details><summary>How accurate are the calorie numbers?</summary><p>It is a consistent estimate, not a measurement. Concept2's formula (kcal/hr = watts × 4 + 300) is calibrated for a 175 lb reference rower, so lighter or heavier athletes will differ. Use it to compare your own sessions over time rather than as a dietary number.</p></details>
+<details><summary>How often should I test my 2K?</summary><p>A 2K test is maximal by definition, so limit true all-out tests to every 8–12 weeks. You can row hard intervals weekly, but full 2K tests too often just accumulate fatigue without new information. Test, train the zones the result reveals, retest.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">RowPace</div>
+    <p>RowPace converts between rowing split, watts, time and distance with the Concept2 formula — plus a zone gauge, Paul's Law predictions and 2K benchmarks.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function splitToWatts(s){var v=s/500;return Math.round(2.8/Math.pow(v,3)*10)/10;}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var gauge=document.getElementById('rp-gauge');if(!gauge)return;var mode='time';var zones=[[0,'Easy','#22C55E'],[130,'Steady','#1D4ED8'],[170,'Threshold','#F59E0B'],[210,'Race','#EF4444'],[400,'',null]];function fmtSplit(sec){var m=Math.floor(sec/60),s=sec-m*60;return m+':'+(s<10?'0':'')+s.toFixed(1);}function fmtTime(sec){sec=Math.round(sec);var m=Math.floor(sec/60),s=sec%60,h=Math.floor(m/60);if(h>0)return h+':'+(m%60<10?'0':'')+(m%60)+':'+(s<10?'0':'')+s;return m+':'+(s<10?'0':'')+s;}function parseT(v){v=(v||'').trim();if(v.indexOf(':')<0)return parseFloat(v)*60||0;var p=v.split(':');if(p.length===3)return (+p[0])*3600+(+p[1])*60+(+p[2]);return (+p[0])*60+(+p[1]);}function wattsToSplit(w){return 500*Math.pow(2.8/w,1/3);}function zoneOf(w){for(var i=zones.length-2;i>=0;i--){if(w>=zones[i][0])return zones[i];}return zones[0];}function drawGauge(w){var cx=200,cy=210,r=150;var s='';var bounds=[50,130,170,210,400];var cols=['#22C55E','#1D4ED8','#F59E0B','#EF4444'];for(var z=0;z<4;z++){var a0=Math.PI-(bounds[z]-50)/(350)*Math.PI,a1=Math.PI-(bounds[z+1]-50)/350*Math.PI;s+='<path d="'+arcP(cx,cy,r,a0,a1)+'" fill="none" stroke="'+cols[z]+'" stroke-width="30"/>';var mid=(a0+a1)/2;var lx=cx+Math.cos(mid)*(r-32),ly=cy-Math.sin(mid)*(r-32);s+='<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="Work Sans,sans-serif">'+['EASY','STEADY','THRESH','RACE'][z]+'</text>';}for(var t=50;t<=400;t+=50){var ta=Math.PI-(t-50)/350*Math.PI;var x1=cx+Math.cos(ta)*(r-18),y1=cy-Math.sin(ta)*(r-18),x2=cx+Math.cos(ta)*(r+18),y2=cy-Math.sin(ta)*(r+18);s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#1B2438" stroke-width="2"/>';}var wc=Math.max(50,Math.min(400,w));var wa=Math.PI-(wc-50)/350*Math.PI;var nx=cx+Math.cos(wa)*(r-46),ny=cy-Math.sin(wa)*(r-46);s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+nx.toFixed(1)+'" y2="'+ny.toFixed(1)+'" stroke="#1B2438" stroke-width="5" stroke-linecap="round"/><circle cx="'+cx+'" cy="'+cy+'" r="12" fill="#1B2438"/>';s+='<text x="'+cx+'" y="'+(cy-66)+'" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="40" fill="#1D4ED8">'+Math.round(w)+' W</text>';gauge.innerHTML=s;}function arcP(cx,cy,r,a0,a1){var x0=cx+r*Math.cos(a0),y0=cy-r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy-r*Math.sin(a1);return 'M '+x0.toFixed(1)+' '+y0.toFixed(1)+' A '+r+' '+r+' 0 0 1 '+x1.toFixed(1)+' '+y1.toFixed(1);}function current(){var splitSec,timeSec,dist;if(mode==='time'){dist=parseFloat(document.getElementById('rp-dist').value)||2000;timeSec=parseT(document.getElementById('rp-time').value);if(!timeSec)return null;splitSec=timeSec/dist*500;}else{splitSec=parseT(document.getElementById('rp-split').value);dist=parseFloat(document.getElementById('rp-dist2').value)||2000;if(!splitSec)return null;timeSec=splitSec/500*dist;}var watts=splitToWatts(splitSec);var kcal=(watts*4+300)*(timeSec/3600);return {split:splitSec,watts:watts,time:timeSec,dist:dist,speed:500/splitSec,kcal:kcal};}function render(){var c=current();if(!c)return;document.getElementById('rp-vsplit').textContent=fmtSplit(c.split);document.getElementById('rp-vwatts').textContent=Math.round(c.watts)+' W';document.getElementById('rp-vzone').textContent=zoneOf(c.watts)[1];document.getElementById('rp-tsplit').textContent=fmtSplit(c.split);document.getElementById('rp-twatts').textContent=Math.round(c.watts)+' W';document.getElementById('rp-ttime').textContent=fmtTime(c.time);document.getElementById('rp-tspeed').textContent=c.speed.toFixed(2);document.getElementById('rp-tkcal').textContent=Math.round(c.kcal);drawGauge(c.watts);renderPaul();}function renderPaul(){var d0=parseFloat(document.getElementById('rp-pdist').value)||2000;var t0=parseT(document.getElementById('rp-ptime').value);if(!t0)return;var p0=t0/d0*500;var h2='';[['1K',1000],['2K',2000],['5K',5000],['10K',10000]].forEach(function(x){var pace=p0*Math.pow(x[1]/d0,0.073);h2+='<div class="rp-prow"><span>'+x[0]+'</span><b>'+fmtTime(pace/500*x[1])+' · '+fmtSplit(pace)+'</b></div>';});var d60=(500/p0)*3600;for(var q=0;q<6;q++){var pg=p0*Math.pow(d60/d0,0.073);d60=(500/pg)*3600;}var p60=p0*Math.pow(d60/d0,0.073);h2+='<div class="rp-prow"><span>60 min</span><b>'+Math.round(d60).toLocaleString()+' m · '+fmtSplit(p60)+'</b></div>';document.getElementById('rp-plist').innerHTML=h2;}function buildInputs(){var box=document.getElementById('rp-inputs');if(mode==='time'){box.innerHTML='<div class="rp-field"><label for="rp-dist">Distance (m)</label><input type="number" id="rp-dist" value="2000" min="100" step="100"></div><div class="rp-field"><label for="rp-time">Total time (m:ss)</label><input type="text" id="rp-time" value="7:30" inputmode="numeric"></div><div class="rp-field"><label>&nbsp;</label><div style="font-size:13px;color:#55617A">Split, watts, speed &amp; kcal compute live.</div></div>';}else{box.innerHTML='<div class="rp-field"><label for="rp-split">Split /500m (m:ss.t)</label><input type="text" id="rp-split" value="1:58.0" inputmode="numeric"></div><div class="rp-field"><label for="rp-dist2">Distance (m)</label><input type="number" id="rp-dist2" value="5000" min="100" step="100"></div><div class="rp-field"><label>&nbsp;</label><div style="font-size:13px;color:#55617A">Finish time, watts &amp; kcal compute live.</div></div>';}Array.prototype.forEach.call(box.querySelectorAll('input'),function(el){el.addEventListener('input',render);});}document.getElementById('rp-mtime').addEventListener('click',function(){mode='time';this.classList.add('on');document.getElementById('rp-msplit').classList.remove('on');buildInputs();render();});document.getElementById('rp-msplit').addEventListener('click',function(){mode='split';this.classList.add('on');document.getElementById('rp-mtime').classList.remove('on');buildInputs();render();});document.getElementById('rp-pdist').addEventListener('input',renderPaul);document.getElementById('rp-ptime').addEventListener('input',renderPaul);buildInputs();render();});}
+</script>
+</body>
+</html>
