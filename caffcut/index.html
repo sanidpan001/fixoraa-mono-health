@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://health.fixoraa.tech/caffcut/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaffCut — Caffeine Sleep Calculator | When Should I Stop Drinking Coffee Before Bed?</title>
+<meta name="description" content="Free caffeine half life calculator: log every coffee and tea through your day, watch your personal caffeine decay curve, and get a custom caffeine cutoff time so caffeine never steals your sleep.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', system-ui, sans-serif; background: #12100C; }
+  .font-display { font-family: 'Fraunces', serif; }
+  input[type=number], input[type=time], input[type=date], select { color-scheme: dark; }
+  input[type=range] { accent-color: #D97706; }
+  .rail-glow { box-shadow: 0 0 42px rgba(217,119,6,.28), inset 0 0 0 1px rgba(217,119,6,.35); }
+  .card { background: #1C1812; border: 1px solid #3A3126; }
+  .bean { position: absolute; opacity: .07; pointer-events: none; }
+  @keyframes steam { 0% { transform: translateY(0) scaleX(1); opacity: 0; } 30% { opacity: .8; } 100% { transform: translateY(-26px) scaleX(1.6); opacity: 0; } }
+  .steam span { display: block; width: 3px; height: 18px; border-radius: 3px; background: #F3EDE0; animation: steam 2.6s ease-in-out infinite; }
+  .steam span:nth-child(2) { animation-delay: .5s; } .steam span:nth-child(3) { animation-delay: 1.1s; }
+  @keyframes pulseAmber { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  .pulse-amber { animation: pulseAmber 1.4s ease-in-out infinite; }
+  details.faq { background: #12100C; border: 1px solid #3A3126; border-radius: 0.75rem; padding: 1.25rem; }
+  details.faq summary { cursor: pointer; list-style: none; }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq[open] .faq-plus { transform: rotate(45deg); }
+  .faq-plus { transition: transform .25s ease; }
+  ::selection { background: #D97706; color: #12100C; }
+</style>
+</head>
+<body id="top" class="bg-[#12100C] text-[#F3EDE0] antialiased">
+
+<!-- STICKY HEADER -->
+<header class="no-print sticky top-0 z-50 bg-[#12100C]/95 backdrop-blur border-b border-[#3A3126]">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <path d="M7 13h17v9a6 6 0 0 1-6 6H13a6 6 0 0 1-6-6v-9z" stroke="#D97706" stroke-width="2.6"/>
+        <path d="M24 15h2.5a3.5 3.5 0 0 1 0 7H24" stroke="#D97706" stroke-width="2.6"/>
+        <path d="M12 8c-1.5 2 1.5 3 0 5M18 8c-1.5 2 1.5 3 0 5" stroke="#7DD3FC" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 31h16" stroke="#D97706" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <span class="font-display text-3xl font-black tracking-tight">Caff<span class="text-[#D97706]">Cut</span></span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm font-semibold">
+      <a href="#top" class="hover:text-[#D97706] transition">Home</a>
+      <a href="https://fixoraa.tech" class="hover:text-[#D97706] transition">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="no-print relative overflow-hidden">
+  <svg class="bean" style="top:8%;left:4%" width="120" height="120" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="34" ry="44" fill="#D97706" transform="rotate(20 50 50)"/><path d="M50 8 C 38 30, 62 70, 50 92" stroke="#12100C" stroke-width="7" fill="none" transform="rotate(20 50 50)"/></svg>
+  <svg class="bean" style="bottom:6%;right:5%" width="170" height="170" viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="34" ry="44" fill="#D97706" transform="rotate(-24 50 50)"/><path d="M50 8 C 38 30, 62 70, 50 92" stroke="#12100C" stroke-width="7" fill="none" transform="rotate(-24 50 50)"/></svg>
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 55% at 50% -10%, rgba(217,119,6,.22) 0%, transparent 65%)"></div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6 pt-12 pb-9 text-center">
+    <div class="inline-flex items-center gap-2 border border-[#D97706]/70 text-[#D97706] text-xs font-bold uppercase tracking-[0.22em] rounded-full px-4 py-1.5 mb-6">
+      <span class="w-2 h-2 rounded-full bg-[#D97706] pulse-amber"></span> Unlimited Free Usage
+    </div>
+    <div class="steam flex justify-center gap-2 mb-3" aria-hidden="true"><span></span><span></span><span></span></div>
+    <h1 class="font-display text-4xl sm:text-6xl font-black leading-tight">The Caffeine <span class="text-[#D97706]">Sleep</span> Calculator</h1>
+    <p class="mt-4 max-w-2xl mx-auto text-[#C9BFAE] text-base sm:text-lg">Log every coffee, tea and energy drink. Watch your caffeine decay curve in real time. Get your personal caffeine cutoff — the exact time to stop so you fall asleep on schedule.</p>
+    <div class="mt-6 flex flex-wrap justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em]">
+      <span class="px-3 py-1.5 rounded-full bg-[#1C1812] border border-[#3A3126] text-[#7DD3FC]">Multi-dose decay curve</span>
+      <span class="px-3 py-1.5 rounded-full bg-[#1C1812] border border-[#3A3126] text-[#7DD3FC]">Night-shift mode</span>
+      <span class="px-3 py-1.5 rounded-full bg-[#1C1812] border border-[#3A3126] text-[#7DD3FC]">Coffee-nap timer</span>
+      <span class="px-3 py-1.5 rounded-full bg-[#1C1812] border border-[#3A3126] text-[#7DD3FC]">7-day tolerance log</span>
+    </div>
+  </div>
+</section>
+
+<!-- TOP AD (verbatim) -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOOL ============ -->
+<main class="no-print mx-auto max-w-6xl px-4 sm:px-6 py-8">
+  <section class="card rounded-2xl p-5 sm:p-8 rail-glow">
+
+    <div class="grid gap-6 lg:grid-cols-5">
+      <!-- DOSE LOGGER -->
+      <div class="lg:col-span-2 card rounded-xl p-5 bg-[#171410]">
+        <h2 class="font-display text-2xl font-bold">1 · Log your doses</h2>
+        <p class="text-sm text-[#C9BFAE] mt-1">Every cup stacks. Caffeine adds up in your body — that is the whole point of the curve below.</p>
+        <div class="mt-4 space-y-3">
+          <div>
+            <label for="dosePreset" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Drink</label>
+            <select id="dosePreset" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]"></select>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="doseMg" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Caffeine (mg)</label>
+              <input type="number" id="doseMg" min="0" max="1500" step="1" value="95" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+            </div>
+            <div>
+              <label for="doseTime" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Time taken</label>
+              <input type="time" id="doseTime" value="08:00" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+            </div>
+          </div>
+          <button id="addDoseBtn" class="w-full bg-[#D97706] hover:bg-[#b86405] text-[#12100C] font-extrabold rounded-lg py-3 transition">+ Add dose</button>
+        </div>
+        <div class="mt-5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-[#C9BFAE]">Today's doses <span id="doseCount" class="text-[#D97706]"></span></h3>
+            <button id="clearDosesBtn" class="text-xs text-[#7DD3FC] hover:underline">Clear all</button>
+          </div>
+          <ul id="doseList" class="mt-2 space-y-2 max-h-56 overflow-y-auto pr-1"></ul>
+          <p id="doseEmpty" class="mt-2 text-sm text-[#8a7f6d]">No doses yet — add your morning coffee to wake the curve up.</p>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="lg:col-span-3 card rounded-xl p-5 bg-[#171410]">
+        <h2 class="font-display text-2xl font-bold">2 · Tune your body clock</h2>
+        <div class="mt-4 grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="halfLifeRange" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Caffeine half-life: <span id="halfLifeVal" class="text-[#D97706] font-extrabold">5 h</span></label>
+            <input type="range" id="halfLifeRange" min="2" max="12" step="0.5" value="5" class="mt-2 w-full">
+            <p class="text-xs text-[#8a7f6d] mt-1">How fast YOU burn caffeine. Average is ~5 h; it ranges 2–12 h.</p>
+            <button id="estimateHlToggle" class="mt-2 text-xs font-semibold text-[#7DD3FC] hover:underline">Estimate my half-life →</button>
+            <div id="hlEstimator" class="hidden mt-3 rounded-lg border border-[#3A3126] bg-[#12100C] p-3 space-y-2">
+              <div>
+                <label for="hlAge" class="text-xs text-[#C9BFAE]">Age</label>
+                <input type="number" id="hlAge" min="0" max="120" placeholder="e.g. 32" class="mt-1 w-full bg-[#1C1812] border border-[#3A3126] rounded-lg px-3 py-2">
+              </div>
+              <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="hlPregnant" class="accent-[#D97706]"> Pregnant</label>
+              <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="hlContraceptive" class="accent-[#D97706]"> On oral contraceptives</label>
+              <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="hlSmoker" class="accent-[#D97706]"> Smoker</label>
+              <button id="estimateHlBtn" class="w-full bg-[#7DD3FC] hover:bg-[#5cb8e8] text-[#12100C] font-bold rounded-lg py-2 text-sm transition">Estimate &amp; apply</button>
+              <p id="hlFactors" class="text-xs text-[#8a7f6d]"></p>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <label class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Sleep schedule</label>
+              <label class="flex items-center gap-2 text-xs font-semibold text-[#7DD3FC] cursor-pointer">
+                <input type="checkbox" id="nightShiftToggle" class="accent-[#D97706]"> Night-shift mode
+              </label>
+            </div>
+            <div id="regularSleepWrap" class="mt-2">
+              <label for="bedtimeInput" class="text-xs text-[#C9BFAE]">Target bedtime</label>
+              <input type="time" id="bedtimeInput" value="23:00" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+            </div>
+            <div id="sleepWrap" class="hidden mt-2 grid grid-cols-2 gap-3">
+              <div>
+                <label for="sleepStart" class="text-xs text-[#C9BFAE]">Sleep start</label>
+                <input type="time" id="sleepStart" value="08:00" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+              </div>
+              <div>
+                <label for="sleepEnd" class="text-xs text-[#C9BFAE]">Wake time</label>
+                <input type="time" id="sleepEnd" value="16:00" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+              </div>
+              <p id="sleepWindowNote" class="col-span-2 text-xs text-[#7DD3FC]"></p>
+            </div>
+            <div class="mt-3">
+              <label for="sensitivitySel" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Sleep sensitivity</label>
+              <select id="sensitivitySel" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+                <option value="sensitive">Sensitive — even a little keeps me up</option>
+                <option value="typical" selected>Typical — average sleeper</option>
+                <option value="tolerant">Tolerant — coffee barely affects my sleep</option>
+              </select>
+            </div>
+            <div class="mt-3">
+              <label for="cutoffDoseSel" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Reference drink for cutoff</label>
+              <select id="cutoffDoseSel" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]"></select>
+              <p class="text-xs text-[#8a7f6d] mt-1">Your cutoff is computed for this drink size.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="mt-6 card rounded-xl p-5 bg-[#171410]">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h2 class="font-display text-2xl font-bold">3 · Your caffeine decay curve</h2>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#C9BFAE]">
+          <span><span class="inline-block w-6 h-1 rounded bg-[#D97706] align-middle mr-1"></span>Total in body</span>
+          <span><span class="inline-block w-6 h-0 border-t-2 border-dashed border-[#7DD3FC] align-middle mr-1"></span>Single dose decay</span>
+          <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#7DD3FC] align-middle mr-1"></span>Dose taken</span>
+          <span><span class="inline-block w-0.5 h-3 bg-[#7DD3FC] align-middle mr-1"></span>Cutoff line</span>
+          <span><span class="inline-block w-3 h-3 bg-[#7DD3FC]/25 rounded-sm align-middle mr-1"></span>Sleep window</span>
+        </div>
+      </div>
+      <div class="mt-3 overflow-x-auto">
+        <svg id="chartSvg" viewBox="0 0 960 380" class="w-full min-w-[560px]" role="img" aria-label="Caffeine decay timeline chart"></svg>
+      </div>
+      <p class="mt-2 text-xs text-[#8a7f6d]">Timeline runs 5 AM → next-day 5 AM. All figures are estimates — real metabolism varies.</p>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="mt-6 grid gap-6 lg:grid-cols-3">
+      <div class="lg:col-span-2 card rounded-xl p-6 bg-[#171410] border-l-4 border-l-[#D97706]">
+        <p class="text-xs uppercase tracking-[0.22em] text-[#C9BFAE] font-bold">Your personal caffeine cutoff</p>
+        <p class="mt-2 font-display text-4xl sm:text-5xl font-black">Stop by <span id="cutoffBig" class="text-[#D97706]">—</span></p>
+        <p id="cutoffDetail" class="mt-3 text-sm text-[#C9BFAE]"></p>
+        <div class="mt-4 grid sm:grid-cols-2 gap-3">
+          <div class="rounded-lg bg-[#12100C] border border-[#3A3126] p-4">
+            <p class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Caffeine left at bedtime</p>
+            <p class="mt-1 text-3xl font-extrabold text-[#7DD3FC]"><span id="atBedMg">0</span> <span class="text-base font-semibold">mg</span></p>
+            <p id="atBedNote" class="mt-1 text-xs text-[#8a7f6d]"></p>
+          </div>
+          <div class="rounded-lg bg-[#12100C] border border-[#3A3126] p-4">
+            <p class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Per-dose impact at bedtime</p>
+            <ul id="doseImpactList" class="mt-2 space-y-1 text-sm max-h-28 overflow-y-auto"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- COFFEE NAP -->
+      <div class="card rounded-xl p-6 bg-[#171410] border-l-4 border-l-[#7DD3FC]">
+        <p class="text-xs uppercase tracking-[0.22em] text-[#C9BFAE] font-bold">Coffee-nap timer</p>
+        <p class="mt-2 text-sm text-[#C9BFAE]">Drink coffee, nap 20 minutes, wake as the caffeine kicks in. Set your alarm:</p>
+        <p class="mt-3 text-center font-display text-6xl font-black tabular-nums text-[#7DD3FC]"><span id="napDisplay">20:00</span></p>
+        <p id="napStatus" class="mt-2 text-center text-sm text-[#8a7f6d]">Press start right after your last sip.</p>
+        <div class="mt-4 flex gap-2">
+          <button id="napStartBtn" class="flex-1 bg-[#7DD3FC] hover:bg-[#5cb8e8] text-[#12100C] font-extrabold rounded-lg py-2.5 transition">Start 20-min nap</button>
+          <button id="napStopBtn" class="flex-1 bg-[#12100C] border border-[#3A3126] hover:border-[#7DD3FC] font-bold rounded-lg py-2.5 transition">Stop</button>
+        </div>
+        <p class="mt-2 text-[11px] text-[#8a7f6d] text-center">Plays an alarm when time is up. Keep volume on.</p>
+      </div>
+    </div>
+
+    <!-- TOLERANCE LOG -->
+    <div class="mt-6 card rounded-xl p-5 sm:p-6 bg-[#171410]">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="font-display text-2xl font-bold">4 · 7-day tolerance log</h2>
+          <p class="text-sm text-[#C9BFAE] mt-1">Daily caffeine totals, saved in your browser. Rising intake is the earliest sign of tolerance.</p>
+        </div>
+        <button id="tolClearBtn" class="text-xs text-[#7DD3FC] hover:underline">Clear log</button>
+      </div>
+      <div class="mt-4 grid gap-3 sm:grid-cols-4">
+        <div>
+          <label for="tolDate" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Date</label>
+          <input type="date" id="tolDate" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+        </div>
+        <div>
+          <label for="tolMg" class="text-xs uppercase tracking-wider text-[#C9BFAE] font-semibold">Total caffeine (mg)</label>
+          <input type="number" id="tolMg" min="0" max="3000" placeholder="e.g. 285" class="mt-1 w-full bg-[#12100C] border border-[#3A3126] rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#D97706]">
+        </div>
+        <div class="flex items-end gap-2 sm:col-span-2">
+          <button id="tolUseTodayBtn" class="flex-1 bg-[#12100C] border border-[#D97706] text-[#D97706] font-bold rounded-lg py-2.5 hover:bg-[#D97706] hover:text-[#12100C] transition">Use today's logged doses</button>
+          <button id="tolAddBtn" class="flex-1 bg-[#D97706] hover:bg-[#b86405] text-[#12100C] font-extrabold rounded-lg py-2.5 transition">Save day</button>
+        </div>
+      </div>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-xs uppercase tracking-wider text-[#8a7f6d] border-b border-[#3A3126]">
+              <th class="py-2 pr-4">Date</th><th class="py-2 pr-4">Total mg</th><th class="py-2 pr-4">vs 400 mg limit</th><th class="py-2">Bar</th>
+            </tr>
+          </thead>
+          <tbody id="tolTableBody"></tbody>
+        </table>
+        <p id="tolEmpty" class="py-4 text-sm text-[#8a7f6d]">No days logged yet. Your last 7 days will appear here.</p>
+      </div>
+      <div id="tolStats" class="mt-3 rounded-lg bg-[#12100C] border border-[#3A3126] p-4 text-sm"></div>
+    </div>
+  </section>
+</main>
+
+<!-- BOTTOM AD (verbatim) -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+(function(grnp){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = grnp || {};
+s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SEO ARTICLE ============ -->
+<article id="seoArticle" class="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+  <div class="card rounded-2xl p-6 sm:p-10">
+    <h2 class="font-display text-3xl sm:text-4xl font-black">The Complete Guide to Caffeine, Half-Life, and Sleep</h2>
+    <p class="mt-2 text-sm text-[#8a7f6d]">A practical, numbers-first guide from the makers of the CaffCut caffeine sleep calculator. All figures below are estimates — your body is not a spreadsheet.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">What is caffeine half-life, really?</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">Caffeine half-life is the time it takes your body to clear half of the caffeine you consumed. For the average adult it sits around five hours, but the real range is wide: anywhere from about two hours to twelve. That spread is the reason a single number never tells the full story. A fast metabolizer can drink an espresso at 4 PM and sleep like a stone at 11 PM, while a slow metabolizer sipping the same drink at noon can still be staring at the ceiling at 2 AM. Genetics play the biggest role — variants in the CYP1A2 gene decide how quickly your liver breaks caffeine down — followed by age, pregnancy, oral contraceptives, smoking, certain medications, and liver health. This is exactly the problem a caffeine half life calculator is built to solve: instead of applying a one-size-fits-all rule like "no coffee after 2 PM," you plug in your own half-life, your own doses, and your own bedtime, and the math tells you what is actually still circulating in your blood when your head hits the pillow. The decay is exponential, which has a counter-intuitive consequence people consistently underestimate: after one half-life, 50 percent remains; after two, 25 percent; after three, 12.5 percent. That 200 mg cold brew at 3 PM still leaves roughly 50 mg in your system at 1 AM if your half-life is five hours. Most people feel "fine" long before the caffeine is gone, because the stimulating edge fades faster than the molecule itself.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">How a caffeine half life calculator actually works</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">Under the hood, a caffeine half life calculator is just applied exponential decay. You log a dose — say 95 mg from a brewed coffee at 8 AM — and the tool computes the remaining amount at any later moment with the formula dose × 0.5^(hours elapsed ÷ half-life). The magic appears when you log multiple doses, because caffeine in your body is additive: the 8 AM coffee, the 11 AM espresso, and the 2 PM tea each decay on their own schedule, and the total stimulation you feel is the sum of all the surviving fractions. Mathematically this is called superposition, and it is why the third cup "hits different" — it is not just the third cup, it is the third cup riding on top of the decaying tails of the first two. A good caffeine sleep calculator draws this as a stacked decay curve so you can see the total line climb with every dose and glide down through the evening. It also inverts the problem: instead of asking "how much is left at bedtime," it asks "what is the latest I can drink this and still be under my personal threshold at lights-out." That inverted answer is your caffeine cutoff time, and it is different for a 63 mg espresso and a 300 mg pre-workout scoop. The tool on this page does both directions — forward simulation of your logged day, and backward planning of your cutoff — using the same half-life you set, so the two views always agree with each other.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">The multi-dose problem: why one cup's math is never enough</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">Almost every caffeine article online models a single cup in isolation, which is not how anyone actually drinks coffee. Real days look like this: 95 mg at 7:30 AM, 63 mg at 10 AM, 50 mg of black tea at 1 PM, another 95 mg at 3:30 PM to survive the afternoon slump. With a five-hour half-life, here is what is really in your body at 11 PM: the morning coffee has decayed to about 12 mg, the espresso to roughly 10 mg, the tea to around 8 mg, and the afternoon coffee still contributes about 32 mg. The total — around 62 mg, or two-thirds of a fresh cup — is invisible to the single-cup calculators, yet it is entirely capable of delaying your sleep onset and, more sneakily, fragmenting your deep sleep without you noticing. Research consistently shows that caffeine does not just make it harder to fall asleep; it reduces sleep efficiency and deep-sleep time even in people who swear it does not affect them. The superposition curve on this page exists to make that hidden total visible. When you see the amber total line hovering at 60 mg at your bedtime marker, the decision to skip the 4 PM refill stops being about willpower and starts being about arithmetic. One more subtlety the curve reveals: dose timing matters more than dose count. Two coffees before noon often leave less caffeine at midnight than a single coffee at 5 PM. Front-loading your caffeine is the highest-leverage habit in this entire guide.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">Finding your personal caffeine cutoff time</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">Your caffeine cutoff is the latest clock time you can consume a given dose and still drop below your personal bedtime threshold. The formula is bedtime minus half-life × log₂(dose ÷ threshold). With concrete numbers: a typical sleeper targeting at most 40 mg at bedtime, a five-hour half-life, and a 95 mg brewed coffee gets a cutoff about 6.2 hours before bed — roughly 4:45 PM for an 11 PM bedtime. Change any input and the answer moves honestly: a sensitive sleeper with a 15 mg threshold and a seven-hour half-life gets a cutoff more than 18 hours before bed, which is the math politely telling them that a full coffee is essentially a morning-only drink. A tolerant sleeper with an 80 mg threshold and a three-hour half-life can have that same coffee at 9 PM. Notice what this does to the folk wisdom of "no caffeine after noon" — for some bodies it is wildly over-cautious, for others it is not cautious enough. The reference-drink selector above lets you compute cutoffs for everything from a 35 mg green tea to a 300 mg pre-workout, because the cutoff is a property of the dose, not of caffeine in general. If you only remember one practice from this guide, make it this: pick your bedtime, pick your sensitivity, read your cutoff, and treat it like a train departure — miss it and you are walking home.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">Caffeine sensitivity: why your friend drinks espresso at 9 PM</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">Caffeine sensitivity is not a character trait; it is mostly biochemistry. The CYP1A2 gene determines whether you are a fast or slow metabolizer, and the ADORA2A gene influences how strongly caffeine's adenosine-blocking effect registers in your brain — some people get wired, others just get less sleepy. Sensitivity also drifts over a lifetime: it generally decreases through young adulthood as tolerance builds, then the half-life lengthens again after about 65 as liver metabolism slows. Pregnancy is the dramatic case — caffeine half-life can roughly double or triple by the third trimester, which is why standard guidance suggests pregnant people cap intake around 200 mg per day and shift it earlier. Oral contraceptives roughly double the half-life too, a fact that surprises many. Smoking does the opposite, speeding clearance by up to half. None of this is visible in the mirror, which is why the sensitivity selector on this page exists: "sensitive," "typical," and "tolerant" map to bedtime thresholds of roughly 15, 40, and 80 mg. If you are unsure where you land, run the calculator as "typical" for a week and compare its predictions with a simple sleep diary — if you are tossing and turning on days the tool said you would be fine, you are more sensitive than average, and the tool will happily recalculate everything with the stricter threshold.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">When should I stop drinking coffee before bed?</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">So, when should I stop drinking coffee before bed? The honest answer is a small table, not a slogan. For a standard 95 mg brewed coffee: a sensitive sleeper with a slow metabolism should treat it as a before-noon drink; a typical sleeper with an average five-hour half-life should stop around six to eight hours before bed; a tolerant fast metabolizer can often go as late as two to three hours before bed without measurable sleep damage. For a 200 mg energy drink, add roughly one more half-life to each of those answers. For a 35 mg green tea, subtract one. The pattern worth memorizing: every time you double the dose, the cutoff moves earlier by exactly one half-life. That is the real utility of asking "when should I stop drinking coffee before bed" as a calculation instead of a rule of thumb — the answer scales correctly with the drink in your hand. Two practical strategies fall out of the math. First, the front-load: get 70 to 80 percent of your daily caffeine before noon, when it costs you almost nothing at bedtime. Second, the swap-down: if you want something warm at 4 PM, make it tea at 35–50 mg instead of coffee at 95+ mg; the smaller dose buys you back an entire half-life of cutoff time. And if your schedule changes — travel, a late night out, daylight saving — just move the bedtime input and read the new cutoff; the arithmetic does not care about your routine, only your numbers.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">The coffee nap: a 20-minute trick with real science behind it</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">The coffee nap sounds like a prank and works like a protocol: drink a coffee, immediately take a 20-minute nap, wake up as the caffeine reaches your brain. The timing is not mystical. Caffeine takes roughly 20 minutes to cross from your gut into meaningful blood levels, which is almost exactly the length of an ideal power nap — long enough to clear adenosine, the sleep-pressure chemical, from your receptors, but short enough to avoid dropping into deep slow-wave sleep, which is what causes grogginess. When you wake, the caffeine arrives at receptors that the nap just swept clean, and the combined effect in studies beats either coffee or napping alone on alertness and performance tasks. Execution details matter: drink it quickly (an espresso or small coffee, not a leisurely 40-minute latte), set a real alarm for 20 minutes — not 30, not "about 20" — and nap somewhere you can actually fall asleep fast, even if it is just a parked car with the seat back. Do not attempt a coffee nap within six hours of bedtime unless you enjoy irony. The timer on this page is built for exactly this ritual: one tap, a 20-minute countdown, and an alarm at the moment the caffeine kicks in. If you consistently cannot fall asleep within the window, skip the nap part and just take the coffee — forcing it creates more stress than the nap relieves.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">Caffeine tolerance: reading your 7-day log honestly</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">Tolerance is caffeine's quiet tax. Drink 300 mg every day and within a week or two your brain grows extra adenosine receptors to compensate, which means the same dose produces less alertness — and, worse, skipping it produces withdrawal: headache, fog, irritability, the classic "I can't function before coffee" morning. The earliest warning sign is not any symptom at all; it is the number creeping up. Monday was 190 mg, Thursday is 285 mg, and you cannot quite say why. That is why this page keeps a 7-day tolerance log in your browser: it turns a vague feeling into a slope. A flat line under 200 mg a day is a sustainable habit. A rising line, or a flat line above 400 mg — the commonly cited daily ceiling for healthy adults — is the log telling you tolerance has arrived. The fix is refreshingly mechanical: taper by about 25 percent every few days rather than quitting cold turkey, hold the lower dose for one to two weeks, and sensitivity largely returns. Many people discover during a taper that their "need" for the 3 PM coffee was really withdrawal from the morning's dose wearing off — which the decay curve on this page will show you plainly, as the total line sagging through the afternoon. Log honestly, including the sneaky sources: pre-workout, chocolate, "just a green tea," headache pills. The log only works if it sees everything.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">Night shifts: the same math on a rotated clock</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">Night-shift workers get the worst of both worlds: they need caffeine the most and their sleep is the most fragile. The good news is that none of the math changes — only the clock rotates. Flip on night-shift mode above, set your real sleep window (say 8 AM to 4 PM), and every calculation on the page re-anchors: the cutoff is computed backward from 8 AM, the sleep window shades across the chart, and the decay curve keeps running through your "night." The strategy shifts in two ways. First, front-load relative to your wake time, not the sun: if you wake at 4 PM, your "morning coffee" belongs at 4–5 PM, and your cutoff lands in the small hours. Second, use caffeine as a shift-work tool with an off-ramp: a dose in the first half of the shift for alertness, then nothing in the last three to four hours before your sleep window, even if the shift is dragging — that late dose is the one that turns an 8 AM bedtime into a 10 AM bedtime. Strategic napping pairs well here: a coffee nap before the shift starts beats a large energy drink at 3 AM for both alertness and next-day sleep. One caution the research is clear about: rotating shifts make consistent cutoffs harder, so anchor the calculator to your actual sleep window each week rather than an idealized one. The tool does not judge your schedule; it just does the arithmetic for the schedule you have.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">Estimating your own half-life without a lab</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">You cannot measure your true caffeine half-life without blood draws, but you can triangulate it well enough for planning. Start with the population average of five hours, then adjust with the estimator on this page: add time after 65, add a lot for pregnancy, add for oral contraceptives, subtract for smoking. Then calibrate against experience with a simple two-week experiment. Week one: keep your last caffeine dose at least eight hours before bed and note your sleep quality. Week two: move the last dose one hour later every two days. The point where your sleep starts degrading — harder to fall asleep, more night wakings — marks where your personal curve crosses your threshold, and you can work backward to your effective half-life. Most people land between four and six hours and never need to think about it again. A few discover they are genuine outliers — the three-hour metabolizers who can have dinner espresso, or the nine-hour carriers who must treat coffee as a breakfast-only beverage. Both are normal; the whole point of a personal calculator is that "normal" covers a four-fold range. Whatever number you settle on, revisit it if your life changes: new medication, pregnancy, quitting smoking, or simply turning 65 can all move your half-life enough to invalidate an old cutoff. The estimator is a starting guess, clearly labeled as such — treat it as a hypothesis and let your sleep confirm or deny it.</p>
+
+    <h3 class="font-display text-2xl font-bold mt-8 text-[#D97706]">Health disclaimer</h3>
+    <p class="mt-3 text-[#E8E0D0] leading-relaxed">CaffCut is an educational planning tool, not medical advice, and every number it shows is an estimate. Real caffeine metabolism varies with genetics, liver function, medication, and health conditions that no web form can capture. The 400 mg per day figure commonly cited for healthy adults is a general guideline, not a personal prescription; pregnant people are generally advised to stay near or below 200 mg per day, and anyone with heart conditions, anxiety disorders, sleep disorders, or who takes medication should talk to a doctor or pharmacist about caffeine rather than trusting a calculator. If you experience a racing heart, severe anxiety, tremors, or chest discomfort after caffeine, stop and seek medical advice promptly. Nothing on this page diagnoses, treats, or prevents any condition. Use the cutoff times and curves as a starting point for your own experiments, keep notes on how you actually sleep, and let a professional weigh in where health is at stake. Estimates inform; they do not prescribe.</p>
+  </div>
+</article>
+
+<!-- ============ FAQS ============ -->
+<section class="mx-auto max-w-6xl px-4 sm:px-6 pb-12">
+  <div class="card rounded-2xl p-6 sm:p-10">
+    <h2 class="font-display text-3xl font-black">Frequently asked questions</h2>
+    <div class="mt-6 space-y-3">
+      <details class="faq">
+        <summary class="flex items-center justify-between gap-4 font-bold">How long does caffeine stay in your system?<span class="faq-plus text-[#D97706] text-2xl leading-none">+</span></summary>
+        <p class="mt-3 text-sm text-[#C9BFAE] leading-relaxed">Caffeine's half-life averages about five hours, but the real range is roughly two to twelve hours depending on genetics, age, pregnancy, contraceptives, smoking, and medication. After one half-life 50% remains, after two about 25%, and traces can linger for over a day in slow metabolizers. A 200 mg dose at 3 PM still leaves around 50 mg in your body at 1 AM with an average half-life — which is why the decay curve above matters more than how awake you feel. All figures are estimates; treat them as planning guides, not measurements.</p>
+      </details>
+      <details class="faq">
+        <summary class="flex items-center justify-between gap-4 font-bold">When should I stop drinking coffee before bed?<span class="faq-plus text-[#D97706] text-2xl leading-none">+</span></summary>
+        <p class="mt-3 text-sm text-[#C9BFAE] leading-relaxed">It depends on the dose, your half-life, and your sensitivity — which is exactly what the cutoff calculator above computes. As a rough guide: a typical sleeper with a five-hour half-life should stop a standard 95 mg brewed coffee about six to eight hours before bed; sensitive sleepers may need to stop ten or more hours before, while tolerant fast metabolizers can often go as late as two to three hours. Doubling the dose pushes the cutoff earlier by one full half-life. Enter your bedtime above for your personal answer.</p>
+      </details>
+      <details class="faq">
+        <summary class="flex items-center justify-between gap-4 font-bold">What is a coffee nap, and does it actually work?<span class="faq-plus text-[#D97706] text-2xl leading-none">+</span></summary>
+        <p class="mt-3 text-sm text-[#C9BFAE] leading-relaxed">A coffee nap means drinking coffee and immediately napping for 20 minutes. Caffeine takes about 20 minutes to reach your brain — the same length as an ideal power nap — so you wake just as it kicks in, at receptors the nap has cleared of adenosine. Studies find the combination beats coffee or napping alone for alertness. Use the timer above, drink the coffee quickly, and do not try it within six hours of bedtime. If you cannot fall asleep fast, just take the coffee without the nap.</p>
+      </details>
+      <details class="faq">
+        <summary class="flex items-center justify-between gap-4 font-bold">Does building caffeine tolerance change how it affects my sleep?<span class="faq-plus text-[#D97706] text-2xl leading-none">+</span></summary>
+        <p class="mt-3 text-sm text-[#C9BFAE] leading-relaxed">Yes. Regular high intake grows extra adenosine receptors, so the same dose feels weaker — but the sleep disruption often persists even when the buzz fades, because tolerance to alertness develops faster than tolerance to sleep effects. The earliest sign is dose creep: needing more for the same effect. The 7-day log above tracks your daily totals and flags an upward trend. Tapering by about 25% every few days usually restores sensitivity within one to two weeks.</p>
+      </details>
+      <details class="faq">
+        <summary class="flex items-center justify-between gap-4 font-bold">How does night-shift mode change my caffeine cutoff?<span class="faq-plus text-[#D97706] text-2xl leading-none">+</span></summary>
+        <p class="mt-3 text-sm text-[#C9BFAE] leading-relaxed">The math does not change — only the clock rotates. Enable night-shift mode, enter your real sleep window (for example 8 AM to 4 PM), and the cutoff is computed backward from your sleep start instead of a nighttime bedtime. Front-load caffeine relative to your wake time, and avoid doses in the last three to four hours before your sleep window. All figures remain estimates; shift workers should re-check whenever their rotation changes.</p>
+      </details>
+      <details class="faq">
+        <summary class="flex items-center justify-between gap-4 font-bold">Is CaffCut medical advice?<span class="faq-plus text-[#D97706] text-2xl leading-none">+</span></summary>
+        <p class="mt-3 text-sm text-[#C9BFAE] leading-relaxed">No. CaffCut is an educational planning tool. Every half-life, decay curve, and cutoff time is an estimate based on population averages, not a measurement of your body. It does not diagnose, treat, or prevent any condition. If you are pregnant, have a heart condition, an anxiety or sleep disorder, or take medication, talk to a doctor or pharmacist about caffeine instead of relying on a calculator.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does caffeine stay in your system?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Caffeine's half-life averages about five hours, but the real range is roughly two to twelve hours depending on genetics, age, pregnancy, contraceptives, smoking, and medication. After one half-life 50% remains and after two about 25%. A 200 mg dose at 3 PM still leaves around 50 mg in the body at 1 AM with an average half-life. All figures are estimates." }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I stop drinking coffee before bed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on the dose, your half-life, and your sensitivity. A typical sleeper with a five-hour half-life should stop a standard 95 mg brewed coffee about six to eight hours before bed; sensitive sleepers may need ten or more hours, while tolerant fast metabolizers can often go as late as two to three hours. Doubling the dose pushes the cutoff earlier by one full half-life." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a coffee nap, and does it actually work?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A coffee nap means drinking coffee and immediately napping for 20 minutes. Caffeine takes about 20 minutes to reach the brain — the same length as an ideal power nap — so you wake just as it kicks in. Studies find the combination beats coffee or napping alone for alertness. Do not try it within six hours of bedtime." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does building caffeine tolerance change how it affects my sleep?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Regular high intake grows extra adenosine receptors, so the same dose feels weaker, but sleep disruption often persists even when the buzz fades. The earliest sign is dose creep. Tracking daily totals for seven days reveals an upward trend; tapering by about 25% every few days usually restores sensitivity within one to two weeks." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does night-shift mode change my caffeine cutoff?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The math does not change — only the clock rotates. With a sleep window like 8 AM to 4 PM, the cutoff is computed backward from sleep start instead of a nighttime bedtime. Front-load caffeine relative to wake time and avoid doses in the last three to four hours before the sleep window. All figures remain estimates." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is CaffCut medical advice?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. CaffCut is an educational planning tool. Every half-life, decay curve, and cutoff time is an estimate based on population averages, not a measurement of your body. If you are pregnant, have a heart condition, an anxiety or sleep disorder, or take medication, talk to a doctor or pharmacist about caffeine." }
+    }
+  ]
+}
+</script>
+
+<footer class="no-print border-t border-[#3A3126] mt-4">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-[#8a7f6d]">
+    <span class="font-display text-xl font-black text-[#F3EDE0]">Caff<span class="text-[#D97706]">Cut</span></span>
+    <span>Free forever. No signup. All figures are estimates, not medical advice.</span>
+    <nav class="flex gap-5 font-semibold">
+      <a href="#top" class="hover:text-[#D97706] transition">Home</a>
+      <a href="https://fixoraa.tech" class="hover:text-[#D97706] transition">More Tools</a>
+    </nav>
+  </div>
+<p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+
+<!-- LIB: pure logic, inlined at build time -->
+<script id="v3-caffcut-caffeine-sleep-lib">
+/* CaffCut lib — pure functions only. No document, no window, no localStorage,
+   no network. Evaluated by the test harness via new Function() and inlined
+   into the shipped HTML at build time.
+   ALL FIGURES ARE ESTIMATES — real caffeine metabolism varies by person. */
+
+function isNum(x) {
+  return typeof x === 'number' && isFinite(x);
+}
+
+function clamp(x, lo, hi) {
+  return Math.max(lo, Math.min(hi, x));
+}
+
+/* ---- Drink presets: typical caffeine mg per serving. Estimates only. ---- */
+function drinkPresets() {
+  return [
+    { id: 'espresso',     name: 'Espresso (1 shot)',       mg: 63  },
+    { id: 'brewed',       name: 'Brewed coffee (240 ml)',  mg: 95  },
+    { id: 'latte',        name: 'Latte / cappuccino',      mg: 80  },
+    { id: 'instant',      name: 'Instant coffee (1 tsp)',  mg: 62  },
+    { id: 'coldbrew',     name: 'Cold brew (360 ml)',      mg: 200 },
+    { id: 'frenchpress',  name: 'French press (240 ml)',   mg: 110 },
+    { id: 'green-tea',    name: 'Green tea (240 ml)',      mg: 35  },
+    { id: 'black-tea',    name: 'Black tea (240 ml)',      mg: 50  },
+    { id: 'matcha',       name: 'Matcha (2 g whisked)',    mg: 70  },
+    { id: 'chai',         name: 'Masala chai (240 ml)',    mg: 45  },
+    { id: 'cola',         name: 'Cola (355 ml)',           mg: 40  },
+    { id: 'energy-small', name: 'Energy drink (250 ml)',   mg: 80  },
+    { id: 'energy-large', name: 'Energy drink (475 ml)',   mg: 160 },
+    { id: 'preworkout',   name: 'Pre-workout scoop',       mg: 300 },
+    { id: 'pill',         name: 'Caffeine pill',           mg: 200 },
+    { id: 'chocolate',    name: 'Dark chocolate (30 g)',   mg: 20  },
+    { id: 'custom',       name: 'Custom amount',           mg: 100 }
+  ];
+}
+
+function presetById(id) {
+  var all = drinkPresets();
+  for (var i = 0; i < all.length; i++) {
+    if (all[i].id === id) return all[i];
+  }
+  return null;
+}
+
+/* ---- Core math: exponential decay with a personal half-life. ---- */
+
+/* Remaining mg of a single dose after elapsedHours. Estimates only. */
+function decayAmount(mg, elapsedHours, halfLifeH) {
+  if (!isNum(mg) || !isNum(elapsedHours) || !isNum(halfLifeH)) return NaN;
+  if (mg < 0 || halfLifeH <= 0) return NaN;
+  if (elapsedHours <= 0) return Math.round(mg * 10) / 10;
+  var rem = mg * Math.pow(0.5, elapsedHours / halfLifeH);
+  return Math.round(rem * 10) / 10;
+}
+
+/* Total caffeine in the body at minute tMin from multiple doses.
+   doses: [{min, mg}] with min = minutes on a shared timeline (may exceed
+   1440 for after-midnight times). A dose only counts once it is taken. */
+function superpositionAt(doses, tMin, halfLifeH) {
+  if (!isNum(tMin) || !isNum(halfLifeH) || halfLifeH <= 0) return NaN;
+  var total = 0;
+  var list = Array.isArray(doses) ? doses : [];
+  for (var i = 0; i < list.length; i++) {
+    var d = list[i];
+    if (!d || !isNum(d.min) || !isNum(d.mg) || d.mg < 0) continue;
+    if (tMin < d.min) continue;
+    total += d.mg * Math.pow(0.5, (tMin - d.min) / 60 / halfLifeH);
+  }
+  return Math.round(total * 10) / 10;
+}
+
+/* Sample the superposition decay curve over [fromMin, toMin]. */
+function superpositionCurve(doses, halfLifeH, fromMin, toMin, stepMin) {
+  var pts = [];
+  stepMin = (isNum(stepMin) && stepMin > 0) ? stepMin : 15;
+  if (!isNum(fromMin) || !isNum(toMin) || !isNum(halfLifeH) || halfLifeH <= 0) return pts;
+  if (toMin < fromMin) return pts;
+  var t;
+  for (t = fromMin; t <= toMin + 1e-9; t += stepMin) {
+    pts.push({ t: Math.round(t * 100) / 100, mg: superpositionAt(doses, t, halfLifeH) });
+  }
+  var last = pts[pts.length - 1];
+  if (!last || Math.abs(last.t - toMin) > 1e-6) {
+    pts.push({ t: toMin, mg: superpositionAt(doses, toMin, halfLifeH) });
+  }
+  return pts;
+}
+
+/* ---- Cutoff planner ---- */
+
+/* Sensitivity -> max caffeine (mg) we want circulating at bedtime. */
+function sensitivityThreshold(level) {
+  if (level === 'sensitive') return 15;
+  if (level === 'tolerant') return 80;
+  return 40; /* typical */
+}
+
+var SENSITIVITY_LABELS = {
+  sensitive: 'Sensitive sleeper',
+  typical: 'Typical sleeper',
+  tolerant: 'Tolerant sleeper'
+};
+
+/* Latest minute a dose of doseMg can be taken so that no more than
+   thresholdMg remains at bedMin. All minutes share one timeline. */
+function cutoffMinutes(bedMin, doseMg, halfLifeH, thresholdMg) {
+  if (!isNum(bedMin) || !isNum(doseMg) || !isNum(halfLifeH) || !isNum(thresholdMg)) {
+    return { error: 'Cutoff needs a bedtime, a dose size, a half-life and a threshold.' };
+  }
+  if (halfLifeH <= 0) return { error: 'Half-life must be positive.' };
+  if (doseMg < 0) return { error: 'Dose size cannot be negative.' };
+  if (thresholdMg <= 0) return { error: 'Bedtime threshold must be positive.' };
+  if (doseMg === 0) {
+    return { cutoffMin: Math.round(bedMin), hoursBefore: 0, constrained: false,
+             note: 'A zero-caffeine drink needs no cutoff — it is already decaf territory.' };
+  }
+  if (doseMg <= thresholdMg) {
+    return { cutoffMin: Math.round(bedMin), hoursBefore: 0, constrained: false,
+             note: 'That dose is already at or below your bedtime threshold, so it needs no earlier cutoff.' };
+  }
+  var hoursNeeded = halfLifeH * (Math.log(doseMg / thresholdMg) / Math.log(2));
+  return {
+    cutoffMin: Math.round(bedMin - hoursNeeded * 60),
+    hoursBefore: Math.round(hoursNeeded * 10) / 10,
+    constrained: true,
+    note: 'Stop this dose at least ' + (Math.round(hoursNeeded * 10) / 10) +
+          ' h before bed so <= ' + thresholdMg + ' mg remains at lights-out (estimate).'
+  };
+}
+
+/* How much of each dose is still in the body at bedtime. */
+function bedtimeImpact(doses, halfLifeH, bedMin) {
+  var perDose = [];
+  var total = 0;
+  var list = Array.isArray(doses) ? doses : [];
+  for (var i = 0; i < list.length; i++) {
+    var d = list[i];
+    if (!d || !isNum(d.min) || !isNum(d.mg) || d.mg < 0) continue;
+    var atBed = (bedMin < d.min) ? 0 : decayAmount(d.mg, (bedMin - d.min) / 60, halfLifeH);
+    total += atBed;
+    perDose.push({ index: i, min: d.min, mg: d.mg, atBed: atBed });
+  }
+  total = Math.round(total * 10) / 10;
+  return {
+    atBed: total,
+    perDose: perDose,
+    risky: total > 40,
+    note: total > 40
+      ? 'Over ~40 mg at bedtime may disrupt sleep for a typical sleeper (estimate).'
+      : 'Under ~40 mg at bedtime is unlikely to disrupt sleep for a typical sleeper (estimate).'
+  };
+}
+
+/* ---- Personal half-life estimator (estimates only) ---- */
+
+function estimateHalfLife(opts) {
+  opts = opts || {};
+  var age = opts.age;
+  if (age !== undefined && age !== null && age !== '') {
+    if (!isNum(age) || age < 0 || age > 120) {
+      return { error: 'Enter an age between 0 and 120.' };
+    }
+  }
+  var h = 5;
+  var factors = [];
+  if (isNum(age) && age >= 65) {
+    h += 2;
+    factors.push('Age 65+ tends to slow caffeine metabolism (estimate +2 h).');
+  }
+  if (opts.pregnant) {
+    h += 8;
+    factors.push('Pregnancy can roughly double or triple caffeine half-life (estimate +8 h).');
+  } else if (opts.contraceptive) {
+    h += 5;
+    factors.push('Oral contraceptives roughly double caffeine half-life (estimate +5 h).');
+  }
+  if (opts.smoker) {
+    h -= 1.5;
+    factors.push('Smoking speeds up caffeine metabolism (estimate -1.5 h).');
+  }
+  h = clamp(Math.round(h * 2) / 2, 2, 15);
+  return {
+    hours: h,
+    factors: factors,
+    note: 'Estimate only. Real caffeine half-life varies by genetics, liver enzymes, medication and more — treat this as a starting guess, not a measurement.'
+  };
+}
+
+/* ---- Coffee nap: 20-minute nap timed with caffeine kick-in ---- */
+
+function napWakeTime(startMin, napMin) {
+  if (!isNum(startMin)) return NaN;
+  var n = (isNum(napMin) && napMin > 0 && napMin <= 120) ? napMin : 20;
+  var m = Math.round(startMin + n) % 1440;
+  return (m + 1440) % 1440;
+}
+
+/* ---- Sleep window (night-shift mode) ---- */
+
+function sleepWindow(sleepMin, wakeMin) {
+  if (!isNum(sleepMin) || !isNum(wakeMin)) {
+    return { error: 'Sleep start and wake time are both required.' };
+  }
+  var dur = (Math.round(wakeMin) - Math.round(sleepMin) + 1440) % 1440;
+  if (dur === 0) return { error: 'Sleep start and wake time cannot be the same.' };
+  if (dur < 120) return { error: 'That sleep window is under 2 hours — check your times.' };
+  if (dur > 720) return { error: 'That sleep window is over 12 hours — check your times.' };
+  return {
+    start: Math.round(sleepMin),
+    end: Math.round(wakeMin),
+    durationMin: dur,
+    durationH: Math.round(dur / 60 * 10) / 10,
+    wraps: Math.round(wakeMin) <= Math.round(sleepMin)
+  };
+}
+
+/* ---- Time helpers ---- */
+
+function formatTime(min) {
+  if (!isNum(min)) return '';
+  var m = ((Math.round(min) % 1440) + 1440) % 1440;
+  var h = Math.floor(m / 60);
+  var mm = m % 60;
+  var ap = h >= 12 ? 'PM' : 'AM';
+  var h12 = h % 12;
+  if (h12 === 0) h12 = 12;
+  return h12 + ':' + (mm < 10 ? '0' : '') + mm + ' ' + ap;
+}
+
+function parseTimeStr(s) {
+  if (typeof s !== 'string') return NaN;
+  var m = s.match(/^\s*(\d{1,2}):(\d{2})\s*$/);
+  if (!m) return NaN;
+  var h = parseInt(m[1], 10), mm = parseInt(m[2], 10);
+  if (h > 23 || mm > 59) return NaN;
+  return h * 60 + mm;
+}
+
+/* minutes -> "6.5 h" style short duration */
+function formatDurationH(hours) {
+  if (!isNum(hours)) return '';
+  var r = Math.round(hours * 10) / 10;
+  return r + ' h';
+}
+
+/* ---- 7-day tolerance log: pure stats over [{date: 'YYYY-MM-DD', mg}].
+   Storage (localStorage) lives in the UI script; this stays pure. ---- */
+
+function toleranceStats(entries) {
+  var days = (Array.isArray(entries) ? entries : []).filter(function (e) {
+    return e && typeof e.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(e.date) &&
+           isNum(e.mg) && e.mg >= 0;
+  });
+  days.sort(function (a, b) { return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
+  if (days.length === 0) return { n: 0, error: 'No log entries yet. Add your first day to see your trend.' };
+  var totals = days.map(function (d) { return d.mg; });
+  var sum = 0, max = 0, i;
+  for (i = 0; i < totals.length; i++) { sum += totals[i]; if (totals[i] > max) max = totals[i]; }
+  var avg = sum / totals.length;
+  var n = totals.length, sx = 0, sy = 0, sxx = 0, sxy = 0;
+  for (i = 0; i < n; i++) { sx += i; sy += totals[i]; sxx += i * i; sxy += i * totals[i]; }
+  var denom = n * sxx - sx * sx;
+  var slope = denom !== 0 ? (n * sxy - sx * sy) / denom : 0;
+  var trend = Math.abs(slope) < 5 ? 'flat' : (slope > 0 ? 'up' : 'down');
+  var note;
+  if (avg > 400) {
+    note = 'High average intake. Regular 400+ mg days are linked to tolerance build-up and poorer sleep.';
+  } else if (avg > 200) {
+    note = 'Moderate intake. Tolerance is possible — watch late-day doses if sleep quality dips.';
+  } else {
+    note = 'Low intake. Unlikely to have built meaningful tolerance at this level.';
+  }
+  if (trend === 'up' && n >= 3) {
+    note += ' Intake is trending upward, a classic sign of creeping tolerance.';
+  } else if (trend === 'down' && n >= 3) {
+    note += ' Intake is trending down — tapering usually restores sensitivity within a week or two.';
+  }
+  return {
+    n: days.length,
+    total: Math.round(sum),
+    avg: Math.round(avg),
+    max: Math.round(max),
+    trend: trend,
+    slopePerDay: Math.round(slope * 10) / 10,
+    note: note
+  };
+}
+
+/* Merge a new day into a log: replaces an existing entry for the same date. */
+function upsertLogDay(entries, date, mg) {
+  var days = (Array.isArray(entries) ? entries : []).filter(function (e) {
+    return e && typeof e.date === 'string' && e.date !== date && isNum(e.mg) && e.mg >= 0;
+  });
+  if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date) && isNum(mg) && mg >= 0) {
+    days.push({ date: date, mg: Math.round(mg) });
+  }
+  days.sort(function (a, b) { return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0); });
+  return days.slice(-7);
+}
+
+</script>
+
+<!-- UI WIRING (DOM only — all math comes from the lib block above) -->
+<script>
+(function () {
+  'use strict';
+  var FRAME_START = 300;            /* 5:00 AM */
+  var FRAME_END = FRAME_START + 24 * 60;
+
+  function $(id) { return document.getElementById(id); }
+
+  /* Map a clock time (0-1439) into the chart frame. */
+  function frameMin(clockMin) {
+    return clockMin < FRAME_START ? clockMin + 1440 : clockMin;
+  }
+  function todayStr() {
+    var d = new Date();
+    var m = (d.getMonth() + 1 < 10 ? '0' : '') + (d.getMonth() + 1);
+    var day = (d.getDate() < 10 ? '0' : '') + d.getDate();
+    return d.getFullYear() + '-' + m + '-' + day;
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ---------- state ---------- */
+  var doses = []; /* [{clock, mg, name}] */
+
+  /* ---------- dose logger ---------- */
+  var dosePreset = $('dosePreset'), doseMg = $('doseMg'), doseTime = $('doseTime');
+  var cutoffDoseSel = $('cutoffDoseSel');
+  drinkPresets().forEach(function (p) {
+    var o1 = document.createElement('option'); o1.value = p.id; o1.textContent = p.name + ' ~' + p.mg + ' mg';
+    dosePreset.appendChild(o1);
+    var o2 = document.createElement('option'); o2.value = p.id; o2.textContent = p.name + ' ~' + p.mg + ' mg';
+    cutoffDoseSel.appendChild(o2);
+  });
+  dosePreset.value = 'brewed';
+  cutoffDoseSel.value = 'brewed';
+  dosePreset.addEventListener('change', function () {
+    var p = presetById(dosePreset.value);
+    if (p) doseMg.value = p.mg;
+  });
+
+  function renderDoseList() {
+    var list = $('doseList');
+    list.innerHTML = '';
+    $('doseCount').textContent = doses.length ? '(' + doses.length + ')' : '';
+    $('doseEmpty').style.display = doses.length ? 'none' : 'block';
+    doses.forEach(function (d, i) {
+      var li = document.createElement('li');
+      li.className = 'flex items-center justify-between gap-2 rounded-lg bg-[#12100C] border border-[#3A3126] px-3 py-2';
+      li.innerHTML = '<span class="text-sm"><strong class="text-[#D97706]">' + esc(d.mg) + ' mg</strong> ' +
+        esc(d.name) + ' <span class="text-[#8a7f6d]">@ ' + esc(formatTime(d.clock)) + '</span></span>' +
+        '<button data-i="' + i + '" class="text-xs text-[#8a7f6d] hover:text-red-400 font-bold" aria-label="Remove dose">✕</button>';
+      li.querySelector('button').addEventListener('click', function () {
+        doses.splice(parseInt(this.getAttribute('data-i'), 10), 1);
+        renderDoseList(); render();
+      });
+      list.appendChild(li);
+    });
+  }
+
+  $('addDoseBtn').addEventListener('click', function () {
+    var mg = parseFloat(doseMg.value);
+    var t = parseTimeStr(doseTime.value);
+    if (!isNum(mg) || mg < 0 || mg > 1500) { doseMg.focus(); return; }
+    if (!isNum(t)) { doseTime.focus(); return; }
+    var p = presetById(dosePreset.value);
+    doses.push({ clock: t, mg: Math.round(mg), name: p ? p.name : 'Custom' });
+    doses.sort(function (a, b) { return a.clock - b.clock; });
+    renderDoseList(); render();
+  });
+  $('clearDosesBtn').addEventListener('click', function () { doses = []; renderDoseList(); render(); });
+
+  /* ---------- settings ---------- */
+  var halfLifeRange = $('halfLifeRange'), halfLifeVal = $('halfLifeVal');
+  halfLifeRange.addEventListener('input', function () {
+    halfLifeVal.textContent = (Math.round(parseFloat(halfLifeRange.value) * 10) / 10) + ' h';
+    render();
+  });
+  $('estimateHlToggle').addEventListener('click', function () {
+    $('hlEstimator').classList.toggle('hidden');
+  });
+  $('estimateHlBtn').addEventListener('click', function () {
+    var ageRaw = $('hlAge').value.trim();
+    var est = estimateHalfLife({
+      age: ageRaw === '' ? undefined : parseFloat(ageRaw),
+      pregnant: $('hlPregnant').checked,
+      contraceptive: $('hlContraceptive').checked,
+      smoker: $('hlSmoker').checked
+    });
+    if (est.error) { $('hlFactors').textContent = est.error; return; }
+    halfLifeRange.value = est.hours;
+    halfLifeVal.textContent = est.hours + ' h';
+    $('hlFactors').textContent = (est.factors.length ? est.factors.join(' ') : 'No adjustments — average metabolism assumed.') + ' ' + est.note;
+    render();
+  });
+
+  var nightShiftToggle = $('nightShiftToggle');
+  nightShiftToggle.addEventListener('change', function () {
+    var night = nightShiftToggle.checked;
+    $('sleepWrap').classList.toggle('hidden', !night);
+    $('regularSleepWrap').classList.toggle('hidden', night);
+    render();
+  });
+
+  ['bedtimeInput', 'sensitivitySel', 'cutoffDoseSel', 'sleepStart', 'sleepEnd'].forEach(function (id) {
+    $(id).addEventListener('change', render);
+    $(id).addEventListener('input', render);
+  });
+
+  function currentSettings() {
+    var h = parseFloat(halfLifeRange.value);
+    var threshold = sensitivityThreshold($('sensitivitySel').value);
+    var night = nightShiftToggle.checked;
+    var bedClock, sleepStartF = null, sleepEndF = null, winNote = '';
+    if (night) {
+      var s = parseTimeStr($('sleepStart').value), e = parseTimeStr($('sleepEnd').value);
+      var w = sleepWindow(s, e);
+      if (w.error) { winNote = w.error; }
+      else {
+        sleepStartF = frameMin(w.start);
+        sleepEndF = frameMin(w.end);
+        if (sleepEndF <= sleepStartF) sleepEndF += 1440;
+        if (sleepEndF > FRAME_END) sleepEndF = FRAME_END;
+        bedClock = w.start;
+        winNote = 'Sleep window: ' + formatTime(w.start) + ' – ' + formatTime(w.end) + ' (' + w.durationH + ' h).';
+      }
+    } else {
+      bedClock = parseTimeStr($('bedtimeInput').value);
+    }
+    var ref = presetById(cutoffDoseSel.value);
+    return {
+      halfLife: h, threshold: threshold, night: night,
+      bedMin: isNum(bedClock) ? frameMin(bedClock) : NaN,
+      sleepStartF: sleepStartF, sleepEndF: sleepEndF, winNote: winNote,
+      refMg: ref ? ref.mg : 95, refName: ref ? ref.name : 'Brewed coffee'
+    };
+  }
+
+  /* ---------- chart ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  function render() {
+    var st = currentSettings();
+    var h = st.halfLife;
+    $('sleepWindowNote').textContent = st.winNote;
+
+    var frameDoses = doses.map(function (d) {
+      return { min: frameMin(d.clock), mg: d.mg, name: d.name, clock: d.clock };
+    });
+
+    var bedMin = st.bedMin;
+    var cutoff = cutoffMinutes(bedMin, st.refMg, h, st.threshold);
+    var impact = bedtimeImpact(frameDoses, h, bedMin);
+
+    /* cutoff headline */
+    if (cutoff.error || !isNum(bedMin)) {
+      $('cutoffBig').textContent = '—';
+      $('cutoffDetail').textContent = cutoff.error || 'Enter a valid bedtime.';
+    } else if (!cutoff.constrained) {
+      $('cutoffBig').textContent = formatTime(bedMin);
+      $('cutoffDetail').textContent = cutoff.note + ' (Reference: ' + esc(st.refName) + ' ~' + st.refMg + ' mg.)';
+    } else {
+      $('cutoffBig').textContent = formatTime(cutoff.cutoffMin);
+      $('cutoffDetail').textContent = 'For a ' + esc(st.refName) + ' (~' + st.refMg + ' mg): stop at least ' +
+        cutoff.hoursBefore + ' h before ' + (st.night ? 'your sleep window' : 'bedtime') +
+        ' so no more than ' + st.threshold + ' mg remains at lights-out. All figures are estimates.';
+    }
+
+    /* bedtime impact */
+    $('atBedMg').textContent = impact.atBed;
+    $('atBedNote').textContent = impact.note;
+    var il = $('doseImpactList');
+    il.innerHTML = '';
+    if (!frameDoses.length) {
+      il.innerHTML = '<li class="text-[#8a7f6d]">Log a dose to see its bedtime leftover.</li>';
+    } else {
+      impact.perDose.forEach(function (p) {
+        var li = document.createElement('li');
+        li.className = 'flex justify-between gap-2';
+        li.innerHTML = '<span class="text-[#C9BFAE]">' + esc(p.mg) + ' mg @ ' + esc(formatTime(p.min)) + '</span>' +
+          '<strong class="' + (p.atBed > st.threshold ? 'text-[#D97706]' : 'text-[#7DD3FC]') + '">' + p.atBed + ' mg</strong>';
+        il.appendChild(li);
+      });
+    }
+
+    drawChart(frameDoses, h, bedMin, st, cutoff);
+  }
+
+  function drawChart(frameDoses, h, bedMin, st, cutoff) {
+    var svg = $('chartSvg');
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var W = 960, H = 380, ml = 56, mr = 16, mt = 18, mb = 44;
+    var pw = W - ml - mr, ph = H - mt - mb;
+    function X(t) { return ml + (t - FRAME_START) / (FRAME_END - FRAME_START) * pw; }
+    var pts = superpositionCurve(frameDoses, h, FRAME_START, FRAME_END, 10);
+    var maxMg = 0, i;
+    for (i = 0; i < pts.length; i++) if (pts[i].mg > maxMg) maxMg = pts[i].mg;
+    maxMg = Math.max(100, maxMg * 1.15);
+    function Y(mg) { return mt + ph - Math.min(mg, maxMg) / maxMg * ph; }
+
+    var title = el('title', {}, svg);
+    title.textContent = 'Caffeine in your body across the day (estimates)';
+
+    var defs = el('defs', {}, svg);
+    var grad = el('linearGradient', { id: 'caffGrad', x1: '0', y1: '0', x2: '0', y2: '1' }, defs);
+    el('stop', { offset: '0%', 'stop-color': '#D97706', 'stop-opacity': '0.85' }, grad);
+    el('stop', { offset: '100%', 'stop-color': '#D97706', 'stop-opacity': '0.06' }, grad);
+
+    /* sleep shading */
+    var shStart = null, shEnd = null;
+    if (st.night && st.sleepStartF !== null) { shStart = st.sleepStartF; shEnd = st.sleepEndF; }
+    else if (!st.night && isNum(bedMin)) { shStart = bedMin; shEnd = Math.min(bedMin + 480, FRAME_END); }
+    if (shStart !== null && shEnd > shStart) {
+      el('rect', { x: X(shStart), y: mt, width: Math.max(2, X(shEnd) - X(shStart)), height: ph, fill: '#7DD3FC', opacity: '0.10', rx: '6' }, svg);
+      var sl = el('text', { x: X(shStart) + 8, y: mt + 18, fill: '#7DD3FC', 'font-size': '12', 'font-weight': '700' }, svg);
+      sl.textContent = 'SLEEP';
+    }
+
+    /* gridlines + x labels every 3h */
+    for (var t = FRAME_START; t <= FRAME_END; t += 180) {
+      el('line', { x1: X(t), y1: mt, x2: X(t), y2: mt + ph, stroke: '#3A3126', 'stroke-width': '1' }, svg);
+      var lbl = el('text', { x: X(t), y: mt + ph + 24, fill: '#8a7f6d', 'font-size': '12', 'text-anchor': 'middle' }, svg);
+      lbl.textContent = formatTime(t);
+    }
+    /* y ticks */
+    for (var q = 0; q <= 4; q++) {
+      var mgv = Math.round(maxMg / 4 * q);
+      el('line', { x1: ml, y1: Y(mgv), x2: ml + pw, y2: Y(mgv), stroke: '#2A2419', 'stroke-width': '1', 'stroke-dasharray': '4 5' }, svg);
+      var yl = el('text', { x: ml - 8, y: Y(mgv) + 4, fill: '#8a7f6d', 'font-size': '11', 'text-anchor': 'end' }, svg);
+      yl.textContent = mgv + ' mg';
+    }
+
+    /* per-dose dashed decay curves */
+    frameDoses.forEach(function (d) {
+      var dpts = [];
+      for (var t2 = d.min; t2 <= FRAME_END; t2 += 15) {
+        dpts.push(X(t2).toFixed(1) + ',' + Y(decayAmount(d.mg, (t2 - d.min) / 60, h)).toFixed(1));
+      }
+      if (dpts.length > 1) {
+        el('polyline', { points: dpts.join(' '), fill: 'none', stroke: '#7DD3FC', 'stroke-width': '1.6', 'stroke-dasharray': '6 5', opacity: '0.45' }, svg);
+      }
+    });
+
+    /* total superposition curve (filled) */
+    if (pts.length > 1) {
+      var line = pts.map(function (p) { return X(p.t).toFixed(1) + ',' + Y(p.mg).toFixed(1); }).join(' ');
+      var area = 'M' + X(FRAME_START).toFixed(1) + ',' + Y(0).toFixed(1) + ' L' +
+        pts.map(function (p) { return X(p.t).toFixed(1) + ',' + Y(p.mg).toFixed(1); }).join(' L') +
+        ' L' + X(FRAME_END).toFixed(1) + ',' + Y(0).toFixed(1) + ' Z';
+      el('path', { d: area, fill: 'url(#caffGrad)' }, svg);
+      el('polyline', { points: line, fill: 'none', stroke: '#D97706', 'stroke-width': '3', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+    }
+
+    /* dose markers */
+    frameDoses.forEach(function (d) {
+      var y = Y(superpositionAt(frameDoses, d.min, h));
+      el('circle', { cx: X(d.min), cy: y, r: '6', fill: '#12100C', stroke: '#7DD3FC', 'stroke-width': '2.5' }, svg);
+      var dl = el('text', { x: X(d.min), y: Math.max(12, y - 12), fill: '#7DD3FC', 'font-size': '11', 'font-weight': '700', 'text-anchor': 'middle' }, svg);
+      dl.textContent = d.mg + 'mg';
+    });
+
+    /* cutoff line */
+    if (!cutoff.error && cutoff.constrained && cutoff.cutoffMin >= FRAME_START && cutoff.cutoffMin <= FRAME_END) {
+      el('line', { x1: X(cutoff.cutoffMin), y1: mt, x2: X(cutoff.cutoffMin), y2: mt + ph, stroke: '#7DD3FC', 'stroke-width': '2.5' }, svg);
+      var cl = el('text', { x: X(cutoff.cutoffMin) + 6, y: mt + 34, fill: '#7DD3FC', 'font-size': '12', 'font-weight': '800' }, svg);
+      cl.textContent = 'CUTOFF ' + formatTime(cutoff.cutoffMin);
+    }
+
+    /* bedtime line */
+    if (isNum(bedMin) && bedMin >= FRAME_START && bedMin <= FRAME_END) {
+      el('line', { x1: X(bedMin), y1: mt, x2: X(bedMin), y2: mt + ph, stroke: '#F3EDE0', 'stroke-width': '1.5', 'stroke-dasharray': '3 4', opacity: '0.7' }, svg);
+      var bl = el('text', { x: X(bedMin) - 6, y: mt + ph - 8, fill: '#F3EDE0', 'font-size': '12', 'font-weight': '700', 'text-anchor': 'end' }, svg);
+      bl.textContent = st.night ? 'sleep' : 'bed ' + formatTime(bedMin);
+    }
+
+    /* now line */
+    var now = new Date();
+    var nowF = frameMin(now.getHours() * 60 + now.getMinutes());
+    if (nowF >= FRAME_START && nowF <= FRAME_END) {
+      el('line', { x1: X(nowF), y1: mt, x2: X(nowF), y2: mt + ph, stroke: '#D97706', 'stroke-width': '1.5', opacity: '0.6' }, svg);
+      var nl = el('text', { x: X(nowF) + 5, y: mt + 14, fill: '#D97706', 'font-size': '11', 'font-weight': '700' }, svg);
+      nl.textContent = 'now';
+    }
+
+    if (!frameDoses.length) {
+      var em = el('text', { x: ml + pw / 2, y: mt + ph / 2, fill: '#8a7f6d', 'font-size': '16', 'text-anchor': 'middle', 'font-style': 'italic' }, svg);
+      em.textContent = 'Add a dose above to wake the curve up';
+    }
+  }
+
+  /* ---------- coffee nap timer ---------- */
+  var napInt = null, napLeft = 0;
+  function fmtClock(s) {
+    var m = Math.floor(s / 60), sec = s % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+  function beep() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      var ctx = new AC();
+      [0, 0.4, 0.8].forEach(function (off) {
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.value = 880;
+        var t = ctx.currentTime + off;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.5, t + 0.03);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+        o.start(t); o.stop(t + 0.4);
+      });
+    } catch (e) { /* audio unavailable */ }
+  }
+  function napReset() {
+    if (napInt) { clearInterval(napInt); napInt = null; }
+    napLeft = 20 * 60;
+    $('napDisplay').textContent = fmtClock(napLeft);
+    $('napStatus').textContent = 'Press start right after your last sip.';
+  }
+  $('napStartBtn').addEventListener('click', function () {
+    if (napInt) { clearInterval(napInt); }
+    napLeft = 20 * 60;
+    var now = new Date();
+    var wake = napWakeTime(now.getHours() * 60 + now.getMinutes(), 20);
+    $('napStatus').textContent = 'Nap until ' + formatTime(wake) + ' — alarm set.';
+    napInt = setInterval(function () {
+      napLeft--;
+      $('napDisplay').textContent = fmtClock(Math.max(0, napLeft));
+      if (napLeft <= 0) {
+        clearInterval(napInt); napInt = null;
+        $('napStatus').textContent = 'Time to wake up! Your caffeine is kicking in.';
+        beep();
+      }
+    }, 1000);
+  });
+  $('napStopBtn').addEventListener('click', napReset);
+
+  /* ---------- 7-day tolerance log (localStorage lives here, not in the lib) ---------- */
+  var LS_KEY = 'caffcut-tolerance-v1';
+  function loadLog() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      var arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
+  }
+  function saveLog(arr) {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(arr)); } catch (e) { /* storage unavailable */ }
+  }
+  function renderTol() {
+    var log = loadLog();
+    var body = $('tolTableBody');
+    body.innerHTML = '';
+    $('tolEmpty').style.display = log.length ? 'none' : 'block';
+    log.forEach(function (d) {
+      var tr = document.createElement('tr');
+      tr.className = 'border-b border-[#2A2419]';
+      var pct = Math.min(100, Math.round(d.mg / 400 * 100));
+      var col = d.mg > 400 ? '#EF4444' : '#D97706';
+      tr.innerHTML = '<td class="py-2 pr-4">' + esc(d.date) + '</td>' +
+        '<td class="py-2 pr-4 font-bold">' + esc(d.mg) + '</td>' +
+        '<td class="py-2 pr-4 text-[#8a7f6d]">' + pct + '% of 400 mg</td>' +
+        '<td class="py-2"><div class="h-2.5 rounded bg-[#2A2419] w-40 max-w-full"><div class="h-2.5 rounded" style="width:' + pct + '%;background:' + col + '"></div></div></td>';
+      body.appendChild(tr);
+    });
+    var s = toleranceStats(log);
+    var box = $('tolStats');
+    if (s.error) {
+      box.innerHTML = '<p class="text-[#8a7f6d]">' + esc(s.error) + '</p>';
+    } else {
+      var arrow = s.trend === 'up' ? '↗ rising' : (s.trend === 'down' ? '↘ falling' : '→ flat');
+      box.innerHTML = '<div class="flex flex-wrap gap-x-8 gap-y-2">' +
+        '<span><strong class="text-[#D97706] text-xl">' + s.n + '</strong> <span class="text-[#8a7f6d]">days logged</span></span>' +
+        '<span><strong class="text-[#D97706] text-xl">' + s.avg + ' mg</strong> <span class="text-[#8a7f6d]">avg / day</span></span>' +
+        '<span><strong class="text-[#D97706] text-xl">' + s.max + ' mg</strong> <span class="text-[#8a7f6d]">peak day</span></span>' +
+        '<span><strong class="text-[#7DD3FC] text-xl">' + arrow + '</strong> <span class="text-[#8a7f6d]">trend</span></span></div>' +
+        '<p class="mt-2 text-[#C9BFAE]">' + esc(s.note) + ' Estimates only.</p>';
+    }
+  }
+  $('tolDate').value = todayStr();
+  $('tolAddBtn').addEventListener('click', function () {
+    var mg = parseFloat($('tolMg').value);
+    var date = $('tolDate').value || todayStr();
+    if (!isNum(mg) || mg < 0 || mg > 3000) { $('tolMg').focus(); return; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) { $('tolDate').focus(); return; }
+    var log = upsertLogDay(loadLog(), date, mg);
+    saveLog(log); renderTol();
+    $('tolMg').value = '';
+  });
+  $('tolUseTodayBtn').addEventListener('click', function () {
+    var total = doses.reduce(function (a, d) { return a + d.mg; }, 0);
+    $('tolMg').value = total;
+    $('tolDate').value = todayStr();
+  });
+  $('tolClearBtn').addEventListener('click', function () {
+    saveLog([]); renderTol();
+  });
+
+  /* ---------- init ---------- */
+  renderDoseList();
+  renderTol();
+  render();
+})();
+</script>
+</body>
+</html>
