@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yoga Sequence Builder with Pose Timer | YogaFlow</title>
+<meta name="description" content="Build a custom yoga sequence from your level, focus, and available minutes, then follow the guided pose-by-pose hold timer. Free yoga builder.">
+<link rel="canonical" href="https://health.fixoraa.tech/yogaflow/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Yoga Sequence Builder with Pose Timer | YogaFlow">
+<meta property="og:description" content="Build a custom yoga sequence from your level, focus, and available minutes, then follow the guided pose-by-pose hold timer. Free yoga builder.">
+<meta property="og:url" content="https://health.fixoraa.tech/yogaflow/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "YogaFlow",
+      "url": "https://health.fixoraa.tech/yogaflow/",
+      "applicationCategory": "Wellness Tools",
+      "operatingSystem": "Web",
+      "description": "Build a custom yoga sequence from your level, focus, and available minutes, then follow the guided pose-by-pose hold timer. Free yoga builder.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long should a yoga session be?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For habit-building, 10\u201320 minutes daily beats one long weekly session \u2014 consistency rewires the routine far more reliably. Use 10 minutes on busy days, 20\u201330 for a full practice, and 45+ when you want a deep weekend session. The builder scales any duration into a complete warm-up-to-rest arc."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe to do yoga every day?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes \u2014 in fact daily short practice is the gold standard. Vary the focus across the week (strength Monday, flexibility Wednesday, relaxation Friday) to avoid overuse, and take a genuinely easy day when the body asks for it. Soreness that fades within a day is normal; sharp pain is not."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I focus on flexibility or strength?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Neither \u2014 a balanced practice needs both, which is why YogaFlow offers both focuses. Strength without flexibility creates stiffness; flexibility without strength creates instability. If you must prioritise, desk workers usually benefit most from flexibility and hip-opening, while runners benefit most from strength and balance work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need props like blocks and straps?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Two yoga blocks and a strap cover 90% of needs. Blocks bring the floor closer in standing poses, a strap extends your reach in seated folds, and a folded blanket cushions knees. Household substitutes work fine \u2014 books for blocks, a belt or towel for a strap."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can yoga help with back pain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Gentle yoga often helps back stiffness \u2014 Cat-Cow, Child's Pose, and Bridge Pose are classic therapeutic poses. But acute, severe, radiating, or post-injury back pain needs professional assessment first. Never push through sharp pain, and avoid deep backbends and twists during a flare-up."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should I breathe during yoga?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start with slow nasal breathing: inhale 4 counts, exhale 4\u20136 counts, with a slight constriction at the back of the throat (ujjayi). Keep the breath flowing through every pose \u2014 if you catch yourself holding your breath, ease off the effort until breathing feels easy again."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#FDF8F2; --surface:#FFFFFF; --accent:#9C4221; --accent-ink:#FFFFFF;
+  --ink:#26201A; --muted:#6B5D4E; --line:#F0E2D3;
+  --display:'Crimson Pro',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.yf-wrap{font-family:'Crimson Pro',Georgia,serif;background:#FDF8F2;color:#26201A;display:flex;min-height:640px;}.yf-rail{width:290px;flex-shrink:0;background:#FFFFFF;border-right:1px solid #F0E2D3;padding:30px 24px;}.yf-brand{display:flex;align-items:center;gap:12px;margin-bottom:26px;}.yf-logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#9C4221,#d97b4a);color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}.yf-brand h1{font-size:24px;margin:0;letter-spacing:-0.01em;}.yf-brand p{font-family:Inter,system-ui,sans-serif;font-size:12px;color:#6B5D4E;margin:2px 0 0;}.yf-group{margin-bottom:22px;}.yf-group>span{display:block;font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9C4221;margin-bottom:10px;}.yf-opts{display:flex;flex-wrap:wrap;gap:8px;}.yf-opt{border:2px solid #F0E2D3;background:#FDF8F2;border-radius:99px;padding:10px 16px;font-family:Inter,system-ui,sans-serif;font-size:14px;font-weight:600;cursor:pointer;color:#26201A;min-height:44px;}.yf-opt.sel{background:#F9EADF;border-color:#9C4221;color:#9C4221;}.yf-main{flex:1;padding:36px;max-width:760px;}.yf-main h2{font-size:34px;margin:0 0 6px;letter-spacing:-0.01em;}.yf-sub{font-family:Inter,system-ui,sans-serif;color:#6B5D4E;font-size:15.5px;margin:0 0 22px;}.yf-total{display:inline-block;font-family:Inter,system-ui,sans-serif;background:#9C4221;color:#fff;font-weight:800;border-radius:99px;padding:8px 20px;font-size:14.5px;margin-bottom:18px;}.yf-seq{list-style:none;margin:0 0 26px;padding:0;}.yf-pose{display:flex;align-items:center;gap:16px;background:#FFFFFF;border:1px solid #F0E2D3;border-radius:16px;padding:14px 18px;margin-bottom:10px;}.yf-pose.active{border-color:#9C4221;box-shadow:0 0 0 3px rgba(156,66,33,.15);}.yf-num{width:38px;height:38px;border-radius:50%;background:#F9EADF;color:#9C4221;font-family:Inter,system-ui,sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;}.yf-pose.active .yf-num{background:#9C4221;color:#fff;}.yf-pname{flex:1;font-size:20px;font-weight:600;}.yf-psecs{font-family:Inter,system-ui,sans-serif;font-size:14px;color:#6B5D4E;font-weight:600;white-space:nowrap;}.yf-timer{background:#FFFFFF;border:1px solid #F0E2D3;border-radius:20px;padding:26px;text-align:center;}.yf-timer .t-label{font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#9C4221;}.yf-timer .t-pose{font-size:30px;font-weight:700;margin:8px 0 2px;}.yf-timer .t-count{font-size:64px;font-weight:700;color:#9C4221;letter-spacing:-0.02em;line-height:1.1;font-variant-numeric:tabular-nums;}.yf-tbtns{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap;}.yf-btn{background:#9C4221;color:#fff;border:none;border-radius:12px;padding:12px 24px;font-family:Inter,system-ui,sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;min-height:48px;}.yf-btn.ghost{background:transparent;color:#9C4221;border:2px solid #F0E2D3;}@media (max-width:820px){.yf-wrap{flex-direction:column;}.yf-rail{width:auto;border-right:none;border-bottom:1px solid #F0E2D3;padding:24px 18px;}.yf-main{padding:26px 16px;}.yf-timer .t-count{font-size:52px;}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="YogaFlow home">
+      <span class="fx-logo-tile" aria-hidden="true">🧘</span>
+      <span class="fx-brand">YogaFlow</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-side-rail" aria-label="YogaFlow tool">
+<div class='yf-wrap'><aside class='yf-rail'><div class='yf-brand'><div class='yf-logo' aria-hidden='true'>🧘</div><div><h1>YogaFlow</h1><p>Sequence builder</p></div></div><div class='yf-group'><span>Level</span><div class='yf-opts' id='yf-level'><button class='yf-opt sel' data-v='beginner'>Beginner</button><button class='yf-opt' data-v='intermediate'>Intermediate</button><button class='yf-opt' data-v='advanced'>Advanced</button></div></div><div class='yf-group'><span>Focus</span><div class='yf-opts' id='yf-focus'><button class='yf-opt sel' data-v='flexibility'>Flexibility</button><button class='yf-opt' data-v='strength'>Strength</button><button class='yf-opt' data-v='balance'>Balance</button><button class='yf-opt' data-v='relaxation'>Relaxation</button></div></div><div class='yf-group'><span>Minutes</span><div class='yf-opts' id='yf-mins'><button class='yf-opt' data-v='10'>10</button><button class='yf-opt sel' data-v='20'>20</button><button class='yf-opt' data-v='30'>30</button><button class='yf-opt' data-v='45'>45</button></div></div></aside><main class='yf-main'><h2>Your flow</h2><p class='yf-sub'>Your level, your focus, your minutes — a complete flow, timed pose by pose.</p><span class='yf-total' id='yf-total'>20 min · 12 poses</span><ol class='yf-seq' id='yf-seq'></ol><div class='yf-timer'><div class='t-label'>Guided timer</div><div class='t-pose' id='yf-tpose'>Press start and settle in</div><div class='t-count' id='yf-tcount'>–</div><div class='yf-tbtns'><button class='yf-btn' id='yf-start'>▶ Start flow</button><button class='yf-btn ghost' id='yf-next'>Next pose →</button><button class='yf-btn ghost' id='yf-stop'>Reset</button></div></div></main></div>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why Sequence Matters More Than Poses</h2><p>A random handful of yoga poses is stretching; a <strong>sequence</strong> is practice. Ordering matters because your body opens progressively: cold muscles should never be asked for deep backbends, and a session that ramps up without winding down leaves the nervous system buzzing instead of settled. The classic arc — <strong>warm-up, build, peak, cool-down, rest</strong> — exists in nearly every yoga tradition because it mirrors how bodies actually work.</p><p>YogaFlow builds this arc automatically. Early poses are gentle mobilisations, the middle holds the strongest work for your chosen focus, and every sequence ends with a proper cool-down and a short rest pose. You choose the level, the focus, and the minutes; the builder handles the architecture.</p><h2>How a YogaFlow Sequence Is Built</h2><ul><li><strong>Warm-up (15% of time):</strong> Cat-Cow, gentle twists, Mountain Pose — synovial fluid moving, breath syncing with motion.</li><li><strong>Build (55% of time):</strong> standing poses matched to your focus — Warriors and Chair for strength, deep folds and Pigeon for flexibility, Tree and Garland for balance.</li><li><strong>Peak (15% of time):</strong> the most demanding pose of the session — Crow, Wheel, or King Pigeon at advanced level — attempted while warm and focused.</li><li><strong>Cool-down and rest (15% of time):</strong> forward folds, gentle twists, and a final Corpse Pose or Legs Up the Wall so the nervous system registers the work as complete.</li></ul><h2>Meet the Core Poses</h2><table><thead><tr><th>Pose</th><th>Level</th><th>Primary benefit</th><th>Typical hold</th></tr></thead><tbody><tr><td>Mountain Pose</td><td>Beginner</td><td>Posture, grounding</td><td>60 sec</td></tr><tr><td>Child's Pose</td><td>Beginner</td><td>Back release, rest</td><td>90 sec</td></tr><tr><td>Cat-Cow Stretch</td><td>Beginner</td><td>Spinal mobility</td><td>90 sec</td></tr><tr><td>Downward Facing Dog</td><td>Beginner</td><td>Full-body stretch + strength</td><td>60–90 sec</td></tr><tr><td>Warrior I / II</td><td>Beginner</td><td>Leg strength, stamina</td><td>45–60 sec/side</td></tr><tr><td>Tree Pose</td><td>Beginner</td><td>Balance, focus</td><td>45 sec/side</td></tr><tr><td>Bridge Pose</td><td>Beginner</td><td>Glutes, backbend prep</td><td>60 sec</td></tr><tr><td>Plank Pose</td><td>Intermediate</td><td>Core strength</td><td>45–60 sec</td></tr><tr><td>Triangle Pose</td><td>Intermediate</td><td>Side body, hamstrings</td><td>45 sec/side</td></tr><tr><td>Pigeon Pose</td><td>Intermediate</td><td>Deep hip opening</td><td>90 sec/side</td></tr><tr><td>Crow Pose</td><td>Advanced</td><td>Arm balance, courage</td><td>20–30 sec</td></tr><tr><td>Wheel Pose</td><td>Advanced</td><td>Full backbend</td><td>30 sec</td></tr></tbody></table><h2>Choosing Your Level Honestly</h2><p><strong>Beginner</strong> means fewer than six months of regular practice or returning after a long break — expect foundational poses with generous holds. <strong>Intermediate</strong> assumes a comfortable Downward Dog, a steady Warrior II, and familiarity with breath coordination. <strong>Advanced</strong> adds arm balances, deep backbends, and inversions — poses that demand both strength and body awareness. When in doubt, choose the lower level: a well-executed beginner flow beats a sloppy advanced one every time, and the builder still scales the holds to fill your minutes.</p><h2>Picking a Focus</h2><ul><li><strong>Flexibility:</strong> longer holds in folds, hip openers, and backbends. Muscles lengthen best when warm and relaxed — never force a stretch; ease to the edge of sensation and breathe there.</li><li><strong>Strength:</strong> Warriors, Plank, Chair, Boat, and balances. Expect to shake — that trembling is motor units learning, not failure.</li><li><strong>Balance:</strong> Tree, Garland, Warrior III-style work, and eventually Crow. Balance is a skill, not a gift; it improves fast with daily 5-minute practice.</li><li><strong>Relaxation:</strong> Child's Pose, gentle twists, Legs Up the Wall, and extended rest. Ideal for evenings — this focus pairs beautifully with dim lights and slow breathing.</li></ul><h2>Breathing: The Engine of the Practice</h2><p>If poses are the vehicle, breath is the engine. The foundational technique is <strong>ujjayi</strong> — slow nasal breathing with a slight constriction at the back of the throat, making a soft ocean sound. Aim for a 1:1 or 1:2 inhale-to-exhale ratio: four counts in, four (or eight) counts out. Longer exhales activate the parasympathetic nervous system, which is why the cool-down poses feel so settling. Never hold your breath to force a pose — if the breath breaks down, ease off until it flows again.</p><h2>Props Are Not Cheating</h2><p>Blocks, straps, and bolsters are precision instruments, not crutches. A block under the hand in Triangle Pose lets the spine stay long instead of collapsing; a strap in a seated fold preserves the back while hamstrings open at their own pace. Iyengar, one of yoga's most rigorous schools, built its entire method on props. Use them proudly.</p><h2>Safety Notes Worth Reading</h2><ul><li>Warm up before deep stretches — never start cold with Pigeon or Wheel.</li><li>Protect the knees: in lunges and Warrior poses, keep the front knee tracking over the ankle, never past the toes.</li><li>Protect the lower back: hinge from the hips in forward folds; a slightly bent knee beats a rounded spine.</li><li>Inversions and deep backbends are contraindicated with uncontrolled blood pressure, glaucoma, or recent injury — check with a professional first.</li><li>Pregnancy changes everything about the practice — seek prenatal-specific guidance rather than adapting a general flow.</li></ul><h2>Building the Habit</h2><p>The research is unambiguous: <strong>short and frequent beats long and occasional</strong>. A 15-minute daily flow rewires habit circuitry far more reliably than a heroic 90-minute Sunday session. Anchor practice to an existing routine — right after waking, or before the evening shower — and keep the mat unrolled somewhere visible. YogaFlow's 10-minute option exists precisely for the days when 'I don't have time' is the excuse; everyone has ten minutes, and ten minutes counts.</p><p>Set your level, focus, and minutes in the rail on the left, press start, and follow the holds. The timer handles the counting — you handle the breathing.</p><h2>Walkthrough: A 20-Minute Beginner Flexibility Flow</h2><p>Here is exactly what YogaFlow generates for a beginner flexibility session, with coaching cues for each pose:</p><table><thead><tr><th>#</th><th>Pose</th><th>Hold</th><th>Cue</th></tr></thead><tbody><tr><td>1</td><td>Mountain Pose</td><td>1:40</td><td>Stand tall, breathe into the ribs, feel all four corners of each foot.</td></tr><tr><td>2</td><td>Child's Pose</td><td>1:40</td><td>Knees wide, forehead down, let the back spread with each exhale.</td></tr><tr><td>3</td><td>Cat-Cow Stretch</td><td>1:40</td><td>Move with the breath — inhale to Cow, exhale to Cat, slow and fluid.</td></tr><tr><td>4</td><td>Downward Facing Dog</td><td>1:40</td><td>Pedal the feet, bend knees freely, lengthen the spine first.</td></tr><tr><td>5</td><td>Standing Forward Fold</td><td>1:40</td><td>Hinge from hips, let the head hang heavy, micro-bend the knees.</td></tr><tr><td>6</td><td>Cobra Pose</td><td>1:40</td><td>Press through the tops of the feet, lift with the back, shoulders down.</td></tr><tr><td>7</td><td>Bridge Pose</td><td>1:40</td><td>Squeeze glutes at the top, keep knees tracking over ankles.</td></tr><tr><td>8</td><td>Seated Forward Fold</td><td>1:40</td><td>Lead with the chest, strap around the feet if hamstrings are tight.</td></tr><tr><td>9</td><td>Warrior I</td><td>1:40</td><td>Square the hips forward, sink the front knee, reach up through the fingers.</td></tr><tr><td>10</td><td>Warrior II</td><td>1:40</td><td>Front knee over ankle, gaze past the front middle finger, sink low.</td></tr><tr><td>11</td><td>Tree Pose</td><td>1:40</td><td>Foot above or below the knee — never on it; fix the gaze on one point.</td></tr><tr><td>12</td><td>Corpse Pose</td><td>1:40</td><td>Let the floor hold you completely. Do not skip this — it seals the practice.</td></tr></tbody></table><h2>Progressing Month by Month</h2><p><strong>Month 1:</strong> stay at beginner, 10–15 minutes daily, flexibility or relaxation focus. The goal is habit, not heroics — unroll the mat at the same time every day.</p><p><strong>Month 2–3:</strong> extend to 20–30 minutes and add a strength focus twice a week. You will notice poses that once trembled now feel steady — that is neuromuscular adaptation, the fastest improvement phase.</p><p><strong>Month 4–6:</strong> try intermediate level for one session a week while keeping beginner flows for recovery days. Introduce balance focus — it is the skill that degrades fastest without practice.</p><p><strong>Beyond:</strong> advanced poses like Crow and Wheel become accessible once the foundations are solid. Consider one guided class a month even as a home practitioner — a teacher's eyes catch alignment habits you cannot feel yourself.</p><h2>Sequencing Rules the Pros Use</h2><p>Teachers build flows around a few quiet rules. The first is the <em>energy curve</em>: warm up gently, rise to your hardest pose (the "peak") around two-thirds through, then cool down — never place your deepest backbend or longest hold in the opening minutes. The second is <em>counterposing</em>: every deep action gets its opposite, so backbends are followed by a gentle forward fold and strong twists by neutral-spine poses. The third is proportion — roughly 20% warm-up, 60% main sequence, 20% cool-down and savasana, with savasana itself never rushed below five minutes.</p><h2>Sequencing Mistakes Beginners Make</h2><p>The most common error is skipping the warm-up and jumping straight to the "good stuff," which is how hamstrings and shoulders get injured. Second is stacking peak poses — two or three hard poses back to back leaves nothing in the tank for a safe cool-down. Third is treating savasana as optional; cutting it to two minutes undercuts the nervous-system reset that makes the practice stick. And a subtle one: repeating the same side twice and skipping the other. Your body notices the imbalance long before your mind does.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How long should a yoga session be?</summary><p>For habit-building, 10–20 minutes daily beats one long weekly session — consistency rewires the routine far more reliably. Use 10 minutes on busy days, 20–30 for a full practice, and 45+ when you want a deep weekend session. The builder scales any duration into a complete warm-up-to-rest arc.</p></details>
+<details><summary>Is it safe to do yoga every day?</summary><p>Yes — in fact daily short practice is the gold standard. Vary the focus across the week (strength Monday, flexibility Wednesday, relaxation Friday) to avoid overuse, and take a genuinely easy day when the body asks for it. Soreness that fades within a day is normal; sharp pain is not.</p></details>
+<details><summary>Should I focus on flexibility or strength?</summary><p>Neither — a balanced practice needs both, which is why YogaFlow offers both focuses. Strength without flexibility creates stiffness; flexibility without strength creates instability. If you must prioritise, desk workers usually benefit most from flexibility and hip-opening, while runners benefit most from strength and balance work.</p></details>
+<details><summary>Do I need props like blocks and straps?</summary><p>Two yoga blocks and a strap cover 90% of needs. Blocks bring the floor closer in standing poses, a strap extends your reach in seated folds, and a folded blanket cushions knees. Household substitutes work fine — books for blocks, a belt or towel for a strap.</p></details>
+<details><summary>Can yoga help with back pain?</summary><p>Gentle yoga often helps back stiffness — Cat-Cow, Child's Pose, and Bridge Pose are classic therapeutic poses. But acute, severe, radiating, or post-injury back pain needs professional assessment first. Never push through sharp pain, and avoid deep backbends and twists during a flare-up.</p></details>
+<details><summary>How should I breathe during yoga?</summary><p>Start with slow nasal breathing: inhale 4 counts, exhale 4–6 counts, with a slight constriction at the back of the throat (ujjayi). Keep the breath flowing through every pose — if you catch yourself holding your breath, ease off the effort until breathing feels easy again.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">YogaFlow</div>
+    <p>YogaFlow builds a timed yoga sequence from your level, focus, and available minutes — with a guided hold timer.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function yogaPoses(){return [{name:'Mountain Pose',level:'beginner',focus:['flexibility','balance']},{name:"Child's Pose",level:'beginner',focus:['flexibility','relaxation']},{name:'Cat-Cow Stretch',level:'beginner',focus:['flexibility']},{name:'Downward Facing Dog',level:'beginner',focus:['flexibility','strength']},{name:'Standing Forward Fold',level:'beginner',focus:['flexibility']},{name:'Warrior I',level:'beginner',focus:['strength','balance']},{name:'Warrior II',level:'beginner',focus:['strength','balance']},{name:'Tree Pose',level:'beginner',focus:['balance']},{name:'Cobra Pose',level:'beginner',focus:['flexibility','strength']},{name:'Bridge Pose',level:'beginner',focus:['strength','flexibility']},{name:'Seated Forward Fold',level:'beginner',focus:['flexibility','relaxation']},{name:'Corpse Pose',level:'beginner',focus:['relaxation']},{name:'Plank Pose',level:'intermediate',focus:['strength']},{name:'Chair Pose',level:'intermediate',focus:['strength','balance']},{name:'Triangle Pose',level:'intermediate',focus:['flexibility','balance']},{name:'Pigeon Pose',level:'intermediate',focus:['flexibility']},{name:'Boat Pose',level:'intermediate',focus:['strength']},{name:'Camel Pose',level:'intermediate',focus:['flexibility']},{name:'Garland Pose',level:'intermediate',focus:['flexibility','balance']},{name:'Legs Up the Wall',level:'intermediate',focus:['relaxation']},{name:'Crow Pose',level:'advanced',focus:['strength','balance']},{name:'Headstand Prep',level:'advanced',focus:['strength','balance']},{name:'Wheel Pose',level:'advanced',focus:['flexibility','strength']},{name:'King Pigeon Pose',level:'advanced',focus:['flexibility']}];}
+function yogaFlow(level,focus,minutes){var lv=String(level==null?'beginner':level).toLowerCase();var order={beginner:0,intermediate:1,advanced:2};var lvN=order[lv]===undefined?0:order[lv];var mins=parseInt(minutes,10);if(!(mins>0))mins=20;mins=Math.max(5,Math.min(90,mins));var total=mins*60;var fc=String(focus==null?'':focus).toLowerCase();var all=yogaPoses();var eligible=all.filter(function(p){return (order[p.level]||0)<=lvN;});var matched=eligible.filter(function(p){return p.focus.indexOf(fc)>=0;});var rest=eligible.filter(function(p){return p.focus.indexOf(fc)<0;});var seq=matched.concat(rest);var count=Math.max(4,Math.min(12,Math.round(total/90)));count=Math.min(count,seq.length);var sel=seq.slice(0,count);var per=Math.floor(total/count);var rem=total-per*count;return sel.map(function(p,i){return {name:p.name,seconds:i===count-1?per+rem:per};});}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var state={level:'beginner',focus:'flexibility',mins:20,poses:[],idx:0,left:0,timer:null};function bindOpts(id,key){var box=document.getElementById(id);var btns=box.querySelectorAll('.yf-opt');for(var i=0;i<btns.length;i++){btns[i].addEventListener('click',function(){for(var j=0;j<btns.length;j++)btns[j].classList.remove('sel');this.classList.add('sel');var v=this.getAttribute('data-v');state[key]=key==='mins'?parseInt(v,10):v;build();});}}function fmt(s){var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}function build(){stop();state.poses=yogaFlow(state.level,state.focus,state.mins);state.idx=0;var ol=document.getElementById('yf-seq');ol.innerHTML='';state.poses.forEach(function(p,i){var li=document.createElement('li');li.className='yf-pose';li.id='yf-p'+i;li.innerHTML='<span class="yf-num">'+(i+1)+'</span><span class="yf-pname">'+p.name+'</span><span class="yf-psecs">'+fmt(p.seconds)+'</span>';ol.appendChild(li);});document.getElementById('yf-total').textContent=state.mins+' min · '+state.poses.length+' poses';document.getElementById('yf-tpose').textContent='Press start and settle in';document.getElementById('yf-tcount').textContent='–';}function highlight(){for(var i=0;i<state.poses.length;i++){var el=document.getElementById('yf-p'+i);if(el)el.classList.toggle('active',i===state.idx);}}function tick(){if(state.left>0){state.left--;document.getElementById('yf-tcount').textContent=fmt(state.left);}if(state.left<=0){next();}}function start(){if(!state.poses.length)return;if(state.timer)return;highlight();var p=state.poses[state.idx];document.getElementById('yf-tpose').textContent=p.name;if(state.left<=0)state.left=p.seconds;document.getElementById('yf-tcount').textContent=fmt(state.left);state.timer=setInterval(tick,1000);}function next(){state.idx++;if(state.idx>=state.poses.length){stop();document.getElementById('yf-tpose').textContent='🙏 Flow complete — well done';document.getElementById('yf-tcount').textContent='✓';highlight();return;}state.left=state.poses[state.idx].seconds;highlight();document.getElementById('yf-tpose').textContent=state.poses[state.idx].name;document.getElementById('yf-tcount').textContent=fmt(state.left);}function stop(){if(state.timer){clearInterval(state.timer);state.timer=null;}state.left=0;}bindOpts('yf-level','level');bindOpts('yf-focus','focus');bindOpts('yf-mins','mins');document.getElementById('yf-start').addEventListener('click',start);document.getElementById('yf-next').addEventListener('click',function(){if(!state.timer)start();else next();});document.getElementById('yf-stop').addEventListener('click',function(){stop();state.idx=0;highlight();document.getElementById('yf-tpose').textContent='Press start and settle in';document.getElementById('yf-tcount').textContent='–';});build();});}
+</script>
+</body>
+</html>
