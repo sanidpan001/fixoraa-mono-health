@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PlateCalc — Barbell Plate Calculator (Per-Side Loading)</title>
+<meta name="description" content="Free barbell plate calculator: enter your target weight for exact plates per side, warm-up sets and a visual loading diagram. Works in lb and kg.">
+<link rel="canonical" href="https://health.fixoraa.tech/platecalc/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="PlateCalc — Barbell Plate Calculator (Per-Side Loading)">
+<meta property="og:description" content="Free barbell plate calculator: enter your target weight for exact plates per side, warm-up sets and a visual loading diagram. Works in lb and kg.">
+<meta property="og:url" content="https://health.fixoraa.tech/platecalc/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PlateCalc",
+      "url": "https://health.fixoraa.tech/platecalc/",
+      "applicationCategory": "Fitness Tools",
+      "operatingSystem": "Web",
+      "description": "Free barbell plate calculator: enter your target weight for exact plates per side, warm-up sets and a visual loading diagram. Works in lb and kg.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I calculate what plates to put on each side?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Subtract the bar weight from your target, divide by two, and build that per-side number from the largest plates down. A 225 lb target on a 45 lb bar needs 90 lb per side \u2014 two 45s each side."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a standard Olympic bar weigh?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A standard men's Olympic bar weighs 45 lb (20 kg). Women's Olympic bars are 35 lb (15 kg). Always check the end cap \u2014 assuming the wrong bar weight is the most common loading error."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What order do plates go on the bar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Heaviest plates go on first, closest to the bar's centre, with lighter plates outside. This keeps the load stable and matches the convention every experienced lifter expects."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if my target weight can't be loaded exactly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Round to the nearest loadable weight. A 2 lb remainder usually means your target falls between standard plate combinations \u2014 225 loads cleanly where 227 doesn't. Micro-plates (1.25 lb) solve this for small jumps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the basic barbell safety rules?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use collars every set, load and unload one side at a time, never strip one side of a racked bar while the other is loaded, and count plates per side before unracking instead of eyeballing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much weight should I add each workout?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Add 5 lb per session on upper-body lifts and 10 lb on lower-body lifts as a beginner \u2014 that's one pair of 2.5s or 5s. Small, consistent jumps beat occasional big ones for long-term progress."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#FFF9F2; --surface:#FFFFFF; --accent:#991b1b; --accent-ink:#FFFFFF;
+  --ink:#2B2118; --muted:#5F5245; --line:#EBD3BC;
+  --display:'Jost',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.pc-wrap{max-width:1060px;margin:0 auto;padding:6px}.pc-kicker{display:inline-block;background:#FDEBD9;color:#991b1b;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin:0 0 10px}.pc-wrap h1{font-family:'Jost',Inter,sans-serif;font-size:clamp(2.2rem,5vw,3.2rem);margin:0 0 6px;letter-spacing:-.01em;color:#2B2118}.pc-tag{color:#5F5245;margin:0 0 20px;font-size:1.05rem}.pc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.pc-stat{background:#fff;border:2px solid #EBD3BC;border-radius:16px;padding:14px;text-align:center}.pc-stat b{display:block;font-size:1.9rem;color:#991b1b;font-family:'Jost',Inter,sans-serif}.pc-stat span{font-size:12px;font-weight:700;color:#5F5245;text-transform:uppercase;letter-spacing:.06em}.pc-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px}.pc-card{background:#fff;border:2px solid #EBD3BC;border-radius:18px;padding:20px}.pc-card h3{margin:0 0 14px;font-size:16px}.pc-field{margin-bottom:14px}.pc-field label{display:block;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#5F5245;margin-bottom:6px}.pc-field input[type=number]{width:100%;padding:13px;border:2px solid #EBD3BC;border-radius:12px;font-size:1.4rem;font-weight:700;min-height:56px}.pc-seg{display:flex;gap:8px;flex-wrap:wrap}.pc-seg button{border:2px solid #EBD3BC;background:#FFF9F2;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:44px;color:#2B2118}.pc-seg button.on{background:#991b1b;border-color:#991b1b;color:#fff}.pc-plates{display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-height:48px}.pc-plate{background:#991b1b;color:#fff;font-weight:800;border-radius:10px;padding:10px 16px;font-size:15px}.pc-none{color:#5F5245;font-style:italic}.pc-warm{list-style:none;padding:0;margin:0}.pc-warm li{padding:10px 4px;border-bottom:1px dashed #EBD3BC;font-size:15px;display:flex;justify-content:space-between}.pc-warn{background:#FFF3E2;border:2px solid #E8B96A;color:#7A4A12;border-radius:12px;padding:10px 14px;margin-top:12px;font-size:14px;font-weight:600}.pc-barbell{margin-top:16px;background:#2B2118;border-radius:16px;padding:22px 12px;overflow-x:auto}.pc-barbell svg{display:block;margin:0 auto}@media(max-width:760px){.pc-grid{grid-template-columns:1fr}.pc-stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="PlateCalc home">
+      <span class="fx-logo-tile" aria-hidden="true">🏋️</span>
+      <span class="fx-brand">PlateCalc</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-stat-dash" aria-label="PlateCalc tool">
+<div class="pc-wrap"><p class="pc-kicker">Strength training math</p><h1>PlateCalc</h1><p class="pc-tag">Target weight in, plates per side out — plus warm-ups and a loading diagram.</p><div class="pc-stats"><div class="pc-stat"><b id="pcStTarget">225</b><span>Target</span></div><div class="pc-stat"><b id="pcStSide">90</b><span>Per side</span></div><div class="pc-stat"><b id="pcStCount">2</b><span>Plates / side</span></div><div class="pc-stat"><b id="pcStRem">0</b><span>Remainder</span></div></div><div class="pc-grid"><div class="pc-card"><h3>⚙️ Setup</h3><div class="pc-field"><label>Target weight</label><input type="number" id="pcTarget" value="225" min="45" max="1200" step="2.5"></div><div class="pc-field"><label>Units</label><div class="pc-seg" id="pcUnits"><button data-u="lb" class="on">lb</button><button data-u="kg">kg</button></div></div><div class="pc-field"><label>Bar weight</label><div class="pc-seg" id="pcBars"><button data-b="45" class="on">45 lb Olympic</button><button data-b="35">35 lb</button><button data-b="20">20 kg</button></div></div><div class="pc-warn" id="pcWarn" hidden></div></div><div class="pc-card"><h3>🏋️ Load this per side</h3><div class="pc-plates" id="pcPlates"></div><h3 style="margin-top:18px">🔥 Warm-up sets</h3><ul class="pc-warm" id="pcWarm"></ul></div></div><div class="pc-barbell"><svg id="pcSvg" viewBox="0 0 560 120" width="560" height="120" role="img" aria-label="Barbell loading diagram"></svg></div></div>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why plate math matters</h2><p>Every barbell session involves the same mental arithmetic: the bar weighs 45 lb, you want 225 on it, so each side needs 90 lb — that's two 45s. Easy at 225. Much less easy at 187.5 with a 35 lb bar and only one pair of 10s. PlateCalc removes the guesswork so you spend rest periods recovering, not calculating, and — more importantly — so you never accidentally load the bar unevenly.</p><h2>How plates are loaded: the rules</h2><p>Plates always go on in mirrored pairs: whatever goes on the left must go on the right. Plate math therefore works per side: subtract the bar weight from the target, divide by two, and build that number from your available plates. PlateCalc uses the greedy method — take the largest plate that fits, then the next largest — which produces the fewest plates per side for any standard set.</p><h3>Standard plate sizes</h3><p>Most gyms stock plates in pounds: 45, 35, 25, 10, 5, 2.5 and sometimes 1.25. Metric gyms use kilograms: 25, 20, 15, 10, 5, 2.5, 1.25. Load order matters: heaviest plates go on first (closest to the centre), lighter plates outside. This keeps the bar stable and is the convention every experienced lifter expects.</p><h2>Common bar weights</h2><table><thead><tr><th>Bar</th><th>Weight</th><th>Used for</th></tr></thead><tbody><tr><td>Men's Olympic</td><td>45 lb / 20 kg</td><td>Standard powerlifting and Olympic lifting</td></tr><tr><td>Women's Olympic</td><td>35 lb / 15 kg</td><td>Olympic lifts, smaller lifters</td></tr><tr><td>Technique / training bar</td><td>20 kg / 33 lb</td><td>Learning the Olympic lifts</td></tr><tr><td>Fixed / short bars</td><td>Varies</td><td>Always check — assumptions cause accidents</td></tr></tbody></table><p>The single most common plate-math error is forgetting the bar weight entirely, followed by assuming every bar is 45 lb. When in doubt, check the end cap — most quality bars are stamped with their weight.</p><h2>Worked examples</h2><p><strong>Target 225 lb, 45 lb bar:</strong> (225 − 45) ÷ 2 = 90 per side → two 45s per side. The classic "two wheels."</p><p><strong>Target 135 lb, 45 lb bar:</strong> (135 − 45) ÷ 2 = 45 per side → one 45 per side. "One wheel" — the standard first milestone.</p><p><strong>Target 185 lb, 45 lb bar:</strong> (185 − 45) ÷ 2 = 70 per side → 45 + 25 per side.</p><p><strong>Target 100 kg, 20 kg bar:</strong> (100 − 20) ÷ 2 = 40 per side → 25 + 15 per side.</p><h2>The remainder problem</h2><p>Sometimes the target can't be built exactly from your plates — PlateCalc reports the remainder. A 2 lb remainder on a 227 target usually means rounding your target: 225 loads cleanly, 227 doesn't. Micro-plates (1.25s and below) exist precisely for these cases and for small progressive jumps. If your gym lacks them, round to the nearest loadable weight rather than stacking odd combinations.</p><h2>Warm-up sets: the missing half of loading</h2><p>PlateCalc also generates warm-up sets, because jumping straight to a heavy working weight is how injuries happen. The standard scheme: 50% × 8, 65% × 5, 80% × 3, then working sets — with each warm-up rounded to a loadable weight. Warm-ups should feel easy; their job is blood flow, groove rehearsal and nervous-system priming, not fatigue. Rest 1–2 minutes between warm-ups and 3–5 before the first heavy set.</p><h2>Safety checklist for every loaded bar</h2><p>Use collars on every set — plates drift during reps, and an uneven bar is dangerous. Load and unload one side at a time with the bar racked or held. When stripping weight, never remove all plates from one side of a racked bar while the other side is loaded — the bar can tip. Double-check symmetry before unracking: count plates per side, don't eyeball. These habits take seconds and prevent the accidents that end training careers.</p><h2>Progressive overload and plate selection</h2><p>Strength grows from small, consistent jumps — typically 5 lb on upper-body lifts and 10 lb on lower-body lifts per session for beginners. That's exactly one pair of 2.5s or 5s. PlateCalc's per-side breakdown makes these micro-jumps trivial to load correctly. Track your working weights session to session; the lifters who progress for years are the ones who add the small plates patiently, not the ones who chase round numbers.</p><h2>Pounds vs kilograms: converting on the fly</h2><p>Travel changes the math: 1 kg equals 2.20462 lb. The quick mental conversions lifters actually use: 20 kg ≈ 44 lb, 25 kg ≈ 55 lb, 60 kg ≈ 132 lb, 100 kg ≈ 220 lb. PlateCalc's unit toggle handles the exact math, but knowing the landmarks helps you sanity-check a foreign gym's plates at a glance. Metric plates follow the same greedy logic — 25s, 20s, 15s, 10s, 5s, 2.5s, 1.25s — so the per-side strategy is identical in either system.</p><h2>Non-standard plates and bumper plates</h2><p>Olympic bumper plates are colour-coded by weight (red 25 kg, blue 20 kg, yellow 15 kg, green 10 kg, white 5 kg) and all share the same 450 mm diameter — that's why a 5 kg bumper looks the same size as a 25. This matters for deadlifts: pulling from the floor with small-diameter iron plates changes the lift's mechanics. When bumpers and iron mix on one bar, load bumpers first (inside) so the bar sits at the right height, and remember that 450 mm bumpers plus thin iron plates can rattle — collars are non-negotiable.</p><h2>Loading for Olympic lifts vs powerlifts</h2><p>Powerlifters (squat, bench, deadlift) chase maximal weight with any plates; iron plates are fine and the greedy algorithm rules. Olympic lifters (snatch, clean & jerk) need bumpers — the bar gets dropped — and typically work in the \"training hall\" style of many small jumps. Competition loading follows strict rules (heaviest inside, colours facing out, 2.5 kg collars included in the total). For training, PlateCalc's warm-up generator mirrors the classic Olympic ramp: 50%, 70%, 85%, then working weight.</p><h2>A simple tracking template</h2><p>The lifters who progress longest track every session. The minimal useful log fits in a notes app: date, lift, top set weight × reps, and one line on how it felt. Review monthly: if the top set climbs ~2.5–5% per month, the program works. PlateCalc's per-side breakdowns make the log unambiguous — \"2×45 + 1×25 per side\" beats \"185\" when you return after a layoff and can't remember the combination.</p><h2>Home gym plate shopping guide</h2><p>Buying your first plate set? The highest-value purchase order: one pair each of 45s, 25s, 10s, 5s and 2.5s covers nearly every target from 135 to 315 on a 45 lb bar. Add a second pair of 45s before anything else — most programs live between 135 and 225. Micro-plates (1.25s) are the cheapest progress you'll ever buy; a 2.5 lb jump per session compounds to 120 lb in a year.</p><h2>Fractional plates and micro-loading</h2><p>When 2.5 lb jumps get hard — and they will on overhead press long before squats — fractional plates (1.25 lb and below) keep progress alive. A pair of 1.25s adds just 2.5 lb to the bar, small enough to sustain weekly progress for months on stubborn lifts. They're the cheapest plates you'll ever buy and the difference between stalling at 135 and pressing 155.</p><h2>Calibrating your gym's plates</h2><p>Cheap iron plates can be off by 5% or more — a \"45\" that weighs 47. If your gym's plates look worn or unbranded, weigh a few on the gym scale once; knowing your real numbers beats precise math on wrong inputs. Competition-calibrated plates are accurate to grams, but for training purposes, consistency matters more than accuracy: use the same plates each session and your progressive overload stays honest.</p><h2>Warm-up sets: the plates behind the plates</h2><p>Your working weight is only half the story — how you warm up to it decides whether the top set moves well. A proven ramp: the empty bar for 8–10 reps, then roughly 50% of working weight for 6–8, 70% for 4–5, and 85–90% for 2–3 singles or doubles, resting 1–3 minutes between. PlateCalc's warm-up mode lays out exactly which plates go on for each of these jumps, so you are not doing plate arithmetic between sets. The rule is simple: make jumps big enough to matter and small enough to stay sharp — most lifters do best with 10–20 kg (25–45 lb) jumps on squats and deadlifts, and 5–10 kg (10–20 lb) on presses.</p><h2>Common plate-loading mistakes</h2><p>Loading plates unevenly side to side is the classic error — always mirror pairs, heaviest plates closest to the bar sleeve's inner collar. Forgetting collars on dynamic lifts (cleans, push presses) lets plates walk outward and changes the balance mid-set. Another subtle one: mixing kilogram and pound plates on the same bar, which makes the true weight anyone's guess. And when microloading with 1.25 lb or 0.5 kg plates, put them outside the collars or inside — just be consistent, because a plate outside the collar shifts the centre of mass slightly outward. Small details, but strength is a game of small details compounded over years.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How do I calculate what plates to put on each side?</summary><p>Subtract the bar weight from your target, divide by two, and build that per-side number from the largest plates down. A 225 lb target on a 45 lb bar needs 90 lb per side — two 45s each side.</p></details>
+<details><summary>How much does a standard Olympic bar weigh?</summary><p>A standard men's Olympic bar weighs 45 lb (20 kg). Women's Olympic bars are 35 lb (15 kg). Always check the end cap — assuming the wrong bar weight is the most common loading error.</p></details>
+<details><summary>What order do plates go on the bar?</summary><p>Heaviest plates go on first, closest to the bar's centre, with lighter plates outside. This keeps the load stable and matches the convention every experienced lifter expects.</p></details>
+<details><summary>What if my target weight can&#x27;t be loaded exactly?</summary><p>Round to the nearest loadable weight. A 2 lb remainder usually means your target falls between standard plate combinations — 225 loads cleanly where 227 doesn't. Micro-plates (1.25 lb) solve this for small jumps.</p></details>
+<details><summary>What are the basic barbell safety rules?</summary><p>Use collars every set, load and unload one side at a time, never strip one side of a racked bar while the other is loaded, and count plates per side before unracking instead of eyeballing.</p></details>
+<details><summary>How much weight should I add each workout?</summary><p>Add 5 lb per session on upper-body lifts and 10 lb on lower-body lifts as a beginner — that's one pair of 2.5s or 5s. Small, consistent jumps beat occasional big ones for long-term progress.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">PlateCalc</div>
+    <p>PlateCalc tells you exactly which plates to load per side for any barbell target weight, plus warm-up sets.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function platesFor(targetLb,barLb){var PLATES=[45,35,25,10,5,2.5,1.25];var side=(targetLb-barLb)/2;var r2=function(n){return Math.round(n*100)/100;};if(side<=0)return {perSide:[],remainder:r2(targetLb-barLb)};var perSide=[],rest=side;PLATES.forEach(function(p){while(rest>=p-1e-9){perSide.push(p);rest=r2(rest-p);}});var loaded=perSide.reduce(function(a,b){return a+b;},0);return {perSide:perSide,remainder:r2(targetLb-barLb-2*loaded)};}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){
+var unit='lb',barLb=45;
+function toUnit(lb){return unit==='lb'?lb:lb/2.20462;}
+function fmt(lb){var v=toUnit(lb);return (Math.round(v*10)/10)+' '+unit;}
+function refresh(){var target=+document.getElementById('pcTarget').value||0;
+var r=platesFor(target,barLb);
+var side=Math.max(0,(target-barLb)/2);
+document.getElementById('pcStTarget').textContent=fmt(target);
+document.getElementById('pcStSide').textContent=fmt(side);
+document.getElementById('pcStCount').textContent=r.perSide.length;
+document.getElementById('pcStRem').textContent=fmt(r.remainder);
+var warn=document.getElementById('pcWarn');
+if(target<barLb){warn.hidden=false;warn.textContent='⚠️ Target is below the bar weight — add weight or pick a lighter bar.';}
+else if(r.remainder>0.01){warn.hidden=false;warn.textContent='⚠️ '+fmt(r.remainder)+' can\'t be loaded with standard plates. Consider rounding your target.';}
+else warn.hidden=true;
+var pl=document.getElementById('pcPlates');pl.innerHTML='';
+if(!r.perSide.length)pl.innerHTML='<span class="pc-none">Bar only — no plates needed.</span>';
+r.perSide.forEach(function(p){var s=document.createElement('span');s.className='pc-plate';s.textContent=fmt(p);pl.appendChild(s);});
+var w=document.getElementById('pcWarm');w.innerHTML='';
+[[0.5,8],[0.65,5],[0.8,3]].forEach(function(ws){var wt=Math.round(target*ws/2.5)*2.5;var wr=platesFor(wt,barLb);var li=document.createElement('li');li.innerHTML='<span>'+Math.round(ws*100)+'% × '+ws[1]+' reps</span><strong>'+fmt(wt)+(wr.remainder>0.01?'*':'')+'</strong>';w.appendChild(li);});
+var note=document.createElement('li');note.innerHTML='<span style="color:#5F5245;font-size:13px">* rounded to nearest loadable weight</span><span></span>';w.appendChild(note);
+drawBar(r.perSide,fmt);
+}
+function drawBar(perSide,fmt){var svg=document.getElementById('pcSvg');var NS='http://www.w3.org/2000/svg';svg.innerHTML='';
+function plate(x,w,h,fill){var r=document.createElementNS(NS,'rect');r.setAttribute('x',x);r.setAttribute('y',60-h/2);r.setAttribute('width',w);r.setAttribute('height',h);r.setAttribute('rx',6);r.setAttribute('fill',fill);svg.appendChild(r);}
+var bar=document.createElementNS(NS,'rect');bar.setAttribute('x',40);bar.setAttribute('y',57);bar.setAttribute('width',480);bar.setAttribute('height',6);bar.setAttribute('rx',3);bar.setAttribute('fill','#8A7B66');svg.appendChild(bar);
+var colors=['#C2410C','#E8590C','#F08C00','#FAB005','#FFE066'];
+var heights={'45':96,'35':88,'25':78,'10':62,'5':50,'2.5':42,'1.25':36};
+var xL=120,xR=440;
+perSide.forEach(function(p,i){var h=heights[String(p)]||50;var w=14;var fill=colors[i%colors.length];plate(xL,w,h,fill);plate(xR-w,w,h,fill);xL+=w+3;xR-=w+3;});
+var collarL=document.createElementNS(NS,'rect');collarL.setAttribute('x',xL+2);collarL.setAttribute('y',48);collarL.setAttribute('width',8);collarL.setAttribute('height',24);collarL.setAttribute('rx',3);collarL.setAttribute('fill','#5F5245');svg.appendChild(collarL);
+var collarR=document.createElementNS(NS,'rect');collarR.setAttribute('x',xR-10);collarR.setAttribute('y',48);collarR.setAttribute('width',8);collarR.setAttribute('height',24);collarR.setAttribute('rx',3);collarR.setAttribute('fill','#5F5245');svg.appendChild(collarR);
+var lbl=document.createElementNS(NS,'text');lbl.setAttribute('x',280);lbl.setAttribute('y',112);lbl.setAttribute('text-anchor','middle');lbl.setAttribute('fill','#C9BCA8');lbl.setAttribute('font-size','13');lbl.textContent=perSide.length?perSide.map(fmt).join(' + ')+' per side':'Bar only';svg.appendChild(lbl);}
+document.getElementById('pcTarget').addEventListener('input',refresh);
+document.querySelectorAll('#pcUnits button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#pcUnits button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');unit=b.dataset.u;refresh();});});
+document.querySelectorAll('#pcBars button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#pcBars button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');var v=+b.dataset.b;barLb=(b.textContent.indexOf('kg')>-1)?v*2.20462:v;refresh();});});
+refresh();
+});}
+</script>
+</body>
+</html>
