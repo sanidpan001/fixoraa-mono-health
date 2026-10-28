@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mood Tracker: Daily Check-In + 30-Day Trend</title>
+<meta name="description" content="Track your mood daily with 1–10 check-ins, tags, and notes. See your 30-day trend, average, and streaks. Private — data stays in your browser.">
+<link rel="canonical" href="https://health.fixoraa.tech/moodlog/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Mood Tracker: Daily Check-In + 30-Day Trend">
+<meta property="og:description" content="Track your mood daily with 1–10 check-ins, tags, and notes. See your 30-day trend, average, and streaks. Private — data stays in your browser.">
+<meta property="og:url" content="https://health.fixoraa.tech/moodlog/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "MoodLog",
+      "url": "https://health.fixoraa.tech/moodlog/",
+      "applicationCategory": "Wellness Tools",
+      "operatingSystem": "Web",
+      "description": "Track your mood daily with 1\u201310 check-ins, tags, and notes. See your 30-day trend, average, and streaks. Private \u2014 data stays in your browser.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I decide what number my mood is?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pick personal anchors and keep them fixed: 1\u20132 = crisis days, 3\u20134 = hard days, 5\u20136 = neutral, 7\u20138 = good, 9\u201310 = peak days. Score the whole day rather than the current moment, and don't recalibrate over time \u2014 a 7 should mean the same thing in January and June."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long before I see useful patterns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Two to four weeks is enough to spot your first patterns \u2014 most people see the sleep and exercise correlations emerge first. Thirty days gives a solid baseline average, and ninety days reveals seasonal and cyclical effects. The streak counter is there to get you through the boring first fortnight."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why should I bother with tags?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tags turn a number into an explanation. Sleep, exercise, work stress, social time, health, and weather explain most day-to-day mood variance, so tagging them lets the data show you which levers actually move your mood \u2014 'exercise days average 7.4' is actionable in a way a bare 6 is not."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my mood data private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. MoodLog stores all entries in your browser's local storage on your own device \u2014 nothing is uploaded to any server, no account is created, and clearing your browser data erases everything. If you share a device, use a separate browser profile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I forget to log for a few days?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Missed days are fine \u2014 a gap is just a gap, and the streak restarts without judgment. Don't backfill old days from fuzzy memory; inaccurate data is worse than missing data. If gaps are frequent, move your check-in earlier in the evening or set a daily phone reminder."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should my mood log prompt me to seek help?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Consider talking to a counsellor, therapist, or doctor if your average stays below 5 for several weeks, daily functioning is deteriorating, or you feel persistent hopelessness. If you have thoughts of harming yourself, contact a crisis line immediately \u2014 in the US call or text 988, in the UK call Samaritans on 116 123."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#F8F6FC; --surface:#FFFFFF; --accent:#6D28D9; --accent-ink:#FFFFFF;
+  --ink:#221D2E; --muted:#5C5470; --line:#E2DCF2;
+  --display:'Spectral',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.ml-wrap{font-family:'Spectral',Georgia,serif;background:#F8F6FC;color:#221D2E;padding:56px 20px 72px;}.ml-head{max-width:1060px;margin:0 auto 34px;text-align:center;}.ml-logo{width:70px;height:70px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(135deg,#6D28D9,#a78bfa);color:#fff;font-size:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 26px rgba(109,40,217,.22);}.ml-head h1{font-size:clamp(30px,4.6vw,46px);margin:0 0 10px;letter-spacing:-0.01em;font-weight:600;}.ml-tag{font-family:Inter,system-ui,sans-serif;color:#5C5470;font-size:17px;margin:0;}.ml-grid{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1fr 1.25fr;gap:22px;align-items:start;}.ml-panel{background:#FFFFFF;border:1px solid #E2DCF2;border-radius:22px;padding:30px;box-shadow:0 16px 40px rgba(109,40,217,.07);}.ml-panel-title{font-family:Inter,system-ui,sans-serif;font-size:12.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#6D28D9;margin:0 0 18px;}.ml-score-big{font-size:72px;font-weight:600;text-align:center;margin:4px 0;color:#6D28D9;line-height:1;}.ml-emoji{text-align:center;font-size:40px;margin-bottom:8px;}.ml-slider{width:100%;accent-color:#6D28D9;height:36px;}.ml-scalelabels{display:flex;justify-content:space-between;font-family:Inter,system-ui,sans-serif;font-size:12px;color:#5C5470;margin-bottom:18px;}.ml-chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px;}.ml-chip{border:2px solid #E2DCF2;background:#F8F6FC;border-radius:99px;padding:9px 16px;font-family:Inter,system-ui,sans-serif;font-size:14px;font-weight:600;cursor:pointer;color:#221D2E;min-height:42px;}.ml-chip.sel{border-color:#6D28D9;background:#EFE7FD;color:#6D28D9;}.ml-label{font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:700;color:#5C5470;margin:0 0 8px;display:block;}.ml-note{width:100%;box-sizing:border-box;min-height:88px;padding:12px 14px;font-size:15px;border:2px solid #E2DCF2;border-radius:14px;font-family:Inter,system-ui,sans-serif;color:#221D2E;resize:vertical;}.ml-note:focus{outline:none;border-color:#6D28D9;}.ml-save{width:100%;margin-top:16px;background:#6D28D9;color:#fff;border:none;border-radius:14px;padding:14px;font-size:16.5px;font-weight:700;font-family:Inter,system-ui,sans-serif;cursor:pointer;min-height:54px;}.ml-save:hover{filter:brightness(1.07);}.ml-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}.ml-stat{background:#F8F6FC;border:1px solid #E2DCF2;border-radius:16px;padding:16px 10px;text-align:center;}.ml-stat .k{font-family:Inter,system-ui,sans-serif;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#5C5470;display:block;margin-bottom:6px;}.ml-stat .v{font-size:30px;font-weight:600;color:#6D28D9;}.ml-bars{display:flex;align-items:flex-end;gap:4px;height:150px;padding:12px 6px 0;border-bottom:2px solid #E2DCF2;}.ml-bar{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#a78bfa,#6D28D9);min-height:6px;position:relative;}.ml-bar.empty{background:#EFEAFB;}.ml-bar:hover::after{content:attr(data-tip);position:absolute;bottom:105%;left:50%;transform:translateX(-50%);background:#221D2E;color:#fff;font-family:Inter,system-ui,sans-serif;font-size:11.5px;padding:5px 9px;border-radius:8px;white-space:nowrap;z-index:2;}.ml-entries{margin-top:16px;max-height:190px;overflow:auto;}.ml-entry{display:flex;gap:10px;align-items:baseline;font-family:Inter,system-ui,sans-serif;font-size:14px;padding:9px 2px;border-bottom:1px solid #F1ECFA;}.ml-entry .d{font-weight:700;color:#6D28D9;min-width:74px;}.ml-entry .s{font-weight:800;min-width:44px;}.ml-entry .t{color:#5C5470;flex:1;}.ml-empty{font-family:Inter,system-ui,sans-serif;color:#5C5470;font-size:14.5px;text-align:center;padding:26px 10px;line-height:1.6;}@media (max-width:760px){.ml-grid{grid-template-columns:1fr;}.ml-panel{padding:22px 16px;}.ml-stats{grid-template-columns:repeat(3,1fr);}.ml-stat .v{font-size:24px;}.ml-wrap{padding:40px 14px 56px;}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="MoodLog home">
+      <span class="fx-logo-tile" aria-hidden="true">🌈</span>
+      <span class="fx-brand">MoodLog</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-split-panel" aria-label="MoodLog tool">
+<section class='ml-wrap'><div class='ml-head'><div class='ml-logo' aria-hidden='true'>🌈</div><h1>Mood Tracker</h1><p class='ml-tag'>One number a day. Thirty days later, a map of your mind.</p></div><div class='ml-grid'><div class='ml-panel'><p class='ml-panel-title'>Today's check-in</p><div class='ml-emoji' id='ml-emoji' aria-hidden='true'>🙂</div><div class='ml-score-big' id='ml-score-big'>7</div><input type='range' class='ml-slider' id='ml-slider' min='1' max='10' value='7' aria-label='Mood score from 1 to 10'><div class='ml-scalelabels'><span>1 · rough</span><span>10 · radiant</span></div><span class='ml-label'>Tags — what shaped today?</span><div class='ml-chips' id='ml-chips'></div><span class='ml-label' for='ml-note'>Note (optional)</span><textarea class='ml-note' id='ml-note' placeholder='A sentence about today…'></textarea><button class='ml-save' id='ml-save'>Save today's check-in</button></div><div class='ml-panel'><p class='ml-panel-title'>Your 30-day trend</p><div class='ml-stats'><div class='ml-stat'><span class='k'>Average</span><span class='v' id='ml-avg'>–</span></div><div class='ml-stat'><span class='k'>Best day</span><span class='v' id='ml-best'>–</span></div><div class='ml-stat'><span class='k'>Streak</span><span class='v' id='ml-streak'>–</span></div></div><div class='ml-bars' id='ml-bars'></div><div class='ml-entries' id='ml-entries'></div></div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why Track Your Mood?</h2><p>Memory is a terrible statistician. Ask yourself how you have felt 'lately' and your brain serves up the most recent bad day, the most dramatic week, or whatever confirms the story you already believe. A daily mood log replaces that guesswork with data: thirty days of honest 1–10 scores reveal patterns no amount of introspection can — the Sunday-evening dip, the post-exercise lift, the slow slide that precedes burnout.</p><p>Researchers call this <strong>ecological momentary assessment</strong>, and studies consistently find that the act of tracking itself improves emotional awareness. Naming a feeling, even with a number, engages the prefrontal cortex and slightly defuses the emotion's grip. Tracking does not fix anything directly — it gives you the map you need to fix things deliberately.</p><h2>How to Score Your Day Honestly</h2><p>The 1–10 scale works best with personal anchors. Spend two minutes defining yours:</p><table><thead><tr><th>Score</th><th>Typical meaning</th></tr></thead><tbody><tr><td>1–2</td><td>Crisis days — barely functioning, overwhelmed</td></tr><tr><td>3–4</td><td>Hard days — low energy, everything feels heavy</td></tr><tr><td>5–6</td><td>Neutral days — getting through, nothing special</td></tr><tr><td>7–8</td><td>Good days — energised, engaged, at ease</td></tr><tr><td>9–10</td><td>Peak days — joyful, flowing, deeply content</td></tr></tbody></table><p>Score the day <em>as a whole</em> rather than the moment you are logging — an irritating morning followed by a lovely evening is probably a 6 or 7, not a 3. And resist recalibrating: a 7 in January should mean the same as a 7 in June, or your trend line becomes meaningless. Consistency beats precision.</p><h2>Tags: Where the Insights Hide</h2><p>A bare number tells you <em>what</em>; tags tell you <em>why</em>. After a month, patterns emerge that feel almost unfair in their clarity: days tagged 'exercise' average a full point higher; 'poor sleep' drags everything down by two; 'social' days cluster at the top of your range. The tag chips in MoodLog cover the usual suspects — sleep, exercise, work stress, social time, health, weather — because these six explain the majority of day-to-day variance for most people.</p><p>Be specific when it matters. 'Work' is a start; 'deadline pressure' versus 'great meeting' is insight. You can always add a note for the nuance — the tags are for pattern-finding, the notes are for the story.</p><h2>Reading Your 30-Day Trend</h2><p>The bar chart is the heart of MoodLog. Read it in three passes:</p><ul><li><strong>Level:</strong> where does your average sit? A sustained average under 5 deserves attention and possibly a conversation with a professional.</li><li><strong>Volatility:</strong> are you swinging wildly between 3s and 9s, or humming along at a steady 6? High volatility often points to specific triggers (see tags) rather than a general problem.</li><li><strong>Direction:</strong> is the recent fortnight drifting up or down versus the fortnight before? Direction matters more than any single day — one 3 after a week of 7s is life; a slow slide from 7s to 4s is a signal.</li></ul><h2>Streaks and the Motivation Game</h2><p>The streak counter rewards showing up, not feeling good. Logging a 3 still extends your streak — and honestly, the low days are the most valuable data points you will ever record. Behavioural research shows that 'don't break the chain' mechanics work because they convert an abstract goal ('understand my mood') into a concrete daily action ('log before bed'). Put the check-in somewhere you cannot miss it: a phone reminder at 9 PM, or a bookmark on your new-tab page.</p><h2>Correlations Worth Hunting For</h2><p>Once you have 3–4 weeks of data, play detective. The highest-yield correlations people discover:</p><ul><li><strong>Sleep:</strong> the single strongest predictor of next-day mood in study after study. Even 45 minutes less sleep measurably darkens the following day.</li><li><strong>Movement:</strong> not marathons — a 20-minute walk reliably lifts scores, and the effect compounds across consecutive active days.</li><li><strong>Sunlight:</strong> outdoor light within an hour of waking anchors circadian rhythm; winter dips often trace to light, not just cold.</li><li><strong>Social contact:</strong> quality beats quantity — one genuine conversation outperforms a day of shallow interaction.</li><li><strong>Alcohol:</strong> the classic borrowed happiness — a lift on the evening, a tax on the next two days.</li></ul><p>Correlation is not causation, and n=1 experiments are noisy. But when 'exercise days average 7.4 and sedentary days average 5.9' stares at you from your own data, the experiment tends to run itself.</p><h2>When Tracking Says 'Talk to Someone'</h2><p>MoodLog is a self-awareness tool, not a diagnostic instrument, and it is not a substitute for professional support. Consider reaching out to a counsellor, therapist, or doctor if: your average stays below 5 for several weeks, you notice persistent hopelessness or emptiness, daily functioning (work, hygiene, relationships) is deteriorating, or you have thoughts of harming yourself — in which case please contact a crisis line in your country immediately (in the US: call or text 988; in the UK: Samaritans 116 123). Seeking help is a data-driven decision, and your log is genuinely useful material to bring to a first appointment.</p><h2>Privacy: Your Data Stays With You</h2><p>Mood entries are personal, so MoodLog stores everything in your browser's local storage — nothing is uploaded, no account is needed, and clearing your browser data erases it. That privacy is a feature, not a limitation: it means you can be radically honest in your notes. If you want a backup, export or screenshot your trend periodically; if you share a device, use a separate browser profile.</p><p>Start tonight. One number, a couple of tags, an optional sentence. In thirty days you will know something about yourself that you cannot learn any other way.</p><h2>Journaling Prompts for the Hard Days</h2><p>On low days the notes field can feel impossible. These prompts lower the bar to one honest sentence:</p><ul><li>What is the heaviest part of today, specifically?</li><li>What is one thing that would make tomorrow 10% better?</li><li>What did I do today that future-me will thank me for?</li><li>Whose company helped, even a little?</li><li>What am I not saying out loud right now?</li></ul><p>You do not need to answer all five — one is plenty. Over months, these fragments become a remarkably precise diagnostic record: the same unspoken worry appearing every Sunday evening is worth more than any single score.</p><h2>Bringing Your Data to a Professional</h2><p>If you ever work with a therapist or counsellor, your log is genuinely useful clinical material. Professionals routinely ask 'how have you been?' and receive 'fine, I guess' — a 60-day chart with tags answers the question with evidence. Before a first appointment, note your average, your volatility, any sustained dips, and the two or three tags most correlated with low days. It gives the clinician a head start and gives you language for things that are hard to say cold. And if cost is a barrier, many workplaces offer free sessions through an Employee Assistance Programme, and community clinics often work on sliding scales.</p><h2>The Two-Minute Evening Routine</h2><p>The check-in that survives is the one attached to something you already do. Try this: when you plug in your phone at night, open MoodLog, move the slider to today's number, tap the tags that shaped it, and type one sentence. Two minutes, same trigger, every day. If even that feels like too much on a bad day, just move the slider — a bare number still extends your streak and still feeds your trend line. Perfection is the enemy of the dataset; the goal is a dense, honest record, not a beautiful one. After a month, pour a tea, scroll your bars, and read your own notes back. Most people are surprised twice: first by what the data shows, then by how much they have already changed just by paying attention.</p><h2>The Mood Weather Map: Reading Your Week at a Glance</h2><p>After two or three weeks of logging, lay your scores out by weekday. Many people discover a hidden rhythm: Monday and Tuesday sag, Thursday climbs, Sunday evenings dip. This is your mood's weather map, and it is more actionable than any single score, because patterns have causes.</p><p><em>Worked example:</em> imagine 21 days of entries where your morning average is 3.2 but your evening average is 6.8. The gap is the insight — something in the day itself lifts you, so the morning is the window to protect. If the reverse is true and evenings crater to 3.1 while mornings hold at 6.5, the audit moves to late-day habits: screens, alcohol, unresolved work.</p><h2>Study Your Good Days, Not Just the Bad Ones</h2><p>Almost everyone interrogates their worst entries and ignores their best ones, which wastes half the dataset. Sort by your highest scores and reverse-engineer them: what did those days have in common? Sleep hours, a walk, a particular person, fewer meetings — your tag list usually answers in seconds. One journaler found that six of her eight best days in a month carried the "morning walk" tag, a correlation no amount of brooding over bad days would ever have surfaced.</p><p><em>Try the 80/20 review:</em> once a month, list your top five days and your bottom five. Write one sentence about what each group shares. You will usually find the good group has an obvious shared ingredient and the bad group is mostly the absence of it. Protecting the ingredient beats fighting the symptom every time.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How do I decide what number my mood is?</summary><p>Pick personal anchors and keep them fixed: 1–2 = crisis days, 3–4 = hard days, 5–6 = neutral, 7–8 = good, 9–10 = peak days. Score the whole day rather than the current moment, and don't recalibrate over time — a 7 should mean the same thing in January and June.</p></details>
+<details><summary>How long before I see useful patterns?</summary><p>Two to four weeks is enough to spot your first patterns — most people see the sleep and exercise correlations emerge first. Thirty days gives a solid baseline average, and ninety days reveals seasonal and cyclical effects. The streak counter is there to get you through the boring first fortnight.</p></details>
+<details><summary>Why should I bother with tags?</summary><p>Tags turn a number into an explanation. Sleep, exercise, work stress, social time, health, and weather explain most day-to-day mood variance, so tagging them lets the data show you which levers actually move your mood — 'exercise days average 7.4' is actionable in a way a bare 6 is not.</p></details>
+<details><summary>Is my mood data private?</summary><p>Yes. MoodLog stores all entries in your browser's local storage on your own device — nothing is uploaded to any server, no account is created, and clearing your browser data erases everything. If you share a device, use a separate browser profile.</p></details>
+<details><summary>What if I forget to log for a few days?</summary><p>Missed days are fine — a gap is just a gap, and the streak restarts without judgment. Don't backfill old days from fuzzy memory; inaccurate data is worse than missing data. If gaps are frequent, move your check-in earlier in the evening or set a daily phone reminder.</p></details>
+<details><summary>When should my mood log prompt me to seek help?</summary><p>Consider talking to a counsellor, therapist, or doctor if your average stays below 5 for several weeks, daily functioning is deteriorating, or you feel persistent hopelessness. If you have thoughts of harming yourself, contact a crisis line immediately — in the US call or text 988, in the UK call Samaritans on 116 123.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">MoodLog</div>
+    <p>MoodLog is a private daily mood check-in with a 30-day trend chart, tags, and notes — all stored in your browser.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function moodStats(entries){var list=(entries||[]).slice().sort(function(a,b){return a.day-b.day;});if(!list.length)return {avg:0,best:null,streak:0};var sum=0,best=list[0];for(var i=0;i<list.length;i++){sum+=list[i].score;if(list[i].score>best.score)best=list[i];}var streak=1;for(var j=list.length-1;j>0;j--){if(list[j].day===list[j-1].day+1)streak++;else break;}return {avg:Math.round(sum/list.length*100)/100,best:{day:best.day,score:best.score},streak:streak};}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var TAGS=['Sleep','Exercise','Work','Social','Health','Weather','Family','Food'];var EMOJI={1:'😞',2:'😟',3:'😕',4:'😐',5:'😌',6:'🙂',7:'😊',8:'😄',9:'🤩',10:'🌟'};var KEY='moodlog.entries.v1';function dayNum(d){return Math.floor(d.getTime()/86400000);}function load(){try{var raw=localStorage.getItem(KEY);var arr=raw?JSON.parse(raw):[];return Array.isArray(arr)?arr:[];}catch(e){return [];}}function save(a){try{localStorage.setItem(KEY,JSON.stringify(a));}catch(e){}}var slider=document.getElementById('ml-slider'),big=document.getElementById('ml-score-big'),emoji=document.getElementById('ml-emoji');var chipsBox=document.getElementById('ml-chips');var selTags={};TAGS.forEach(function(t){var b=document.createElement('button');b.className='ml-chip';b.textContent=t;b.type='button';b.addEventListener('click',function(){selTags[t]=!selTags[t];b.classList.toggle('sel',!!selTags[t]);});chipsBox.appendChild(b);});slider.addEventListener('input',function(){var v=parseInt(slider.value,10);big.textContent=v;emoji.textContent=EMOJI[v]||'🙂';});function fmtDay(n){var d=new Date(n*86400000);return d.toLocaleDateString(undefined,{month:'short',day:'numeric'});}function render(){var entries=load();var st=moodStats(entries);document.getElementById('ml-avg').textContent=entries.length?st.avg:'–';document.getElementById('ml-best').textContent=st.best?st.best.score+' · '+fmtDay(st.best.day):'–';document.getElementById('ml-streak').textContent=entries.length?st.streak+'d':'–';var bars=document.getElementById('ml-bars');bars.innerHTML='';var today=dayNum(new Date());var map={};entries.forEach(function(e){map[e.day]=e;});for(var i=29;i>=0;i--){var dn=today-i;var bar=document.createElement('div');var e=map[dn];if(e){bar.className='ml-bar';bar.style.height=Math.max(8,e.score*10)+'%';bar.setAttribute('data-tip',fmtDay(dn)+' · '+e.score+'/10');}else{bar.className='ml-bar empty';bar.style.height='8px';bar.setAttribute('data-tip',fmtDay(dn)+' · no entry');}bars.appendChild(bar);}var box=document.getElementById('ml-entries');box.innerHTML='';if(!entries.length){box.innerHTML='<p class="ml-empty">No check-ins yet. Log your first mood on the left — your 30-day chart will grow from here.</p>';return;}var recent=entries.slice().sort(function(a,b){return b.day-a.day;}).slice(0,7);recent.forEach(function(e){var div=document.createElement('div');div.className='ml-entry';var tg=(e.tags||[]).join(', ');div.innerHTML='<span class="d">'+fmtDay(e.day)+'</span><span class="s">'+e.score+'/10</span><span class="t">'+(tg?tg+' · ':'')+(e.note||'')+'</span>';box.appendChild(div);});}document.getElementById('ml-save').addEventListener('click',function(){var entries=load();var dn=dayNum(new Date());var tags=Object.keys(selTags).filter(function(k){return selTags[k];});var note=document.getElementById('ml-note').value.trim();var found=false;for(var i=0;i<entries.length;i++){if(entries[i].day===dn){entries[i]={day:dn,score:parseInt(slider.value,10),tags:tags,note:note};found=true;break;}}if(!found)entries.push({day:dn,score:parseInt(slider.value,10),tags:tags,note:note});save(entries);document.getElementById('ml-note').value='';selTags={};var cs=chipsBox.querySelectorAll('.ml-chip');for(var c=0;c<cs.length;c++)cs[c].classList.remove('sel');render();});render();});}
+</script>
+</body>
+</html>
