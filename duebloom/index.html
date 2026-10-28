@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://health.fixoraa.tech/duebloom/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DueBloom — Pregnancy Due Date Calculator</title>
+<meta name="description" content="DueBloom is a free Pregnancy Due Date Calculator. Enter your last period and cycle length to find your due date, trimester timeline, and weeks-and-days progress — or work backwards from a known due date.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Nunito Sans',sans-serif;background:#FFF8F5;color:#3D2C29}
+.font-display{font-family:'Fraunces',serif}
+.petal{background:radial-gradient(600px 300px at 15% 0%,#FDE8EC 0%,transparent 60%),radial-gradient(600px 300px at 90% 10%,#E6EFE3 0%,transparent 55%),#FFF8F5}
+input[type=date]{color-scheme:light}
+input[type=range]{accent-color:#D9778F}
+.seg{transition:all .25s}
+details summary::-webkit-details-marker{display:none}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:9999px;font-size:.78rem}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How is my due date calculated?","acceptedAnswer":{"@type":"Answer","text":"DueBloom adds 280 days (40 weeks) to the first day of your last menstrual period, then adjusts for your cycle length. A 28-day cycle needs no adjustment, a longer cycle pushes the date later, and a shorter cycle brings it earlier."}},{"@type":"Question","name":"What if my cycle is longer or shorter than 28 days?","acceptedAnswer":{"@type":"Answer","text":"Use the cycle-length slider to set your usual cycle between 21 and 35 days. DueBloom adds one day to the due date for every day your cycle is longer than 28, and subtracts one day for every day it is shorter, because ovulation timing shifts with cycle length."}},{"@type":"Question","name":"How accurate is a due date calculator?","acceptedAnswer":{"@type":"Answer","text":"A due date is an estimate, not a deadline. Only about 1 in 20 babies arrive on the exact predicted day, and most healthy births happen between 37 and 42 weeks. An early ultrasound scan is usually the most accurate way to confirm your dates."}},{"@type":"Question","name":"What does weeks and days mean, like 12 weeks 4 days?","acceptedAnswer":{"@type":"Answer","text":"Pregnancy age is counted in completed weeks plus extra days since your last period. 12 weeks 4 days means 88 days have passed. DueBloom shows this weeks-and-days figure, your current trimester, and what percentage of a typical 280-day pregnancy is complete."}},{"@type":"Question","name":"Can I work backwards from a due date I already have?","acceptedAnswer":{"@type":"Answer","text":"Yes. Switch DueBloom to reverse mode, enter the due date from your scan or provider, and it will estimate your last period date, your likely conception date, how far along you are today, and how many days remain until your due date."}},{"@type":"Question","name":"When should I talk to my doctor or midwife about my dates?","acceptedAnswer":{"@type":"Answer","text":"Share your calculated dates at your first antenatal appointment. Talk to your provider sooner if your periods are very irregular, you recently stopped hormonal contraception, you are unsure of your last period date, or you have any pain or bleeding."}}]}
+</script>
+</head>
+<body id="top" class="petal min-h-screen">
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b border-rose-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2">
+      <span class="w-9 h-9 rounded-full bg-[#F9CBD6] flex items-center justify-center text-lg" aria-hidden="true">🌸</span>
+      <span class="font-display font-bold text-2xl tracking-tight text-[#7A3B4A]">DueBloom</span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm font-bold">
+      <a href="#top" class="text-[#7A3B4A] hover:text-[#D9778F]">Home</a>
+      <a href="https://fixoraa.tech" class="text-[#5B7553] hover:text-[#D9778F]">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+  <div class="text-center max-w-2xl mx-auto">
+    <span class="inline-flex items-center gap-1.5 bg-[#EAF2E6] text-[#46603F] text-xs font-extrabold px-3 py-1.5 rounded-full border border-[#C9DCC2]">🌿 Unlimited Free Usage — no signup, no watermark</span>
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-[#5C2E3A] mt-4 leading-tight">Pregnancy Due Date Calculator</h1>
+    <p class="text-[#7A5A52] mt-3 text-base sm:text-lg">A gentle calendar for the months ahead. Find your due date, watch your weeks bloom, and see exactly where you are in each trimester.</p>
+  </div>
+
+  <section class="mt-8 grid lg:grid-cols-5 gap-6 items-start" aria-label="Due date calculator">
+    <div class="lg:col-span-2 bg-white rounded-[1.75rem] shadow-lg shadow-rose-100 border border-rose-100 p-5 sm:p-6">
+      <div class="grid grid-cols-2 gap-2 bg-[#FDF0F2] p-1.5 rounded-full" role="tablist" aria-label="Calculation mode">
+        <button id="modeForward" class="seg rounded-full py-2.5 text-sm font-extrabold bg-[#D9778F] text-white" type="button">From last period</button>
+        <button id="modeReverse" class="seg rounded-full py-2.5 text-sm font-extrabold text-[#7A3B4A]" type="button">From due date</button>
+      </div>
+
+      <div id="forwardPanel" class="mt-6 space-y-5">
+        <div>
+          <label for="lmpInput" class="block text-sm font-extrabold text-[#5C2E3A]">First day of your last period</label>
+          <input id="lmpInput" type="date" class="mt-2 w-full rounded-2xl border-2 border-rose-100 focus:border-[#D9778F] focus:outline-none px-4 py-3 bg-[#FFFBF9]">
+          <p class="text-xs text-[#9A7B72] mt-1.5">Pick the day bleeding started, not the day it ended.</p>
+        </div>
+        <div>
+          <div class="flex justify-between items-baseline">
+            <label for="cycleInput" class="text-sm font-extrabold text-[#5C2E3A]">Usual cycle length</label>
+            <span class="font-display font-bold text-[#7A9B76] text-lg"><span id="cycleVal">28</span> days</span>
+          </div>
+          <input id="cycleInput" type="range" min="21" max="35" value="28" step="1" class="w-full mt-2">
+          <div class="flex justify-between text-[11px] text-[#9A7B72] font-bold"><span>21 days</span><span>28 = standard</span><span>35 days</span></div>
+          <p class="text-xs text-[#9A7B72] mt-1.5">Longer cycles ovulate later, so DueBloom shifts your due date day-for-day.</p>
+        </div>
+        <button id="calcBtn" type="button" class="w-full bg-[#D9778F] hover:bg-[#C45F7A] text-white font-extrabold py-3.5 rounded-full text-base shadow-md shadow-rose-200">Calculate my due date 🌷</button>
+        <button id="exampleBtn" type="button" class="w-full bg-[#EAF2E6] hover:bg-[#DCEBD6] text-[#46603F] font-extrabold py-2.5 rounded-full text-sm">Try an example</button>
+      </div>
+
+      <div id="reversePanel" class="mt-6 space-y-5 hidden">
+        <div>
+          <label for="dueInput" class="block text-sm font-extrabold text-[#5C2E3A]">Your known due date</label>
+          <input id="dueInput" type="date" class="mt-2 w-full rounded-2xl border-2 border-[#C9DCC2] focus:border-[#7A9B76] focus:outline-none px-4 py-3 bg-[#FFFBF9]">
+          <p class="text-xs text-[#9A7B72] mt-1.5">Got a date from a scan or your provider? Work backwards to your last period, conception estimate, and how far along you are today.</p>
+        </div>
+        <button id="revBtn" type="button" class="w-full bg-[#7A9B76] hover:bg-[#64825F] text-white font-extrabold py-3.5 rounded-full text-base shadow-md shadow-green-100">Work backwards 🌿</button>
+      </div>
+
+      <p id="msg" class="mt-4 text-sm font-bold text-[#B3402E] min-h-[1.25rem]" role="alert"></p>
+      <p class="text-xs text-[#9A7B72] leading-relaxed">For planning and curiosity only — not medical advice. Your provider and an early scan give the dates that guide your care.</p>
+    </div>
+
+    <div class="lg:col-span-3 space-y-5">
+      <div id="emptyState" class="bg-white/70 border-2 border-dashed border-[#EBC6CF] rounded-[1.75rem] p-8 text-center">
+        <div class="text-4xl" aria-hidden="true">📅🌸</div>
+        <p class="font-display font-bold text-xl text-[#5C2E3A] mt-3">Your calendar is waiting to bloom</p>
+        <p class="text-sm text-[#7A5A52] mt-2 max-w-md mx-auto">Choose a date on the left and press calculate. You will see your estimated due date, how many weeks and days along you are today, a trimester timeline, and a calendar of your due month.</p>
+      </div>
+
+      <div id="results" class="hidden space-y-5">
+        <div class="bg-white rounded-[1.75rem] shadow-lg shadow-rose-100 border border-rose-100 p-5 sm:p-7">
+          <p class="text-xs font-extrabold tracking-[0.15em] uppercase text-[#7A9B76]">Your estimated due date</p>
+          <p id="dueBig" class="font-display text-3xl sm:text-4xl font-bold text-[#5C2E3A] mt-1">—</p>
+          <div class="grid grid-cols-3 gap-3 mt-5 text-center">
+            <div class="bg-[#FDF0F2] rounded-2xl p-3"><p id="gaVal" class="font-display font-bold text-lg sm:text-xl text-[#7A3B4A]">—</p><p class="text-[11px] font-bold text-[#9A7B72] uppercase tracking-wide mt-0.5">Along today</p></div>
+            <div class="bg-[#EAF2E6] rounded-2xl p-3"><p id="triVal" class="font-display font-bold text-lg sm:text-xl text-[#46603F]">—</p><p class="text-[11px] font-bold text-[#9A7B72] uppercase tracking-wide mt-0.5">Trimester</p></div>
+            <div class="bg-[#FFF6E8] rounded-2xl p-3"><p id="remainVal" class="font-display font-bold text-lg sm:text-xl text-[#8A6220]">—</p><p class="text-[11px] font-bold text-[#9A7B72] uppercase tracking-wide mt-0.5">Days to go</p></div>
+          </div>
+          <div class="mt-5">
+            <div class="flex justify-between text-xs font-bold text-[#7A5A52]"><span>Weeks-and-days progress</span><span id="progLabel">0%</span></div>
+            <div class="h-4 bg-[#F3E6E1] rounded-full mt-1.5 overflow-hidden"><div id="progBar" class="h-full rounded-full bg-gradient-to-r from-[#F9A8B8] via-[#D9778F] to-[#7A9B76]" style="width:0%"></div></div>
+            <p id="progNote" class="text-xs text-[#9A7B72] mt-1.5"></p>
+          </div>
+          <div class="mt-6">
+            <p class="text-xs font-extrabold tracking-wide uppercase text-[#7A5A52] mb-2">Trimester timeline</p>
+            <div class="grid grid-cols-3 gap-1.5" id="triTimeline">
+              <div data-tri="1" class="seg rounded-l-2xl rounded-r-md bg-[#FDE8EC] p-3 text-center"><p class="font-display font-bold text-sm">First</p><p class="text-[11px] text-[#7A5A52]">Weeks 1–13</p></div>
+              <div data-tri="2" class="seg rounded-md bg-[#FDF3D8] p-3 text-center"><p class="font-display font-bold text-sm">Second</p><p class="text-[11px] text-[#7A5A52]">Weeks 14–27</p></div>
+              <div data-tri="3" class="seg rounded-r-2xl rounded-l-md bg-[#EAF2E6] p-3 text-center"><p class="font-display font-bold text-sm">Third</p><p class="text-[11px] text-[#7A5A52]">Weeks 28–40</p></div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-5">
+            <button id="copyBtn" type="button" class="bg-[#5C2E3A] text-white text-sm font-extrabold px-4 py-2.5 rounded-full hover:bg-[#7A3B4A]">Copy my dates</button>
+            <button id="printBtn" type="button" class="bg-white border-2 border-[#EBC6CF] text-[#7A3B4A] text-sm font-extrabold px-4 py-2.5 rounded-full hover:bg-[#FDF0F2]">Print / save</button>
+            <span id="copyNote" class="text-sm font-bold text-[#46603F] self-center"></span>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="bg-white rounded-[1.75rem] border border-rose-100 shadow p-5">
+            <p class="font-display font-bold text-lg text-[#5C2E3A] mb-3">Key dates 🌼</p>
+            <ul class="space-y-2.5 text-sm" id="keyDates"></ul>
+          </div>
+          <div class="bg-white rounded-[1.75rem] border border-[#C9DCC2] shadow p-5">
+            <p class="font-display font-bold text-lg text-[#46603F]" id="calTitle">Due month</p>
+            <div class="grid grid-cols-7 gap-1 mt-3 text-center text-[11px] font-extrabold text-[#9A7B72]"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+            <div class="grid grid-cols-7 gap-1 mt-1" id="calGrid"></div>
+            <p class="text-xs text-[#9A7B72] mt-3">🌸 marks your estimated due date. Remember, most babies arrive in the two weeks either side of it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+(function(grnp){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = grnp || {};
+s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+    </div>
+  </div>
+</div>
+
+<section class="max-w-4xl mx-auto px-4 sm:px-6 pb-14">
+  <article id="seo-article" class="bg-white rounded-[1.75rem] border border-rose-100 shadow p-6 sm:p-10 prose max-w-none">
+    <h2 class="font-display text-3xl font-bold text-[#5C2E3A]">Understanding Your Due Date: A Calm, Complete Guide</h2>
+    <p class="mt-4 leading-relaxed text-[#5A4440]">Finding out you are pregnant often starts with a single, pressing question: when is the baby due? A due date does far more than satisfy curiosity. It anchors your antenatal appointments, times your screening tests and scans, helps you plan work and leave, and gives family and friends a season to look forward to. DueBloom was built to answer that question gently and clearly, using the same standard method that midwives and doctors have used for generations, while also showing you the full picture around the date: how far along you are today in weeks and days, which trimester you are in, how much of the journey is complete, and the key dates in between. This guide explains exactly how the calculation works, why your cycle length matters, what the three trimesters mean in practice, how accurate any estimate can honestly be, and how to work backwards if you already have a due date from a scan.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">How a due date is calculated</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">Almost every due date calculator, including this one, starts from the first day of your last menstrual period, often shortened to LMP. That choice can seem odd at first, because conception happens roughly two weeks after that day, but it is used for a practical reason: most people can remember when their last period started far more reliably than they can pinpoint ovulation or conception. From that starting point, pregnancy is counted as lasting 280 days, which is exactly 40 weeks. Adding 280 days to the first day of your last period gives your estimated due date. This counting method also explains a delightful quirk of pregnancy maths: by the time you miss a period and take a test, you are already described as about four weeks pregnant, even though the first two of those weeks happened before conception. Your weeks-and-days figure, such as 12 weeks and 4 days, simply counts every day from that same starting line, which is why DueBloom can show your progress so precisely from just one date.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">Naegele's rule and the calendar method</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">The traditional shortcut behind the 280-day method is known as Naegele's rule, named after a German obstetrician. It says to take the first day of your last period, add one year, subtract three months, and add seven days. Try it on a calendar and you will land on almost exactly the same date as adding 280 days, with tiny differences caused only by months having different lengths. DueBloom uses direct day counting rather than month arithmetic, so your result never wobbles because February is short or because a month has 31 days instead of 30. The gentle calendar on this page then shows your due month with the big day marked, because seeing the date sitting among ordinary Tuesdays and weekends somehow makes it feel real in a way that a bare number never quite does. Both approaches rest on the same assumption, though: a 28-day cycle with ovulation on day 14. If that is not your pattern, the next section matters a lot for you.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">Why cycle length changes everything</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">The standard calculation quietly assumes ovulation happens on day 14 of a 28-day cycle. In reality, cycles commonly run from about 21 to 35 days, and the part of the cycle that stretches or shrinks is almost always the part before ovulation. The phase after ovulation, called the luteal phase, stays fairly steady at around 14 days for most people. That means someone with a regular 35-day cycle usually ovulates near day 21, a full week later than the textbook assumption, so conception happens later and the baby genuinely needs those extra days. DueBloom handles this with a simple, honest adjustment: for every day your cycle is longer than 28, your due date moves one day later, and for every day it is shorter, it moves one day earlier. A 32-day cycle therefore adds four days, while a 24-day cycle subtracts four. Use the slider to set the length that is usual for you, ideally based on several recent cycles rather than a single unusual month. If your cycles are very irregular, treat any calculator result as a rough guide and lean on your dating scan instead.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">The three trimesters, week by week in spirit</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">Pregnancy is traditionally divided into three trimesters, and the timeline on this page highlights the one you are in. The first trimester runs from week 1 to the end of week 13. These are the foundation weeks: the fertilised egg implants, the neural tube forms, and tiny buds that will become arms and legs appear. Many people feel their strongest tiredness and nausea in this stretch, even though there may be little to see from the outside. The second trimester, weeks 14 to 27, is often described as the most comfortable phase. Energy frequently returns, the nausea fades for many, you will usually feel the first fluttering movements, and the halfway point at 20 weeks brings the detailed anatomy scan. The third trimester, from week 28 until birth, is the finishing stretch: the baby gains weight rapidly, practices breathing movements, and settles into position, while you prepare practically and emotionally for labour. Knowing your trimester is more than trivia. Screening tests, vaccinations, glucose testing, and growth scans are all scheduled by trimester and week, so the number genuinely organises your care.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">Weeks and days: reading your progress like a midwife</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">Healthcare professionals rarely talk about months of pregnancy, because months are fuzzy: a month can be 28 or 31 days, and being five months pregnant could mean anything from about 20 to 23 weeks. Weeks and days are exact, which is why DueBloom leads with them. When your result says 18 weeks and 3 days, it means 129 days have passed since the first day of your last period. The progress bar translates that into a percentage of a typical 280-day pregnancy, so at 140 days you are exactly halfway. This precision matters at the edges of pregnancy too. A baby born before 37 completed weeks is described as preterm, 37 to 38 weeks is early term, 39 to 40 is full term, 41 is late term, and 42 weeks and beyond is post-term. Those labels influence real decisions about monitoring and induction, and they all hinge on accurate dating, which is one more reason to bring your calculated dates to your first appointment and compare them with your scan.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">How accurate is any due date, honestly?</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">It helps to hold your due date lightly. Only about one baby in twenty arrives on the exact predicted day, and the large majority of healthy, spontaneous births happen somewhere between 37 and 42 weeks. Think of the date less as a deadline and more as the centre of a likely window, with the two weeks on either side being entirely normal territory. Several things nudge the real day around: natural variation in ovulation even in regular cycles, uncertainty about the exact period date, and the simple fact that babies grow at slightly different rates. An ultrasound in the first trimester, ideally between about 8 and 14 weeks, measures the baby directly and is generally considered the most accurate dating method, which is why providers sometimes adjust your date after that scan. If that happens, do not worry that you did anything wrong; the calculator gave the best estimate possible from periods alone, and the scan simply refined it. Use reverse mode in DueBloom to adopt the scan date as your new anchor.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">Working backwards from a known due date</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">Sometimes the due date comes first. Perhaps a scan report gave you a date, a provider wrote one on your notes, or you conceived through fertility treatment with precisely known timings. Reverse mode exists for exactly that situation. Enter the due date you trust, and DueBloom subtracts 280 days to estimate the first day of your last period, and 266 days to estimate conception, then shows how far along you are today and how many days remain. This is genuinely useful: it lets you sanity-check paperwork, reconstruct dates for forms that ask about your last period, and understand your timeline if your periods were irregular or absent before conception. Remember that the reconstructed period date is a mathematical equivalent rather than a guaranteed historical fact, especially if your scan date was itself adjusted for a longer or shorter cycle, but as a consistent reference frame for planning, it works beautifully.</p>
+    <h3 class="font-display text-xl font-bold text-[#5C2E3A] mt-7">What to do with your dates next</h3>
+    <p class="mt-2 leading-relaxed text-[#5A4440]">Once you have your estimate, a few gentle next steps help. Book your first antenatal appointment if you have not already, since booking windows and the first screening tests are time-sensitive. Note your key dates: conception estimate, the end of your first trimester, the end of your second, and of course the due date itself, all of which DueBloom lists for copying or printing. Start folic acid if your provider advises it and you are not already taking it, as it matters most in the earliest weeks. Beyond the practical list, allow yourself the human side of the number too: telling loved ones a season, imagining the weather on the birthday, and watching the progress bar creep forward week by week. And if anything worries you at any point, such as pain, bleeding, or simply not knowing your dates at all, contact your doctor, midwife, or local early pregnancy service promptly rather than relying on any website. DueBloom gives you a clear, carefully calculated starting point; your care team turns it into a plan made just for you.</p>
+  </article>
+
+  <div class="mt-8">
+    <h2 class="font-display text-2xl font-bold text-[#5C2E3A]">Frequently asked questions</h2>
+    <div class="space-y-3 mt-4">
+      <details class="bg-white rounded-2xl border border-rose-100 p-4"><summary class="font-bold cursor-pointer text-[#5C2E3A]">How is my due date calculated?</summary><p class="mt-2 text-sm leading-relaxed text-[#5A4440]">DueBloom adds 280 days (40 weeks) to the first day of your last menstrual period, then adjusts for your cycle length. A 28-day cycle needs no adjustment, a longer cycle pushes the date later, and a shorter cycle brings it earlier.</p></details>
+      <details class="bg-white rounded-2xl border border-rose-100 p-4"><summary class="font-bold cursor-pointer text-[#5C2E3A]">What if my cycle is longer or shorter than 28 days?</summary><p class="mt-2 text-sm leading-relaxed text-[#5A4440]">Use the cycle-length slider to set your usual cycle between 21 and 35 days. DueBloom adds one day to the due date for every day your cycle is longer than 28, and subtracts one day for every day it is shorter, because ovulation timing shifts with cycle length.</p></details>
+      <details class="bg-white rounded-2xl border border-rose-100 p-4"><summary class="font-bold cursor-pointer text-[#5C2E3A]">How accurate is a due date calculator?</summary><p class="mt-2 text-sm leading-relaxed text-[#5A4440]">A due date is an estimate, not a deadline. Only about 1 in 20 babies arrive on the exact predicted day, and most healthy births happen between 37 and 42 weeks. An early ultrasound scan is usually the most accurate way to confirm your dates.</p></details>
+      <details class="bg-white rounded-2xl border border-rose-100 p-4"><summary class="font-bold cursor-pointer text-[#5C2E3A]">What does weeks and days mean, like 12 weeks 4 days?</summary><p class="mt-2 text-sm leading-relaxed text-[#5A4440]">Pregnancy age is counted in completed weeks plus extra days since your last period. 12 weeks 4 days means 88 days have passed. DueBloom shows this weeks-and-days figure, your current trimester, and what percentage of a typical 280-day pregnancy is complete.</p></details>
+      <details class="bg-white rounded-2xl border border-rose-100 p-4"><summary class="font-bold cursor-pointer text-[#5C2E3A]">Can I work backwards from a due date I already have?</summary><p class="mt-2 text-sm leading-relaxed text-[#5A4440]">Yes. Switch DueBloom to reverse mode, enter the due date from your scan or provider, and it will estimate your last period date, your likely conception date, how far along you are today, and how many days remain until your due date.</p></details>
+      <details class="bg-white rounded-2xl border border-rose-100 p-4"><summary class="font-bold cursor-pointer text-[#5C2E3A]">When should I talk to my doctor or midwife about my dates?</summary><p class="mt-2 text-sm leading-relaxed text-[#5A4440]">Share your calculated dates at your first antenatal appointment. Talk to your provider sooner if your periods are very irregular, you recently stopped hormonal contraception, you are unsure of your last period date, or you have any pain or bleeding.</p></details>
+    </div>
+  </div>
+  <p class="text-center text-xs text-[#9A7B72] mt-10">DueBloom — a gentle due date calculator for planning only. Always confirm your dates with your healthcare provider.</p>
+</section>
+
+<script id="lib-duebloom">
+var DueBloomLib = {
+  MONTHS: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+  MONTHS_SHORT: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+  isValidDateStr: function (s) {
+    if (!s || typeof s !== 'string') return false;
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s.trim());
+    if (!m) return false;
+    var y = +m[1], mo = +m[2], d = +m[3];
+    if (mo < 1 || mo > 12 || d < 1 || d > 31) return false;
+    var dt = new Date(Date.UTC(y, mo - 1, d));
+    return dt.getUTCFullYear() === y && dt.getUTCMonth() === mo - 1 && dt.getUTCDate() === d;
+  },
+  parse: function (s) {
+    var p = s.split('-');
+    return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2]));
+  },
+  toStr: function (dt) {
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    return dt.getUTCFullYear() + '-' + pad(dt.getUTCMonth() + 1) + '-' + pad(dt.getUTCDate());
+  },
+  addDays: function (dateStr, n) {
+    if (!DueBloomLib.isValidDateStr(dateStr)) return null;
+    var dt = DueBloomLib.parse(dateStr);
+    dt.setUTCDate(dt.getUTCDate() + n);
+    return DueBloomLib.toStr(dt);
+  },
+  diffDays: function (fromStr, toStr) {
+    if (!DueBloomLib.isValidDateStr(fromStr) || !DueBloomLib.isValidDateStr(toStr)) return null;
+    return Math.round((DueBloomLib.parse(toStr) - DueBloomLib.parse(fromStr)) / 86400000);
+  },
+  formatDate: function (dateStr) {
+    if (!DueBloomLib.isValidDateStr(dateStr)) return '';
+    var p = dateStr.split('-');
+    return DueBloomLib.MONTHS_SHORT[+p[1] - 1] + ' ' + (+p[2]) + ', ' + p[0];
+  },
+  formatDateLong: function (dateStr) {
+    if (!DueBloomLib.isValidDateStr(dateStr)) return '';
+    var p = dateStr.split('-');
+    return DueBloomLib.MONTHS[+p[1] - 1] + ' ' + (+p[2]) + ', ' + p[0];
+  },
+  clampCycle: function (c) {
+    var n = parseInt(c, 10);
+    if (isNaN(n)) return 28;
+    if (n < 21) return 21;
+    if (n > 35) return 35;
+    return n;
+  },
+  dueDateFromLMP: function (lmpStr, cycleLength) {
+    if (!DueBloomLib.isValidDateStr(lmpStr)) return null;
+    var cycle = DueBloomLib.clampCycle(cycleLength == null ? 28 : cycleLength);
+    return DueBloomLib.addDays(lmpStr, 280 + (cycle - 28));
+  },
+  conceptionFromLMP: function (lmpStr, cycleLength) {
+    if (!DueBloomLib.isValidDateStr(lmpStr)) return null;
+    var cycle = DueBloomLib.clampCycle(cycleLength == null ? 28 : cycleLength);
+    return DueBloomLib.addDays(lmpStr, cycle - 14);
+  },
+  lmpFromDueDate: function (dueStr) {
+    if (!DueBloomLib.isValidDateStr(dueStr)) return null;
+    return DueBloomLib.addDays(dueStr, -280);
+  },
+  conceptionFromDueDate: function (dueStr) {
+    if (!DueBloomLib.isValidDateStr(dueStr)) return null;
+    return DueBloomLib.addDays(dueStr, -266);
+  },
+  gestationalAge: function (lmpStr, refStr) {
+    if (!DueBloomLib.isValidDateStr(lmpStr) || !DueBloomLib.isValidDateStr(refStr)) return null;
+    var total = DueBloomLib.diffDays(lmpStr, refStr);
+    if (total < 0) return { totalDays: total, weeks: -1, days: 0, label: 'Not started' };
+    var weeks = Math.floor(total / 7);
+    var days = total % 7;
+    return { totalDays: total, weeks: weeks, days: days, label: weeks + ' weeks, ' + days + (days === 1 ? ' day' : ' days') };
+  },
+  trimesterForWeeks: function (weeks) {
+    if (weeks == null || isNaN(weeks) || weeks < 0) return 0;
+    if (weeks < 14) return 1;
+    if (weeks < 28) return 2;
+    return 3;
+  },
+  trimesterName: function (weeks) {
+    var t = DueBloomLib.trimesterForWeeks(weeks);
+    if (t === 1) return 'First trimester';
+    if (t === 2) return 'Second trimester';
+    if (t === 3) return 'Third trimester';
+    return '';
+  },
+  progressPercent: function (totalDays) {
+    if (totalDays == null || isNaN(totalDays) || totalDays < 0) return 0;
+    var pct = (totalDays / 280) * 100;
+    if (pct > 100) pct = 100;
+    return Math.round(pct * 10) / 10;
+  },
+  daysRemaining: function (dueStr, refStr) {
+    return DueBloomLib.diffDays(refStr, dueStr);
+  },
+  trimesterDates: function (lmpStr, cycleLength) {
+    if (!DueBloomLib.isValidDateStr(lmpStr)) return null;
+    var due = DueBloomLib.dueDateFromLMP(lmpStr, cycleLength);
+    return {
+      firstEnd: DueBloomLib.addDays(lmpStr, 97),
+      secondEnd: DueBloomLib.addDays(lmpStr, 195),
+      dueDate: due,
+      conception: DueBloomLib.conceptionFromLMP(lmpStr, cycleLength)
+    };
+  },
+  reverseSummary: function (dueStr, refStr) {
+    if (!DueBloomLib.isValidDateStr(dueStr)) return null;
+    var lmp = DueBloomLib.lmpFromDueDate(dueStr);
+    var ga = DueBloomLib.gestationalAge(lmp, refStr);
+    return {
+      lmp: lmp,
+      conception: DueBloomLib.conceptionFromDueDate(dueStr),
+      gestationalAge: ga,
+      trimester: ga && ga.weeks >= 0 ? DueBloomLib.trimesterForWeeks(ga.weeks) : 0,
+      progress: ga ? DueBloomLib.progressPercent(ga.totalDays) : 0,
+      daysRemaining: DueBloomLib.daysRemaining(dueStr, refStr)
+    };
+  },
+  forwardSummary: function (lmpStr, cycleLength, refStr) {
+    if (!DueBloomLib.isValidDateStr(lmpStr)) return null;
+    var cycle = DueBloomLib.clampCycle(cycleLength == null ? 28 : cycleLength);
+    var due = DueBloomLib.dueDateFromLMP(lmpStr, cycle);
+    var ga = DueBloomLib.gestationalAge(lmpStr, refStr);
+    var td = DueBloomLib.trimesterDates(lmpStr, cycle);
+    return {
+      dueDate: due,
+      conception: td.conception,
+      firstEnd: td.firstEnd,
+      secondEnd: td.secondEnd,
+      cycle: cycle,
+      gestationalAge: ga,
+      trimester: ga && ga.weeks >= 0 ? DueBloomLib.trimesterForWeeks(ga.weeks) : 0,
+      progress: ga ? DueBloomLib.progressPercent(ga.totalDays) : 0,
+      daysRemaining: DueBloomLib.daysRemaining(due, refStr)
+    };
+  }
+};
+if (typeof module !== 'undefined' && module.exports) { module.exports = DueBloomLib; }
+
+</script>
+<script>
+(function(){
+  var L = DueBloomLib;
+  var mode = 'forward';
+  var lastSummaryText = '';
+  function $(id){ return document.getElementById(id); }
+  function todayStr(){ var d=new Date(); function p(n){return (n<10?'0':'')+n;} return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
+  function setMode(m){
+    mode=m;
+    $('forwardPanel').classList.toggle('hidden', m!=='forward');
+    $('reversePanel').classList.toggle('hidden', m!=='reverse');
+    $('modeForward').className = 'seg rounded-full py-2.5 text-sm font-extrabold ' + (m==='forward' ? 'bg-[#D9778F] text-white' : 'text-[#7A3B4A]');
+    $('modeReverse').className = 'seg rounded-full py-2.5 text-sm font-extrabold ' + (m==='reverse' ? 'bg-[#7A9B76] text-white' : 'text-[#46603F]');
+    $('msg').textContent='';
+  }
+  $('modeForward').addEventListener('click', function(){ setMode('forward'); });
+  $('modeReverse').addEventListener('click', function(){ setMode('reverse'); });
+  $('cycleInput').addEventListener('input', function(){ $('cycleVal').textContent = this.value; });
+
+  function renderCalendar(dueStr){
+    var p = dueStr.split('-'); var y=+p[0], mo=+p[1]-1, dueDay=+p[2];
+    $('calTitle').textContent = L.MONTHS[mo] + ' ' + y + ' — your due month';
+    var first = new Date(Date.UTC(y, mo, 1));
+    var startOffset = (first.getUTCDay() + 6) % 7;
+    var daysInMonth = new Date(Date.UTC(y, mo+1, 0)).getUTCDate();
+    var html='';
+    for(var i=0;i<startOffset;i++) html += '<span></span>';
+    for(var d=1; d<=daysInMonth; d++){
+      if(d===dueDay) html += '<span class="cal-day bg-[#D9778F] text-white font-extrabold ring-2 ring-[#F9CBD6]" title="Estimated due date">🌸</span>';
+      else html += '<span class="cal-day bg-[#FFFBF9] border border-rose-50 text-[#5A4440]">'+d+'</span>';
+    }
+    $('calGrid').innerHTML = html;
+  }
+  function showResults(o){
+    $('emptyState').classList.add('hidden');
+    $('results').classList.remove('hidden');
+    $('dueBig').textContent = L.formatDateLong(o.dueDate);
+    var ga = o.gestationalAge;
+    if(ga && ga.weeks >= 0 && ga.totalDays <= 300){
+      $('gaVal').textContent = ga.weeks + 'w ' + ga.days + 'd';
+      $('triVal').textContent = ['','First','Second','Third'][o.trimester] || '—';
+      $('progLabel').textContent = o.progress + '%';
+      $('progBar').style.width = o.progress + '%';
+      $('progNote').textContent = 'You are ' + ga.label + ' along — ' + o.progress + '% of a typical 40-week pregnancy.';
+    } else if(ga && ga.totalDays < 0){
+      $('gaVal').textContent = 'Not yet'; $('triVal').textContent='—'; $('progLabel').textContent='0%'; $('progBar').style.width='0%';
+      $('progNote').textContent = 'That start date is in the future, so the pregnancy clock has not started yet.';
+    } else {
+      $('gaVal').textContent = 'Past due'; $('triVal').textContent='Third'; $('progLabel').textContent='100%'; $('progBar').style.width='100%';
+      $('progNote').textContent = 'The estimated due date has passed. Babies arriving up to 42 weeks can still be normal — follow your provider\u2019s guidance.';
+    }
+    $('remainVal').textContent = o.daysRemaining != null ? (o.daysRemaining >= 0 ? o.daysRemaining : '0') : '—';
+    var segs = document.querySelectorAll('#triTimeline [data-tri]');
+    segs.forEach(function(el){
+      var t = +el.getAttribute('data-tri');
+      el.style.outline = (t===o.trimester) ? '3px solid #D9778F' : 'none';
+      el.style.opacity = (o.trimester===0 || t===o.trimester) ? '1' : '0.65';
+    });
+    var rows = [
+      ['🩸 Last period (first day)', o.lmp],
+      ['💚 Estimated conception', o.conception],
+      ['🌱 First trimester ends', o.firstEnd],
+      ['🌼 Second trimester ends', o.secondEnd],
+      ['🌸 Estimated due date', o.dueDate]
+    ];
+    $('keyDates').innerHTML = rows.filter(function(r){return r[1];}).map(function(r){
+      return '<li class="flex justify-between gap-3 border-b border-rose-50 pb-2"><span class="text-[#7A5A52] font-semibold">'+r[0]+'</span><span class="font-bold text-[#5C2E3A] text-right">'+L.formatDate(r[1])+'</span></li>';
+    }).join('');
+    renderCalendar(o.dueDate);
+    lastSummaryText = 'My DueBloom dates — Due date: ' + L.formatDateLong(o.dueDate) + ' | Last period: ' + L.formatDateLong(o.lmp) + ' | Conception estimate: ' + L.formatDateLong(o.conception) + (ga && ga.weeks>=0 ? ' | Along today: ' + ga.label : '');
+  }
+  function calcForward(){
+    var lmp = $('lmpInput').value;
+    var cycle = parseInt($('cycleInput').value,10);
+    if(!lmp){ $('msg').textContent='Please pick the first day of your last period to calculate.'; return; }
+    if(!L.isValidDateStr(lmp)){ $('msg').textContent='That date does not look valid — please check it and try again.'; return; }
+    var today = todayStr();
+    if(L.diffDays(lmp, today) < 0){ $('msg').textContent='Your last period date is in the future — please pick a past date.'; return; }
+    if(L.diffDays(lmp, today) > 320){ $('msg').textContent='That date is more than 320 days ago, which is beyond a typical pregnancy. Please check the year.'; return; }
+    $('msg').textContent='';
+    var s = L.forwardSummary(lmp, cycle, today);
+    showResults({ dueDate:s.dueDate, lmp:lmp, conception:s.conception, firstEnd:s.firstEnd, secondEnd:s.secondEnd, gestationalAge:s.gestationalAge, trimester:s.trimester, progress:s.progress, daysRemaining:s.daysRemaining });
+  }
+  function calcReverse(){
+    var due = $('dueInput').value;
+    if(!due){ $('msg').textContent='Please pick your known due date to work backwards.'; return; }
+    if(!L.isValidDateStr(due)){ $('msg').textContent='That due date does not look valid — please check it and try again.'; return; }
+    $('msg').textContent='';
+    var today = todayStr();
+    var r = L.reverseSummary(due, today);
+    var td = L.trimesterDates(r.lmp, 28);
+    showResults({ dueDate:due, lmp:r.lmp, conception:r.conception, firstEnd:td.firstEnd, secondEnd:td.secondEnd, gestationalAge:r.gestationalAge, trimester:r.trimester, progress:r.progress, daysRemaining:r.daysRemaining });
+  }
+  $('calcBtn').addEventListener('click', calcForward);
+  $('revBtn').addEventListener('click', calcReverse);
+  $('exampleBtn').addEventListener('click', function(){
+    var ex = L.addDays(todayStr(), -70);
+    $('lmpInput').value = ex; $('cycleInput').value = 30; $('cycleVal').textContent='30';
+    calcForward();
+  });
+  $('copyBtn').addEventListener('click', function(){
+    if(!lastSummaryText) return;
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(lastSummaryText).then(function(){ $('copyNote').textContent='Copied ✓'; }); }
+    else { $('copyNote').textContent = lastSummaryText; }
+  });
+  $('printBtn').addEventListener('click', function(){ window.print(); });
+})();
+</script>
+<footer class="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-center text-sm text-rose-900/50">🌸 DueBloom — your gentle pregnancy countdown, private by design. Estimates only; not medical advice.<p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+</body>
+</html>
