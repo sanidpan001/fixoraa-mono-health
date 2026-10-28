@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://health.fixoraa.tech/calofuel/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaloFuel — Free TDEE & BMR Calorie Calculator with Goal Planner</title>
+<meta name="description" content="CaloFuel: free TDEE and BMR calorie calculator with 3 formulas (Mifflin-St Jeor, Harris-Benedict, Katch-McArdle), a goal-date planner with feasibility warnings, concrete activity levels, macro presets and a copyable results summary. Unlimited free usage.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { cream: '#FFF9F0', ember: '#E11D48', coal: '#1F2937', gold: '#F59E0B' },
+      fontFamily: { display: ['Anton','Impact','sans-serif'], body: ['Archivo','system-ui','sans-serif'] }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Archivo', system-ui, sans-serif; background: #FFF9F0; color: #1F2937; }
+  .font-display { font-family: 'Anton', Impact, sans-serif; letter-spacing: 0.02em; }
+  .tabular { font-variant-numeric: tabular-nums; }
+  .stripe-bg { background-image: repeating-linear-gradient(-55deg, #E11D48 0 14px, #1F2937 14px 28px); }
+  .gauge-needle { transition: transform 0.7s cubic-bezier(0.34, 1.4, 0.64, 1); transform-origin: center; transform-box: fill-box; }
+  .gauge-arc { transition: stroke-dashoffset 0.7s ease, stroke 0.3s ease; }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .faq-item.open .faq-answer { max-height: 600px; }
+  .faq-item.open .faq-chev { transform: rotate(180deg); }
+  .faq-chev { transition: transform 0.3s ease; }
+  .pill input { position: absolute; opacity: 0; pointer-events: none; }
+  .pill { cursor: pointer; }
+  .act-card input { position: absolute; opacity: 0; pointer-events: none; }
+  .act-card { cursor: pointer; transition: all 0.18s ease; }
+  input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
+  @media print { .no-print { display: none !important; } }
+</style>
+</head>
+<body id="top" class="antialiased">
+
+<!-- ===================== HEADER ===================== -->
+<header class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b-2 border-coal/10">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5" aria-label="CaloFuel home">
+      <span class="w-9 h-9 rounded-xl bg-ember flex items-center justify-center shadow-md">
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" aria-hidden="true">
+          <path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2Z" fill="#FFF9F0"/>
+        </svg>
+      </span>
+      <span class="font-display text-2xl text-coal">Calo<span class="text-ember">Fuel</span></span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm font-semibold">
+      <a href="#top" class="text-coal hover:text-ember transition-colors">Home</a>
+      <a href="https://fixoraa.tech" class="text-coal hover:text-ember transition-colors">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== TOP AD ===================== -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-x-0 top-0 h-2 stripe-bg"></div>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 pt-10 pb-8 sm:pt-14 sm:pb-10">
+    <div class="flex flex-wrap items-center gap-3 mb-5">
+      <span class="inline-flex items-center gap-1.5 bg-gold text-coal text-xs font-extrabold uppercase tracking-widest px-3.5 py-1.5 rounded-full shadow">
+        <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="currentColor" aria-hidden="true"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2Z"/></svg>
+        Unlimited Free Usage
+      </span>
+      <span class="text-xs font-semibold text-coal/60 uppercase tracking-widest">No signup &middot; No paywall &middot; No watermark</span>
+    </div>
+    <h1 class="font-display text-5xl sm:text-7xl leading-[0.95] text-coal uppercase">
+      Fuel Your <span class="text-ember">Engine.</span><br>Know Your Numbers.
+    </h1>
+    <p class="mt-4 max-w-2xl text-coal/70 text-base sm:text-lg font-medium">
+      The athlete-grade TDEE &amp; BMR calculator. Pick from 3 proven formulas, dial in your real activity,
+      plan your goal with a hard deadline, and leave with a copy-ready macro plan — free, forever.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== TOOL ===================== -->
+<main id="tool" class="mx-auto max-w-6xl px-4 sm:px-6 pb-10">
+  <div class="grid lg:grid-cols-5 gap-6">
+
+    <!-- ===== INPUT PANEL ===== -->
+    <section class="lg:col-span-2 bg-white rounded-3xl border-2 border-coal/10 shadow-xl p-5 sm:p-7" aria-label="Athlete profile inputs">
+      <div class="flex items-center justify-between mb-5">
+        <h2 class="font-display text-2xl text-coal uppercase">Athlete Profile</h2>
+        <div class="flex rounded-full bg-coal/5 p-1 text-xs font-bold" role="group" aria-label="Unit system">
+          <button id="unitMetric" type="button" class="px-4 py-1.5 rounded-full bg-coal text-cream transition-colors">Metric</button>
+          <button id="unitImperial" type="button" class="px-4 py-1.5 rounded-full text-coal/60 transition-colors">Imperial</button>
+        </div>
+      </div>
+
+      <!-- weight / height -->
+      <div id="metricInputs" class="grid grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Weight (kg)</span>
+          <input id="wKg" type="number" inputmode="decimal" min="0" placeholder="70" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+        </label>
+        <label class="block">
+          <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Height (cm)</span>
+          <input id="hCm" type="number" inputmode="decimal" min="0" placeholder="175" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+        </label>
+      </div>
+      <div id="imperialInputs" class="hidden">
+        <div class="grid grid-cols-3 gap-4">
+          <label class="block">
+            <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Weight (lb)</span>
+            <input id="wLb" type="number" inputmode="decimal" min="0" placeholder="154" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+          </label>
+          <label class="block">
+            <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Height (ft)</span>
+            <input id="hFt" type="number" inputmode="numeric" min="0" placeholder="5" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+          </label>
+          <label class="block">
+            <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Inches</span>
+            <input id="hIn" type="number" inputmode="decimal" min="0" placeholder="9" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+          </label>
+        </div>
+      </div>
+
+      <!-- age / sex -->
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <label class="block">
+          <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Age (years)</span>
+          <input id="age" type="number" inputmode="numeric" min="0" placeholder="30" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+        </label>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Sex</span>
+          <div class="mt-1.5 flex rounded-xl border-2 border-coal/15 overflow-hidden text-sm font-bold" role="radiogroup" aria-label="Biological sex">
+            <label class="pill flex-1"><input type="radio" name="sex" id="sexM" value="male" checked>
+              <span class="sex-opt block text-center py-2.5 bg-coal text-cream transition-colors">Male</span></label>
+            <label class="pill flex-1"><input type="radio" name="sex" id="sexF" value="female">
+              <span class="sex-opt block text-center py-2.5 text-coal/60 transition-colors">Female</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- body fat -->
+      <label class="block mt-4">
+        <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Body fat % <span class="normal-case font-semibold text-coal/40">(only needed for Katch-McArdle)</span></span>
+        <input id="bodyFat" type="number" inputmode="decimal" min="0" max="90" placeholder="e.g. 20" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+      </label>
+
+      <!-- formula picker -->
+      <div class="mt-5">
+        <span class="text-xs font-bold uppercase tracking-widest text-coal/60">BMR formula</span>
+        <div class="mt-2 grid grid-cols-3 gap-2" role="radiogroup" aria-label="BMR formula">
+          <label class="pill relative"><input type="radio" name="formula" id="formulaMifflin" value="mifflin" checked>
+            <span class="formula-opt block rounded-xl border-2 border-ember bg-ember/5 px-2 py-2.5 text-center text-xs font-bold leading-tight transition-all">Mifflin-St Jeor<br><span class="font-semibold text-coal/50">Most accurate for most</span></span></label>
+          <label class="pill relative"><input type="radio" name="formula" id="formulaHarris" value="harris">
+            <span class="formula-opt block rounded-xl border-2 border-coal/15 px-2 py-2.5 text-center text-xs font-bold leading-tight transition-all">Harris-Benedict<br><span class="font-semibold text-coal/50">Classic 1984 revision</span></span></label>
+          <label class="pill relative"><input type="radio" name="formula" id="formulaKatch" value="katch">
+            <span class="formula-opt block rounded-xl border-2 border-coal/15 px-2 py-2.5 text-center text-xs font-bold leading-tight transition-all">Katch-McArdle<br><span class="font-semibold text-coal/50">Needs body fat %</span></span></label>
+        </div>
+        <p id="katchNote" class="hidden mt-2 text-xs font-semibold text-gold bg-gold/10 border border-gold/40 rounded-lg px-3 py-2">
+          No body-fat % entered — temporarily using Mifflin-St Jeor so you never see a wrong number.
+        </p>
+      </div>
+
+      <!-- activity -->
+      <div class="mt-5">
+        <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Activity level <span class="normal-case font-semibold text-coal/40">— pick the life that looks like yours</span></span>
+        <div class="mt-2 space-y-2" role="radiogroup" aria-label="Activity level">
+          <label class="act-card relative block">
+            <input type="radio" name="act" id="act-sedentary" value="sedentary">
+            <span class="act-opt block rounded-xl border-2 border-coal/15 px-3.5 py-2.5 transition-all">
+              <span class="flex items-center justify-between"><b class="text-sm">Sedentary</b><b class="text-sm tabular text-ember">&times;1.2</b></span>
+              <span class="block text-xs text-coal/55 font-medium mt-0.5">Desk job (IT, banking, accounting) &middot; little or no exercise</span>
+            </span></label>
+          <label class="act-card relative block">
+            <input type="radio" name="act" id="act-light" value="light">
+            <span class="act-opt block rounded-xl border-2 border-coal/15 px-3.5 py-2.5 transition-all">
+              <span class="flex items-center justify-between"><b class="text-sm">Lightly Active</b><b class="text-sm tabular text-ember">&times;1.375</b></span>
+              <span class="block text-xs text-coal/55 font-medium mt-0.5">Office work + 1&ndash;3 light sessions/week (walks, easy yoga)</span>
+            </span></label>
+          <label class="act-card relative block">
+            <input type="radio" name="act" id="act-moderate" value="moderate" checked>
+            <span class="act-opt block rounded-xl border-2 border-ember bg-ember/5 px-3.5 py-2.5 transition-all">
+              <span class="flex items-center justify-between"><b class="text-sm">Moderately Active</b><b class="text-sm tabular text-ember">&times;1.55</b></span>
+              <span class="block text-xs text-coal/55 font-medium mt-0.5">On-feet job (teacher, nurse, retail) + 3&ndash;5 workouts/week</span>
+            </span></label>
+          <label class="act-card relative block">
+            <input type="radio" name="act" id="act-very" value="very">
+            <span class="act-opt block rounded-xl border-2 border-coal/15 px-3.5 py-2.5 transition-all">
+              <span class="flex items-center justify-between"><b class="text-sm">Very Active</b><b class="text-sm tabular text-ember">&times;1.725</b></span>
+              <span class="block text-xs text-coal/55 font-medium mt-0.5">Physical job (construction, farming) or 6&ndash;7 hard workouts/week</span>
+            </span></label>
+          <label class="act-card relative block">
+            <input type="radio" name="act" id="act-extra" value="extra">
+            <span class="act-opt block rounded-xl border-2 border-coal/15 px-3.5 py-2.5 transition-all">
+              <span class="flex items-center justify-between"><b class="text-sm">Extremely Active</b><b class="text-sm tabular text-ember">&times;1.9</b></span>
+              <span class="block text-xs text-coal/55 font-medium mt-0.5">Pro athlete / 2&times; daily training (boxer, elite runner, soldier)</span>
+            </span></label>
+        </div>
+      </div>
+
+      <div id="inputError" class="hidden mt-4 text-sm font-semibold text-ember bg-ember/10 border border-ember/40 rounded-xl px-4 py-2.5" role="alert"></div>
+
+      <div class="mt-5 flex gap-3">
+        <button id="calcBtn" type="button" class="flex-1 bg-ember hover:bg-[#c21640] text-white font-display uppercase text-xl tracking-wide rounded-2xl py-3.5 shadow-lg shadow-ember/30 transition-colors">
+          Calculate
+        </button>
+        <button id="saveBtn" type="button" title="Save this profile on this device" class="px-4 rounded-2xl border-2 border-coal/15 hover:border-gold text-coal font-bold text-sm transition-colors">
+          &#9733; Save
+        </button>
+      </div>
+      <p class="mt-3 text-xs text-coal/50 font-medium">Profiles are saved only in this browser (localStorage). Nothing is uploaded anywhere.</p>
+    </section>
+
+    <!-- ===== RESULTS DASHBOARD ===== -->
+    <section class="lg:col-span-3 space-y-6">
+      <div class="bg-coal rounded-3xl shadow-xl p-5 sm:p-7 text-cream" aria-label="Results dashboard">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="font-display text-2xl uppercase text-cream">Performance Dashboard</h2>
+          <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/50">Live results</span>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-5 mt-4">
+          <div class="text-center">
+            <div id="gBmr" aria-label="BMR gauge"></div>
+            <p class="font-display text-4xl tabular mt-1" id="bmrVal">&mdash;</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-gold mt-1">BMR <span class="text-cream/50 normal-case tracking-normal">kcal/day at rest</span></p>
+          </div>
+          <div class="text-center">
+            <div id="gTdee" aria-label="TDEE gauge"></div>
+            <p class="font-display text-4xl tabular mt-1" id="tdeeVal">&mdash;</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-ember mt-1">TDEE <span class="text-cream/50 normal-case tracking-normal">kcal/day total burn</span></p>
+          </div>
+          <div class="text-center">
+            <div id="gGoal" aria-label="Goal target gauge"></div>
+            <p class="font-display text-4xl tabular mt-1" id="goalVal">&mdash;</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-cream/80 mt-1">Goal Target <span class="text-cream/50 normal-case tracking-normal">kcal/day to eat</span></p>
+          </div>
+        </div>
+        <div class="mt-5 rounded-2xl bg-cream/5 border border-cream/10 p-4">
+          <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-cream/50 mb-2">All 3 formulas, your numbers</p>
+          <div class="grid grid-cols-3 gap-2 text-center text-sm">
+            <div class="rounded-xl bg-cream/5 px-2 py-2.5"><p class="font-bold tabular" id="cmpMifflin">&mdash;</p><p class="text-[10px] uppercase tracking-wider text-cream/50 font-bold mt-0.5">Mifflin-St Jeor</p></div>
+            <div class="rounded-xl bg-cream/5 px-2 py-2.5"><p class="font-bold tabular" id="cmpHarris">&mdash;</p><p class="text-[10px] uppercase tracking-wider text-cream/50 font-bold mt-0.5">Harris-Benedict</p></div>
+            <div class="rounded-xl bg-cream/5 px-2 py-2.5"><p class="font-bold tabular" id="cmpKatch">&mdash;</p><p class="text-[10px] uppercase tracking-wider text-cream/50 font-bold mt-0.5">Katch-McArdle</p></div>
+          </div>
+          <p class="mt-2 text-xs text-cream/45 font-medium">The highlighted formula above is the one driving your gauges. Katch-McArdle shows &ldquo;&mdash;&rdquo; until you enter body-fat %.</p>
+        </div>
+      </div>
+
+      <!-- ===== GOAL PLANNER ===== -->
+      <div class="bg-white rounded-3xl border-2 border-coal/10 shadow-xl p-5 sm:p-7" aria-label="Goal date planner">
+        <div class="flex items-center gap-3 mb-1">
+          <span class="w-8 h-8 rounded-lg bg-gold flex items-center justify-center">
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="#1F2937" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round"/></svg>
+          </span>
+          <h2 class="font-display text-2xl text-coal uppercase">Goal-Date Planner</h2>
+        </div>
+        <p class="text-sm text-coal/60 font-medium mb-4">Set a target weight and the date you want to hit it. CaloFuel reverse-engineers the daily calories required — and warns you if the math is unsafe.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div class="flex rounded-xl border-2 border-coal/15 overflow-hidden text-sm font-bold" role="radiogroup" aria-label="Goal direction">
+            <label class="pill flex-1"><input type="radio" name="goal" id="goalLose" value="lose" checked>
+              <span class="goal-opt block text-center py-2.5 bg-ember text-white transition-colors">Lose</span></label>
+            <label class="pill flex-1"><input type="radio" name="goal" id="goalMaintain" value="maintain">
+              <span class="goal-opt block text-center py-2.5 text-coal/60 transition-colors">Hold</span></label>
+            <label class="pill flex-1"><input type="radio" name="goal" id="goalGain" value="gain">
+              <span class="goal-opt block text-center py-2.5 text-coal/60 transition-colors">Gain</span></label>
+          </div>
+          <label class="block">
+            <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Target weight <span id="goalUnitLbl">(kg)</span></span>
+            <input id="goalWeight" type="number" inputmode="decimal" min="0" placeholder="65" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-lg font-bold tabular focus:border-ember focus:outline-none">
+          </label>
+          <label class="block">
+            <span class="text-xs font-bold uppercase tracking-widest text-coal/60">Target date</span>
+            <input id="goalDate" type="date" class="mt-1.5 w-full rounded-xl border-2 border-coal/15 px-3.5 py-2.5 text-base font-bold focus:border-ember focus:outline-none">
+          </label>
+        </div>
+        <div id="goalOut" class="mt-4 hidden rounded-2xl border-2 border-coal/10 bg-cream p-4 sm:p-5">
+          <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+            <div><p class="text-[11px] font-bold uppercase tracking-widest text-coal/50">Eat per day</p><p class="font-display text-4xl tabular text-ember" id="goalKcal">&mdash;</p></div>
+            <div><p class="text-[11px] font-bold uppercase tracking-widest text-coal/50">Daily deficit/surplus</p><p class="font-display text-2xl tabular text-coal" id="goalDelta">&mdash;</p></div>
+            <div><p class="text-[11px] font-bold uppercase tracking-widest text-coal/50">Pace</p><p class="font-display text-2xl tabular text-coal" id="goalPace">&mdash;</p></div>
+            <div><p class="text-[11px] font-bold uppercase tracking-widest text-coal/50">Timeline</p><p class="font-display text-2xl tabular text-coal" id="goalDays">&mdash;</p></div>
+          </div>
+          <div id="goalWarn" class="mt-3 space-y-2"></div>
+          <p class="mt-3 text-xs text-coal/50 font-medium">Based on ~7,700 kcal per kg of body-weight change. As you get lighter your TDEE falls, so re-run this every 2&ndash;4 weeks.</p>
+        </div>
+      </div>
+
+      <!-- ===== MACROS ===== -->
+      <div class="bg-white rounded-3xl border-2 border-coal/10 shadow-xl p-5 sm:p-7" aria-label="Macro split">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <h2 class="font-display text-2xl text-coal uppercase">Macro Split</h2>
+          <div class="flex gap-2" role="radiogroup" aria-label="Macro preset">
+            <label class="pill"><input type="radio" name="macro" id="macro-balanced" value="balanced" checked>
+              <span class="macro-opt block px-4 py-1.5 rounded-full border-2 border-ember bg-ember/5 text-xs font-bold transition-all">Balanced 25/50/25</span></label>
+            <label class="pill"><input type="radio" name="macro" id="macro-highprotein" value="highprotein">
+              <span class="macro-opt block px-4 py-1.5 rounded-full border-2 border-coal/15 text-xs font-bold transition-all">High-Protein 35/35/30</span></label>
+            <label class="pill"><input type="radio" name="macro" id="macro-keto" value="keto">
+              <span class="macro-opt block px-4 py-1.5 rounded-full border-2 border-coal/15 text-xs font-bold transition-all">Keto 25/5/70</span></label>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3 sm:gap-4">
+          <div class="rounded-2xl bg-ember/5 border-2 border-ember/25 p-4 text-center">
+            <p class="text-[11px] font-extrabold uppercase tracking-widest text-ember">Protein</p>
+            <p class="font-display text-3xl sm:text-4xl tabular mt-1" id="mPro">&mdash;</p>
+            <p class="text-xs font-bold text-coal/50 mt-0.5"><span id="mProKcal">&mdash;</span> kcal</p>
+            <div class="mt-2 h-2 rounded-full bg-coal/10 overflow-hidden"><div id="mProBar" class="h-full bg-ember rounded-full" style="width:0%"></div></div>
+          </div>
+          <div class="rounded-2xl bg-gold/10 border-2 border-gold/40 p-4 text-center">
+            <p class="text-[11px] font-extrabold uppercase tracking-widest text-[#b45309]">Carbs</p>
+            <p class="font-display text-3xl sm:text-4xl tabular mt-1" id="mCarb">&mdash;</p>
+            <p class="text-xs font-bold text-coal/50 mt-0.5"><span id="mCarbKcal">&mdash;</span> kcal</p>
+            <div class="mt-2 h-2 rounded-full bg-coal/10 overflow-hidden"><div id="mCarbBar" class="h-full bg-gold rounded-full" style="width:0%"></div></div>
+          </div>
+          <div class="rounded-2xl bg-coal/5 border-2 border-coal/20 p-4 text-center">
+            <p class="text-[11px] font-extrabold uppercase tracking-widest text-coal">Fat</p>
+            <p class="font-display text-3xl sm:text-4xl tabular mt-1" id="mFat">&mdash;</p>
+            <p class="text-xs font-bold text-coal/50 mt-0.5"><span id="mFatKcal">&mdash;</span> kcal</p>
+            <div class="mt-2 h-2 rounded-full bg-coal/10 overflow-hidden"><div id="mFatBar" class="h-full bg-coal rounded-full" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button id="copyBtn" type="button" class="flex-1 min-w-[200px] bg-coal hover:bg-black text-cream font-bold rounded-2xl py-3 px-5 transition-colors text-sm">
+            &#10697; Copy Result Summary
+          </button>
+          <p class="text-xs text-coal/50 font-medium self-center">Paste it into your notes, coach chat, or training log.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-24 opacity-0 transition-all duration-300 bg-coal text-cream text-sm font-bold px-5 py-3 rounded-2xl shadow-2xl z-50" role="status"></div>
+
+<!-- ===================== BOTTOM AD ===================== -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+(function(grnp){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = grnp || {};
+s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SEO ARTICLE ===================== -->
+<article id="seo-article" class="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+  <div class="max-w-3xl mx-auto prose-like">
+    <p class="text-xs font-extrabold uppercase tracking-[0.25em] text-ember mb-3">The CaloFuel Guide</p>
+    <h2 class="font-display text-4xl sm:text-5xl uppercase text-coal leading-none mb-6">TDEE, BMR &amp; Calories: The Complete Fuel Manual</h2>
+
+    <p class="text-coal/80 leading-relaxed mb-5">Every fitness goal — losing fat, building muscle, or simply maintaining the body you have — runs on one number: your daily calorie target. Get it right and the rest of your plan (training, sleep, protein) falls into place. Get it wrong and even perfect workouts feel like pushing a car uphill with the handbrake on. This guide explains exactly how calorie calculators work, what the three major BMR formulas do differently, and how to turn your numbers into a realistic plan with a real deadline.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">What BMR and TDEE Actually Mean</h3>
+    <p class="text-coal/80 leading-relaxed mb-5"><strong>Basal Metabolic Rate (BMR)</strong> is the energy your body burns in 24 hours doing absolutely nothing — lying still, awake, in a warm room. It powers your brain, heart, lungs, digestion and the constant repair work happening inside your cells. For most adults, BMR accounts for roughly 60 to 75 percent of all calories burned in a day, which is why every serious calorie calculator starts there.</p>
+    <p class="text-coal/80 leading-relaxed mb-5"><strong>Total Daily Energy Expenditure (TDEE)</strong> is BMR plus everything else: walking to the train, fidgeting at your desk, workouts, and even the small energy cost of digesting food (the thermic effect of food, about 10 percent of intake). The formula is simple: <strong>TDEE = BMR &times; activity multiplier</strong>. Eat at your TDEE and your weight stays roughly stable. Eat below it and you lose weight. Eat above it and you gain. That single relationship is the entire science of weight management — everything else is execution.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">The Three BMR Formulas Compared</h3>
+    <p class="text-coal/80 leading-relaxed mb-5">CaloFuel lets you choose between three peer-reviewed equations, because no single formula is perfect for every body. <strong>Mifflin-St Jeor (1990)</strong> is the modern default and the most validated for the general population: research found it predicts resting energy expenditure within 10 percent for about 82 percent of people. Men: <em>10 &times; weight(kg) + 6.25 &times; height(cm) &minus; 5 &times; age + 5</em>. Women: the same, minus 161 instead of plus 5.</p>
+    <p class="text-coal/80 leading-relaxed mb-5"><strong>Harris-Benedict</strong>, revised in 1984, is the classic equation many older calculators still use. It tends to overestimate by around 5 percent for modern, mostly sedentary populations, which makes it a useful upper-bound cross-check. Men: <em>88.362 + 13.397 &times; weight + 4.799 &times; height &minus; 5.677 &times; age</em>. Women: <em>447.593 + 9.247 &times; weight + 3.098 &times; height &minus; 4.330 &times; age</em>.</p>
+    <p class="text-coal/80 leading-relaxed mb-5"><strong>Katch-McArdle</strong> ignores sex entirely and works from lean body mass: <em>370 + 21.6 &times; lean mass (kg)</em>. It is the most accurate option <em>if</em> you genuinely know your body-fat percentage from a DEXA scan, hydrostatic weighing, or a decent body-composition scale. Guess your body fat badly and Katch-McArdle becomes worse than Mifflin-St Jeor — which is why CaloFuel refuses to show you a Katch-McArdle number from a missing input, and falls back to Mifflin-St Jeor with a clear on-screen note.</p>
+    <p class="text-coal/80 leading-relaxed mb-5">A quick worked example shows how close the formulas run for ordinary people. Take a 30-year-old man, 70 kg, 175 cm, 20 percent body fat. Mifflin-St Jeor gives about 1,649 kcal/day. Harris-Benedict (revised) gives about 1,696. Katch-McArdle gives about 1,580. That spread of roughly 115 kcal is normal — and it is exactly why the honest answer to "which is most accurate" is: the one whose assumptions match your body, cross-checked against the others.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">Activity Multipliers: Pick the Life That Looks Like Yours</h3>
+    <p class="text-coal/80 leading-relaxed mb-5">The biggest error in calorie calculation is not the formula — it is the activity level. Most people choose one level too high. CaloFuel uses the standard FAO/WHO multipliers and attaches concrete examples to each label so you cannot fool yourself accidentally. <strong>Sedentary (&times;1.2)</strong> means a desk job like IT, banking, or accounting with little or no exercise. <strong>Lightly active (&times;1.375)</strong> adds one to three easy sessions a week — walks, gentle yoga. <strong>Moderately active (&times;1.55)</strong> covers on-your-feet jobs such as teaching, nursing, or retail, plus three to five real workouts a week. <strong>Very active (&times;1.725)</strong> means physical labor like construction or farming, or six to seven hard training sessions weekly. <strong>Extremely active (&times;1.9)</strong> is reserved for professional athletes and twice-daily training — boxers, elite runners, soldiers in training.</p>
+    <p class="text-coal/80 leading-relaxed mb-5">When in doubt, pick the lower option for two weeks, watch the scale trend, and adjust. A calculator gives you a starting line, not a verdict: the real TDEE is the one your bodyweight trend confirms. Weigh yourself at the same time each morning and judge by the two-week average, never a single day.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">Setting Your Deficit or Surplus: The 7,700 Rule</h3>
+    <p class="text-coal/80 leading-relaxed mb-5">One kilogram of body fat stores roughly <strong>7,700 kilocalories</strong>. That single constant turns weight goals into daily math. Want to lose half a kilogram a week? You need a deficit of 0.5 &times; 7,700 &divide; 7 = 550 kcal per day. Want to gain a quarter kilo of mostly muscle a week? A surplus of about 275 kcal per day. CaloFuel's goal-date planner runs this math in reverse: tell it your target weight and date, and it computes the exact daily deficit or surplus required, the weekly pace that implies, and whether that pace is safe.</p>
+    <p class="text-coal/80 leading-relaxed mb-5">Safe pace has evidence-based guardrails. For fat loss, most sports-nutrition guidelines cap sustainable loss at about <strong>0.5 to 1 percent of body weight per week</strong> (roughly 0.5–1 kg/week for most adults). Faster than that and you start losing meaningful muscle, tanking energy, and inviting the rebound. For muscle gain, a surplus of 250–500 kcal/day is the sweet spot; more mostly becomes fat. And there are absolute floors: going below about 1,200 kcal/day (women) or 1,500 kcal/day (men) without medical supervision risks nutrient deficiencies and metabolic adaptation. CaloFuel's planner flags all three situations — aggressive pace, extreme surplus, and unsafe floors — with plain-language warnings, not silent approval.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">Why a Goal-Date Planner Beats a Static Target</h3>
+    <p class="text-coal/80 leading-relaxed mb-5">Most calculators hand you one number — "eat 2,050 kcal" — with no context for when you will arrive. A goal-date planner changes the psychology: a wedding in 12 weeks or a marathon in 20 weeks becomes a required daily pace, and the feasibility warning becomes your honesty check. If the math says you need a 1,200 kcal daily deficit to hit your date, the tool tells you that timeline is unrealistic rather than letting you starve for three weeks and quit. Two practical rules make planners work. First, as you lose weight your BMR and TDEE fall, so the same calorie target produces a smaller deficit over time — re-run your numbers every two to four weeks. Second, build in a two-week buffer: life happens, plateaus happen, and a plan that only works with zero missed days is a plan designed to fail.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">Macro Splits: Protein, Carbs, and Fat in Grams</h3>
+    <p class="text-coal/80 leading-relaxed mb-5">Calories determine whether your weight moves; <strong>macros determine what your body is made of when it does</strong>. Protein (4 kcal/g) builds and preserves muscle — aim for roughly 1.6–2.2 g per kg of body weight when cutting, slightly less when maintaining. Carbohydrates (4 kcal/g) are your training fuel. Fat (9 kcal/g) supports hormones and satiety; dropping below about 0.5 g/kg for long stretches is asking for trouble.</p>
+    <p class="text-coal/80 leading-relaxed mb-5">CaloFuel ships three presets. <strong>Balanced (25% protein / 50% carbs / 25% fat)</strong> suits general active people and most gym-goers. <strong>High-protein (35/35/30)</strong> is the cutting preset: extra protein protects muscle in a deficit and keeps hunger down. <strong>Keto (25/5/70)</strong> mirrors the classic ketogenic split for people who train their bodies to run on fat. Whatever preset you pick, the grams matter more than the percentages — grams are what you weigh on a food scale.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">Five Mistakes That Wreck Good Numbers</h3>
+    <p class="text-coal/80 leading-relaxed mb-5"><strong>One: counting exercise twice.</strong> If your tracker adds workout calories on top of a "very active" multiplier, you are double-counting. Pick the activity level that already includes your training. <strong>Two: weighing food by eye.</strong> Studies show people under-report intake by 20–40 percent; a 30-dollar kitchen scale beats any app. <strong>Three: chasing daily scale noise.</strong> Water, glycogen, and salt swing weight by a kilogram overnight — judge the two-week trend. <strong>Four: slashing calories the moment progress stalls.</strong> Plateaus of one to two weeks are normal; hold the target, check sleep and steps, then adjust by 100–200 kcal. <strong>Five: ignoring protein.</strong> The most common reason a cut ends with a smaller but still-soft physique is protein far below 1.6 g/kg. Fix that before you touch calories.</p>
+
+    <h3 class="font-display text-2xl uppercase text-coal mt-8 mb-3">A Sample Day at the Numbers</h3>
+    <p class="text-coal/80 leading-relaxed mb-5">Put it together for our example athlete: 30-year-old man, 70 kg, 175 cm, moderately active. BMR (Mifflin-St Jeor) ≈ 1,649. TDEE ≈ 1,649 &times; 1.55 ≈ 2,556 kcal. Goal: reach 65 kg in 10 weeks (70 days). Required daily deficit: 5 &times; 7,700 &divide; 70 = 550 kcal/day, a pace of 0.5 kg/week — inside the safe zone, so no warnings. Daily target: ≈ 2,006 kcal. Balanced macros: ≈ 125 g protein, ≈ 251 g carbs, ≈ 56 g fat. That is the entire plan on an index card — and it is exactly what CaloFuel's copyable summary gives you, formatted for your notes or your coach.</p>
+    <p class="text-coal/80 leading-relaxed mb-5">Remember the fine print that matters: these are estimates for healthy adults. If you are under 18, pregnant or breastfeeding, managing a medical condition, or recovering from an eating disorder, work with a qualified professional instead of a calculator. For everyone else, the formula is unglamorous and undefeated — measure honestly, eat to the target, train hard, sleep well, and let the weeks do the work.</p>
+  </div>
+</article>
+
+<!-- ===================== FAQS ===================== -->
+<section class="mx-auto max-w-6xl px-4 sm:px-6 pb-12" aria-label="Frequently asked questions">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="font-display text-3xl sm:text-4xl uppercase text-coal mb-6">Fuel FAQs</h2>
+    <div class="space-y-3">
+      <div class="faq-item bg-white rounded-2xl border-2 border-coal/10 overflow-hidden">
+        <button type="button" class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-coal">
+          <span>Which BMR formula should I choose: Mifflin-St Jeor, Harris-Benedict, or Katch-McArdle?</span>
+          <svg viewBox="0 0 24 24" class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer px-5"><p class="pb-5 text-sm text-coal/70 leading-relaxed">For most people, Mifflin-St Jeor — it is the most validated for the general population. Harris-Benedict (1984 revision) is a classic that slightly overestimates, useful as an upper-bound cross-check. Choose Katch-McArdle only if you know your body-fat percentage from a DEXA scan, hydrostatic weighing, or a good body-composition scale, because it calculates from lean mass. CaloFuel shows all three side by side so you can compare.</p></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border-2 border-coal/10 overflow-hidden">
+        <button type="button" class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-coal">
+          <span>How accurate is a TDEE calculator really?</span>
+          <svg viewBox="0 0 24 24" class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer px-5"><p class="pb-5 text-sm text-coal/70 leading-relaxed">Expect roughly &plusmn;10 percent for most adults using Mifflin-St Jeor. The biggest source of error is the activity multiplier, not the formula — most people pick one level too high. Treat the result as a starting line: follow it for two weeks, watch your morning weight trend, and adjust up or down by 100–200 kcal based on what the scale actually does.</p></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border-2 border-coal/10 overflow-hidden">
+        <button type="button" class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-coal">
+          <span>What daily calorie deficit is safe for fat loss?</span>
+          <svg viewBox="0 0 24 24" class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer px-5"><p class="pb-5 text-sm text-coal/70 leading-relaxed">A deficit of 300–500 kcal per day (about 0.3–0.5 kg per week) is the sustainable sweet spot for most people, and up to roughly 1 kg per week can be fine for those with more to lose. Avoid dropping below about 1,200 kcal/day (women) or 1,500 kcal/day (men) without medical supervision. CaloFuel's goal-date planner warns you automatically if your deadline demands an unsafe pace.</p></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border-2 border-coal/10 overflow-hidden">
+        <button type="button" class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-coal">
+          <span>How does the goal-date planner work?</span>
+          <svg viewBox="0 0 24 24" class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer px-5"><p class="pb-5 text-sm text-coal/70 leading-relaxed">Enter your target weight and the date you want to reach it. The planner uses the 7,700 kcal-per-kg rule to compute the exact daily deficit or surplus required, converts it to a weekly pace, and checks it against safety guardrails: pace above ~1 kg/week, intake below minimum floors, very short timelines, and underweight target BMIs all trigger clear warnings. Re-run it every 2–4 weeks as your TDEE changes.</p></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border-2 border-coal/10 overflow-hidden">
+        <button type="button" class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-coal">
+          <span>Which macro split preset is right for me?</span>
+          <svg viewBox="0 0 24 24" class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer px-5"><p class="pb-5 text-sm text-coal/70 leading-relaxed">Balanced (25/50/25) fits most active people. High-protein (35/35/30) is the best default for fat loss because protein preserves muscle and controls hunger. Keto (25/5/70) suits people deliberately training their metabolism to run on fat. In all cases, hit your protein grams first — roughly 1.6–2.2 g per kg of body weight when cutting.</p></div>
+      </div>
+      <div class="faq-item bg-white rounded-2xl border-2 border-coal/10 overflow-hidden">
+        <button type="button" class="faq-toggle w-full flex items-center justify-between gap-4 px-5 py-4 text-left font-bold text-coal">
+          <span>Is CaloFuel really free, and is my data private?</span>
+          <svg viewBox="0 0 24 24" class="faq-chev w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="faq-answer px-5"><p class="pb-5 text-sm text-coal/70 leading-relaxed">Yes — unlimited free usage with no signup, no paywall, and no watermark. Everything runs in your browser: your inputs never leave your device, and saved profiles are stored only in your own browser's localStorage. There is no account, no server, and nothing to sign up for.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="border-t-2 border-coal/10 bg-coal text-cream/70">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2.5">
+      <span class="w-8 h-8 rounded-lg bg-ember flex items-center justify-center">
+        <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" aria-hidden="true"><path d="M13 2 4.5 13.5H11L9.5 22 19 10h-6.5L13 2Z" fill="#FFF9F0"/></svg>
+      </span>
+      <span class="font-display text-xl text-cream">Calo<span class="text-ember">Fuel</span></span>
+    </div>
+    <p class="text-xs text-center max-w-xl font-medium">Estimates for healthy adults only — not medical advice. Consult a professional if you are under 18, pregnant, or managing a condition.</p>
+    <a href="https://fixoraa.tech" class="text-sm font-bold text-cream hover:text-gold transition-colors">More Tools</a>
+  </div>
+<p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Which BMR formula should I choose: Mifflin-St Jeor, Harris-Benedict, or Katch-McArdle?", "acceptedAnswer": { "@type": "Answer", "text": "For most people, Mifflin-St Jeor — it is the most validated for the general population. Harris-Benedict (1984 revision) is a classic that slightly overestimates, useful as an upper-bound cross-check. Choose Katch-McArdle only if you know your body-fat percentage from a DEXA scan, hydrostatic weighing, or a good body-composition scale, because it calculates from lean mass." } },
+    { "@type": "Question", "name": "How accurate is a TDEE calculator really?", "acceptedAnswer": { "@type": "Answer", "text": "Expect roughly ±10 percent for most adults using Mifflin-St Jeor. The biggest source of error is the activity multiplier, not the formula — most people pick one level too high. Treat the result as a starting line and adjust by 100–200 kcal based on your two-week weight trend." } },
+    { "@type": "Question", "name": "What daily calorie deficit is safe for fat loss?", "acceptedAnswer": { "@type": "Answer", "text": "A deficit of 300–500 kcal per day (about 0.3–0.5 kg per week) is the sustainable sweet spot for most people. Avoid dropping below about 1,200 kcal/day (women) or 1,500 kcal/day (men) without medical supervision." } },
+    { "@type": "Question", "name": "How does the goal-date planner work?", "acceptedAnswer": { "@type": "Answer", "text": "Enter your target weight and date. The planner uses the 7,700 kcal-per-kg rule to compute the exact daily deficit or surplus required, converts it to a weekly pace, and warns about unsafe pace, minimum intake floors, very short timelines, and underweight target BMIs." } },
+    { "@type": "Question", "name": "Which macro split preset is right for me?", "acceptedAnswer": { "@type": "Answer", "text": "Balanced (25/50/25) fits most active people. High-protein (35/35/30) is the best default for fat loss. Keto (25/5/70) suits people running on fat. Hit protein grams first: roughly 1.6–2.2 g per kg when cutting." } },
+    { "@type": "Question", "name": "Is CaloFuel really free, and is my data private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — unlimited free usage with no signup, no paywall, and no watermark. Everything runs in your browser; saved profiles live only in your own browser's localStorage." } }
+  ]
+}
+</script>
+
+<script>
+/*__PURE_START__*/
+/* Pure calculation logic for CaloFuel — no DOM access. Extracted by tests via vm. */
+var KCAL_PER_KG = 7700;
+
+var ACTIVITY_LEVELS = [
+  { id: 'sedentary', mult: 1.2,   label: 'Sedentary',         example: 'Desk job (IT, banking, accounting); little or no exercise' },
+  { id: 'light',     mult: 1.375, label: 'Lightly Active',    example: 'Office work + 1-3 light sessions/week (walks, easy yoga)' },
+  { id: 'moderate',  mult: 1.55,  label: 'Moderately Active', example: 'On-feet job (teacher, nurse, retail) + 3-5 workouts/week' },
+  { id: 'very',      mult: 1.725, label: 'Very Active',       example: 'Physical job (construction, farming) or 6-7 hard workouts/week' },
+  { id: 'extra',     mult: 1.9,   label: 'Extremely Active',  example: 'Pro athlete / 2x daily training (boxer, elite runner, soldier)' }
+];
+
+var MACRO_PRESETS = {
+  balanced:   { label: 'Balanced',     p: 25, c: 50, f: 25 },
+  highprotein:{ label: 'High Protein', p: 35, c: 35, f: 30 },
+  keto:       { label: 'Keto',         p: 25, c: 5,  f: 70 }
+};
+
+function bmrMifflin(weightKg, heightCm, age, sex) {
+  if (!(weightKg > 0) || !(heightCm > 0) || !(age > 0)) return NaN;
+  if (sex === 'male')   return 10 * weightKg + 6.25 * heightCm - 5 * age + 5;
+  if (sex === 'female') return 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+  return NaN;
+}
+
+function bmrHarrisBenedict(weightKg, heightCm, age, sex) {
+  if (!(weightKg > 0) || !(heightCm > 0) || !(age > 0)) return NaN;
+  if (sex === 'male')   return 88.362 + 13.397 * weightKg + 4.799 * heightCm - 5.677 * age;
+  if (sex === 'female') return 447.593 + 9.247 * weightKg + 3.098 * heightCm - 4.330 * age;
+  return NaN;
+}
+
+function bmrKatchMcArdle(weightKg, bodyFatPct) {
+  if (!(weightKg > 0)) return NaN;
+  if (!(bodyFatPct >= 0) || !(bodyFatPct < 90)) return NaN;
+  var leanMass = weightKg * (1 - bodyFatPct / 100);
+  return 370 + 21.6 * leanMass;
+}
+
+function allFormulas(weightKg, heightCm, age, sex, bodyFatPct) {
+  return {
+    mifflin: bmrMifflin(weightKg, heightCm, age, sex),
+    harris:  bmrHarrisBenedict(weightKg, heightCm, age, sex),
+    katch:   bmrKatchMcArdle(weightKg, bodyFatPct)
+  };
+}
+
+function tdee(bmr, mult) {
+  if (!(bmr > 0) || !(mult > 0)) return NaN;
+  return bmr * mult;
+}
+
+function activityById(id) {
+  for (var i = 0; i < ACTIVITY_LEVELS.length; i++) {
+    if (ACTIVITY_LEVELS[i].id === id) return ACTIVITY_LEVELS[i];
+  }
+  return ACTIVITY_LEVELS[2]; // moderate default
+}
+
+function imperialToMetric(ft, inch, lb) {
+  var totalIn = (ft || 0) * 12 + (inch || 0);
+  return { heightCm: totalIn * 2.54, weightKg: (lb || 0) * 0.45359237 };
+}
+
+function validateCaloInputs(weightKg, heightCm, age) {
+  if (!(weightKg > 0)) return 'Enter your weight.';
+  if (!(heightCm > 0)) return 'Enter your height.';
+  if (!(age > 0))      return 'Enter your age.';
+  if (weightKg < 25 || weightKg > 500) return 'Weight looks out of range (25–500 kg).';
+  if (heightCm < 50 || heightCm > 300) return 'Height looks out of range (50–300 cm).';
+  if (age < 10 || age > 120)           return 'Age looks out of range (10–120).';
+  return '';
+}
+
+/* Goal-date planner: target weight + deadline -> required daily deficit/surplus + feasibility warnings. */
+function goalPlan(currentKg, targetKg, daysLeft, tdeeKcal, sex, heightCm) {
+  var r = { error: '', direction: 'maintain', days: daysLeft, dailyChange: 0,
+            targetKcal: NaN, weeklyChangeKg: 0, warnings: [], targetBmi: NaN };
+  if (!(currentKg > 0) || !(targetKg > 0) || !(tdeeKcal > 0)) {
+    r.error = 'Enter your stats above first.';
+    return r;
+  }
+  if (!(daysLeft > 0)) {
+    r.error = 'Pick a target date in the future.';
+    return r;
+  }
+  if (heightCm > 0) r.targetBmi = targetKg / Math.pow(heightCm / 100, 2);
+  var diff = currentKg - targetKg; // positive = needs to lose
+  if (Math.abs(diff) < 0.05) {
+    r.targetKcal = tdeeKcal;
+    return r; // maintain
+  }
+  r.direction = diff > 0 ? 'lose' : 'gain';
+  var daily = diff * KCAL_PER_KG / daysLeft; // positive = deficit, negative = surplus
+  r.dailyChange = daily;
+  r.targetKcal = tdeeKcal - daily;
+  r.weeklyChangeKg = daily * 7 / KCAL_PER_KG;
+  var floor = sex === 'male' ? 1500 : 1200;
+  if (r.targetKcal < floor) {
+    r.warnings.push('Unsafe intake: ' + Math.round(r.targetKcal) + ' kcal/day is below the minimum ' +
+      floor + ' kcal/day for ' + (sex === 'male' ? 'men' : 'women') + '. Push the date out or raise activity.');
+  }
+  if (Math.abs(r.weeklyChangeKg) > 1) {
+    r.warnings.push('Aggressive pace: ' + Math.abs(r.weeklyChangeKg).toFixed(2) +
+      ' kg/week is above the safe ~1 kg/week ceiling. Expect muscle loss and rebound — consider a later date.');
+  }
+  if (r.direction === 'gain' && Math.abs(daily) > 500) {
+    r.warnings.push('Large surplus: +' + Math.round(Math.abs(daily)) + ' kcal/day is more than needed for lean gains; most of the extra becomes fat. 250–500 kcal/day is the usual sweet spot.');
+  }
+  if (daysLeft < 7) {
+    r.warnings.push('Very short timeline (' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '): this pace is hard to sustain and mostly water weight.');
+  }
+  if (r.direction === 'lose' && r.targetBmi < 18.5) {
+    r.warnings.push('Target weight is in the underweight BMI range (BMI ' + r.targetBmi.toFixed(1) + '). Reconsider or talk to a professional.');
+  }
+  return r;
+}
+
+function macroSplit(targetKcal, preset) {
+  var pr = MACRO_PRESETS[preset] || MACRO_PRESETS.balanced;
+  if (!(targetKcal > 0)) return null;
+  return {
+    label: pr.label, kcal: targetKcal,
+    pPct: pr.p, cPct: pr.c, fPct: pr.f,
+    proteinG: targetKcal * pr.p / 100 / 4,
+    carbG:    targetKcal * pr.c / 100 / 4,
+    fatG:     targetKcal * pr.f / 100 / 9,
+    proteinKcal: targetKcal * pr.p / 100,
+    carbKcal:    targetKcal * pr.c / 100,
+    fatKcal:     targetKcal * pr.f / 100
+  };
+}
+
+/* Semicircle gauge arc path (pure string builder). frac 0..1, angle PI..0. */
+function gaugeArc(frac, r, cx, cy) {
+  var f = frac;
+  if (!(f >= 0)) f = 0;
+  if (f > 1) f = 1;
+  var a1 = Math.PI * (1 - f);
+  var x0 = cx - r, y0 = cy;
+  var x1 = cx + r * Math.cos(a1), y1 = cy - r * Math.sin(a1);
+  var large = f > 0.5 ? 1 : 0;
+  return 'M ' + x0.toFixed(1) + ' ' + y0.toFixed(1) +
+         ' A ' + r + ' ' + r + ' 0 ' + large + ' 1 ' +
+         x1.toFixed(1) + ' ' + y1.toFixed(1);
+}
+
+function gaugeFrac(value, min, max) {
+  if (!(value > 0)) return 0;
+  var f = (value - min) / (max - min);
+  if (!(f >= 0)) return 0;
+  if (f > 1) return 1;
+  return f;
+}
+
+function fmtKcal(n) {
+  if (!(n > 0)) return '—';
+  return Math.round(n).toLocaleString('en-US');
+}
+
+/* Plain-text copyable result summary. */
+function copySummaryText(o) {
+  var L = [];
+  L.push('CaloFuel — My Calorie Numbers');
+  L.push('BMR: ' + fmtKcal(o.bmr) + ' kcal/day (' + o.formulaLabel + ')');
+  L.push('TDEE: ' + fmtKcal(o.tdee) + ' kcal/day (' + o.activityLabel + ' x' + o.activityMult + ')');
+  if (o.goalDirection === 'lose' || o.goalDirection === 'gain') {
+    var verb = o.goalDirection === 'lose' ? 'deficit' : 'surplus';
+    L.push('Goal: ' + o.goalDirection + ' to ' + o.targetWeight + ' ' + o.weightUnit + ' by ' + o.targetDate +
+           ' -> eat ' + fmtKcal(o.goalKcal) + ' kcal/day (' + Math.round(Math.abs(o.dailyChange)) + ' kcal ' + verb + ')');
+  } else {
+    L.push('Goal: maintain weight -> eat ' + fmtKcal(o.tdee) + ' kcal/day');
+  }
+  L.push('Macros (' + o.macroLabel + '): ' + Math.round(o.proteinG) + 'g protein / ' +
+         Math.round(o.carbG) + 'g carbs / ' + Math.round(o.fatG) + 'g fat');
+  L.push('Calculated free at CaloFuel — unlimited free usage.');
+  return L.join('\n');
+}
+/*__PURE_END__*/
+</script>
+
+<script>
+/* ================= UI wiring (DOM code, not tested via vm) ================= */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+
+  var state = { unit: 'metric', last: null };
+
+  function toast(msg) {
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.remove('translate-y-24', 'opacity-0');
+    clearTimeout(t._h);
+    t._h = setTimeout(function () { t.classList.add('translate-y-24', 'opacity-0'); }, 2600);
+  }
+
+  /* ---------- gauges ---------- */
+  function buildGauge(el, color) {
+    // semicircle dial, radius 80, ticks + needle group
+    var ticks = '';
+    for (var i = 0; i <= 10; i++) {
+      var a = Math.PI * (1 - i / 10);
+      var x1 = 100 + 80 * Math.cos(a), y1 = 96 - 80 * Math.sin(a);
+      var x2 = 100 + 70 * Math.cos(a), y2 = 96 - 70 * Math.sin(a);
+      var major = i % 5 === 0;
+      ticks += '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) +
+               '" stroke="rgba(255,249,240,' + (major ? '0.55' : '0.22') + ')" stroke-width="' + (major ? 3 : 2) + '"/>';
+    }
+    el.innerHTML =
+      '<svg viewBox="0 0 200 110" class="w-full max-w-[240px] mx-auto" role="img" aria-hidden="true">' +
+        '<path d="' + gaugeArc(1, 80, 100, 96) + '" fill="none" stroke="rgba(255,249,240,0.12)" stroke-width="14" stroke-linecap="round"/>' +
+        '<path class="gauge-arc" d="' + gaugeArc(0, 80, 100, 96) + '" fill="none" stroke="' + color + '" stroke-width="14" stroke-linecap="round"/>' +
+        ticks +
+        '<g class="gauge-needle" style="transform: rotate(-90deg)">' +
+          '<line x1="100" y1="96" x2="100" y2="30" stroke="#FFF9F0" stroke-width="3.5" stroke-linecap="round"/>' +
+          '<circle cx="100" cy="96" r="7" fill="#FFF9F0"/>' +
+          '<circle cx="100" cy="96" r="3.5" fill="' + color + '"/>' +
+        '</g>' +
+      '</svg>';
+    return el.querySelector('.gauge-arc');
+  }
+  var arcBmr = buildGauge($('gBmr'), '#F59E0B');
+  var arcTdee = buildGauge($('gTdee'), '#E11D48');
+  var arcGoal = buildGauge($('gGoal'), '#FFF9F0');
+
+  function setGauge(arcEl, container, value, min, max) {
+    var f = gaugeFrac(value, min, max);
+    arcEl.setAttribute('d', gaugeArc(Math.max(f, 0.015), 80, 100, 96));
+    var needle = container.querySelector('.gauge-needle');
+    if (needle) needle.style.transform = 'rotate(' + (-90 + f * 180).toFixed(1) + 'deg)';
+  }
+
+  /* ---------- pill / card styling ---------- */
+  function paintPills(name, optClass, activeCls, idleCls) {
+    document.querySelectorAll('input[name="' + name + '"]').forEach(function (radio) {
+      var opt = radio.closest('label').querySelector('.' + optClass);
+      if (!opt) return;
+      radio.addEventListener('change', paintAll);
+    });
+    function paintAll() {
+      document.querySelectorAll('input[name="' + name + '"]').forEach(function (radio) {
+        var opt = radio.closest('label').querySelector('.' + optClass);
+        if (!opt) return;
+        opt.className = opt.className.replace(/\b(bg-ember|bg-coal|text-white|text-cream|border-ember|bg-ember\/5|border-coal\/15|text-coal\/60)\b/g, '').replace(/\s{2,}/g, ' ').trim();
+        var base = optClass + ' block ';
+        if (optClass === 'sex-opt' || optClass === 'goal-opt') base += 'text-center py-2.5 transition-colors ';
+        else base += 'px-2 py-2.5 text-center text-xs font-bold leading-tight transition-all rounded-xl ';
+        if (optClass === 'macro-opt') base = optClass + ' block px-4 py-1.5 rounded-full text-xs font-bold transition-all ';
+        if (radio.checked) {
+          if (optClass === 'formula-opt') opt.className = base + 'border-2 border-ember bg-ember/5';
+          else if (optClass === 'macro-opt') opt.className = base + 'border-2 border-ember bg-ember/5';
+          else if (optClass === 'act-opt') opt.className = base + 'rounded-xl border-2 border-ember bg-ember/5 px-3.5 py-2.5 transition-all';
+          else opt.className = base + (name === 'goal' ? 'bg-ember text-white' : 'bg-coal text-cream');
+        } else {
+          if (optClass === 'formula-opt' || optClass === 'macro-opt') opt.className = base + 'border-2 border-coal/15';
+          else if (optClass === 'act-opt') opt.className = base + 'rounded-xl border-2 border-coal/15 px-3.5 py-2.5 transition-all';
+          else opt.className = base + 'text-coal/60';
+        }
+      });
+    }
+    paintAll();
+    return paintAll;
+  }
+  var paintSex = paintPills('sex', 'sex-opt');
+  var paintFormula = paintPills('formula', 'formula-opt');
+  var paintGoal = paintPills('goal', 'goal-opt');
+  var paintMacro = paintPills('macro', 'macro-opt');
+  function paintActs() {
+    document.querySelectorAll('input[name="act"]').forEach(function (radio) {
+      var opt = radio.closest('label').querySelector('.act-opt');
+      opt.classList.toggle('border-ember', radio.checked);
+      opt.classList.toggle('bg-ember/5', radio.checked);
+      opt.classList.toggle('border-coal/15', !radio.checked);
+    });
+  }
+  document.querySelectorAll('input[name="act"]').forEach(function (r) { r.addEventListener('change', paintActs); });
+  paintActs();
+
+  /* ---------- unit toggle ---------- */
+  function setUnit(u) {
+    state.unit = u;
+    $('metricInputs').classList.toggle('hidden', u !== 'metric');
+    $('imperialInputs').classList.toggle('hidden', u !== 'imperial');
+    $('unitMetric').className = 'px-4 py-1.5 rounded-full transition-colors ' + (u === 'metric' ? 'bg-coal text-cream' : 'text-coal/60');
+    $('unitImperial').className = 'px-4 py-1.5 rounded-full transition-colors ' + (u === 'imperial' ? 'bg-coal text-cream' : 'text-coal/60');
+    $('goalUnitLbl').textContent = u === 'metric' ? '(kg)' : '(lb)';
+    recalc();
+  }
+  $('unitMetric').addEventListener('click', function () { setUnit('metric'); });
+  $('unitImperial').addEventListener('click', function () { setUnit('imperial'); });
+
+  /* ---------- inputs ---------- */
+  function readStats() {
+    var wKg, hCm;
+    if (state.unit === 'metric') {
+      wKg = parseFloat($('wKg').value); hCm = parseFloat($('hCm').value);
+    } else {
+      var imp = imperialToMetric(parseFloat($('hFt').value) || 0, parseFloat($('hIn').value) || 0, parseFloat($('wLb').value) || 0);
+      wKg = imp.weightKg; hCm = imp.heightCm;
+    }
+    var age = parseInt($('age').value, 10);
+    var sex = document.querySelector('input[name="sex"]:checked').value;
+    var bfRaw = $('bodyFat').value.trim();
+    var bf = bfRaw === '' ? NaN : parseFloat(bfRaw);
+    var formula = document.querySelector('input[name="formula"]:checked').value;
+    var act = activityById(document.querySelector('input[name="act"]:checked').value);
+    return { wKg: wKg, hCm: hCm, age: age, sex: sex, bf: bf, formula: formula, act: act };
+  }
+
+  var FORMULA_LABELS = { mifflin: 'Mifflin-St Jeor', harris: 'Harris-Benedict (1984)', katch: 'Katch-McArdle' };
+
+  function recalc() {
+    var s = readStats();
+    var errBox = $('inputError');
+    var err = validateCaloInputs(s.wKg, s.hCm, s.age);
+    if (err) {
+      errBox.textContent = err;
+      errBox.classList.remove('hidden');
+      clearResults();
+      state.last = null;
+      return;
+    }
+    errBox.classList.add('hidden');
+
+    var all = allFormulas(s.wKg, s.hCm, s.age, s.sex, s.bf);
+    var bmr, usedFormula = s.formula, katchFallback = false;
+    if (s.formula === 'katch') {
+      if (isNaN(all.katch)) { bmr = all.mifflin; usedFormula = 'mifflin'; katchFallback = true; }
+      else bmr = all.katch;
+    } else if (s.formula === 'harris') bmr = all.harris;
+    else bmr = all.mifflin;
+    $('katchNote').classList.toggle('hidden', !katchFallback);
+
+    var tdeeVal = tdee(bmr, s.act.mult);
+
+    // goal planner
+    var goalDir = document.querySelector('input[name="goal"]:checked').value;
+    var goalOut = $('goalOut'), goalWarn = $('goalWarn');
+    var plan = null, goalKcal = tdeeVal;
+    if (goalDir !== 'maintain') {
+      var gwRaw = parseFloat($('goalWeight').value);
+      var targetKg = state.unit === 'metric' ? gwRaw : gwRaw * 0.45359237;
+      var days = NaN;
+      if ($('goalDate').value) {
+        var now = new Date(); now.setHours(0, 0, 0, 0);
+        var dt = new Date($('goalDate').value + 'T00:00:00');
+        days = Math.round((dt - now) / 86400000);
+      }
+      plan = goalPlan(s.wKg, targetKg, days, tdeeVal, s.sex, s.hCm);
+      if (!plan.error) goalKcal = plan.targetKcal;
+      goalOut.classList.remove('hidden');
+      if (plan.error) {
+        $('goalKcal').textContent = '—';
+        $('goalDelta').textContent = '—';
+        $('goalPace').textContent = '—';
+        $('goalDays').textContent = '—';
+        goalWarn.innerHTML = '<p class="text-sm font-bold text-coal/60">' + plan.error + ' Enter a target weight and a future date to run the planner.</p>';
+      } else {
+        var wUnit = state.unit === 'metric' ? 'kg' : 'lb';
+        var dispTarget = state.unit === 'metric' ? targetKg : targetKg / 0.45359237;
+        $('goalKcal').textContent = fmtKcal(plan.targetKcal);
+        $('goalDelta').textContent = (plan.dailyChange >= 0 ? '−' : '+') + fmtKcal(Math.abs(plan.dailyChange)) + ' kcal';
+        $('goalPace').textContent = Math.abs(plan.weeklyChangeKg).toFixed(2) + ' ' + wUnit + '/wk';
+        $('goalDays').textContent = plan.days + ' days';
+        goalWarn.innerHTML = plan.warnings.length
+          ? plan.warnings.map(function (w) {
+              return '<p class="text-sm font-bold text-[#b45309] bg-gold/15 border border-gold/50 rounded-xl px-3.5 py-2.5">⚠ ' + w + '</p>';
+            }).join('')
+          : '<p class="text-sm font-bold text-emerald-700 bg-emerald-50 border border-emerald-300 rounded-xl px-3.5 py-2.5">✓ Feasible plan — pace and intake are inside safe ranges.</p>';
+      }
+    } else {
+      goalOut.classList.add('hidden');
+    }
+
+    // macros on goal calories
+    var preset = document.querySelector('input[name="macro"]:checked').value;
+    var macros = macroSplit(goalKcal, preset);
+
+    // paint results
+    $('bmrVal').textContent = fmtKcal(bmr);
+    $('tdeeVal').textContent = fmtKcal(tdeeVal);
+    $('goalVal').textContent = fmtKcal(goalKcal);
+    setGauge(arcBmr, $('gBmr'), bmr, 800, 2800);
+    setGauge(arcTdee, $('gTdee'), tdeeVal, 1000, 4500);
+    setGauge(arcGoal, $('gGoal'), goalKcal, 800, 4000);
+    $('cmpMifflin').textContent = fmtKcal(all.mifflin);
+    $('cmpHarris').textContent = fmtKcal(all.harris);
+    $('cmpKatch').textContent = fmtKcal(all.katch);
+    [$('cmpMifflin'), $('cmpHarris'), $('cmpKatch')].forEach(function (el) { el.parentElement.classList.remove('ring-2', 'ring-gold', 'rounded-xl'); });
+    var cmpMap = { mifflin: $('cmpMifflin'), harris: $('cmpHarris'), katch: $('cmpKatch') };
+    var hl = cmpMap[usedFormula] || cmpMap.mifflin;
+    hl.parentElement.classList.add('ring-2', 'ring-gold', 'rounded-xl');
+
+    if (macros) {
+      $('mPro').textContent = Math.round(macros.proteinG) + 'g';
+      $('mCarb').textContent = Math.round(macros.carbG) + 'g';
+      $('mFat').textContent = Math.round(macros.fatG) + 'g';
+      $('mProKcal').textContent = fmtKcal(macros.proteinKcal);
+      $('mCarbKcal').textContent = fmtKcal(macros.carbKcal);
+      $('mFatKcal').textContent = fmtKcal(macros.fatKcal);
+      $('mProBar').style.width = macros.pPct + '%';
+      $('mCarbBar').style.width = macros.cPct + '%';
+      $('mFatBar').style.width = macros.fPct + '%';
+    }
+
+    var gwVal = parseFloat($('goalWeight').value);
+    state.last = {
+      bmr: bmr, tdee: tdeeVal, goalKcal: goalKcal,
+      formulaLabel: FORMULA_LABELS[usedFormula] + (katchFallback ? ' (Katch fallback)' : ''),
+      activityLabel: s.act.label, activityMult: s.act.mult,
+      goalDirection: goalDir === 'maintain' ? 'maintain' : (plan && !plan.error ? plan.direction : goalDir),
+      targetWeight: (plan && !plan.error && !isNaN(gwVal)) ? gwVal : '',
+      dailyChange: plan && !plan.error ? plan.dailyChange : 0,
+      targetDate: $('goalDate').value || '',
+      weightUnit: state.unit === 'metric' ? 'kg' : 'lb',
+      macroLabel: macros ? macros.label : '',
+      proteinG: macros ? macros.proteinG : 0,
+      carbG: macros ? macros.carbG : 0,
+      fatG: macros ? macros.fatG : 0
+    };
+  }
+
+  function clearResults() {
+    ['bmrVal', 'tdeeVal', 'goalVal'].forEach(function (id) { $(id).textContent = '—'; });
+    ['cmpMifflin', 'cmpHarris', 'cmpKatch'].forEach(function (id) { $(id).textContent = '—'; });
+    ['mPro', 'mCarb', 'mFat'].forEach(function (id) { $(id).textContent = '—'; });
+    ['mProKcal', 'mCarbKcal', 'mFatKcal'].forEach(function (id) { $(id).textContent = '—'; });
+    ['mProBar', 'mCarbBar', 'mFatBar'].forEach(function (id) { $(id).style.width = '0%'; });
+    $('katchNote').classList.add('hidden');
+  }
+
+  $('calcBtn').addEventListener('click', recalc);
+  document.querySelectorAll('#tool input').forEach(function (el) {
+    el.addEventListener('input', recalc);
+    el.addEventListener('change', recalc);
+  });
+
+  /* ---------- copy summary ---------- */
+  $('copyBtn').addEventListener('click', function () {
+    if (!state.last || !(state.last.bmr > 0)) { toast('Enter your stats and hit Calculate first.'); return; }
+    var txt = copySummaryText(state.last);
+    function done() { toast('Summary copied — paste it anywhere.'); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { toast('Copy failed — long-press to copy manually.'); }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(done, fallback);
+    } else fallback();
+  });
+
+  /* ---------- save / load profile ---------- */
+  var LS_KEY = 'calofuel-profile-v1';
+  $('saveBtn').addEventListener('click', function () {
+    var s = readStats();
+    if (validateCaloInputs(s.wKg, s.hCm, s.age)) { toast('Fix the highlighted inputs before saving.'); return; }
+    var data = {
+      unit: state.unit,
+      wKg: $('wKg').value, hCm: $('hCm').value, wLb: $('wLb').value, hFt: $('hFt').value, hIn: $('hIn').value,
+      age: $('age').value, bodyFat: $('bodyFat').value,
+      sex: document.querySelector('input[name="sex"]:checked').value,
+      formula: document.querySelector('input[name="formula"]:checked').value,
+      act: document.querySelector('input[name="act"]:checked').value,
+      goal: document.querySelector('input[name="goal"]:checked').value,
+      goalWeight: $('goalWeight').value, goalDate: $('goalDate').value,
+      macro: document.querySelector('input[name="macro"]:checked').value
+    };
+    try { localStorage.setItem(LS_KEY, JSON.stringify(data)); toast('Profile saved on this device.'); }
+    catch (e) { toast('Could not save — storage unavailable.'); }
+  });
+  (function loadProfile() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      if (d.unit) setUnit(d.unit);
+      ['wKg', 'hCm', 'wLb', 'hFt', 'hIn', 'age', 'bodyFat', 'goalWeight', 'goalDate'].forEach(function (id) {
+        if (d[id] !== undefined) $(id).value = d[id];
+      });
+      [['sex', d.sex], ['formula', d.formula], ['act', d.act], ['goal', d.goal], ['macro', d.macro]].forEach(function (pair) {
+        var el = document.querySelector('input[name="' + pair[0] + '"][value="' + pair[1] + '"]');
+        if (el) el.checked = true;
+      });
+      paintSex(); paintFormula(); paintGoal(); paintMacro(); paintActs();
+    } catch (e) { /* ignore corrupt profile */ }
+  })();
+
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function (o) { o.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  /* ---------- date min = tomorrow ---------- */
+  (function () {
+    var t = new Date(); t.setDate(t.getDate() + 1);
+    $('goalDate').min = t.toISOString().slice(0, 10);
+  })();
+
+})();
+</script>
+</body>
+</html>
