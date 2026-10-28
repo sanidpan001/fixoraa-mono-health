@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MacroMason — Macro Nutrient Splitter | Build Your Perfect Protein, Carb &amp; Fat Plan</title>
+<meta name="description" content="MacroMason is a free macro nutrient splitter: estimate calories with Mifflin-St Jeor, split them across protein, carbs and fat with balanced, high-protein, keto or muscle-gain presets (or custom sliders), see per-meal grams, and check any nutrition label against your plan.">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background:#FFFFFF; color:#1C1917; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .brick { background-image: repeating-linear-gradient(0deg, rgba(101,163,13,.055) 0 2px, transparent 2px 26px), repeating-linear-gradient(90deg, rgba(101,163,13,.055) 0 2px, transparent 2px 52px); }
+  .lab-card { background:#fff; border:1px solid #E7F0D8; border-radius:1.25rem; box-shadow:0 12px 32px -18px rgba(62,98,13,.28); }
+  .lab-input { width:100%; border:1.5px solid #DCE7C8; border-radius:.75rem; padding:.6rem .8rem; font-size:.95rem; background:#FDFFF7; color:#1C1917; outline:none; transition:border-color .15s, box-shadow .15s; }
+  .lab-input:focus { border-color:#65A30D; box-shadow:0 0 0 3px rgba(101,163,13,.18); }
+  .lab-label { display:block; font-size:.78rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#4D7C0F; margin-bottom:.35rem; }
+  .btn-lime { background:#65A30D; color:#fff; font-weight:700; border-radius:.8rem; padding:.7rem 1.4rem; transition:all .18s; box-shadow:0 8px 18px -8px rgba(101,163,13,.7); }
+  .btn-lime:hover { background:#4D7C0F; transform:translateY(-1px); }
+  .btn-ghost { border:1.5px solid #DCE7C8; color:#3F6212; font-weight:600; border-radius:.8rem; padding:.6rem 1.1rem; transition:all .18s; background:#fff; }
+  .btn-ghost:hover { border-color:#65A30D; background:#F7FCEF; }
+  .preset-card { border:2px solid #E7F0D8; border-radius:1rem; padding:.9rem 1rem; cursor:pointer; transition:all .18s; background:#fff; text-align:left; width:100%; }
+  .preset-card:hover { border-color:#A3C96B; transform:translateY(-2px); box-shadow:0 10px 22px -12px rgba(101,163,13,.5); }
+  .preset-card.active { border-color:#65A30D; background:#F4F9E8; box-shadow:0 10px 24px -12px rgba(101,163,13,.55); }
+  input[type=range].macro-range { -webkit-appearance:none; appearance:none; width:100%; height:8px; border-radius:9999px; outline:none; }
+  input[type=range].macro-range::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:22px; height:22px; border-radius:50%; background:#fff; border:3px solid currentColor; box-shadow:0 2px 8px rgba(0,0,0,.25); cursor:pointer; }
+  input[type=range].macro-range::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid currentColor; box-shadow:0 2px 8px rgba(0,0,0,.25); cursor:pointer; }
+  .seg-btn { padding:.45rem .9rem; border-radius:.7rem; font-weight:700; font-size:.85rem; border:1.5px solid #DCE7C8; color:#57534E; background:#fff; transition:all .15s; }
+  .seg-btn.active { background:#65A30D; border-color:#65A30D; color:#fff; }
+  .seg-btn:hover:not(.active) { border-color:#65A30D; color:#3F6212; }
+  @keyframes popIn { from { opacity:0; transform:translateY(12px);} to { opacity:1; transform:none;} }
+  .pop { animation: popIn .35s ease both; }
+  .donut-anim { transition: stroke-dasharray .6s ease, stroke-dashoffset .6s ease; }
+  details.faq { border:1px solid #E7F0D8; border-radius:1rem; background:#FDFFF7; }
+  details.faq summary { cursor:pointer; font-weight:700; color:#3F6212; padding:1rem 1.25rem; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+  details.faq summary::-webkit-details-marker { display:none; }
+  details.faq[open] summary { color:#EA580C; }
+  .no-print { }
+  @media print { .no-print { display:none !important; } }
+  ::selection { background:#D9F99D; color:#1C1917; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b-2 border-lime-200">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5" aria-label="MacroMason home">
+      <svg width="34" height="34" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M8 40V22l8-4 8 4v18" fill="#65A30D"/>
+        <path d="M24 40V22l8-4 8 4v18" fill="#4D7C0F"/>
+        <path d="M4 22 12 8h8l4 14" stroke="#EA580C" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+        <circle cx="14" cy="5.5" r="2.4" fill="#EA580C"/>
+      </svg>
+      <span class="text-2xl font-extrabold tracking-tight"><span class="text-lime-700">Macro</span><span class="text-orange-600">Mason</span></span>
+    </a>
+    <nav class="flex items-center gap-5 sm:gap-8 text-sm font-semibold">
+      <a href="#top" class="text-stone-700 hover:text-lime-700 transition">Home</a>
+      <a href="https://fixoraa.tech" class="text-stone-700 hover:text-lime-700 transition">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ TOP AD ============ -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="brick border-b border-lime-100">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-14 text-center">
+    <span class="inline-flex items-center gap-2 bg-lime-600 text-white text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full shadow-md">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Unlimited Free Usage &mdash; no signup, no paywall
+    </span>
+    <h1 class="mt-5 text-4xl sm:text-5xl font-extrabold tracking-tight text-stone-900">Split Your Calories Like a <span class="text-lime-700">Pro</span></h1>
+    <p class="mt-4 max-w-2xl mx-auto text-stone-600 text-base sm:text-lg">Estimate your daily calories with the Mifflin-St Jeor equation, split them into protein, carbs and fat with one tap &mdash; then see exactly what each meal should look like.</p>
+  </div>
+</section>
+
+<main class="mx-auto max-w-6xl px-4 sm:px-6 py-8 space-y-8">
+
+  <!-- ============ STEP 1: CALORIE ESTIMATOR ============ -->
+  <section class="lab-card p-5 sm:p-8" aria-labelledby="est-title">
+    <div class="flex items-center gap-3 mb-1">
+      <span class="w-9 h-9 rounded-full bg-lime-600 text-white font-extrabold flex items-center justify-center">1</span>
+      <h2 id="est-title" class="text-xl sm:text-2xl font-extrabold text-stone-900">Find your daily calories</h2>
+    </div>
+    <p class="text-sm text-stone-500 mb-6 ml-12">Built-in Mifflin-St Jeor estimator, or type your own number below.</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div>
+        <span class="lab-label">Sex</span>
+        <div class="flex gap-2" role="radiogroup" aria-label="Sex">
+          <button type="button" class="seg-btn flex-1" data-sex="male">Male</button>
+          <button type="button" class="seg-btn flex-1" data-sex="female">Female</button>
+        </div>
+      </div>
+      <div>
+        <label class="lab-label" for="in-age">Age (years)</label>
+        <input id="in-age" type="number" min="10" max="100" placeholder="30" class="lab-input">
+      </div>
+      <div>
+        <label class="lab-label" for="in-height">Height (cm)</label>
+        <input id="in-height" type="number" min="100" max="250" placeholder="175" class="lab-input">
+      </div>
+      <div>
+        <label class="lab-label" for="in-weight">Weight (kg)</label>
+        <input id="in-weight" type="number" min="25" max="400" step="0.1" placeholder="70" class="lab-input">
+      </div>
+      <div>
+        <label class="lab-label" for="in-activity">Activity level</label>
+        <select id="in-activity" class="lab-input">
+          <option value="sedentary">Sedentary &times;1.2 &mdash; desk job, no exercise</option>
+          <option value="light">Lightly active &times;1.375 &mdash; 1&ndash;3 days/week</option>
+          <option value="moderate" selected>Moderately active &times;1.55 &mdash; 3&ndash;5 days/week</option>
+          <option value="very">Very active &times;1.725 &mdash; 6&ndash;7 days/week</option>
+          <option value="extra">Extra active &times;1.9 &mdash; physical job + training</option>
+        </select>
+      </div>
+      <div>
+        <span class="lab-label">Goal</span>
+        <div class="flex gap-2">
+          <button type="button" class="seg-btn flex-1" data-goal="lose">Lose</button>
+          <button type="button" class="seg-btn flex-1 active" data-goal="maintain">Maintain</button>
+          <button type="button" class="seg-btn flex-1" data-goal="gain">Gain</button>
+        </div>
+      </div>
+    </div>
+    <div id="est-result" class="hidden mt-5 rounded-xl bg-lime-50 border border-lime-200 p-4 sm:p-5 pop"></div>
+    <div class="mt-6 flex flex-col sm:flex-row gap-4 sm:items-end">
+      <div class="flex-1">
+        <label class="lab-label" for="in-calories">Daily calories (kcal)</label>
+        <input id="in-calories" type="number" min="800" max="10000" placeholder="e.g. 2200" class="lab-input text-lg font-bold">
+      </div>
+      <button id="btn-estimate" type="button" class="btn-ghost">Estimate from my stats</button>
+    </div>
+    <p id="cal-error" class="hidden mt-2 text-sm font-semibold text-orange-600"></p>
+  </section>
+
+  <!-- ============ STEP 2: SPLIT ============ -->
+  <section class="lab-card p-5 sm:p-8" aria-labelledby="split-title">
+    <div class="flex items-center gap-3 mb-1">
+      <span class="w-9 h-9 rounded-full bg-lime-600 text-white font-extrabold flex items-center justify-center">2</span>
+      <h2 id="split-title" class="text-xl sm:text-2xl font-extrabold text-stone-900">Pick your macro split</h2>
+    </div>
+    <p class="text-sm text-stone-500 mb-6 ml-12">Ratios shown as <strong>carbs / protein / fat</strong> (% of calories). Pick a preset or drag the sliders &mdash; they always add up to 100%.</p>
+    <div id="preset-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"></div>
+
+    <div class="mt-7 rounded-xl border border-lime-200 bg-[#FDFFF7] p-4 sm:p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-extrabold text-stone-800">Custom sliders</h3>
+        <span id="slider-total" class="text-sm font-bold text-lime-700 bg-lime-100 px-3 py-1 rounded-full">100%</span>
+      </div>
+      <div class="space-y-5">
+        <div>
+          <div class="flex justify-between text-sm font-bold mb-1.5">
+            <span class="text-orange-600">Carbs <span class="text-stone-400 font-medium">(4 kcal/g)</span></span>
+            <span><span id="val-c">50</span>%</span>
+          </div>
+          <input id="sl-c" type="range" min="0" max="100" value="50" step="0.5" class="macro-range text-orange-600" style="background:linear-gradient(90deg,#EA580C,#FDBA74)" aria-label="Carbs percent">
+        </div>
+        <div>
+          <div class="flex justify-between text-sm font-bold mb-1.5">
+            <span class="text-lime-700">Protein <span class="text-stone-400 font-medium">(4 kcal/g)</span></span>
+            <span><span id="val-p">25</span>%</span>
+          </div>
+          <input id="sl-p" type="range" min="0" max="100" value="25" step="0.5" class="macro-range text-lime-600" style="background:linear-gradient(90deg,#65A30D,#BEF264)" aria-label="Protein percent">
+        </div>
+        <div>
+          <div class="flex justify-between text-sm font-bold mb-1.5">
+            <span class="text-amber-600">Fat <span class="text-stone-400 font-medium">(9 kcal/g)</span></span>
+            <span><span id="val-f">25</span>%</span>
+          </div>
+          <input id="sl-f" type="range" min="0" max="100" value="25" step="0.5" class="macro-range text-amber-600" style="background:linear-gradient(90deg,#D97706,#FDE68A)" aria-label="Fat percent">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="lab-card p-5 sm:p-8" aria-labelledby="res-title" aria-live="polite">
+    <div class="flex items-center gap-3 mb-6">
+      <span class="w-9 h-9 rounded-full bg-orange-600 text-white font-extrabold flex items-center justify-center">3</span>
+      <h2 id="res-title" class="text-xl sm:text-2xl font-extrabold text-stone-900">Your daily macro targets</h2>
+    </div>
+    <div id="results-empty" class="text-center py-10 text-stone-400">
+      <svg class="mx-auto mb-3" width="52" height="52" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="19" stroke="#D6D3D1" stroke-width="6" stroke-dasharray="30 90"/></svg>
+      <p class="font-semibold">Enter your daily calories above to bake your macro plan.</p>
+    </div>
+    <div id="results-body" class="hidden">
+      <div class="grid lg:grid-cols-[auto_1fr] gap-8 items-center">
+        <div class="mx-auto text-center">
+          <svg id="donut" width="220" height="220" viewBox="0 0 220 220" role="img" aria-label="Macro split donut chart">
+            <circle cx="110" cy="110" r="88" fill="none" stroke="#F5F0E8" stroke-width="30"/>
+            <circle id="seg-c" class="donut-anim" cx="110" cy="110" r="88" fill="none" stroke="#EA580C" stroke-width="30" stroke-linecap="butt" transform="rotate(-90 110 110)"/>
+            <circle id="seg-p" class="donut-anim" cx="110" cy="110" r="88" fill="none" stroke="#65A30D" stroke-width="30" stroke-linecap="butt" transform="rotate(-90 110 110)"/>
+            <circle id="seg-f" class="donut-anim" cx="110" cy="110" r="88" fill="none" stroke="#D97706" stroke-width="30" stroke-linecap="butt" transform="rotate(-90 110 110)"/>
+            <text x="110" y="102" text-anchor="middle" font-size="30" font-weight="800" fill="#1C1917" id="donut-kcal">0</text>
+            <text x="110" y="126" text-anchor="middle" font-size="13" font-weight="600" fill="#78716C">kcal / day</text>
+          </svg>
+          <div class="mt-3 flex justify-center gap-4 text-xs font-bold">
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-orange-600 inline-block"></span>Carbs</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-lime-600 inline-block"></span>Protein</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-600 inline-block"></span>Fat</span>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-3 sm:gap-4">
+          <div class="rounded-2xl border-2 border-orange-200 bg-orange-50 p-4 text-center pop">
+            <p class="text-xs font-bold uppercase tracking-wider text-orange-700">Protein</p>
+            <p class="text-3xl font-extrabold text-stone-900 mt-1"><span id="g-protein">0</span><span class="text-base font-bold text-stone-400"> g</span></p>
+            <p class="text-xs text-stone-500 mt-1"><span id="pct-protein">0</span>% &middot; <span id="kcal-protein">0</span> kcal</p>
+          </div>
+          <div class="rounded-2xl border-2 border-lime-200 bg-lime-50 p-4 text-center pop">
+            <p class="text-xs font-bold uppercase tracking-wider text-lime-800">Carbs</p>
+            <p class="text-3xl font-extrabold text-stone-900 mt-1"><span id="g-carbs">0</span><span class="text-base font-bold text-stone-400"> g</span></p>
+            <p class="text-xs text-stone-500 mt-1"><span id="pct-carbs">0</span>% &middot; <span id="kcal-carbs">0</span> kcal</p>
+          </div>
+          <div class="rounded-2xl border-2 border-amber-200 bg-amber-50 p-4 text-center pop">
+            <p class="text-xs font-bold uppercase tracking-wider text-amber-700">Fat</p>
+            <p class="text-3xl font-extrabold text-stone-900 mt-1"><span id="g-fat">0</span><span class="text-base font-bold text-stone-400"> g</span></p>
+            <p class="text-xs text-stone-500 mt-1"><span id="pct-fat">0</span>% &middot; <span id="kcal-fat">0</span> kcal</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="protein-anchor" class="hidden mt-6 rounded-xl border p-4 sm:p-5 pop"></div>
+      <div id="keto-note" class="hidden mt-4 rounded-xl border-2 border-orange-300 bg-orange-50 p-4 sm:p-5 pop">
+        <p class="font-extrabold text-orange-700 mb-1">&#129472; Keto net-carb guidance</p>
+        <p class="text-sm text-stone-700">Your carb target is <strong id="keto-carbs-g">0 g</strong> total carbs per day. Count <strong>net carbs = total carbs &minus; fiber</strong> (fiber isn&rsquo;t digested into glucose). A common keto ceiling is <strong>20&ndash;30 g net carbs/day</strong>: subtract the fiber listed on a label from its total carbs before comparing to your target. Sugar alcohols like erythritol are also usually excluded from net carbs, but count allulose and maltitol only partially.</p>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-3">
+        <button id="btn-copy" type="button" class="btn-lime text-sm">Copy my plan</button>
+        <button id="btn-download" type="button" class="btn-ghost text-sm">Download plan (.txt)</button>
+        <span id="copy-ok" class="hidden self-center text-sm font-bold text-lime-700">Copied!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 4: PER-MEAL ============ -->
+  <section class="lab-card p-5 sm:p-8" aria-labelledby="meal-title">
+    <div class="flex items-center gap-3 mb-1">
+      <span class="w-9 h-9 rounded-full bg-lime-600 text-white font-extrabold flex items-center justify-center">4</span>
+      <h2 id="meal-title" class="text-xl sm:text-2xl font-extrabold text-stone-900">Split it across your meals</h2>
+    </div>
+    <p class="text-sm text-stone-500 mb-5 ml-12">How many meals do you eat per day?</p>
+    <div class="flex gap-2 mb-6 ml-0 sm:ml-12" role="radiogroup" aria-label="Meals per day">
+      <button type="button" class="seg-btn" data-meals="3">3 meals</button>
+      <button type="button" class="seg-btn active" data-meals="4">4 meals</button>
+      <button type="button" class="seg-btn" data-meals="5">5 meals</button>
+      <button type="button" class="seg-btn" data-meals="6">6 meals</button>
+    </div>
+    <div id="meal-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"></div>
+    <p id="meal-hint" class="text-center text-stone-400 text-sm py-6">Your per-meal targets appear here once calories are set.</p>
+  </section>
+
+  <!-- ============ STEP 5: LABEL CHECKER ============ -->
+  <section class="lab-card p-5 sm:p-8" aria-labelledby="label-title">
+    <div class="flex items-center gap-3 mb-1">
+      <span class="w-9 h-9 rounded-full bg-orange-600 text-white font-extrabold flex items-center justify-center">5</span>
+      <h2 id="label-title" class="text-xl sm:text-2xl font-extrabold text-stone-900">Label checker</h2>
+    </div>
+    <p class="text-sm text-stone-500 mb-5 ml-12">Paste the protein, carbs and fat grams from any nutrition label &mdash; we&rsquo;ll tell you which preset it fits closest.</p>
+    <div class="grid grid-cols-3 gap-3 sm:gap-4 max-w-xl">
+      <div>
+        <label class="lab-label" for="lb-p">Protein (g)</label>
+        <input id="lb-p" type="number" min="0" step="0.1" placeholder="20" class="lab-input">
+      </div>
+      <div>
+        <label class="lab-label" for="lb-c">Carbs (g)</label>
+        <input id="lb-c" type="number" min="0" step="0.1" placeholder="25" class="lab-input">
+      </div>
+      <div>
+        <label class="lab-label" for="lb-f">Fat (g)</label>
+        <input id="lb-f" type="number" min="0" step="0.1" placeholder="10" class="lab-input">
+      </div>
+    </div>
+    <button id="btn-label" type="button" class="btn-lime mt-4 text-sm">Check which preset it fits</button>
+    <p id="label-error" class="hidden mt-2 text-sm font-semibold text-orange-600"></p>
+    <div id="label-result" class="hidden mt-4 max-w-xl rounded-xl border-2 border-lime-300 bg-lime-50 p-4 sm:p-5 pop"></div>
+  </section>
+</main>
+
+<!-- ============ BOTTOM AD ============ -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+(function(grnp){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = grnp || {};
+s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ SEO ARTICLE ============ -->
+<div class="mx-auto max-w-4xl px-4 sm:px-6 pb-16">
+<article class="prose-stone max-w-none text-stone-700 leading-relaxed" aria-label="Guide to macronutrients">
+  <h2 class="text-3xl font-extrabold text-stone-900 mt-10 mb-4">The Complete Guide to Macronutrients: Protein, Carbs, Fat, and the IIFYM Approach</h2>
+  <p class="mb-4">Every diet that has ever worked &mdash; from old-school bodybuilding meal plans to the trendiest app-tracked programs &mdash; runs on the same three building blocks: protein, carbohydrates, and fat. Collectively they are called <strong>macronutrients</strong> (&ldquo;macros&rdquo;), and they are the only nutrients your body needs in large, gram-scale amounts every single day. Understand them, and you understand roughly eighty percent of practical nutrition. Everything else &mdash; meal timing, superfoods, supplement stacks &mdash; is garnish on top of the macro foundation.</p>
+  <p class="mb-4">A macro nutrient splitter like the tool above exists for one reason: translating an abstract daily calorie target into concrete grams of each macro. &ldquo;Eat 2,200 calories&rdquo; is vague advice. &ldquo;Eat 138 g protein, 275 g carbs, and 61 g fat&rdquo; is a plan you can shop for, cook, and track. This guide explains the science behind those numbers, the popular IIFYM philosophy, how much protein you genuinely need, and how to choose between balanced, high-protein, keto, and muscle-gain splits.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">What macronutrients actually do in your body</h3>
+  <p class="mb-4">Think of macros as three different construction materials your body uses simultaneously. <strong>Protein</strong> supplies amino acids &mdash; the literal bricks for muscle tissue, enzymes, hormones, skin, hair, and immune cells. When you train hard, tiny tears form in muscle fibers, and dietary protein provides the raw material to repair them slightly bigger and stronger. This is why protein intake is the single most scrutinized macro in sports nutrition: without enough of it, training stimulus goes to waste.</p>
+  <p class="mb-4"><strong>Carbohydrates</strong> are your body&rsquo;s preferred fast fuel. Digested into glucose, they top up muscle glycogen and liver glycogen &mdash; the energy reserves that power everything from a heavy squat to a brisk walk. Your brain alone burns roughly 120 grams of glucose per day. Carbs also have a &ldquo;protein-sparing&rdquo; effect: when glycogen is plentiful, your body burns glucose for energy instead of breaking down amino acids, leaving protein free for repair work.</p>
+  <p class="mb-4"><strong>Fat</strong> is the slow-burning fuel and the structural macro. Every cell membrane is built from fatty acids, and key hormones &mdash; including testosterone and estrogen &mdash; are synthesized from cholesterol, which comes from dietary fat. Fat also carries the fat-soluble vitamins A, D, E, and K into your body and makes food satisfying, which matters enormously for diet adherence. Drop fat too low for too long and hormone production, mood, and satiety all suffer.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">The only macro math you need: 4, 4, and 9</h3>
+  <p class="mb-4">Each macro carries a fixed amount of energy per gram: <strong>protein provides 4 kilocalories per gram, carbohydrates provide 4 kilocalories per gram, and fat provides 9 kilocalories per gram</strong>. (Alcohol, the unofficial fourth macro, provides about 7 kcal/g but zero useful nutrition.) These three numbers are the entire engine of macro splitting. If your target is 2,000 kcal with 25% protein, that is 500 kcal from protein, and 500 &divide; 4 = 125 g of protein per day. Fat at 25% is 500 kcal &divide; 9 &asymp; 56 g. Once you internalize 4/4/9, you can sanity-check any meal plan or food label in seconds: multiply the grams on the label by these factors and the total should roughly match the stated calories.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">What is IIFYM?</h3>
+  <p class="mb-4"><strong>IIFYM &mdash; &ldquo;If It Fits Your Macros&rdquo;</strong> &mdash; is the flexible-dieting philosophy that grew out of bodybuilding forums in the 2000s and went mainstream in the 2010s. Its core claim is simple: for body-composition purposes, what matters most is hitting your daily totals of calories, protein, carbs, and fat &mdash; not whether those macros come from chicken and rice or from foods you actually enjoy. As long as a food fits inside your macro targets, it is allowed.</p>
+  <p class="mb-4">IIFYM was a rebellion against rigid &ldquo;clean eating&rdquo; meal plans that listed exact foods and banned everything else. Those plans worked while people followed them, but most people did not follow them for long. IIFYM keeps the part of dieting that drives results (the numbers) and discards the part that drives quitting (the food moralizing). Research on dietary adherence consistently finds that the best diet is the one a person can sustain, and flexibility is a powerful adherence tool.</p>
+  <p class="mb-4">That said, IIFYM is not a license to eat only desserts. The honest version of the philosophy includes an unspoken rule: hit your fiber and micronutrient needs too. Twenty grams of fiber a day from vegetables, fruit, legumes, and whole grains keeps digestion working and hunger manageable. A diet that &ldquo;fits your macros&rdquo; but contains no vegetables will technically change your weight while leaving you tired, hungry, and deficient. Use IIFYM as freedom within a framework &mdash; roughly eighty percent nutritious whole foods, twenty percent whatever keeps you sane &mdash; and it becomes the most livable nutrition system most people ever try.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">How much protein do you actually need?</h3>
+  <p class="mb-4">This is the most argued-over question in nutrition, and the science has converged more than the arguments suggest. The official RDA of 0.8 g per kilogram of body weight per day is a <em>minimum to avoid deficiency</em> in sedentary adults &mdash; not an optimum for anyone who trains. A landmark 2018 meta-analysis by Morton and colleagues, pooling dozens of protein-supplementation trials, found that muscle growth and strength keep improving up to about <strong>1.6 grams of protein per kilogram of body weight per day</strong>, with benefits plateauing beyond roughly 2.2 g/kg/day for most people.</p>
+  <p class="mb-4">That is why serious macro tools anchor protein to body weight and flag anything outside the <strong>1.6&ndash;2.2 g/kg</strong> range. For a 70 kg person, that means 112&ndash;154 g of protein daily; for a 90 kg lifter, 144&ndash;198 g. People in a calorie deficit should aim toward the top of the range, because protein&rsquo;s muscle-sparing effect matters most when energy is scarce. Endurance athletes, older adults fighting age-related muscle loss, and anyone dieting aggressively all benefit from the higher end too.</p>
+  <p class="mb-4">Spreading protein across the day matters as well. Muscle protein synthesis &mdash; the repair process &mdash; responds best to doses of roughly 0.3&ndash;0.4 g/kg per meal (about 25&ndash;40 g for most adults), repeated three to five times daily. One giant protein-heavy dinner is measurably less effective than the same total split across breakfast, lunch, dinner, and a snack. This is exactly why the per-meal breakdown in the calculator above exists: it turns your daily protein target into per-meal doses your muscles can actually use.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">Choosing your split: balanced, high-protein, keto, or muscle gain?</h3>
+  <p class="mb-4">There is no universally &ldquo;best&rdquo; macro ratio &mdash; only the best ratio for your goal, preferences, and adherence. Here is how the four classic presets compare:</p>
+  <p class="mb-4"><strong>Balanced (50% carbs / 25% protein / 25% fat)</strong> is the all-rounder. It suits active people who train moderately, enjoy varied food, and want a plan with no forbidden food groups. At 2,000 kcal it delivers 250 g carbs for training fuel, 125 g protein for recovery, and 56 g fat for hormones. If you have no strong reason to choose a specialized split, start here.</p>
+  <p class="mb-4"><strong>High-protein (40% carbs / 30% protein / 30% fat)</strong> is the fat-loss workhorse. Protein is the most satiating macro and has the highest thermic effect &mdash; your body burns roughly 20&ndash;30% of protein&rsquo;s calories just digesting it, versus 5&ndash;10% for carbs and 0&ndash;3% for fat. In a deficit, the extra protein preserves lean mass while the extra fat keeps hormones and satiety stable. Many people find dieting dramatically easier when protein sits at 30% or more of calories.</p>
+  <p class="mb-4"><strong>Keto (5% carbs / 25% protein / 70% fat)</strong> flips the fuel system. By keeping carbs extremely low &mdash; typically under 20&ndash;30 g of <em>net</em> carbs per day &mdash; the liver starts producing ketones from fat as an alternative brain fuel. Net carbs means total carbs minus fiber, because fiber is not digested into glucose; always subtract the fiber line on a label before judging a food against your carb ceiling. Keto&rsquo;s appetite-suppressing effect helps some people eat less without counting, but it demands the strictest adherence of any split and makes high-intensity training feel flat for the first few weeks of adaptation.</p>
+  <p class="mb-4"><strong>Muscle gain (45% carbs / 30% protein / 25% fat)</strong> is built for a lean surplus. Carbs sit high to fuel progressive training and refill glycogen, protein sits at the top of the evidence-based range to maximize synthesis, and fat stays moderate. Pair it with a modest surplus of roughly 250&ndash;350 kcal above maintenance &mdash; the &ldquo;gain&rdquo; goal in the estimator &mdash; and you have the textbook lean-bulk formula: enough energy to grow, not so much that it all becomes fat.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">Per-meal distribution: why four smaller targets beat one big one</h3>
+  <p class="mb-4">A daily macro target is a destination; per-meal targets are the route. Dividing your day into three to six eating occasions and giving each a protein, carb, and fat quota does two practical things. First, it guarantees the protein-distribution effect described above &mdash; every meal becomes a muscle-repair opportunity instead of one overloaded dinner. Second, it makes the plan executable: &ldquo;35 g protein, 60 g carbs, 15 g fat per meal, four times&rdquo; is something you can build a plate around, while &ldquo;140/240/60 per day&rdquo; tends to collapse into guesswork by evening.</p>
+  <p class="mb-4">Front-load slightly on training days if you like: a carb-richer meal two to three hours before training and a protein-plus-carb meal within a few hours after covers the sessions that matter. On rest days, distribute evenly. The differences are small compared with hitting your daily totals, but small edges compound over months.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">Reading labels like a macro detective</h3>
+  <p class="mb-4">Food labels are macro puzzles, and the 4/4/9 rule is your decoder ring. Multiply a label&rsquo;s protein and carb grams by 4, its fat grams by 9, and add them up: the result should land within about ten percent of the stated calories. Bigger gaps usually mean rounding, unlisted fiber, or &ldquo;creative&rdquo; serving sizes &mdash; now you know. The label checker in the tool above goes one step further: it converts any label&rsquo;s grams into calorie-share percentages and tells you which preset the food naturally fits, so you can see at a glance whether that protein bar belongs in a keto day or a balanced one.</p>
+  <p class="mb-4">Watch serving sizes above all else. Manufacturers shrink them to make numbers look friendly &mdash; a &ldquo;12 g protein&rdquo; snack with a 30 g serving is a very different food than the same label at 60 g. Always scale the grams to what you will actually eat before judging the fit.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">How the calculator estimates your calories</h3>
+  <p class="mb-4">The estimator uses the <strong>Mifflin-St Jeor equation</strong> (1990), the most validated formula for predicting resting energy expenditure in healthy adults: BMR = 10 &times; weight(kg) + 6.25 &times; height(cm) &minus; 5 &times; age, plus 5 for men or minus 161 for women. Multiplying by an activity factor from 1.2 (sedentary) to 1.9 (extra active) gives total daily energy expenditure (TDEE). The goal adjustment then applies a 500 kcal deficit for fat loss, maintenance calories for recomposition, or a 300 kcal surplus for muscle gain. Treat the result as a starting hypothesis, not a prescription: track your weight trend for two to three weeks and adjust up or down by 200 kcal if reality disagrees with the equation.</p>
+
+  <h3 class="text-2xl font-bold text-stone-900 mt-8 mb-3">Mistakes that quietly wreck macro plans</h3>
+  <p class="mb-4">The most common failure is <strong>precision theater</strong> &mdash; weighing lettuce to the gram while eyeballing cooking oil, which at 120 kcal per tablespoon can erase a deficit by itself. Second is <strong>protein optimism</strong>: people remember the chicken breast and forget the day&rsquo;s protein actually totaled 90 g against a 150 g target. Third is <strong>preset-hopping</strong>: switching from keto to high-protein to balanced every ten days because the scale did not move, when no split was given time to work. Pick one split, run it honestly for four weeks, then judge.</p>
+  <p class="mb-6">Finally, remember that macros are a tool for body composition, not a complete nutrition philosophy. Hit your protein range, keep fat above roughly 0.6 g/kg for hormonal health, fill the rest with carbs you enjoy, eat your vegetables, drink water, sleep &mdash; and let the numbers do the quiet work in the background. That is the whole game, and a good splitter just does the arithmetic for you.</p>
+</article>
+
+<!-- ============ FAQs ============ -->
+<section class="mt-12" aria-labelledby="faq-title">
+  <h2 id="faq-title" class="text-3xl font-extrabold text-stone-900 mb-6 text-center">Frequently asked questions</h2>
+  <div class="space-y-3">
+    <details class="faq">
+      <summary>How many calories are in a gram of protein, carbs, and fat? <span class="text-orange-600 text-xl leading-none">+</span></summary>
+      <p class="px-5 pb-5 text-stone-600 text-sm leading-relaxed">Protein and carbohydrates each provide 4 kilocalories per gram, while fat provides 9 kilocalories per gram. These three numbers are the entire basis of macro splitting: multiply each macro&rsquo;s gram target by its factor and the totals always reconstruct your daily calories. Alcohol, for reference, provides about 7 kcal per gram.</p>
+    </details>
+    <details class="faq">
+      <summary>How much protein do I need per day? <span class="text-orange-600 text-xl leading-none">+</span></summary>
+      <p class="px-5 pb-5 text-stone-600 text-sm leading-relaxed">Evidence from a large 2018 meta-analysis (Morton et al.) shows muscle and strength benefits increase up to about 1.6 g of protein per kilogram of body weight per day, plateauing near 2.2 g/kg. That means a 70 kg person should target roughly 112&ndash;154 g daily. Aim for the higher end if you are dieting, training hard, or over 40. MacroMason flags your plan if protein falls outside this 1.6&ndash;2.2 g/kg range.</p>
+    </details>
+    <details class="faq">
+      <summary>What does IIFYM mean? <span class="text-orange-600 text-xl leading-none">+</span></summary>
+      <p class="px-5 pb-5 text-stone-600 text-sm leading-relaxed">IIFYM stands for &ldquo;If It Fits Your Macros.&rdquo; It is a flexible-dieting approach where any food is allowed as long as it fits inside your daily protein, carb, fat, and calorie targets &mdash; no banned foods and no rigid meal plans. It works because adherence, not food purity, drives results. The honest version still prioritizes fiber, vegetables, and micronutrients alongside the numbers.</p>
+    </details>
+    <details class="faq">
+      <summary>Is keto better than a balanced split for fat loss? <span class="text-orange-600 text-xl leading-none">+</span></summary>
+      <p class="px-5 pb-5 text-stone-600 text-sm leading-relaxed">When calories and protein are matched, studies show keto and balanced diets produce similar fat loss &mdash; the calorie deficit does the work, not the carb level. Keto (about 5% carbs / 25% protein / 70% fat) can suppress appetite for some people, but it is harder to sustain and can blunt high-intensity training. Choose the split you can follow for months; that adherence advantage beats any metabolic edge.</p>
+    </details>
+    <details class="faq">
+      <summary>How many meals should I split my macros across? <span class="text-orange-600 text-xl leading-none">+</span></summary>
+      <p class="px-5 pb-5 text-stone-600 text-sm leading-relaxed">Three to six meals all work, but four or five smaller meals make hitting protein targets easier because muscle protein synthesis responds best to 25&ndash;40 g protein doses repeated through the day. One giant protein-heavy dinner is less effective than the same total spread across meals. Pick the meal count that fits your schedule &mdash; the calculator above divides your targets automatically.</p>
+    </details>
+    <details class="faq">
+      <summary>How does the label checker know which preset my food fits? <span class="text-orange-600 text-xl leading-none">+</span></summary>
+      <p class="px-5 pb-5 text-stone-600 text-sm leading-relaxed">It converts the label&rsquo;s protein, carb, and fat grams into calorie-share percentages using the 4/4/9 rule, then measures the distance from each preset&rsquo;s ratio (balanced, high-protein, keto, muscle gain) and reports the closest match. For keto decisions, remember to subtract fiber first &mdash; net carbs (total carbs minus fiber) are what count toward the roughly 20&ndash;30 g daily keto ceiling.</p>
+    </details>
+  </div>
+</section>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t-2 border-lime-200 bg-lime-50/60">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-stone-500"><span class="font-extrabold"><span class="text-lime-700">Macro</span><span class="text-orange-600">Mason</span></span> &mdash; build your daily macro plan in seconds.</p>
+    <nav class="flex items-center gap-6 text-sm font-semibold">
+      <a href="#top" class="text-stone-600 hover:text-lime-700 transition">Home</a>
+      <a href="https://fixoraa.tech" class="text-stone-600 hover:text-lime-700 transition">More Tools</a>
+    </nav>
+  </div>
+  <p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many calories are in a gram of protein, carbs, and fat?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Protein and carbohydrates each provide 4 kilocalories per gram, while fat provides 9 kilocalories per gram. These three numbers are the entire basis of macro splitting: multiply each macro's gram target by its factor and the totals always reconstruct your daily calories." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much protein do I need per day?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Evidence from a large 2018 meta-analysis (Morton et al.) shows muscle and strength benefits increase up to about 1.6 g of protein per kilogram of body weight per day, plateauing near 2.2 g/kg. A 70 kg person should target roughly 112-154 g daily, aiming higher when dieting or training hard." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does IIFYM mean?",
+      "acceptedAnswer": { "@type": "Answer", "text": "IIFYM stands for 'If It Fits Your Macros.' It is a flexible-dieting approach where any food is allowed as long as it fits inside your daily protein, carb, fat, and calorie targets. It works because adherence, not food purity, drives results." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is keto better than a balanced split for fat loss?",
+      "acceptedAnswer": { "@type": "Answer", "text": "When calories and protein are matched, studies show keto and balanced diets produce similar fat loss. Keto (about 5% carbs / 25% protein / 70% fat) can suppress appetite for some people, but it is harder to sustain. Choose the split you can follow for months." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many meals should I split my macros across?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Three to six meals all work, but four or five smaller meals make hitting protein targets easier because muscle protein synthesis responds best to 25-40 g protein doses repeated through the day." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the label checker know which preset my food fits?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It converts the label's protein, carb, and fat grams into calorie-share percentages using the 4/4/9 rule, then measures the distance from each preset's ratio and reports the closest match. For keto, subtract fiber first: net carbs are what count toward the 20-30 g daily ceiling." }
+    }
+  ]
+}
+</script>
+
+<script>
+/* __PURE_START__ */
+const KCAL_PER_G = { protein: 4, carbs: 4, fat: 9 };
+/* Macro split ratios are expressed as (carbs / protein / fat) % of calories.
+   This ordering keeps every preset nutritionally coherent: keto is 70% fat,
+   balanced is 50% carbs. */
+const MACRO_PRESETS = [
+  { id: 'balanced',     label: 'Balanced',     c: 50, p: 25, f: 25, blurb: 'All-rounder for active lifestyles' },
+  { id: 'high-protein', label: 'High-Protein', c: 40, p: 30, f: 30, blurb: 'Satiety + muscle retention in a deficit' },
+  { id: 'keto',         label: 'Keto',         c: 5,  p: 25, f: 70, blurb: 'Very low carb, fat-fuelled', netCarb: true },
+  { id: 'muscle',       label: 'Muscle Gain',  c: 45, p: 30, f: 25, blurb: 'Fuel for training + growth' }
+];
+const ACTIVITY_LEVELS = [
+  { id: 'sedentary', mult: 1.2,   label: 'Sedentary' },
+  { id: 'light',     mult: 1.375, label: 'Lightly active' },
+  { id: 'moderate',  mult: 1.55,  label: 'Moderately active' },
+  { id: 'very',      mult: 1.725, label: 'Very active' },
+  { id: 'extra',     mult: 1.9,   label: 'Extra active' }
+];
+const GOAL_ADJUST = { lose: -500, maintain: 0, gain: 300 };
+const PROTEIN_GKG_MIN = 1.6, PROTEIN_GKG_MAX = 2.2;
+
+function isPos(n) { return typeof n === 'number' && isFinite(n) && n > 0; }
+
+function mifflinStJeor(weightKg, heightCm, ageYears, sex) {
+  if (!isPos(weightKg) || !isPos(heightCm) || !isPos(ageYears)) return NaN;
+  const base = 10 * weightKg + 6.25 * heightCm - 5 * ageYears;
+  if (sex === 'male') return base + 5;
+  if (sex === 'female') return base - 161;
+  return NaN;
+}
+function activityMult(id) {
+  const a = ACTIVITY_LEVELS.find(x => x.id === id);
+  return a ? a.mult : NaN;
+}
+function tdee(bmr, mult) {
+  return (isPos(bmr) && isPos(mult)) ? bmr * mult : NaN;
+}
+function goalCalories(tdeeVal, goal) {
+  if (!isPos(tdeeVal)) return NaN;
+  const adj = GOAL_ADJUST[goal];
+  if (adj === undefined) return NaN;
+  const r = tdeeVal + adj;
+  return r > 0 ? r : NaN;
+}
+function presetById(id) {
+  return MACRO_PRESETS.find(x => x.id === id) || MACRO_PRESETS[0];
+}
+function macroGrams(calories, cPct, pPct, fPct) {
+  if (!isPos(calories)) return null;
+  const vals = [cPct, pPct, fPct];
+  if (vals.some(v => typeof v !== 'number' || !isFinite(v) || v < 0)) return null;
+  const sum = cPct + pPct + fPct;
+  if (!(sum > 99 && sum < 101)) return null;
+  return {
+    carbs: calories * cPct / 100 / KCAL_PER_G.carbs,
+    protein: calories * pPct / 100 / KCAL_PER_G.protein,
+    fat: calories * fPct / 100 / KCAL_PER_G.fat,
+    carbsKcal: calories * cPct / 100,
+    proteinKcal: calories * pPct / 100,
+    fatKcal: calories * fPct / 100
+  };
+}
+function proteinPerKg(proteinG, weightKg) {
+  return (isPos(proteinG) && isPos(weightKg)) ? proteinG / weightKg : NaN;
+}
+function proteinStatus(gPerKg) {
+  if (!isFinite(gPerKg)) return 'unknown';
+  if (gPerKg < PROTEIN_GKG_MIN) return 'low';
+  if (gPerKg > PROTEIN_GKG_MAX) return 'high';
+  return 'ok';
+}
+/* Scale any triple so it sums to exactly 100 (rounding fixed on fat). */
+function normalizePct(c, p, f) {
+  const vals = [c, p, f].map(v => (typeof v === 'number' && isFinite(v) && v >= 0) ? v : 0);
+  const s = vals[0] + vals[1] + vals[2];
+  if (s <= 0) return { c: 50, p: 25, f: 25 };
+  const oc = Math.round(vals[0] / s * 1000) / 10;
+  const op = Math.round(vals[1] / s * 1000) / 10;
+  const of = Math.round((100 - oc - op) * 10) / 10;
+  return { c: oc, p: op, f: of };
+}
+/* Rebalance sliders: keep the dragged value, scale the other two proportionally. */
+function rebalanceSliders(which, value, cur) {
+  const v = Math.max(0, Math.min(100, typeof value === 'number' && isFinite(value) ? value : 0));
+  const keys = ['c', 'p', 'f'].filter(k => k !== which);
+  const s = (cur[keys[0]] || 0) + (cur[keys[1]] || 0);
+  const out = {};
+  out[which] = Math.round(v * 10) / 10;
+  const rest = 100 - out[which];
+  if (s <= 0) {
+    const half = Math.round(rest / 2 * 10) / 10;
+    out[keys[0]] = half;
+    out[keys[1]] = Math.round((rest - half) * 10) / 10;
+  } else {
+    out[keys[0]] = Math.round(cur[keys[0]] / s * rest * 10) / 10;
+    out[keys[1]] = Math.round((rest - out[keys[0]]) * 10) / 10;
+  }
+  return out;
+}
+function perMealGrams(grams, meals) {
+  if (!grams || !Number.isInteger(meals) || meals < 3 || meals > 6) return null;
+  for (const k of ['protein', 'carbs', 'fat']) {
+    if (typeof grams[k] !== 'number' || !isFinite(grams[k]) || grams[k] < 0) return null;
+  }
+  const m = {
+    protein: Math.round(grams.protein / meals * 10) / 10,
+    carbs: Math.round(grams.carbs / meals * 10) / 10,
+    fat: Math.round(grams.fat / meals * 10) / 10
+  };
+  m.kcal = Math.round((m.protein * 4 + m.carbs * 4 + m.fat * 9) * 10) / 10;
+  return m;
+}
+/* Convert label grams -> calorie-share %; null when nothing to compare. */
+function labelMacroPct(p, c, f) {
+  const vals = [p, c, f];
+  if (vals.some(v => typeof v !== 'number' || !isFinite(v) || v < 0)) return null;
+  const kcal = p * 4 + c * 4 + f * 9;
+  if (!(kcal > 0)) return null;
+  return { p: p * 4 / kcal * 100, c: c * 4 / kcal * 100, f: f * 9 / kcal * 100, kcal: Math.round(kcal * 10) / 10 };
+}
+/* Closest preset by Euclidean distance in calorie-share space. */
+function closestPreset(p, c, f) {
+  const lp = labelMacroPct(p, c, f);
+  if (!lp) return null;
+  let best = null;
+  for (const pr of MACRO_PRESETS) {
+    const d = Math.sqrt((lp.p - pr.p) ** 2 + (lp.c - pr.c) ** 2 + (lp.f - pr.f) ** 2);
+    if (!best || d < best.dist) best = { preset: pr, dist: d };
+  }
+  return { id: best.preset.id, label: best.preset.label, dist: Math.round(best.dist * 10) / 10, kcal: lp.kcal };
+}
+/* SVG donut segment geometry for the given calorie-share percentages. */
+function donutSegments(cPct, pPct, fPct, radius) {
+  const C = 2 * Math.PI * radius;
+  const frac = [cPct / 100, pPct / 100, fPct / 100];
+  let offset = 25; /* start at top */
+  return frac.map(fr => {
+    const seg = { dash: (fr * C) + ' ' + C, offset: -offset * C / 100 };
+    offset += fr * 100;
+    return seg;
+  });
+}
+function fmtInt(v) { return isFinite(v) ? String(Math.round(v)) : '\u2014'; }
+function fmtG(v) { return isFinite(v) ? String(Math.round(v * 10) / 10) : '\u2014'; }
+function copySummaryText(cal, pct, grams, meals, meal) {
+  const L = [];
+  L.push('MY MACRO PLAN (MacroMason)');
+  L.push('Daily calories: ' + fmtInt(cal) + ' kcal');
+  L.push('Split (C/P/F): ' + pct.c + '% / ' + pct.p + '% / ' + pct.f + '%');
+  L.push('Protein: ' + fmtG(grams.protein) + ' g | Carbs: ' + fmtG(grams.carbs) + ' g | Fat: ' + fmtG(grams.fat) + ' g');
+  L.push('Per meal (' + meals + ' meals/day): ' + fmtG(meal.protein) + ' g P / ' + fmtG(meal.carbs) + ' g C / ' + fmtG(meal.fat) + ' g F (~' + fmtInt(meal.kcal) + ' kcal)');
+  return L.join('\n');
+}
+/* __PURE_END__ */
+
+/* ============ UI LOGIC (impure: DOM + localStorage) ============ */
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const store = {
+    load() { try { return JSON.parse(localStorage.getItem('macromason-v1') || '{}'); } catch (e) { return {}; } },
+    save(s) { try { localStorage.setItem('macromason-v1', JSON.stringify(s)); } catch (e) {} }
+  };
+  const saved = store.load();
+  const state = {
+    sex: saved.sex || 'male',
+    goal: saved.goal || 'maintain',
+    calories: typeof saved.calories === 'number' ? saved.calories : NaN,
+    presetId: saved.presetId || 'balanced',
+    c: typeof saved.c === 'number' ? saved.c : 50,
+    p: typeof saved.p === 'number' ? saved.p : 25,
+    f: typeof saved.f === 'number' ? saved.f : 25,
+    meals: saved.meals || 4,
+    weight: typeof saved.weight === 'number' ? saved.weight : NaN
+  };
+  function persist() {
+    store.save({ sex: state.sex, goal: state.goal, calories: state.calories, presetId: state.presetId, c: state.c, p: state.p, f: state.f, meals: state.meals, weight: state.weight });
+  }
+  const CIRC_R = 88;
+
+  /* ---- presets grid ---- */
+  const grid = $('preset-grid');
+  MACRO_PRESETS.forEach(pr => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'preset-card' + (pr.id === state.presetId ? ' active' : '');
+    b.dataset.preset = pr.id;
+    b.innerHTML = '<span class="block font-extrabold text-stone-900">' + pr.label + '</span>' +
+      '<span class="block text-xs font-bold text-lime-700 mt-0.5">' + pr.c + ' / ' + pr.p + ' / ' + pr.f + ' <span class="text-stone-400 font-medium">C/P/F</span></span>' +
+      '<span class="block text-xs text-stone-500 mt-1">' + pr.blurb + '</span>';
+    b.addEventListener('click', () => selectPreset(pr.id));
+    grid.appendChild(b);
+  });
+  function selectPreset(id) {
+    state.presetId = id;
+    const pr = presetById(id);
+    const n = normalizePct(pr.c, pr.p, pr.f);
+    state.c = n.c; state.p = n.p; state.f = n.f;
+    document.querySelectorAll('#preset-grid .preset-card').forEach(el => el.classList.toggle('active', el.dataset.preset === id));
+    syncSliders();
+    render();
+    persist();
+  }
+
+  /* ---- sliders ---- */
+  function syncSliders() {
+    $('sl-c').value = state.c; $('sl-p').value = state.p; $('sl-f').value = state.f;
+    $('val-c').textContent = state.c; $('val-p').textContent = state.p; $('val-f').textContent = state.f;
+  }
+  [['sl-c', 'c'], ['sl-p', 'p'], ['sl-f', 'f']].forEach(([id, key]) => {
+    $(id).addEventListener('input', e => {
+      const n = rebalanceSliders(key, parseFloat(e.target.value), { c: state.c, p: state.p, f: state.f });
+      state.c = n.c; state.p = n.p; state.f = n.f;
+      state.presetId = 'custom';
+      document.querySelectorAll('#preset-grid .preset-card').forEach(el => el.classList.remove('active'));
+      syncSliders();
+      render();
+      persist();
+    });
+  });
+
+  /* ---- segmented buttons ---- */
+  function segWire(attr, key) {
+    document.querySelectorAll('[data-' + attr + ']').forEach(el => {
+      el.classList.toggle('active', el.dataset[attr] === String(state[key]));
+      el.addEventListener('click', () => {
+        state[key] = attr === 'meals' ? parseInt(el.dataset[attr], 10) : el.dataset[attr];
+        document.querySelectorAll('[data-' + attr + ']').forEach(x => x.classList.toggle('active', x === el));
+        render();
+        persist();
+      });
+    });
+  }
+  segWire('sex', 'sex');
+  segWire('goal', 'goal');
+  segWire('meals', 'meals');
+
+  /* ---- inputs ---- */
+  function numVal(id) {
+    const v = parseFloat($(id).value);
+    return isFinite(v) ? v : NaN;
+  }
+  ['in-age', 'in-height', 'in-weight', 'in-activity'].forEach(id => {
+    $(id).addEventListener('change', persistSoft);
+  });
+  function persistSoft() {
+    state.weight = numVal('in-weight');
+    persist();
+  }
+  if (isFinite(saved.age)) $('in-age').value = saved.age;
+  if (isFinite(saved.height)) $('in-height').value = saved.height;
+  if (isFinite(state.weight)) $('in-weight').value = state.weight;
+  if (saved.activity) $('in-activity').value = saved.activity;
+  $('in-age').addEventListener('change', () => store.save(Object.assign(store.load(), { age: numVal('in-age') })));
+  $('in-height').addEventListener('change', () => store.save(Object.assign(store.load(), { height: numVal('in-height') })));
+  $('in-activity').addEventListener('change', () => store.save(Object.assign(store.load(), { activity: $('in-activity').value })));
+
+  $('in-calories').addEventListener('input', () => {
+    const v = numVal('in-calories');
+    const err = $('cal-error');
+    if (!isFinite(v)) { state.calories = NaN; err.classList.add('hidden'); render(); persist(); return; }
+    if (v < 800 || v > 10000) {
+      err.textContent = 'Please enter a realistic daily intake between 800 and 10,000 kcal.';
+      err.classList.remove('hidden');
+      state.calories = NaN;
+    } else {
+      err.classList.add('hidden');
+      state.calories = Math.round(v);
+    }
+    render();
+    persist();
+  });
+  if (isFinite(state.calories)) $('in-calories').value = state.calories;
+
+  /* ---- estimator ---- */
+  $('btn-estimate').addEventListener('click', () => {
+    const w = numVal('in-weight'), h = numVal('in-height'), a = numVal('in-age');
+    const box = $('est-result');
+    const bmr = mifflinStJeor(w, h, a, state.sex);
+    const mult = activityMult($('in-activity').value);
+    const td = tdee(bmr, mult);
+    const gc = goalCalories(td, state.goal);
+    if (!isFinite(gc)) {
+      box.classList.remove('hidden');
+      box.innerHTML = '<p class="font-bold text-orange-700">Please fill in age, height and weight with valid numbers first.</p>';
+      return;
+    }
+    const goalWord = { lose: 'fat loss (\u2212500 kcal deficit)', maintain: 'maintenance', gain: 'muscle gain (+300 kcal surplus)' }[state.goal];
+    box.classList.remove('hidden');
+    box.innerHTML =
+      '<div class="flex flex-wrap items-center gap-x-8 gap-y-3">' +
+      '<div><p class="text-xs font-bold uppercase tracking-wider text-stone-500">BMR</p><p class="text-xl font-extrabold text-stone-900">' + fmtInt(bmr) + ' kcal</p></div>' +
+      '<div><p class="text-xs font-bold uppercase tracking-wider text-stone-500">TDEE</p><p class="text-xl font-extrabold text-stone-900">' + fmtInt(td) + ' kcal</p></div>' +
+      '<div><p class="text-xs font-bold uppercase tracking-wider text-lime-700">Suggested for ' + goalWord + '</p><p class="text-2xl font-extrabold text-lime-700">' + fmtInt(gc) + ' kcal/day</p></div>' +
+      '<button id="btn-use-cal" type="button" class="btn-lime text-sm ml-auto">Use this calorie target</button></div>';
+    $('btn-use-cal').addEventListener('click', () => {
+      state.calories = Math.round(gc / 10) * 10;
+      $('in-calories').value = state.calories;
+      $('cal-error').classList.add('hidden');
+      render();
+      persist();
+      $('res-title').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, { once: true });
+  });
+
+  /* ---- render ---- */
+  function currentGrams() {
+    if (!isPos(state.calories)) return null;
+    return macroGrams(state.calories, state.c, state.p, state.f);
+  }
+  function render() {
+    const g = currentGrams();
+    const has = !!g;
+    $('results-empty').classList.toggle('hidden', has);
+    $('results-body').classList.toggle('hidden', !has);
+    if (!has) { renderMeals(null); return; }
+    $('donut-kcal').textContent = fmtInt(state.calories);
+    const segs = donutSegments(state.c, state.p, state.f, CIRC_R);
+    [['seg-c', 0], ['seg-p', 1], ['seg-f', 2]].forEach(([id, i]) => {
+      const el = $(id);
+      el.setAttribute('stroke-dasharray', segs[i].dash);
+      el.setAttribute('stroke-dashoffset', segs[i].offset);
+    });
+    $('g-protein').textContent = fmtG(g.protein); $('pct-protein').textContent = state.p; $('kcal-protein').textContent = fmtInt(g.proteinKcal);
+    $('g-carbs').textContent = fmtG(g.carbs); $('pct-carbs').textContent = state.c; $('kcal-carbs').textContent = fmtInt(g.carbsKcal);
+    $('g-fat').textContent = fmtG(g.fat); $('pct-fat').textContent = state.f; $('kcal-fat').textContent = fmtInt(g.fatKcal);
+
+    /* protein anchored to body weight */
+    const anchor = $('protein-anchor');
+    const w = state.weight;
+    if (isPos(w)) {
+      const gkg = proteinPerKg(g.protein, w);
+      const st = proteinStatus(gkg);
+      anchor.classList.remove('hidden');
+      let cls, msg;
+      if (st === 'ok') {
+        cls = 'border-lime-300 bg-lime-50';
+        msg = '<strong class="text-lime-800">On target.</strong> Your plan delivers <strong>' + fmtG(gkg) + ' g/kg</strong> of protein &mdash; inside the evidence-based 1.6&ndash;2.2 g/kg range for active people.';
+      } else if (st === 'low') {
+        cls = 'border-orange-300 bg-orange-50';
+        msg = '<strong class="text-orange-700">Below the recommended range.</strong> Your plan delivers <strong>' + fmtG(gkg) + ' g/kg</strong> of protein &mdash; under the 1.6 g/kg minimum for muscle maintenance. Consider the High-Protein preset or nudging the protein slider up.';
+      } else {
+        cls = 'border-orange-300 bg-orange-50';
+        msg = '<strong class="text-orange-700">Above the recommended range.</strong> Your plan delivers <strong>' + fmtG(gkg) + ' g/kg</strong> of protein &mdash; over 2.2 g/kg, where research shows little extra benefit. You could shift some calories to carbs or fat.';
+      }
+      anchor.className = 'mt-6 rounded-xl border-2 p-4 sm:p-5 pop ' + cls;
+      anchor.innerHTML = '<p class="text-sm text-stone-700"><span class="font-extrabold text-stone-900">Protein check &middot; </span>' + msg + '</p>';
+    } else {
+      anchor.classList.add('hidden');
+    }
+
+    /* keto net-carb note */
+    const keto = state.presetId === 'keto' || (Math.abs(state.c - 5) < 0.6 && Math.abs(state.f - 70) < 0.6 && Math.abs(state.p - 25) < 0.6);
+    $('keto-note').classList.toggle('hidden', !keto);
+    if (keto) $('keto-carbs-g').textContent = fmtG(g.carbs) + ' g';
+
+    renderMeals(g);
+  }
+
+  function renderMeals(g) {
+    const wrap = $('meal-grid'), hint = $('meal-hint');
+    wrap.innerHTML = '';
+    if (!g) { hint.classList.remove('hidden'); return; }
+    hint.classList.add('hidden');
+    const meal = perMealGrams(g, state.meals);
+    const names = ['Breakfast', 'Lunch', 'Snack', 'Dinner', 'Meal 5', 'Meal 6'];
+    const order = state.meals === 3 ? ['Breakfast', 'Lunch', 'Dinner']
+      : state.meals === 4 ? ['Breakfast', 'Lunch', 'Snack', 'Dinner']
+      : state.meals === 5 ? ['Breakfast', 'Snack', 'Lunch', 'Snack', 'Dinner']
+      : ['Breakfast', 'Snack', 'Lunch', 'Snack', 'Dinner', 'Supper'];
+    for (let i = 0; i < state.meals; i++) {
+      const card = document.createElement('div');
+      card.className = 'rounded-2xl border border-lime-200 bg-white p-4 pop shadow-sm';
+      const barW = v => Math.min(100, Math.max(2, v / (g.protein / state.meals * 1.6) * 100));
+      card.innerHTML =
+        '<p class="font-extrabold text-stone-900 mb-1">' + order[i] + '</p>' +
+        '<p class="text-xs text-stone-400 font-semibold mb-3">&asymp;' + fmtInt(meal.kcal) + ' kcal</p>' +
+        ['protein', 'carbs', 'fat'].map(k => {
+          const col = k === 'protein' ? '#65A30D' : k === 'carbs' ? '#EA580C' : '#D97706';
+          const max = Math.max(meal.protein, meal.carbs, meal.fat, 1);
+          return '<div class="flex items-center gap-2 mb-1.5 text-xs">' +
+            '<span class="w-14 font-bold text-stone-500 capitalize">' + k + '</span>' +
+            '<span class="flex-1 h-2 rounded-full bg-stone-100 overflow-hidden"><span class="block h-full rounded-full" style="width:' + Math.round(meal[k] / max * 100) + '%;background:' + col + '"></span></span>' +
+            '<span class="w-14 text-right font-extrabold text-stone-800">' + fmtG(meal[k]) + ' g</span></div>';
+        }).join('');
+      wrap.appendChild(card);
+    }
+  }
+
+  /* ---- copy / download ---- */
+  function summary() {
+    const g = currentGrams();
+    if (!g) return null;
+    const meal = perMealGrams(g, state.meals);
+    return copySummaryText(state.calories, { c: state.c, p: state.p, f: state.f }, g, state.meals, meal);
+  }
+  $('btn-copy').addEventListener('click', () => {
+    const t = summary();
+    if (!t) return;
+    const done = () => { $('copy-ok').classList.remove('hidden'); setTimeout(() => $('copy-ok').classList.add('hidden'), 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(done).catch(() => fallbackCopy(t, done));
+    } else fallbackCopy(t, done);
+  });
+  function fallbackCopy(t, done) {
+    const ta = document.createElement('textarea');
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  $('btn-download').addEventListener('click', () => {
+    const t = summary();
+    if (!t) return;
+    const blob = new Blob([t], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'macromason-plan.txt';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+
+  /* ---- label checker ---- */
+  $('btn-label').addEventListener('click', () => {
+    const p = numVal('lb-p'), c = numVal('lb-c'), f = numVal('lb-f');
+    const err = $('label-error'), box = $('label-result');
+    if (![p, c, f].every(v => isFinite(v) && v >= 0) || (p + c + f) <= 0) {
+      err.textContent = 'Enter the protein, carbs and fat grams from the label (at least one must be above zero).';
+      err.classList.remove('hidden');
+      box.classList.add('hidden');
+      return;
+    }
+    err.classList.add('hidden');
+    const r = closestPreset(p, c, f);
+    const lp = labelMacroPct(p, c, f);
+    box.classList.remove('hidden');
+    box.innerHTML =
+      '<p class="text-sm text-stone-500 font-semibold uppercase tracking-wider">Closest preset</p>' +
+      '<p class="text-2xl font-extrabold text-lime-700 mt-1">' + r.label + ' <span class="text-sm font-bold text-stone-400">(' + presetById(r.id).c + ' / ' + presetById(r.id).p + ' / ' + presetById(r.id).f + ' C/P/F)</span></p>' +
+      '<p class="text-sm text-stone-600 mt-2">This label breaks down to roughly <strong>' + Math.round(lp.c) + '% carbs / ' + Math.round(lp.p) + '% protein / ' + Math.round(lp.f) + '% fat</strong> of its ' + fmtInt(r.kcal) + ' kcal. ' +
+      (r.dist < 12 ? 'A close match &mdash; it slots neatly into a ' + r.label.toLowerCase() + ' day.' : r.dist < 25 ? 'A reasonable match, though not a perfect fit for any single preset.' : 'It does not closely match any preset &mdash; treat it as a custom-ratio food.') + '</p>';
+  });
+
+  /* ---- init ---- */
+  syncSliders();
+  render();
+})();
+</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4bc70e2c01a94c73b74392e4234840661791215815920" integrity="sha512-L0ha0OXavK/8okipN9F8BtP84dg9DUhPERbBXzwI6dgTA55d2+yweo3pn5CSFYs45/r8md2+xvUPtTdvTNRfjA==" data-cf-beacon='{"version":"2024.11.0","token":"69a2422f8f324bee88637e72342570fa","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>
