@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progressive Overload Calculator — 8-Week Strength Plan | OverloadPro</title>
+<meta name="description" content="Progressive overload planner: build an 8-week linear progression plan per lift with plate rounding, deload weeks and stall rules. Free.">
+<link rel="canonical" href="https://health.fixoraa.tech/overloadpro/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Progressive Overload Calculator — 8-Week Strength Plan | OverloadPro">
+<meta property="og:description" content="Progressive overload planner: build an 8-week linear progression plan per lift with plate rounding, deload weeks and stall rules. Free.">
+<meta property="og:url" content="https://health.fixoraa.tech/overloadpro/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "OverloadPro",
+      "url": "https://health.fixoraa.tech/overloadpro/",
+      "applicationCategory": "Fitness Tools",
+      "operatingSystem": "Web",
+      "description": "Progressive overload planner: build an 8-week linear progression plan per lift with plate rounding, deload weeks and stall rules. Free.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much weight should I add each week?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For beginners: 2.5 kg (5 lb) per week on squat and deadlift, 1.25 kg (2.5 lb) per week on bench press and overhead press. Upper-body lifts use smaller jumps because the muscles are smaller. Micro-plates of 0.5\u20131 kg keep upper-body progression alive for months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do if I can't complete the planned reps?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Repeat the same weight next week \u2014 one bad week is noise. If you miss twice in a row, drop the weight 5\u201310% and rebuild; most lifters pass the old sticking point within three weeks. If you stall at the same weight after two resets, switch progression models (e.g. to double progression)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I deload?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every 4\u20136 weeks, take one easy week at 50\u201360% of your working weights. Deloads shed accumulated fatigue from muscles, tendons and the nervous system. Lifters who skip them usually end up taking the recovery involuntarily as a plateau or an injury."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is double progression and when do I need it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Double progression means progressing reps first, then weight: pick a range like 8\u201312 reps, add reps until you hit the top on every set, then add weight and drop back to the bottom of the range. It is the standard next step when weekly linear jumps stop working, typically after 3\u20139 months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does progressive overload work for building muscle, not just strength?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes \u2014 it is the primary driver of hypertrophy too. Muscle grows in response to rising mechanical tension and volume over time. For size, most of your overload will come through reps and sets (avenues 2 and 3) in the 6\u201320 rep range, with weight increases layered on top."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I am a complete beginner. Is this planner for me?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely \u2014 linear progression works fastest for beginners, who can add weight nearly every session for the first few months. Start conservatively (you should finish week 1 feeling like you had 2\u20133 reps left), prioritize technique, and log every session."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#FFF7ED; --surface:#FFFFFF; --accent:#C2410C; --accent-ink:#FFFFFF;
+  --ink:#292524; --muted:#6E6055; --line:#F0DFC9;
+  --display:'Archivo',serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.op-wrap{max-width:1060px;margin:0 auto;padding:54px 20px 70px;font-family:'IBM Plex Sans',system-ui,sans-serif;color:#292524}.op-hero{margin-bottom:26px;max-width:720px}.op-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C2410C;background:#FDEBD9;border:1px solid #F0DFC9;padding:6px 14px;border-radius:999px;margin-bottom:14px}.op-hero h1{font-family:'Archivo',sans-serif;font-size:clamp(32px,4.6vw,48px);line-height:1.06;margin:0 0 10px;letter-spacing:-.02em;font-weight:800}.op-tag{color:#6E6055;font-size:17px;margin:0}.op-split{display:grid;grid-template-columns:380px 1fr;gap:20px;margin-bottom:20px}.op-card{background:#fff;border:1px solid #F0DFC9;border-radius:24px;padding:26px;box-shadow:0 18px 44px rgba(194,65,12,.08)}.op-card h2{font-family:'Archivo',sans-serif;font-size:20px;margin:0 0 4px;font-weight:700}.op-sub{color:#6E6055;font-size:14px;margin:0 0 18px}.op-lifts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.op-lift{border:2px solid #F0DFC9;background:#fff;border-radius:12px;padding:9px 14px;font-size:14px;font-weight:600;cursor:pointer;color:#6E6055;font-family:inherit}.op-lift.on{background:#C2410C;border-color:#C2410C;color:#fff}.op-field{margin-bottom:15px}.op-field label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#6E6055;margin-bottom:7px}.op-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.op-field input,.op-field select{width:100%;padding:12px 13px;font-size:16px;border:2px solid #F0DFC9;border-radius:12px;font-family:inherit;color:#292524;background:#fff}.op-field input:focus,.op-field select:focus{outline:none;border-color:#C2410C}.op-seg{display:flex;background:#FFF7ED;border:1px solid #F0DFC9;border-radius:12px;padding:3px}.op-seg button{flex:1;border:none;background:transparent;padding:9px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;color:#6E6055;font-family:inherit}.op-seg button.on{background:#C2410C;color:#fff}.op-check{display:flex;align-items:center;gap:10px;font-size:14.5px;cursor:pointer;color:#292524}.op-check input{width:20px;height:20px;accent-color:#C2410C}.op-dialhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}.op-weeknav{display:flex;align-items:center;gap:12px;margin-top:6px}.op-weeknav button{border:2px solid #C2410C;background:#fff;color:#C2410C;font-weight:700;width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;font-family:inherit}.op-weeknav button:hover{background:#C2410C;color:#fff}.op-weeklabel{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px}.op-weeksel{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.op-wk{width:34px;height:34px;border-radius:50%;border:2px solid #F0DFC9;background:#fff;font-size:13px;font-weight:700;cursor:pointer;color:#6E6055;font-family:inherit}.op-wk.on{background:#C2410C;border-color:#C2410C;color:#fff}.op-wk.deload{border-style:dashed}.op-plan{margin-top:4px}.op-table{width:100%;border-collapse:collapse;font-size:14.5px}.op-table th,.op-table td{padding:11px 10px;border-bottom:1px solid #F0DFC9;text-align:left}.op-table th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#C2410C}.op-table tr.deloadrow td{background:#FDEBD9}.op-dbadge{display:inline-block;font-size:11.5px;font-weight:700;background:#C2410C;color:#fff;border-radius:999px;padding:3px 10px;margin-left:8px;vertical-align:2px}.op-xgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}.op-xcard{background:#fff;border:1px solid #F0DFC9;border-radius:22px;padding:24px}.op-xcard h3{font-family:'Archivo',sans-serif;font-size:19px;margin:0 0 10px;font-weight:700}.op-xcard p,.op-xcard li{font-size:14.5px;color:#6E6055;line-height:1.65}.op-xcard ul{padding-left:1.2rem;margin:0 0 8px}.op-xcard p{margin:0 0 10px}.op-note{font-size:13px;color:#6E6055;margin-top:14px;line-height:1.6}@media(max-width:860px){.op-split{grid-template-columns:1fr}.op-xgrid{grid-template-columns:1fr}.op-wrap{padding:40px 14px 56px}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="OverloadPro home">
+      <span class="fx-logo-tile" aria-hidden="true">🏋️</span>
+      <span class="fx-brand">OverloadPro</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-chart-dial" aria-label="OverloadPro tool">
+<section class='op-wrap'><div class='op-hero'><span class='op-eyebrow'>Linear progression, automated</span><h1>Progressive Overload Planner</h1><p class='op-tag'>Small jumps, every week, on every lift — planned for you.</p></div><div class='op-split'><div class='op-card'><h2>Your lifts</h2><p class='op-sub'>Set a start weight and weekly jump per lift. We plan the ramp.</p><div class='op-lifts' id='op-lifts' role='tablist' aria-label='Lifts'></div><div class='op-row2'><div class='op-field'><label for='op-start'>Start weight</label><input type='number' id='op-start' value='100' min='10' step='2.5'></div><div class='op-field'><label for='op-unit'>Unit</label><div class='op-seg' role='group' aria-label='Unit'><button id='op-kg' class='on' type='button'>kg</button><button id='op-lb' type='button'>lb</button></div></div></div><div class='op-row2'><div class='op-field'><label for='op-inc'>Weekly jump</label><input type='number' id='op-inc' value='2.5' min='0.5' step='0.5'></div><div class='op-field'><label for='op-weeks'>Weeks</label><select id='op-weeks'><option>4</option><option selected>8</option><option>12</option></select></div></div><div class='op-row2'><div class='op-field'><label for='op-sets'>Sets</label><input type='number' id='op-sets' value='3' min='1' max='10'></div><div class='op-field'><label for='op-reps'>Reps</label><input type='number' id='op-reps' value='5' min='1' max='20'></div></div><label class='op-check'><input type='checkbox' id='op-round' checked> Round to loadable plates (2.5 kg / 5 lb)</label><p class='op-note'>Beginner jumps that work: squat &amp; deadlift +2.5 kg (5 lb)/week, bench &amp; press +1.25 kg (2.5 lb)/week.</p></div><div class='op-card'><div class='op-dialhead'><div><h2>Progression arc</h2><p class='op-sub' id='op-dialsub'>Squat · 8-week ramp</p></div></div><svg id='op-dial' viewBox='0 0 400 240' width='100%' style='max-width:460px;display:block;margin:0 auto' role='img' aria-label='Progression arc dial'></svg><div class='op-weeknav'><button id='op-prev' type='button' aria-label='Previous week'>‹</button><div class='op-weeklabel' id='op-weeklabel'>Week 1 · 100 kg</div><button id='op-next' type='button' aria-label='Next week'>›</button></div><div class='op-weeksel' id='op-weeksel'></div></div></div><div class='op-card op-plan'><h2>Week-by-week plan <span style='font-weight:400;font-size:14px;color:#6E6055' id='op-planlift'>· Squat</span></h2><p class='op-sub'>Every 4th week is a deload at 60% — recovery is part of the program.</p><div style='overflow-x:auto'><table class='op-table'><thead><tr><th>Week</th><th>Weight</th><th>Sets × Reps</th><th>Volume</th><th>Note</th></tr></thead><tbody id='op-tbody'></tbody></table></div></div><div class='op-xgrid'><div class='op-xcard'><h3>🛑 Stalled? The repeat-or-back-off rule</h3><ul><li><strong>Missed reps one week?</strong> Repeat the same weight next week. One bad week is noise.</li><li><strong>Missed twice in a row?</strong> Drop 5–10% and rebuild. You will pass the sticking point within 3 weeks.</li><li><strong>Everything feels heavy?</strong> Take the deload early — fatigue masks fitness.</li><li><strong>Still stalling after a reset?</strong> Switch to double progression: hold the weight, add reps first.</li></ul></div><div class='op-xcard'><h3>🍽️ Plate math, handled</h3><p id='op-plateinfo'>With rounding on, every week's weight snaps to the nearest 2.5 kg — the smallest jump most gyms allow per side with 1.25 kg plates.</p><p>Per-side loading for the selected week is shown in the plan's note column when rounding is on. Micro-plates (0.5–1 kg) are the cheapest way to keep upper-body lifts progressing.</p></div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>The One Principle Behind All Strength Gain</h2><p>Every effective strength program ever written — from 1950s barbell courses to today's AI coaching apps — rests on a single idea: <strong>progressive overload</strong>. Your body adapts to exactly the stress you give it and no more. Lift the same 80 kg for 3 sets of 8 for six months, and your body has no physiological reason to build new muscle or stronger tendons. It already handles that workload. To force adaptation, the workload must rise over time — a little more weight, a few more reps, or more total work, applied consistently.</p><p>This sounds obvious, yet most gym-goers train without any progression plan at all. They pick weights by feel, repeat the same numbers for months, and wonder why nothing changes. The fix is embarrassingly simple: decide the progression <em>before</em> you walk in, write it down, and follow it. That is what this planner does — it turns 'lift a bit more each week' into exact numbers for every session.</p><h2>The Five Avenues of Overload</h2><p>Adding weight to the bar is the most famous form of overload, but it is only one of five proven avenues. Knowing all five matters because when one stalls, the others keep you moving:</p><ol><li><strong>More load:</strong> 100 kg × 5 becomes 102.5 kg × 5. The purest form, and the backbone of beginner programs.</li><li><strong>More reps:</strong> 100 kg × 5 becomes 100 kg × 7. Same weight, more work — the engine of hypertrophy blocks.</li><li><strong>More sets (volume):</strong> 3 × 5 becomes 4 × 5 at the same weight. Total tonnage rises even when the top weight does not.</li><li><strong>Better execution:</strong> squatting two inches deeper, pausing a second on the chest in the bench press, or lowering the weight under control for three seconds. Same load, harder stimulus.</li><li><strong>Less rest:</strong> finishing the same workout in 45 minutes instead of 60. Improved work capacity and conditioning.</li></ol><p>Beginners should live almost entirely on avenue one. Intermediates blend one and two — the classic <strong>double progression</strong>: pick a rep range like 8–12, add reps until you hit the top on every set, then add weight and drop back to the bottom of the range. Advanced lifters periodize across all five.</p><h2>Linear Progression: The Beginner Superpower</h2><p>For the first 3–6 months of serious training, <strong>linear progression</strong> works like magic: add a small fixed amount every week (or every session), and strength climbs in an almost straight line. The increments that have worked for millions of lifters:</p><ul><li><strong>Squat / deadlift:</strong> +2.5 kg (5 lb) per week</li><li><strong>Bench press / overhead press:</strong> +1.25 kg (2.5 lb) per week</li><li><strong>Rows, pull-ups (weighted):</strong> +2.5 kg per week</li></ul><p>Upper-body lifts progress slower because the muscles are smaller — this is normal, not a personal failing. Micro-plates of 0.5–1 kg are the best value purchase a lifter can make; they turn a stalled press into twelve more weeks of progress. The planner defaults to these jumps and rounds everything to weights you can actually load, because a plan calling for 101.7 kg is a plan you will ignore.</p><h2>Reading Your Progression Arc</h2><p>The dial above is your whole program at a glance: each tick is a week, the needle shows where you are, and the weight climbs tick by tick. The dashed ticks are <strong>deload weeks</strong> — planned easy weeks at 60% of the previous week, every fourth week. They look like going backwards. They are the reason the line keeps going up afterward.</p><p>Training is stress; adaptation happens during recovery. Four weeks of rising stress accumulates fatigue in muscles, tendons, and the nervous system faster than a single easy week can fix — unless you schedule it. Lifters who skip deloads do not avoid the recovery; they just take it involuntarily, as a three-week plateau or a tweaked shoulder. The 60% deload keeps you moving, grooves technique with light weights, and lets you attack the next block fresh.</p><h2>Volume: The Number Behind the Number</h2><p>The plan table shows <strong>volume</strong> (weight × sets × reps) for each week because volume is the best single predictor of muscle growth. Watch it climb alongside the weight — that rising tonnage is the actual stimulus. Two practical rules:</p><ul><li><strong>Increase volume gradually:</strong> roughly 5–10% per week is the sustainable range. Jumps beyond that spike injury risk.</li><li><strong>Volume is per-muscle, not per-lift:</strong> your chest volume includes bench press <em>plus</em> dips, incline work, and push-ups. Count it all before adding more.</li></ul><p>If strength stalls but volume keeps rising, you are likely building work capacity that converts to strength after the next deload. If both stall for three weeks, you have found your current ceiling for this program — time to change the stimulus, not just push harder into the wall.</p><h2>The Stall Protocol: What to Do When the Line Flattens</h2><p>Stalls are not failures; they are the program telling you it worked and you have graduated to needing a new one. The order of operations:</p><ol><li><strong>One bad week → repeat it.</strong> Sleep, stress, and nutrition fluctuate. A single missed session is noise, not signal.</li><li><strong>Two bad weeks → back off 5–10% and rebuild.</strong> This 'reset' sheds accumulated fatigue. Most lifters blow past the old sticking point within three weeks of rebuilding.</li><li><strong>Reset twice at the same weight → change the progression model.</strong> Move from weekly linear jumps to double progression, or to a program with built-in variation like 5/3/1.</li></ol><p>What <em>not</em> to do: grind maximal attempts weekly, add extra sessions 'to catch up,' or switch programs every fortnight. Program-hopping is the most common reason intermediates stay intermediate — no program works if you never run it long enough to adapt.</p><h2>Technique Is a Form of Overload</h2><p>Avenue four deserves emphasis because it is free and always available. A 100 kg squat to full depth with a braced, controlled descent stimulates more adaptation than a 110 kg quarter-squat — and the deep one keeps your knees and back healthy for the decade of training ahead. Film your top sets monthly from the side. Compare bar path, depth, and speed. When the same weight starts moving faster and looking smoother, that <em>is</em> progress, even before the plates change.</p><p>Warm up properly for every heavy lift (ramping sets of the movement itself, not just cardio), rest 3–5 minutes between heavy sets so each set is high quality, and keep a training log. The log is non-negotiable: progressive overload cannot exist without a record of what you did last time.</p><h2>Recovery: The Other Half of the Program</h2><p>You do not get stronger in the gym; you get stronger recovering from the gym. The big levers:</p><ul><li><strong>Sleep 7–9 hours.</strong> Growth hormone pulses during deep sleep. Chronic 6-hour nights will stall a linear progression faster than any programming error.</li><li><strong>Protein around 1.6–2.2 g per kg of bodyweight daily.</strong> Spread across 3–5 meals. This is the most evidence-backed nutrition target in sports science.</li><li><strong>Calories:</strong> a small surplus (+200–300 kcal) supports strength gain; a deficit makes progression brutally hard. Beginners can progress while losing fat; intermediates mostly cannot.</li><li><strong>Stress management:</strong> life stress and training stress draw from the same recovery pool. Hard life weeks are deload weeks — program them that way deliberately.</li></ul><h2>Effort Control: RPE, RIR, and Knowing When a Set Counts</h2><p>A plan is only as good as the effort behind it. Two tools keep your working sets honest: <strong>RPE</strong> (rate of perceived exertion, 1–10) and <strong>RIR</strong> (reps in reserve — how many more clean reps you could have done). For steady linear progression, most working sets should land around <strong>RPE 7–8, or 2–3 RIR</strong>: challenging, technically crisp, repeatable next week. Grinding every set to RPE 10 (zero reps left) spikes fatigue without extra adaptation and is the fastest route to a stall.</p><p>Use RIR as your early-warning system. If week 1's top set felt like 3 RIR and week 4's feels like 0 RIR at the planned weight, fatigue is outpacing fitness — take the deload a week early rather than missing reps. Conversely, if you finish every set with 4+ RIR for two weeks running, your start weight was too conservative; bump the next jump by half a step. The planner gives you the numbers; RIR tells you whether your body agrees with them.</p><h2>Accessory Work: Supporting Cast, Not the Show</h2><p>The four big lifts in the planner are the main event, but 2–3 accessories per session protect joints and fill gaps: rows or pull-ups for upper-back balance against all that pressing, Romanian deadlifts or lunges for posterior-chain depth, and direct core work (ab wheel, Pallof press) for bracing strength that transfers to every lift. Keep accessories in the 8–15 rep range, progress them with the same double-progression mindset, and cap them at about a third of your session — when accessories start stealing recovery from the main lifts, they have become the show, and the show will stall.</p><h2>From Linear to Lifetime</h2><p>Linear progression ends — usually after 3–9 months — and that is success, not failure. The signs: you have reset the same lift twice, sleep and food are dialed in, and the line still will not move. Graduate to <strong>block periodization</strong> (hypertrophy blocks building volume, strength blocks converting it to top-end weight), programs with planned variation, or autoregulation using RPE/RIR targets. The principle never changes — only the timeframe. Beginners progress weekly, intermediates monthly, advanced lifters yearly. Keep a log, keep the jumps small, respect the deload, and the arc on the dial above becomes the story of your training year.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How much weight should I add each week?</summary><p>For beginners: 2.5 kg (5 lb) per week on squat and deadlift, 1.25 kg (2.5 lb) per week on bench press and overhead press. Upper-body lifts use smaller jumps because the muscles are smaller. Micro-plates of 0.5–1 kg keep upper-body progression alive for months.</p></details>
+<details><summary>What should I do if I can&#x27;t complete the planned reps?</summary><p>Repeat the same weight next week — one bad week is noise. If you miss twice in a row, drop the weight 5–10% and rebuild; most lifters pass the old sticking point within three weeks. If you stall at the same weight after two resets, switch progression models (e.g. to double progression).</p></details>
+<details><summary>How often should I deload?</summary><p>Every 4–6 weeks, take one easy week at 50–60% of your working weights. Deloads shed accumulated fatigue from muscles, tendons and the nervous system. Lifters who skip them usually end up taking the recovery involuntarily as a plateau or an injury.</p></details>
+<details><summary>What is double progression and when do I need it?</summary><p>Double progression means progressing reps first, then weight: pick a range like 8–12 reps, add reps until you hit the top on every set, then add weight and drop back to the bottom of the range. It is the standard next step when weekly linear jumps stop working, typically after 3–9 months.</p></details>
+<details><summary>Does progressive overload work for building muscle, not just strength?</summary><p>Yes — it is the primary driver of hypertrophy too. Muscle grows in response to rising mechanical tension and volume over time. For size, most of your overload will come through reps and sets (avenues 2 and 3) in the 6–20 rep range, with weight increases layered on top.</p></details>
+<details><summary>I am a complete beginner. Is this planner for me?</summary><p>Absolutely — linear progression works fastest for beginners, who can add weight nearly every session for the first few months. Start conservatively (you should finish week 1 feeling like you had 2–3 reps left), prioritize technique, and log every session.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">OverloadPro</div>
+    <p>OverloadPro builds your week-by-week progressive overload plan across four lifts — with plate rounding, scheduled deloads and a clear stall protocol.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function planWeight(start,inc,week){var w=start+(week-1)*inc;return Math.round(w/2.5)*2.5;}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var lifts=['Squat','Bench Press','Deadlift','Overhead Press'];var state={};lifts.forEach(function(L,i){state[L]={start:[100,60,120,40][i],inc:2.5};});var cur='Squat',selWeek=1,unit='kg';var liftsEl=document.getElementById('op-lifts'),startEl=document.getElementById('op-start'),incEl=document.getElementById('op-inc'),weeksEl=document.getElementById('op-weeks'),setsEl=document.getElementById('op-sets'),repsEl=document.getElementById('op-reps'),roundEl=document.getElementById('op-round'),tbody=document.getElementById('op-tbody'),dial=document.getElementById('op-dial'),wlabel=document.getElementById('op-weeklabel'),wsel=document.getElementById('op-weeksel'),dsub=document.getElementById('op-dialsub'),plift=document.getElementById('op-planlift'),pinfo=document.getElementById('op-plateinfo');if(!liftsEl||!dial)return;function step(){return unit==='kg'?2.5:5;}function rnd(w){if(!roundEl.checked)return Math.round(w*10)/10;var s=step();return Math.round(w/s)*s;}function isDeload(w){return w%4===0;}function weekWeight(w){var s=state[cur];var raw=s.start+(w-1)*s.inc;if(isDeload(w)&&w>1){var prev=rnd(s.start+(w-2)*s.inc);return rnd(prev*0.6);}return rnd(raw);}function unitLbl(v){return v+' '+unit;}function renderLifts(){liftsEl.innerHTML='';lifts.forEach(function(L){var b=document.createElement('button');b.type='button';b.className='op-lift'+(L===cur?' on':'');b.textContent=L;b.setAttribute('role','tab');b.addEventListener('click',function(){state[cur]={start:parseFloat(startEl.value)||0,inc:parseFloat(incEl.value)||0};cur=L;startEl.value=state[cur].start;incEl.value=state[cur].inc;selWeek=1;render();});liftsEl.appendChild(b);});}function drawDial(){var n=+weeksEl.value;var cx=200,cy=205,r=150;var s='';s+='<path d="M 50 205 A 150 150 0 0 1 350 205" fill="none" stroke="#F0DFC9" stroke-width="22" stroke-linecap="round"/>';var maxW=weekWeight(n);for(var i=1;i<=n;i++){var a=Math.PI-(i-1)*(Math.PI/(n-1));var x1=cx+Math.cos(a)*(r-16),y1=cy-Math.sin(a)*(r-16),x2=cx+Math.cos(a)*(r+16),y2=cy-Math.sin(a)*(r+16);var dl=isDeload(i);s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="'+(dl?'#a8a29e':'#C2410C')+'" stroke-width="'+(i===selWeek?5:2.5)+'"/>';var lx=cx+Math.cos(a)*(r-34),ly=cy-Math.sin(a)*(r-34);s+='<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="middle" font-size="10.5" fill="#6E6055" font-family="IBM Plex Sans,sans-serif">W'+i+'</text>';}var sa=Math.PI-(selWeek-1)*(Math.PI/(n-1));var nx=cx+Math.cos(sa)*(r-44),ny=cy-Math.sin(sa)*(r-44);s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+nx.toFixed(1)+'" y2="'+ny.toFixed(1)+'" stroke="#292524" stroke-width="4" stroke-linecap="round"/><circle cx="'+cx+'" cy="'+cy+'" r="10" fill="#292524"/>';var wv=weekWeight(selWeek);s+='<text x="'+cx+'" y="'+(cy-58)+'" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="800" font-size="30" fill="#C2410C">'+wv+'</text>';s+='<text x="'+cx+'" y="'+(cy-38)+'" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="12" fill="#6E6055">'+unit+' · week '+selWeek+(isDeload(selWeek)?' · deload':'')+'</text>';dial.innerHTML=s;}function render(){renderLifts();var n=+weeksEl.value;if(selWeek>n)selWeek=n;var st=+setsEl.value||3,rp=+repsEl.value||5;var html='';for(var w=1;w<=n;w++){var wt=weekWeight(w);var vol=Math.round(wt*st*rp);var dl=isDeload(w);var note=dl?'Deload — recover, come back stronger':(w===1?'Start here':(w===n?'Target week':'+'+state[cur].inc+' '+unit+' jump'));html+='<tr class="'+(dl?'deloadrow':'')+'"><td><strong>W'+w+'</strong>'+(dl?'<span class="op-dbadge">DELOAD</span>':'')+'</td><td><strong>'+wt+' '+unit+'</strong></td><td>'+st+' × '+rp+'</td><td>'+vol.toLocaleString()+' '+unit+'</td><td>'+note+'</td></tr>';}tbody.innerHTML=html;dsub.textContent=cur+' · '+n+'-week ramp';plift.textContent='· '+cur;wlabel.textContent='Week '+selWeek+' · '+weekWeight(selWeek)+' '+unit;wsel.innerHTML='';for(var k=1;k<=n;k++){(function(kk){var b=document.createElement('button');b.type='button';b.className='op-wk'+(kk===selWeek?' on':'')+(isDeload(kk)?' deload':'');b.textContent=kk;b.setAttribute('aria-label','Week '+kk);b.addEventListener('click',function(){selWeek=kk;render();});wsel.appendChild(b);})(k);}if(pinfo)pinfo.textContent='With rounding on, every week snaps to the nearest '+step()+' '+unit+'. Deload weeks drop to 60% of the previous week, then the ramp resumes where it left off.';drawDial();}document.getElementById('op-kg').addEventListener('click',function(){unit='kg';this.classList.add('on');document.getElementById('op-lb').classList.remove('on');render();});document.getElementById('op-lb').addEventListener('click',function(){unit='lb';this.classList.add('on');document.getElementById('op-kg').classList.remove('on');render();});document.getElementById('op-prev').addEventListener('click',function(){if(selWeek>1){selWeek--;render();}});document.getElementById('op-next').addEventListener('click',function(){if(selWeek<+weeksEl.value){selWeek++;render();}});[startEl,incEl,weeksEl,setsEl,repsEl,roundEl].forEach(function(el){el.addEventListener('input',function(){state[cur]={start:parseFloat(startEl.value)||0,inc:parseFloat(incEl.value)||0};render();});el.addEventListener('change',function(){state[cur]={start:parseFloat(startEl.value)||0,inc:parseFloat(incEl.value)||0};render();});});render();});}
+</script>
+</body>
+</html>
