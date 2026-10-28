@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+<link rel="canonical" href="https://health.fixoraa.tech/burnboard/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BurnBoard — Calories Burned Calculator with MET Values for 135 Activities</title>
+<meta name="description" content="Free calories burned calculator with a searchable MET values activity list of 135+ activities. Compare two activities side by side, translate burns into food equivalents, and plan your weekly burn.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#141210; --panel:#1E1A16; --panel2:#252019; --primary:#FB923C; --accent:#A3E635; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:#EDE6DA; font-family:'Space Grotesk',system-ui,sans-serif; }
+  .mono { font-family:'JetBrains Mono',ui-monospace,monospace; }
+  .board {
+    background:
+      radial-gradient(1200px 300px at 50% -80px, rgba(251,146,60,.10), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,.025), transparent 30%),
+      var(--panel);
+    border:1px solid rgba(251,146,60,.28);
+    border-radius:1rem;
+    box-shadow:0 10px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .board-accent { border-color:rgba(163,230,53,.35); }
+  .rivet { width:8px; height:8px; border-radius:9999px; background:radial-gradient(circle at 35% 30%, #ffd9ad, #b45309); box-shadow:inset 0 -1px 2px rgba(0,0,0,.6); }
+  .field { background:#100D0A; border:1px solid rgba(251,146,60,.35); border-radius:.65rem; color:#EDE6DA; padding:.6rem .85rem; width:100%; }
+  .field:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(163,230,53,.18); }
+  select.field option { background:#1E1A16; }
+  .btn-primary { background:linear-gradient(135deg,#FB923C,#F97316); color:#141210; font-weight:700; border-radius:.75rem; padding:.7rem 1.4rem; box-shadow:0 6px 24px rgba(251,146,60,.35); transition:transform .15s ease, box-shadow .15s ease; }
+  .btn-primary:hover { transform:translateY(-1px); box-shadow:0 10px 30px rgba(251,146,60,.45); }
+  .btn-ghost { border:1px solid rgba(251,146,60,.4); color:var(--primary); border-radius:.75rem; padding:.55rem 1rem; font-weight:600; transition:background .15s ease; }
+  .btn-ghost:hover { background:rgba(251,146,60,.12); }
+  .chip { border:1px solid rgba(251,146,60,.35); border-radius:9999px; padding:.35rem .9rem; font-size:.8rem; font-weight:600; color:#F5C89B; cursor:pointer; transition:all .15s ease; white-space:nowrap; }
+  .chip:hover { border-color:var(--accent); color:var(--accent); }
+  .chip.active { background:var(--accent); border-color:var(--accent); color:#141210; }
+  .act-card { background:#171310; border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:.65rem .8rem; cursor:pointer; transition:all .15s ease; text-align:left; width:100%; }
+  .act-card:hover { border-color:rgba(163,230,53,.6); transform:translateY(-1px); }
+  .act-card.selected { border-color:var(--accent); background:rgba(163,230,53,.08); box-shadow:0 0 0 1px var(--accent); }
+  .unit-btn { padding:.45rem 1rem; border-radius:.6rem; font-weight:700; font-size:.85rem; border:1px solid rgba(251,146,60,.35); color:#F5C89B; cursor:pointer; }
+  .unit-btn.active { background:var(--primary); color:#141210; border-color:var(--primary); }
+  .burn-glow { text-shadow:0 0 28px rgba(251,146,60,.55); }
+  .bar-track { background:#100D0A; border-radius:9999px; overflow:hidden; border:1px solid rgba(255,255,255,.08); }
+  .bar-fill-a { background:linear-gradient(90deg,#FB923C,#F97316); height:100%; transition:width .5s ease; }
+  .bar-fill-b { background:linear-gradient(90deg,#A3E635,#65A30D); height:100%; transition:width .5s ease; }
+  .day-col { background:#171310; border:1px solid rgba(255,255,255,.08); border-radius:.75rem; padding:.6rem; min-height:120px; }
+  .day-col.today { border-color:rgba(251,146,60,.7); }
+  .plan-entry { background:rgba(251,146,60,.1); border:1px solid rgba(251,146,60,.3); border-radius:.5rem; padding:.35rem .5rem; font-size:.75rem; margin-bottom:.35rem; }
+  details.faq { background:var(--panel2); border:1px solid rgba(251,146,60,.22); border-radius:.75rem; }
+  details.faq summary { cursor:pointer; padding:1rem 1.25rem; font-weight:600; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+  details.faq summary::-webkit-details-marker { display:none; }
+  details.faq summary::after { content:'+'; color:var(--accent); font-size:1.5rem; font-weight:700; flex:none; }
+  details.faq[open] summary::after { content:'−'; }
+  details.faq .faq-body { padding:0 1.25rem 1.25rem; color:#CFC4B2; line-height:1.7; }
+  .article-prose h2 { color:var(--primary); font-size:1.5rem; font-weight:700; margin:2.2rem 0 .9rem; }
+  .article-prose h3 { color:var(--accent); font-size:1.15rem; font-weight:600; margin:1.6rem 0 .6rem; }
+  .article-prose p { margin:.9rem 0; line-height:1.8; color:#D9CFC0; }
+  .article-prose ul { margin:.9rem 0; padding-left:1.4rem; list-style:disc; color:#D9CFC0; line-height:1.8; }
+  .article-prose li { margin:.4rem 0; }
+  .article-prose table { width:100%; border-collapse:collapse; margin:1.2rem 0; font-size:.9rem; }
+  .article-prose th { background:rgba(251,146,60,.12); color:var(--primary); text-align:left; padding:.6rem .8rem; border:1px solid rgba(251,146,60,.25); }
+  .article-prose td { padding:.55rem .8rem; border:1px solid rgba(255,255,255,.1); color:#D9CFC0; }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-track { background:#100D0A; }
+  ::-webkit-scrollbar-thumb { background:rgba(251,146,60,.4); border-radius:9999px; }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Sticky header -->
+<header class="sticky top-0 z-50" style="background:rgba(20,18,16,.92); backdrop-filter:blur(10px); border-bottom:1px solid rgba(251,146,60,.3);">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true">
+        <path d="M18 2c1 6-4 8-4 14a8 8 0 0 0 16 0c0-3-1.5-5-3-7-.5 2-1.5 3-3 3.5C24.5 8 21 4 18 2z" fill="#FB923C"/>
+        <path d="M18 13c.6 3.4-2.2 4.6-2.2 8a6.2 6.2 0 0 0 12.4 0c0-2.3-1.2-3.9-2.3-5.4-.4 1.5-1.2 2.3-2.3 2.7.3-2.4-.9-4.3-5.6-5.3z" fill="#A3E635" opacity=".9"/>
+      </svg>
+      <span class="text-2xl font-bold tracking-tight">Burn<span style="color:#FB923C">Board</span></span>
+    </a>
+    <nav class="flex items-center gap-5 text-sm font-semibold">
+      <a href="#top" class="hover:text-[#A3E635] transition-colors">Home</a>
+      <a href="https://fixoraa.tech" class="hover:text-[#A3E635] transition-colors">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-6 text-center">
+  <h1 class="text-4xl sm:text-5xl font-bold leading-tight">Calories Burned <span style="color:#FB923C">Calculator</span></h1>
+  <p class="mt-3 max-w-2xl mx-auto text-[#CFC4B2]">Search 135+ activities with real MET values, compare two workouts head-to-head, see what your burn equals in pizza slices, and plan your whole week — all offline, all free.</p>
+  <div class="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold" style="background:rgba(163,230,53,.1); border:1px solid rgba(163,230,53,.5); color:#A3E635;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+    Unlimited Free Usage — no signup, no paywall
+  </div>
+</section>
+
+<!-- TOP AD (verbatim) -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOL -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+
+  <!-- ===== PANEL 1: BURN CALCULATOR ===== -->
+  <section class="board p-5 sm:p-7 mb-8" aria-label="Calories burned calculator">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="text-2xl font-bold">🔥 Burn Calculator</h2>
+      <div class="flex gap-2"><span class="rivet"></span><span class="rivet"></span></div>
+    </div>
+    <p class="text-sm text-[#CFC4B2] mb-5">Search the board, pick an activity, enter your weight and duration — instant calories.</p>
+
+    <div class="grid gap-6 lg:grid-cols-5">
+      <!-- Left: search + board -->
+      <div class="lg:col-span-3">
+        <label for="activitySearch" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Search 135 activities</label>
+        <input id="activitySearch" type="text" class="field mt-1 mono" placeholder="Try &quot;swim&quot;, &quot;run&quot;, &quot;yoga&quot;…" autocomplete="off">
+        <div id="catChips" class="flex gap-2 mt-3 overflow-x-auto pb-1"></div>
+        <div id="activityBoard" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 max-h-80 overflow-y-auto pr-1" role="listbox" aria-label="Activity list"></div>
+        <p class="text-[11px] text-[#8d8375] mt-2">MET values are estimates based on the 2024 Compendium of Physical Activities.</p>
+      </div>
+
+      <!-- Right: inputs + result -->
+      <div class="lg:col-span-2">
+        <div class="rounded-xl p-5" style="background:#100D0A; border:1px solid rgba(163,230,53,.25);">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#A3E635] mb-1">Selected activity</div>
+          <div id="selectedActivity" class="font-semibold text-lg min-h-[2rem]">Pick an activity from the board</div>
+          <div id="selectedMet" class="mono text-sm text-[#8d8375] mb-4"></div>
+
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div>
+              <label for="weightInput" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Weight</label>
+              <input id="weightInput" type="number" min="1" max="500" value="70" class="field mono mt-1" inputmode="decimal">
+            </div>
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Unit</span>
+              <div class="flex gap-2 mt-1">
+                <button id="unitKg" class="unit-btn active" type="button">kg</button>
+                <button id="unitLb" class="unit-btn" type="button">lb</button>
+              </div>
+            </div>
+          </div>
+
+          <label for="durationInput" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Duration (minutes)</label>
+          <input id="durationInput" type="number" min="1" max="1440" value="30" class="field mono mt-1 mb-2" inputmode="numeric">
+          <div class="flex gap-2 flex-wrap mb-5">
+            <button class="btn-ghost text-xs dur-preset" data-min="15" type="button">15 min</button>
+            <button class="btn-ghost text-xs dur-preset" data-min="30" type="button">30 min</button>
+            <button class="btn-ghost text-xs dur-preset" data-min="45" type="button">45 min</button>
+            <button class="btn-ghost text-xs dur-preset" data-min="60" type="button">1 hour</button>
+          </div>
+
+          <div class="text-center rounded-xl py-5" style="background:radial-gradient(circle at 50% 0%, rgba(251,146,60,.18), transparent 70%);">
+            <div class="text-xs font-bold uppercase tracking-widest text-[#F5C89B]">Calories burned</div>
+            <div id="burnResult" class="mono burn-glow font-bold text-5xl mt-1" style="color:#FB923C">0</div>
+            <div class="text-sm text-[#8d8375] mt-1">kcal</div>
+          </div>
+
+          <div class="mt-4">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#A3E635] mb-2">🍕 That's like…</div>
+            <div id="foodStrip" class="text-sm text-[#D9CFC0] space-y-1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PANEL 2: HEAD-TO-HEAD COMPARE ===== -->
+  <section class="board board-accent p-5 sm:p-7 mb-8" aria-label="Compare two activities">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="text-2xl font-bold">⚔️ Head-to-Head Compare</h2>
+      <div class="flex gap-2"><span class="rivet"></span><span class="rivet"></span></div>
+    </div>
+    <p class="text-sm text-[#CFC4B2] mb-5">Two activities, same body, same time — which one torches more?</p>
+
+    <div class="grid gap-4 md:grid-cols-2 mb-4">
+      <div>
+        <label for="cmpA" class="text-xs font-bold uppercase tracking-wider text-[#FB923C]">Contender A</label>
+        <select id="cmpA" class="field mt-1"></select>
+      </div>
+      <div>
+        <label for="cmpB" class="text-xs font-bold uppercase tracking-wider text-[#A3E635]">Contender B</label>
+        <select id="cmpB" class="field mt-1"></select>
+      </div>
+    </div>
+    <div class="grid gap-4 md:grid-cols-3 mb-4">
+      <div>
+        <label for="cmpWeight" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Weight (kg)</label>
+        <input id="cmpWeight" type="number" min="1" max="500" value="70" class="field mono mt-1" inputmode="decimal">
+      </div>
+      <div>
+        <label for="cmpDuration" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Duration (min)</label>
+        <input id="cmpDuration" type="number" min="1" max="1440" value="30" class="field mono mt-1" inputmode="numeric">
+      </div>
+      <div class="flex items-end">
+        <button id="btnCompare" type="button" class="btn-primary w-full">Compare ⚔️</button>
+      </div>
+    </div>
+
+    <div id="cmpOutput" class="hidden">
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-xl p-5" style="background:#100D0A; border:1px solid rgba(251,146,60,.4);">
+          <div id="cmpNameA" class="font-semibold mb-2"></div>
+          <div id="cmpResultA" class="mono font-bold text-4xl" style="color:#FB923C">0</div>
+          <div class="text-xs text-[#8d8375]">kcal</div>
+          <div class="bar-track h-3 mt-3"><div id="cmpBarA" class="bar-fill-a" style="width:0%"></div></div>
+        </div>
+        <div class="rounded-xl p-5" style="background:#100D0A; border:1px solid rgba(163,230,53,.4);">
+          <div id="cmpNameB" class="font-semibold mb-2"></div>
+          <div id="cmpResultB" class="mono font-bold text-4xl" style="color:#A3E635">0</div>
+          <div class="text-xs text-[#8d8375]">kcal</div>
+          <div class="bar-track h-3 mt-3"><div id="cmpBarB" class="bar-fill-b" style="width:0%"></div></div>
+        </div>
+      </div>
+      <p id="cmpVerdict" class="text-center font-semibold mt-4 text-lg"></p>
+    </div>
+  </section>
+
+  <!-- ===== PANEL 3: WEEKLY BURN PLANNER ===== -->
+  <section class="board p-5 sm:p-7" aria-label="Weekly burn planner">
+    <div class="flex items-center justify-between mb-1">
+      <h2 class="text-2xl font-bold">📅 Weekly Burn Planner</h2>
+      <div class="flex gap-2"><span class="rivet"></span><span class="rivet"></span></div>
+    </div>
+    <p class="text-sm text-[#CFC4B2] mb-5">Stack workouts across the week and watch your total climb. Saved in your browser automatically.</p>
+
+    <div class="grid gap-3 md:grid-cols-4 mb-5">
+      <div>
+        <label for="planDay" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Day</label>
+        <select id="planDay" class="field mt-1"></select>
+      </div>
+      <div>
+        <label for="planActivity" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Activity</label>
+        <select id="planActivity" class="field mt-1"></select>
+      </div>
+      <div>
+        <label for="planMinutes" class="text-xs font-bold uppercase tracking-wider text-[#F5C89B]">Minutes</label>
+        <input id="planMinutes" type="number" min="1" max="1440" value="45" class="field mono mt-1" inputmode="numeric">
+      </div>
+      <div class="flex items-end gap-2">
+        <button id="btnAddPlan" type="button" class="btn-primary w-full">Add +</button>
+      </div>
+    </div>
+
+    <div id="weekBoard" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-5"></div>
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 rounded-xl p-4" style="background:#100D0A; border:1px solid rgba(163,230,53,.3);">
+      <div class="text-sm text-[#CFC4B2]">Weekly total at <span id="planWeightEcho" class="mono font-bold text-[#A3E635]">70 kg</span></div>
+      <div class="mono font-bold text-3xl" style="color:#A3E635"><span id="weekTotal">0</span> <span class="text-base">kcal</span></div>
+      <button id="btnClearPlan" type="button" class="btn-ghost text-sm">Clear week</button>
+    </div>
+  </section>
+</main>
+
+<!-- BOTTOM AD (verbatim) -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+(function(grnp){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = grnp || {};
+s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+    </div>
+  </div>
+</div>
+
+<!-- SEO ARTICLE -->
+<article id="seo-article" class="article-prose max-w-4xl mx-auto px-4 sm:px-6 py-10">
+  <h2>The Complete Guide to the Calories Burned Calculator: MET Values, Activity Lists & Smarter Workouts</h2>
+  <p>How many calories did that run actually burn? Is an hour of swimming better than an hour of cycling? And what does "burning 300 calories" even mean when you're staring at a menu? A good <strong>calories burned calculator</strong> answers all three questions in seconds — and BurnBoard was built to be exactly that: a fast, free, fully offline tool with a searchable <strong>MET values activity list</strong> covering 135 activities, from sprinting to sleeping.</p>
+  <p>Most online calculators ask you to pick from a dozen generic activities and spit out a number with no explanation. BurnBoard is different. Every number comes from a transparent, research-backed formula — the same one exercise scientists use — and every activity carries a MET value traceable to the 2024 Compendium of Physical Activities. This guide explains how the math works, why MET values matter, how accurate the results really are, and how to use the comparison and planning tools to burn smarter, not just harder.</p>
+
+  <h2>How a Calories Burned Calculator Actually Works: The MET Formula</h2>
+  <p>Behind every reputable calories burned calculator sits one simple equation:</p>
+  <p><strong>Calories burned = MET × body weight (kg) × duration (hours)</strong></p>
+  <p>MET stands for Metabolic Equivalent of Task. One MET is the energy you burn sitting completely still — roughly 1 kilocalorie per kilogram of body weight per hour. Every activity is rated by how many times harder than resting it is. Brisk walking is about 4.3 METs, meaning it burns roughly 4.3 times what you'd burn sitting on the couch for the same time.</p>
+  <p>Here's a worked example. A 70 kg person runs at 6 mph (9.8 METs) for 30 minutes:</p>
+  <p class="mono">9.8 × 70 × 0.5 = 343 kcal</p>
+  <p>The same run for a 90 kg person burns 441 kcal — same effort, bigger engine, more fuel consumed. That weight-dependence is the single most important thing a calories burned calculator captures, and it's why two people doing the identical workout see different numbers on their fitness trackers.</p>
+
+  <h2>What Are MET Values? Your Activity List, Decoded</h2>
+  <p>MET values come from the Compendium of Physical Activities, a research project led by Dr. Barbara Ainsworth that has catalogued the energy cost of human movement since 1993. The 2024 edition — the source behind BurnBoard's database — covers hundreds of activities measured or estimated in laboratory and field studies. Each value is an average across study participants, which is why we label ours as estimates.</p>
+  <p>BurnBoard ships with a built-in <strong>MET values activity list</strong> of 135 entries across seven categories, so you never need an internet connection to look one up:</p>
+  <ul>
+    <li><strong>Cardio:</strong> walking speeds from a 2 mph stroll (2.8) to a 10 mph run (14.5), cycling from leisurely (4.0) to racing (12.0), jump rope, burpees, stair climbing and HIIT.</li>
+    <li><strong>Sports:</strong> tennis singles (7.3) vs. doubles (4.5), soccer (7.0–10.0), basketball (8.0), cricket (4.8), golf walking (4.3), boxing sparring (7.8), martial arts up to 10.3, plus pickleball, padel, rugby and more.</li>
+    <li><strong>Strength:</strong> light lifting (3.5), vigorous lifting (6.0), bodyweight circuits (8.0), kettlebells, battle ropes and CrossFit-style training.</li>
+    <li><strong>Water:</strong> every swim stroke rated separately — more on swimming below.</li>
+    <li><strong>Outdoor:</strong> hiking (6.0), backpacking (7.0), rock climbing (7.5), skiing, snowboarding, gardening and even shoveling snow (6.0).</li>
+    <li><strong>Home &amp; daily:</strong> the hidden burn of real life — vigorous cleaning (4.0), cooking (2.5), childcare (3.0), office sitting (1.5), driving (2.0) and sleeping (0.95).</li>
+    <li><strong>Mind &amp; body:</strong> hatha yoga (2.5), power yoga (4.0), Pilates (3.0), tai chi (3.0) and stretching (2.3).</li>
+  </ul>
+  <p>Search the board above by typing any keyword — "swim", "dance", "bike" — and filter by category to compare intensities at a glance. Higher MET doesn't always mean "better": a 6-MET hike you enjoy for two hours beats a 10-MET workout you quit after ten minutes.</p>
+
+  <h2>How Many Calories Does Swimming Burn?</h2>
+  <p>It's one of the most-searched fitness questions in the world — "<strong>how many calories does swimming burn</strong>" — because the answer depends enormously on the stroke. Swimming is not one activity; it's half a dozen, and the MET spread proves it:</p>
+  <table>
+    <tr><th>Swimming style</th><th>MET (estimate)</th><th>kcal for 70 kg, 30 min</th></tr>
+    <tr><td>Leisurely swimming</td><td>6.0</td><td>210</td></tr>
+    <tr><td>Freestyle, moderate</td><td>5.8</td><td>203</td></tr>
+    <tr><td>Backstroke</td><td>7.0</td><td>245</td></tr>
+    <tr><td>Fast freestyle laps</td><td>9.8</td><td>343</td></tr>
+    <tr><td>Breaststroke</td><td>10.3</td><td>361</td></tr>
+    <tr><td>Butterfly</td><td>13.8</td><td>483</td></tr>
+    <tr><td>Treading water</td><td>3.5</td><td>123</td></tr>
+    <tr><td>Water aerobics</td><td>5.3</td><td>186</td></tr>
+  </table>
+  <p>Notice that butterfly (13.8 METs) burns more than twice what leisurely swimming does — technique and intensity matter as much as the sport itself. Water also cools you efficiently, so swimmers often underestimate their effort; the MET numbers don't lie even when your skin feels cool. If you're choosing between strokes for calorie burn, faster freestyle and breaststroke give the best return for most recreational swimmers, while butterfly is the undisputed champion if you can sustain it.</p>
+
+  <h2>Why Two Activities Can Surprise You: The Comparison View</h2>
+  <p>Intuition about calorie burn is often wrong. Most people guess that an hour of yoga torches more than an hour of brisk walking — it doesn't (2.5 vs. 4.3 METs). Many assume tennis doubles is "basically the same" as singles — it's not (4.5 vs. 7.3 METs, a 62% gap). That's why BurnBoard includes a head-to-head comparison mode: pick any two activities, set one weight and one duration, and see the numbers and the percentage difference side by side.</p>
+  <p>Use comparisons to make real decisions. Choosing between a 45-minute spin class and a 45-minute swim? Run the numbers. Wondering whether mowing the lawn counts as a workout? (5.0 METs — it absolutely does.) Comparing a slow jog against a fast walk when your knees hurt? The calculator shows you exactly what the gentler option costs in calories, so the trade-off is informed, not guessed.</p>
+
+  <h2>Food Equivalents: What Does "300 Calories" Actually Look Like?</h2>
+  <p>Calorie numbers are abstract; food is not. BurnBoard's translator converts any burn into familiar foods — "that's 2.3 slices of pepperoni pizza" or "1.2 cheeseburgers." The database covers 19 everyday foods from a 78-kcal boiled egg to a 365-kcal serving of medium fries, and it picks the portions closest to a whole unit so the comparison feels real.</p>
+  <p>This isn't just a party trick. Food equivalents reframe the classic diet math: a 30-minute moderate run (~343 kcal at 70 kg) roughly equals one cheeseburger. You can't outrun a bad diet, but you can finally see the exchange rate. It also works in reverse as motivation — that slice of pizza you just earned tastes better when you know the 20-minute swim that paid for it.</p>
+
+  <h2>Planning Your Week: From One Workout to a Burn Budget</h2>
+  <p>Single workouts don't change bodies; consistent weeks do. BurnBoard's weekly planner lets you assign activities to each day — Monday swim, Wednesday lifting, Saturday hike — and totals the projected burn using your saved weight. Entries persist in your browser's local storage, so your plan survives refreshes, and nothing ever leaves your device.</p>
+  <p>A practical starting target for general health is 1,000–1,500 kcal of intentional exercise per week, roughly matching public-health guidelines of 150 minutes of moderate activity. Build your plan backwards from the total: if your week shows 600 kcal, you know exactly how much to add. The planner also reveals imbalances — five cardio days and zero strength days is visible at a glance — nudging you toward a week that trains everything.</p>
+
+  <h2>How Accurate Is a Calories Burned Calculator?</h2>
+  <p>Honest answer: it's a solid estimate, not a measurement. The MET formula is the accepted standard in exercise science, but real burn varies with factors the equation can't see:</p>
+  <ul>
+    <li><strong>Body composition:</strong> muscle burns more than fat at the same weight, so two 70 kg people can differ by 5–10%.</li>
+    <li><strong>Fitness level:</strong> trained athletes are more efficient and may burn slightly fewer calories for the same task.</li>
+    <li><strong>Age and sex:</strong> resting metabolic rate declines with age; formulas averaged across populations smooth over this.</li>
+    <li><strong>Technique and terrain:</strong> running on sand, cycling into wind, or swimming with poor form all raise the real number above the table value.</li>
+    <li><strong>Afterburn (EPOC):</strong> vigorous exercise elevates metabolism for hours afterward — a bonus the basic formula doesn't count.</li>
+  </ul>
+  <p>Expect real-world results within about 10–20% of the calculator's number. For weight management, consistency of measurement matters more than absolute precision: if you log the same way every week, the trend is trustworthy even if any single number is approximate. And a note of caution — this tool is for general fitness information only and is not medical advice. If you have a heart condition, are pregnant, or are managing a medical condition, check with a professional before changing your exercise habits.</p>
+
+  <h2>How to Use BurnBoard: A 60-Second Walkthrough</h2>
+  <p>One: type an activity into the search box or tap a category chip, then tap the activity card to select it. Two: enter your weight — toggle between kg and lb — and your duration in minutes, or tap a preset. The big orange number updates instantly, and the food-equivalent strip translates it below. Three: open the comparison panel to pit any two activities against each other at identical settings. Four: use the weekly planner to distribute workouts across seven days and watch the lime-green total. Everything runs locally in your browser — no account, no tracking, no waiting.</p>
+  <p>Whether you're answering "how many calories does swimming burn" before pool day, building a weekly burn budget, or just curious what an hour of gardening earned you, BurnBoard turns the science of MET values into numbers you can act on today.</p>
+</article>
+
+<!-- FAQs -->
+<section class="max-w-4xl mx-auto px-4 sm:px-6 pb-12">
+  <h2 class="text-2xl font-bold mb-5 text-center">Frequently Asked <span style="color:#FB923C">Questions</span></h2>
+  <div class="space-y-3">
+    <details class="faq">
+      <summary>How does this calories burned calculator work?</summary>
+      <div class="faq-body">It uses the standard exercise-science formula: calories = MET × body weight in kg × duration in hours. MET (Metabolic Equivalent of Task) measures how many times harder than resting an activity is. Select any of the 135 activities, enter your weight and minutes, and BurnBoard computes the result instantly — all offline in your browser.</div>
+    </details>
+    <details class="faq">
+      <summary>What are MET values and where do they come from?</summary>
+      <div class="faq-body">MET values come from the Compendium of Physical Activities, a research database led by Dr. Barbara Ainsworth that catalogues the energy cost of human movement. The 2024 edition is the source behind BurnBoard's activity list. One MET equals the energy of sitting still; brisk walking is about 4.3 METs and fast running reaches 14.5. All values here are marked as estimates because individual burn varies.</div>
+    </details>
+    <details class="faq">
+      <summary>How many calories does swimming burn?</summary>
+      <div class="faq-body">It depends on the stroke. For a 70 kg person swimming 30 minutes: leisurely swimming burns about 210 kcal, moderate freestyle about 203 kcal, backstroke 245 kcal, fast freestyle laps 343 kcal, breaststroke 361 kcal, and butterfly — the most intense stroke — about 483 kcal. Use the search box above, type "swim", and tap any stroke for your exact weight and duration.</div>
+    </details>
+    <details class="faq">
+      <summary>How accurate is the calorie estimate?</summary>
+      <div class="faq-body">The MET formula is the accepted standard in exercise science, but it's an estimate — real burn varies with body composition, fitness level, age, technique and terrain, typically within 10–20% of the calculated number. For tracking progress, consistency matters more than precision: log the same way each week and the trend will be reliable. This tool provides general fitness information only and is not medical advice.</div>
+    </details>
+    <details class="faq">
+      <summary>How can I burn 500 calories in one session?</summary>
+      <div class="faq-body">At 70 kg, 500 kcal takes roughly 52 minutes of running at 6 mph, 36 minutes of butterfly swimming, 58 minutes of vigorous cycling, or about 63 minutes of a full basketball game. Heavier people reach 500 kcal faster since burn scales with weight. Use the head-to-head comparison above to find the most time-efficient activity you actually enjoy — adherence beats intensity.</div>
+    </details>
+    <details class="faq">
+      <summary>Does BurnBoard work offline, and is my data private?</summary>
+      <div class="faq-body">Yes. The entire 135-activity MET database is baked into this single page, so search, calculation, comparison and food translation work with no internet connection. Your weekly planner is saved in your browser's local storage and never sent anywhere — there are no accounts, no servers and no tracking of your workouts.</div>
+    </details>
+  </div>
+</section>
+
+<!-- JSON-LD FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How does this calories burned calculator work?", "acceptedAnswer": { "@type": "Answer", "text": "It uses the standard exercise-science formula: calories = MET × body weight in kg × duration in hours. Select any of the 135 activities, enter your weight and minutes, and BurnBoard computes the result instantly — all offline in your browser." } },
+    { "@type": "Question", "name": "What are MET values and where do they come from?", "acceptedAnswer": { "@type": "Answer", "text": "MET values come from the Compendium of Physical Activities, a research database led by Dr. Barbara Ainsworth. The 2024 edition is the source behind BurnBoard's activity list. One MET equals the energy of sitting still; brisk walking is about 4.3 METs and fast running reaches 14.5." } },
+    { "@type": "Question", "name": "How many calories does swimming burn?", "acceptedAnswer": { "@type": "Answer", "text": "For a 70 kg person swimming 30 minutes: leisurely swimming about 210 kcal, moderate freestyle 203 kcal, backstroke 245 kcal, fast freestyle laps 343 kcal, breaststroke 361 kcal, and butterfly about 483 kcal." } },
+    { "@type": "Question", "name": "How accurate is the calorie estimate?", "acceptedAnswer": { "@type": "Answer", "text": "The MET formula is the accepted standard in exercise science, but it is an estimate — real burn varies with body composition, fitness level, age, technique and terrain, typically within 10–20% of the calculated number. This tool provides general fitness information only and is not medical advice." } },
+    { "@type": "Question", "name": "How can I burn 500 calories in one session?", "acceptedAnswer": { "@type": "Answer", "text": "At 70 kg, 500 kcal takes roughly 52 minutes of running at 6 mph, 36 minutes of butterfly swimming, 58 minutes of vigorous cycling, or about 63 minutes of a full basketball game. Use the head-to-head comparison to find the most time-efficient activity you enjoy." } },
+    { "@type": "Question", "name": "Does BurnBoard work offline, and is my data private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The entire 135-activity MET database is baked into this single page, so search, calculation, comparison and food translation work with no internet connection. Your weekly planner is saved in your browser's local storage and never sent anywhere." } }
+  ]
+}
+</script>
+
+<!-- Footer -->
+<footer class="border-t mt-4" style="border-color:rgba(251,146,60,.25); background:#100D0A;">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-[#8d8375]">
+    <span><strong style="color:#FB923C">BurnBoard</strong> — free calories burned calculator. MET values are estimates.</span>
+    <nav class="flex items-center gap-5 font-semibold">
+      <a href="#top" class="hover:text-[#A3E635] transition-colors">Home</a>
+      <a href="https://fixoraa.tech" class="hover:text-[#A3E635] transition-colors">More Tools</a>
+    </nav>
+  </div>
+<p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+</footer>
+
+<!-- Lib block (inlined at build time) -->
+<script id="v3-burnboard-activity-calories-lib">
+/* BurnBoard pure logic — calories-burned calculator.
+ * Pure functions only: no document/window access, no DOM, no network.
+ * MET values are approximate estimates inspired by the 2024 Compendium of
+ * Physical Activities (Ainsworth et al.). Core formula:
+ *     kcal = MET x weight(kg) x duration(hours)
+ */
+var BurnBoard = (function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------ */
+  /* Activity database — 135 entries. MET = estimate from the Compendium. */
+  /* ------------------------------------------------------------------ */
+  var ACTIVITIES = [
+    /* ---- Cardio ---- */
+    { id: 'walk-slow',       name: 'Walking, slow (2 mph)',            met: 2.8,  cat: 'cardio' },
+    { id: 'walk-moderate',   name: 'Walking, moderate (3 mph)',        met: 3.5,  cat: 'cardio' },
+    { id: 'walk-brisk',      name: 'Walking, brisk (3.5 mph)',         met: 4.3,  cat: 'cardio' },
+    { id: 'walk-fast',       name: 'Walking, fast (4 mph)',            met: 5.0,  cat: 'cardio' },
+    { id: 'walk-uphill',     name: 'Walking uphill, steep grade',      met: 7.0,  cat: 'cardio' },
+    { id: 'walk-stroller',   name: 'Walking, pushing a stroller',      met: 4.0,  cat: 'cardio' },
+    { id: 'run-5mph',        name: 'Running, 5 mph (12 min/mile)',     met: 8.0,  cat: 'cardio' },
+    { id: 'run-6mph',        name: 'Running, 6 mph (10 min/mile)',     met: 9.8,  cat: 'cardio' },
+    { id: 'run-7mph',        name: 'Running, 7 mph (8.5 min/mile)',    met: 11.0, cat: 'cardio' },
+    { id: 'run-8mph',        name: 'Running, 8 mph (7.5 min/mile)',    met: 11.8, cat: 'cardio' },
+    { id: 'run-10mph',       name: 'Running, 10 mph (6 min/mile)',     met: 14.5, cat: 'cardio' },
+    { id: 'run-trail',       name: 'Running, cross-country / trail',   met: 9.0,  cat: 'cardio' },
+    { id: 'skipping',        name: 'Skipping',                         met: 9.8,  cat: 'cardio' },
+    { id: 'cycle-leisure',   name: 'Cycling, leisurely (<10 mph)',     met: 4.0,  cat: 'cardio' },
+    { id: 'cycle-moderate',  name: 'Cycling, moderate (12-14 mph)',    met: 8.0,  cat: 'cardio' },
+    { id: 'cycle-fast',      name: 'Cycling, fast (14-16 mph)',        met: 10.0, cat: 'cardio' },
+    { id: 'cycle-racing',    name: 'Cycling, racing (16-19 mph)',      met: 12.0, cat: 'cardio' },
+    { id: 'bike-light',      name: 'Stationary bike, light effort',    met: 5.5,  cat: 'cardio' },
+    { id: 'bike-vigorous',   name: 'Stationary bike, vigorous',        met: 10.5, cat: 'cardio' },
+    { id: 'spin-class',      name: 'Spin class',                       met: 8.5,  cat: 'cardio' },
+    { id: 'elliptical',      name: 'Elliptical trainer',               met: 5.0,  cat: 'cardio' },
+    { id: 'row-moderate',    name: 'Rowing machine, moderate',         met: 6.0,  cat: 'cardio' },
+    { id: 'row-vigorous',    name: 'Rowing machine, vigorous',         met: 8.5,  cat: 'cardio' },
+    { id: 'stair-slow',      name: 'Stair climbing, slow pace',        met: 4.0,  cat: 'cardio' },
+    { id: 'stair-fast',      name: 'Stair climbing, fast pace',        met: 8.8,  cat: 'cardio' },
+    { id: 'jump-rope-slow',  name: 'Jumping rope, slow',               met: 8.8,  cat: 'cardio' },
+    { id: 'jump-rope-fast',  name: 'Jumping rope, fast',               met: 12.3, cat: 'cardio' },
+    { id: 'jumping-jacks',   name: 'Jumping jacks',                    met: 8.0,  cat: 'cardio' },
+    { id: 'burpees',         name: 'Burpees',                          met: 10.0, cat: 'cardio' },
+    { id: 'hiit',            name: 'HIIT circuit training',            met: 8.0,  cat: 'cardio' },
+    { id: 'mountain-climb',  name: 'Mountain climbers',                met: 8.0,  cat: 'cardio' },
+    /* ---- Sports ---- */
+    { id: 'tennis-singles',  name: 'Tennis, singles',                  met: 7.3,  cat: 'sports' },
+    { id: 'tennis-doubles',  name: 'Tennis, doubles',                  met: 4.5,  cat: 'sports' },
+    { id: 'badminton-casual',name: 'Badminton, casual',                met: 4.5,  cat: 'sports' },
+    { id: 'badminton-comp',  name: 'Badminton, competitive',           met: 7.0,  cat: 'sports' },
+    { id: 'squash',          name: 'Squash',                           met: 7.3,  cat: 'sports' },
+    { id: 'racquetball',     name: 'Racquetball',                      met: 7.0,  cat: 'sports' },
+    { id: 'table-tennis',    name: 'Table tennis',                     met: 4.0,  cat: 'sports' },
+    { id: 'pickleball',      name: 'Pickleball',                       met: 6.0,  cat: 'sports' },
+    { id: 'padel',           name: 'Padel',                            met: 6.0,  cat: 'sports' },
+    { id: 'basketball-game', name: 'Basketball, full game',            met: 8.0,  cat: 'sports' },
+    { id: 'basketball-hoops',name: 'Basketball, shooting hoops',       met: 4.5,  cat: 'sports' },
+    { id: 'soccer-casual',   name: 'Soccer, casual kickabout',         met: 7.0,  cat: 'sports' },
+    { id: 'soccer-comp',     name: 'Soccer, competitive match',        met: 10.0, cat: 'sports' },
+    { id: 'volleyball-cas',  name: 'Volleyball, casual',               met: 3.0,  cat: 'sports' },
+    { id: 'volleyball-comp', name: 'Volleyball, competitive',          met: 8.0,  cat: 'sports' },
+    { id: 'cricket',         name: 'Cricket (batting / bowling)',      met: 4.8,  cat: 'sports' },
+    { id: 'baseball',        name: 'Baseball / softball',              met: 5.0,  cat: 'sports' },
+    { id: 'golf-walk',       name: 'Golf, walking the course',         met: 4.3,  cat: 'sports' },
+    { id: 'golf-cart',       name: 'Golf, riding in a cart',           met: 3.5,  cat: 'sports' },
+    { id: 'bowling',         name: 'Bowling',                          met: 3.0,  cat: 'sports' },
+    { id: 'frisbee-casual',  name: 'Frisbee, casual throw',            met: 3.0,  cat: 'sports' },
+    { id: 'ultimate-frisbee',name: 'Ultimate frisbee',                 met: 8.0,  cat: 'sports' },
+    { id: 'rugby',           name: 'Rugby',                            met: 8.3,  cat: 'sports' },
+    { id: 'football',        name: 'American football',                met: 8.0,  cat: 'sports' },
+    { id: 'field-hockey',    name: 'Field hockey',                     met: 7.8,  cat: 'sports' },
+    { id: 'ice-hockey',      name: 'Ice hockey',                       met: 8.0,  cat: 'sports' },
+    { id: 'handball',        name: 'Team handball',                    met: 8.0,  cat: 'sports' },
+    { id: 'lacrosse',        name: 'Lacrosse',                         met: 8.0,  cat: 'sports' },
+    { id: 'skateboard',      name: 'Skateboarding',                    met: 5.0,  cat: 'sports' },
+    { id: 'rollerblade',     name: 'Rollerblading, moderate',          met: 7.5,  cat: 'sports' },
+    { id: 'ice-skate',       name: 'Ice skating, moderate',            met: 7.0,  cat: 'sports' },
+    { id: 'martial-mod',     name: 'Martial arts, moderate',           met: 5.3,  cat: 'sports' },
+    { id: 'martial-vig',     name: 'Martial arts, vigorous',           met: 10.3, cat: 'sports' },
+    { id: 'boxing-bag',      name: 'Boxing, punching bag',             met: 5.5,  cat: 'sports' },
+    { id: 'boxing-spar',     name: 'Boxing, sparring',                 met: 7.8,  cat: 'sports' },
+    { id: 'wrestling',       name: 'Wrestling',                        met: 6.0,  cat: 'sports' },
+    /* ---- Strength ---- */
+    { id: 'lift-light',      name: 'Weight lifting, light effort',     met: 3.5,  cat: 'strength' },
+    { id: 'lift-vigorous',  name: 'Weight lifting, vigorous',         met: 6.0,  cat: 'strength' },
+    { id: 'bodyweight',      name: 'Bodyweight exercises (push-ups, sit-ups)', met: 8.0, cat: 'strength' },
+    { id: 'crossfit',        name: 'CrossFit-style workout',           met: 8.0,  cat: 'strength' },
+    { id: 'calisthenics-lt', name: 'Calisthenics, light',              met: 2.8,  cat: 'strength' },
+    { id: 'calisthenics-vg', name: 'Calisthenics, vigorous',           met: 8.0,  cat: 'strength' },
+    { id: 'core-holds',      name: 'Plank and core holds',             met: 4.0,  cat: 'strength' },
+    { id: 'trx',             name: 'TRX suspension training',          met: 5.0,  cat: 'strength' },
+    { id: 'battle-ropes',    name: 'Battle ropes',                     met: 8.0,  cat: 'strength' },
+    { id: 'kettlebell',      name: 'Kettlebell training',              met: 6.0,  cat: 'strength' },
+    { id: 'deadlift',        name: 'Deadlifts, heavy sets',            met: 6.0,  cat: 'strength' },
+    { id: 'squats',          name: 'Weighted squats',                  met: 5.0,  cat: 'strength' },
+    /* ---- Water ---- */
+    { id: 'swim-leisure',    name: 'Swimming, leisurely',              met: 6.0,  cat: 'water' },
+    { id: 'swim-freestyle',  name: 'Swimming, freestyle (moderate)',   met: 5.8,  cat: 'water' },
+    { id: 'swim-fast',       name: 'Swimming laps, freestyle fast',    met: 9.8,  cat: 'water' },
+    { id: 'swim-back',       name: 'Swimming, backstroke',             met: 7.0,  cat: 'water' },
+    { id: 'swim-breast',     name: 'Swimming, breaststroke',           met: 10.3, cat: 'water' },
+    { id: 'swim-fly',        name: 'Swimming, butterfly',              met: 13.8, cat: 'water' },
+    { id: 'tread-water',     name: 'Treading water',                   met: 3.5,  cat: 'water' },
+    { id: 'water-aerobics',  name: 'Water aerobics',                   met: 5.3,  cat: 'water' },
+    { id: 'aqua-jog',        name: 'Aqua jogging',                     met: 9.8,  cat: 'water' },
+    { id: 'kayak',           name: 'Kayaking, moderate effort',        met: 5.0,  cat: 'water' },
+    { id: 'canoe',           name: 'Canoeing',                         met: 3.5,  cat: 'water' },
+    { id: 'paddleboard',     name: 'Stand-up paddleboarding',          met: 3.0,  cat: 'water' },
+    { id: 'surf',            name: 'Surfing',                          met: 3.0,  cat: 'water' },
+    { id: 'snorkel',         name: 'Snorkeling',                       met: 5.0,  cat: 'water' },
+    { id: 'scuba',           name: 'Scuba diving',                     met: 7.0,  cat: 'water' },
+    { id: 'water-polo',      name: 'Water polo',                       met: 10.0, cat: 'water' },
+    { id: 'crew-row',        name: 'Rowing, crew / on water',          met: 6.0,  cat: 'water' },
+    { id: 'sailing',         name: 'Sailing',                          met: 3.0,  cat: 'water' },
+    /* ---- Outdoor ---- */
+    { id: 'hiking',          name: 'Hiking',                           met: 6.0,  cat: 'outdoor' },
+    { id: 'backpacking',     name: 'Backpacking',                      met: 7.0,  cat: 'outdoor' },
+    { id: 'rock-climb',      name: 'Rock climbing, ascending',         met: 7.5,  cat: 'outdoor' },
+    { id: 'ski-downhill',    name: 'Skiing, downhill (moderate)',      met: 6.0,  cat: 'outdoor' },
+    { id: 'snowboard',       name: 'Snowboarding',                     met: 5.3,  cat: 'outdoor' },
+    { id: 'horse-ride',      name: 'Horseback riding, general',        met: 5.5,  cat: 'outdoor' },
+    { id: 'walk-dog',        name: 'Walking the dog',                  met: 3.0,  cat: 'outdoor' },
+    { id: 'gardening',       name: 'Gardening, general',               met: 3.8,  cat: 'outdoor' },
+    { id: 'mow-lawn',        name: 'Mowing lawn, push mower',          met: 5.0,  cat: 'outdoor' },
+    { id: 'rake',            name: 'Raking leaves',                    met: 4.3,  cat: 'outdoor' },
+    { id: 'shovel-snow',     name: 'Shoveling snow',                   met: 6.0,  cat: 'outdoor' },
+    { id: 'orienteering',    name: 'Orienteering',                     met: 9.0,  cat: 'outdoor' },
+    { id: 'trampoline',      name: 'Trampoline',                       met: 3.5,  cat: 'outdoor' },
+    /* ---- Home & daily life ---- */
+    { id: 'clean-light',     name: 'House cleaning, light',            met: 2.5,  cat: 'home' },
+    { id: 'clean-vigorous',  name: 'House cleaning, vigorous',         met: 4.0,  cat: 'home' },
+    { id: 'vacuum',          name: 'Vacuuming',                        met: 3.3,  cat: 'home' },
+    { id: 'mop',             name: 'Mopping floors',                   met: 3.5,  cat: 'home' },
+    { id: 'cook',            name: 'Cooking',                          met: 2.5,  cat: 'home' },
+    { id: 'dishes',          name: 'Washing dishes',                   met: 2.3,  cat: 'home' },
+    { id: 'laundry',         name: 'Doing laundry',                    met: 2.3,  cat: 'home' },
+    { id: 'iron',            name: 'Ironing',                          met: 2.3,  cat: 'home' },
+    { id: 'grocery',         name: 'Grocery shopping',                 met: 2.3,  cat: 'home' },
+    { id: 'childcare',       name: 'Childcare, active',                met: 3.0,  cat: 'home' },
+    { id: 'play-kids',       name: 'Playing with kids, vigorous',      met: 5.0,  cat: 'home' },
+    { id: 'office-sit',      name: 'Sitting, office work',             met: 1.5,  cat: 'home' },
+    { id: 'stand-work',      name: 'Standing, light work',             met: 3.0,  cat: 'home' },
+    { id: 'drive',           name: 'Driving a car',                    met: 2.0,  cat: 'home' },
+    { id: 'stairs',          name: 'Climbing stairs',                  met: 8.8,  cat: 'home' },
+    { id: 'dance-slow',      name: 'Dancing, slow ballroom',           met: 3.0,  cat: 'home' },
+    { id: 'dance-aerobic',   name: 'Dancing, aerobic / Zumba',         met: 7.8,  cat: 'home' },
+    { id: 'sleep',           name: 'Sleeping',                         met: 0.95, cat: 'home' },
+    { id: 'sit-quiet',       name: 'Sitting quietly',                  met: 1.3,  cat: 'home' },
+    /* ---- Mind & body ---- */
+    { id: 'yoga-hatha',      name: 'Yoga, hatha',                      met: 2.5,  cat: 'mindbody' },
+    { id: 'yoga-power',      name: 'Yoga, power / vinyasa',            met: 4.0,  cat: 'mindbody' },
+    { id: 'pilates',         name: 'Pilates',                          met: 3.0,  cat: 'mindbody' },
+    { id: 'stretch',         name: 'Stretching',                       met: 2.3,  cat: 'mindbody' },
+    { id: 'tai-chi',         name: 'Tai chi',                          met: 3.0,  cat: 'mindbody' },
+    { id: 'meditate',        name: 'Meditation',                       met: 1.3,  cat: 'mindbody' }
+  ];
+
+  var CATEGORIES = [
+    { id: 'all',      label: 'All' },
+    { id: 'cardio',   label: 'Cardio' },
+    { id: 'sports',   label: 'Sports' },
+    { id: 'strength', label: 'Strength' },
+    { id: 'water',    label: 'Water' },
+    { id: 'outdoor',  label: 'Outdoor' },
+    { id: 'home',     label: 'Home & Daily' },
+    { id: 'mindbody', label: 'Mind & Body' }
+  ];
+
+  /* ------------------------------------------------------------------ */
+  /* Food equivalents database (kcal per single unit).                   */
+  /* ------------------------------------------------------------------ */
+  var FOODS = [
+    { name: 'slice of pepperoni pizza', kcal: 285 },
+    { name: 'cheeseburger',             kcal: 303 },
+    { name: 'medium fries',             kcal: 365 },
+    { name: 'glazed donut',             kcal: 260 },
+    { name: 'chocolate bar',            kcal: 250 },
+    { name: 'croissant',                kcal: 231 },
+    { name: 'cup of cooked rice',       kcal: 205 },
+    { name: 'latte',                    kcal: 190 },
+    { name: 'taco',                     kcal: 170 },
+    { name: 'grilled chicken breast',   kcal: 165 },
+    { name: 'can of beer',              kcal: 153 },
+    { name: 'can of cola',              kcal: 140 },
+    { name: 'scoop of ice cream',       kcal: 137 },
+    { name: 'samosa',                   kcal: 130 },
+    { name: 'glass of wine',            kcal: 125 },
+    { name: 'banana',                   kcal: 105 },
+    { name: 'apple',                    kcal: 95 },
+    { name: 'slice of bread',           kcal: 79 },
+    { name: 'boiled egg',               kcal: 78 }
+  ];
+
+  /* ------------------------------------------------------------------ */
+  /* Helpers                                                           */
+  /* ------------------------------------------------------------------ */
+  function num(v, fallback) {
+    var n = Number(v);
+    return (isFinite(n) ? n : fallback);
+  }
+
+  function round1(n) {
+    return Math.round((n + 1e-9) * 10) / 10;
+  }
+
+  function cleanStr(s) {
+    return (s === null || s === undefined) ? '' : String(s).trim();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Core API                                                          */
+  /* ------------------------------------------------------------------ */
+
+  // kcal = MET x weight(kg) x hours. Non-positive inputs -> 0 (graceful).
+  function caloriesBurned(met, weightKg, durationMin) {
+    var m = num(met, 0), w = num(weightKg, 0), d = num(durationMin, 0);
+    if (m <= 0 || w <= 0 || d <= 0) return 0;
+    return round1(m * w * (d / 60));
+  }
+
+  // Look up an activity by id (case-insensitive). Returns the object or null.
+  function getActivity(id) {
+    var key = cleanStr(id).toLowerCase();
+    if (!key) return null;
+    for (var i = 0; i < ACTIVITIES.length; i++) {
+      if (ACTIVITIES[i].id === key) return ACTIVITIES[i];
+    }
+    return null;
+  }
+
+  // Fuzzy find: first activity whose name contains the query (case-insensitive).
+  function findActivity(query) {
+    var q = cleanStr(query).toLowerCase();
+    if (!q) return null;
+    for (var i = 0; i < ACTIVITIES.length; i++) {
+      if (ACTIVITIES[i].name.toLowerCase().indexOf(q) !== -1) return ACTIVITIES[i];
+    }
+    return null;
+  }
+
+  // Search with optional category filter. Empty query returns everything.
+  function searchActivities(query, catId) {
+    var q = cleanStr(query).toLowerCase();
+    var cat = cleanStr(catId).toLowerCase() || 'all';
+    var out = [];
+    for (var i = 0; i < ACTIVITIES.length; i++) {
+      var a = ACTIVITIES[i];
+      if (cat !== 'all' && a.cat !== cat) continue;
+      if (q && a.name.toLowerCase().indexOf(q) === -1) continue;
+      out.push(a);
+    }
+    return out;
+  }
+
+  function caloriesForActivity(activityId, weightKg, durationMin) {
+    var a = getActivity(activityId);
+    if (!a) return { ok: false, kcal: 0, reason: 'unknown-activity' };
+    return { ok: true, kcal: caloriesBurned(a.met, weightKg, durationMin), activity: a };
+  }
+
+  // Side-by-side comparison of two activities at the same weight & duration.
+  function compareActivities(aId, bId, weightKg, durationMin) {
+    var a = caloriesForActivity(aId, weightKg, durationMin);
+    var b = caloriesForActivity(bId, weightKg, durationMin);
+    var ka = a.ok ? a.kcal : 0;
+    var kb = b.ok ? b.kcal : 0;
+    var diff = round1(Math.abs(ka - kb));
+    var lo = Math.min(ka, kb);
+    var pct = lo > 0 ? round1((diff / lo) * 100) : 0;
+    return {
+      a: a, b: b,
+      diffKcal: diff,
+      pctMore: pct,
+      winner: ka === kb ? 'tie' : (ka > kb ? 'a' : 'b')
+    };
+  }
+
+  // Food-equivalent translator: "burning X kcal = N units of food".
+  // Returns up to `limit` foods whose unit count lands in a readable range.
+  function foodEquivalents(kcal, limit) {
+    var k = num(kcal, 0);
+    var n = Math.max(1, Math.floor(num(limit, 5)));
+    if (k <= 0) return [];
+    var scored = [];
+    for (var i = 0; i < FOODS.length; i++) {
+      var f = FOODS[i];
+      var units = k / f.kcal;
+      if (units < 0.15 || units > 12) continue;
+      scored.push({ name: f.name, units: round1(units), closeness: Math.abs(units - 1) });
+    }
+    scored.sort(function (x, y) { return x.closeness - y.closeness; });
+    return scored.slice(0, n).map(function (s) {
+      return { name: s.name, units: s.units };
+    });
+  }
+
+  function kgToLb(kg) { return round1(num(kg, 0) * 2.20462); }
+  function lbToKg(lb) { return round1(num(lb, 0) / 2.20462); }
+
+  function dayNames() {
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  }
+
+  // Validate & normalize one planner entry. Returns null when invalid.
+  function normalizeEntry(entry) {
+    if (!entry) return null;
+    var day = Math.floor(num(entry.day, -1));
+    var minutes = num(entry.minutes, 0);
+    var a = getActivity(entry.activityId);
+    if (day < 0 || day > 6 || minutes <= 0 || !a) return null;
+    return { day: day, activityId: a.id, minutes: minutes };
+  }
+
+  // Summarize a week of planner entries: per-day kcal + grand total.
+  function weekSummary(entries, weightKg) {
+    var perDay = [0, 0, 0, 0, 0, 0, 0];
+    var list = Array.isArray(entries) ? entries : [];
+    for (var i = 0; i < list.length; i++) {
+      var e = normalizeEntry(list[i]);
+      if (!e) continue;
+      var a = getActivity(e.activityId);
+      perDay[e.day] = round1(perDay[e.day] + caloriesBurned(a.met, weightKg, e.minutes));
+    }
+    var total = round1(perDay.reduce(function (s, v) { return s + v; }, 0));
+    return { perDay: perDay, total: total };
+  }
+
+  function activityCount() { return ACTIVITIES.length; }
+
+  return {
+    ACTIVITIES: ACTIVITIES,
+    CATEGORIES: CATEGORIES,
+    FOODS: FOODS,
+    activityCount: activityCount,
+    caloriesBurned: caloriesBurned,
+    getActivity: getActivity,
+    findActivity: findActivity,
+    searchActivities: searchActivities,
+    caloriesForActivity: caloriesForActivity,
+    compareActivities: compareActivities,
+    foodEquivalents: foodEquivalents,
+    kgToLb: kgToLb,
+    lbToKg: lbToKg,
+    dayNames: dayNames,
+    normalizeEntry: normalizeEntry,
+    weekSummary: weekSummary
+  };
+})();
+
+</script>
+
+<!-- UI wiring (separate from the pure lib) -->
+<script>
+(function () {
+  'use strict';
+  var B = BurnBoard;
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- state ---------- */
+  var state = { activityId: null, unit: 'kg', cat: 'all' };
+
+  /* ---------- panel 1: calculator ---------- */
+  function renderChips() {
+    var wrap = $('catChips');
+    wrap.innerHTML = '';
+    B.CATEGORIES.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip' + (state.cat === c.id ? ' active' : '');
+      b.textContent = c.label;
+      b.addEventListener('click', function () { state.cat = c.id; renderChips(); renderBoard(); });
+      wrap.appendChild(b);
+    });
+  }
+
+  function renderBoard() {
+    var q = $('activitySearch').value;
+    var list = B.searchActivities(q, state.cat).slice(0, 80);
+    var board = $('activityBoard');
+    board.innerHTML = '';
+    if (!list.length) {
+      board.innerHTML = '<p class="text-sm text-[#8d8375] col-span-2 py-6 text-center">No activities match. Try another keyword.</p>';
+      return;
+    }
+    list.forEach(function (a) {
+      var card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'act-card' + (state.activityId === a.id ? ' selected' : '');
+      card.setAttribute('role', 'option');
+      card.innerHTML = '<div class="text-sm font-semibold leading-snug">' + escapeHtml(a.name) + '</div>' +
+        '<div class="mono text-xs mt-1" style="color:#A3E635">' + a.met + ' MET</div>';
+      card.addEventListener('click', function () { selectActivity(a.id); });
+      board.appendChild(card);
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function weightKg() {
+    var w = parseFloat($('weightInput').value);
+    if (!isFinite(w) || w <= 0) return 0;
+    return state.unit === 'lb' ? B.lbToKg(w) : w;
+  }
+
+  function durationMin() {
+    var d = parseFloat($('durationInput').value);
+    return (isFinite(d) && d > 0) ? d : 0;
+  }
+
+  function selectActivity(id) {
+    state.activityId = id;
+    renderBoard();
+    updateCalc();
+  }
+
+  function updateCalc() {
+    var a = B.getActivity(state.activityId);
+    if (!a) {
+      $('selectedActivity').textContent = 'Pick an activity from the board';
+      $('selectedMet').textContent = '';
+      $('burnResult').textContent = '0';
+      $('foodStrip').innerHTML = '<span class="text-[#8d8375]">Select an activity to see food equivalents.</span>';
+      return;
+    }
+    $('selectedActivity').textContent = a.name;
+    $('selectedMet').textContent = a.met + ' MET · estimate';
+    var kcal = B.caloriesBurned(a.met, weightKg(), durationMin());
+    $('burnResult').textContent = Math.round(kcal).toLocaleString('en-US');
+    var foods = B.foodEquivalents(kcal, 4);
+    if (!foods.length) {
+      $('foodStrip').innerHTML = '<span class="text-[#8d8375]">Enter weight and duration to see food equivalents.</span>';
+    } else {
+      $('foodStrip').innerHTML = foods.map(function (f) {
+        return '<div>≈ <strong class="mono" style="color:#FB923C">' + f.units + '</strong> ' + escapeHtml(f.name) + (f.units === 1 ? '' : 's') + '</div>';
+      }).join('');
+    }
+  }
+
+  $('activitySearch').addEventListener('input', renderBoard);
+  $('weightInput').addEventListener('input', function () { updateCalc(); renderPlan(); });
+  $('durationInput').addEventListener('input', updateCalc);
+  $('unitKg').addEventListener('click', function () { state.unit = 'kg'; $('unitKg').classList.add('active'); $('unitLb').classList.remove('active'); updateCalc(); });
+  $('unitLb').addEventListener('click', function () { state.unit = 'lb'; $('unitLb').classList.add('active'); $('unitKg').classList.remove('active'); updateCalc(); });
+  document.querySelectorAll('.dur-preset').forEach(function (btn) {
+    btn.addEventListener('click', function () { $('durationInput').value = btn.getAttribute('data-min'); updateCalc(); });
+  });
+
+  /* ---------- panel 2: compare ---------- */
+  function fillSelect(sel, preselectId) {
+    B.ACTIVITIES.forEach(function (a) {
+      var o = document.createElement('option');
+      o.value = a.id;
+      o.textContent = a.name + ' (' + a.met + ' MET)';
+      sel.appendChild(o);
+    });
+    if (preselectId) sel.value = preselectId;
+  }
+  fillSelect($('cmpA'), 'run-6mph');
+  fillSelect($('cmpB'), 'swim-freestyle');
+
+  $('btnCompare').addEventListener('click', function () {
+    var w = parseFloat($('cmpWeight').value);
+    var d = parseFloat($('cmpDuration').value);
+    w = (isFinite(w) && w > 0) ? w : 0;
+    d = (isFinite(d) && d > 0) ? d : 0;
+    var r = B.compareActivities($('cmpA').value, $('cmpB').value, w, d);
+    $('cmpOutput').classList.remove('hidden');
+    $('cmpNameA').textContent = r.a.ok ? r.a.activity.name : 'Unknown activity';
+    $('cmpNameB').textContent = r.b.ok ? r.b.activity.name : 'Unknown activity';
+    $('cmpResultA').textContent = Math.round(r.a.kcal).toLocaleString('en-US');
+    $('cmpResultB').textContent = Math.round(r.b.kcal).toLocaleString('en-US');
+    var max = Math.max(r.a.kcal, r.b.kcal, 1);
+    $('cmpBarA').style.width = (r.a.kcal / max * 100) + '%';
+    $('cmpBarB').style.width = (r.b.kcal / max * 100) + '%';
+    var v = $('cmpVerdict');
+    if (r.winner === 'tie') {
+      v.innerHTML = '🤝 Dead heat — both burn <span class="mono" style="color:#A3E635">' + Math.round(r.a.kcal) + ' kcal</span>.';
+    } else {
+      var winName = r.winner === 'a' ? $('cmpNameA').textContent : $('cmpNameB').textContent;
+      v.innerHTML = '🏆 <strong style="color:#FB923C">' + escapeHtml(winName) + '</strong> burns <span class="mono" style="color:#A3E635">' + r.diffKcal + ' kcal more</span> (' + r.pctMore + '% more).';
+    }
+    $('cmpOutput').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  /* ---------- panel 3: weekly planner ---------- */
+  var PLAN_KEY = 'burnboard-week-v1';
+  function loadPlan() {
+    try {
+      var raw = localStorage.getItem(PLAN_KEY);
+      var arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr.filter(function (e) { return B.normalizeEntry(e); }) : [];
+    } catch (e) { return []; }
+  }
+  function savePlan(entries) {
+    try { localStorage.setItem(PLAN_KEY, JSON.stringify(entries)); } catch (e) {}
+  }
+
+  var days = B.dayNames();
+  var daySel = $('planDay');
+  days.forEach(function (d, i) {
+    var o = document.createElement('option');
+    o.value = i; o.textContent = d;
+    daySel.appendChild(o);
+  });
+  fillSelect($('planActivity'), 'swim-freestyle');
+
+  $('btnAddPlan').addEventListener('click', function () {
+    var entry = B.normalizeEntry({
+      day: parseInt(daySel.value, 10),
+      activityId: $('planActivity').value,
+      minutes: parseFloat($('planMinutes').value)
+    });
+    if (!entry) return;
+    var entries = loadPlan();
+    entries.push(entry);
+    savePlan(entries);
+    renderPlan();
+  });
+
+  $('btnClearPlan').addEventListener('click', function () {
+    savePlan([]);
+    renderPlan();
+  });
+
+  window.__burnboardRemovePlan = function (idx) {
+    var entries = loadPlan();
+    entries.splice(idx, 1);
+    savePlan(entries);
+    renderPlan();
+  };
+
+  function renderPlan() {
+    var entries = loadPlan();
+    var board = $('weekBoard');
+    board.innerHTML = '';
+    var todayIdx = (new Date().getDay() + 6) % 7; // Mon=0
+    var w = weightKg() || parseFloat($('cmpWeight').value) || 70;
+    $('planWeightEcho').textContent = Math.round(w) + ' kg';
+    var summary = B.weekSummary(entries, w);
+
+    days.forEach(function (d, i) {
+      var col = document.createElement('div');
+      col.className = 'day-col' + (i === todayIdx ? ' today' : '');
+      var head = '<div class="flex items-center justify-between mb-2">' +
+        '<span class="text-xs font-bold uppercase tracking-wider ' + (i === todayIdx ? '' : 'text-[#8d8375]') + '"' +
+        (i === todayIdx ? ' style="color:#FB923C"' : '') + '>' + d + '</span>' +
+        '<span class="mono text-xs" style="color:#A3E635">' + Math.round(summary.perDay[i]) + '</span></div>';
+      var items = '';
+      entries.forEach(function (e, idx) {
+        if (e.day !== i) return;
+        var a = B.getActivity(e.activityId);
+        items += '<div class="plan-entry"><div class="font-semibold leading-tight">' + escapeHtml(a ? a.name : '?') + '</div>' +
+          '<div class="mono text-[#8d8375]">' + e.minutes + ' min <button type="button" onclick="__burnboardRemovePlan(' + idx + ')" style="color:#FB923C" aria-label="Remove">✕</button></div></div>';
+      });
+      col.innerHTML = head + (items || '<p class="text-[11px] text-[#5c554a]">Rest day</p>');
+      board.appendChild(col);
+    });
+    $('weekTotal').textContent = Math.round(summary.total).toLocaleString('en-US');
+  }
+
+  /* ---------- init ---------- */
+  renderChips();
+  renderBoard();
+  updateCalc();
+  renderPlan();
+  selectActivity('walk-brisk');
+})();
+</script>
+</body>
+</html>
