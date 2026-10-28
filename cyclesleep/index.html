@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sleep Cycle Calculator — Best Bedtime &amp; Wake-Up Times | CycleSleep</title>
+<meta name="description" content="Sleep cycle calculator: find the best bedtime or wake-up time from 90-minute sleep cycles, with adjustable doze-off time and nap planner. Free.">
+<link rel="canonical" href="https://health.fixoraa.tech/cyclesleep/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Sleep Cycle Calculator — Best Bedtime &amp; Wake-Up Times | CycleSleep">
+<meta property="og:description" content="Sleep cycle calculator: find the best bedtime or wake-up time from 90-minute sleep cycles, with adjustable doze-off time and nap planner. Free.">
+<meta property="og:url" content="https://health.fixoraa.tech/cyclesleep/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "CycleSleep",
+      "url": "https://health.fixoraa.tech/cyclesleep/",
+      "applicationCategory": "Health Tools",
+      "operatingSystem": "Web",
+      "description": "Sleep cycle calculator: find the best bedtime or wake-up time from 90-minute sleep cycles, with adjustable doze-off time and nap planner. Free.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long is a sleep cycle really?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "About 90 minutes on average for adults, but real cycles range from roughly 70 to 120 minutes and vary through the night. The 90-minute figure is a well-supported average used by sleep researchers \u2014 treat calculator times as smart starting points and fine-tune by how you actually feel over a week or two."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is 6 hours of sleep enough if it is 4 complete cycles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is better than 6 misaligned hours, but it is still short of the 7\u20139 hours most adults need. Cycle alignment reduces morning grogginess; it does not replace lost sleep. Regularly taking the 4-cycle option builds real sleep debt \u2014 use it for occasional short nights, not as a lifestyle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do I feel groggy after 8 hours of sleep sometimes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because your alarm likely landed in the middle of deep (N3) sleep or REM, producing sleep inertia \u2014 that heavy, disoriented feeling. Eight hours is 5.33 cycles, so it often cuts a cycle short. Shifting bedtime by 20\u201330 minutes to land on a cycle boundary frequently fixes it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does the average person take to fall asleep?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Around 15 minutes is typical for healthy adults. Consistently under 5 minutes can actually signal sleep deprivation, while regularly over 30 minutes suggests insomnia worth addressing. Set the calculator's latency slider to your honest average for the most accurate bedtimes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are 20-minute power naps actually useful?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes \u2014 research shows 10\u201320 minute naps boost alertness and mood without entering deep sleep, so you wake easily. The key is keeping it short: at 30\u201360 minutes you sink into deep sleep and wake groggy. A 90-minute nap works too, because it completes a full cycle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a sleep cycle calculator work for shift workers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The cycle math works the same, but consistency matters more. Use an 'anchor sleep' strategy: keep at least one 4-hour sleep block at the same time daily, even on days off, plus a second block or nap as needed. Anchor your wake time rather than your bedtime when shifts rotate."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#F5F1FB; --surface:#FFFFFF; --accent:#4C1D95; --accent-ink:#FFFFFF;
+  --ink:#23262F; --muted:#5A6272; --line:#DED6EE;
+  --display:'Sora',serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.cs-wrap{max-width:920px;margin:0 auto;padding:56px 20px 70px;font-family:'Inter',system-ui,sans-serif;color:#23262F}.cs-hero{text-align:center;margin-bottom:30px}.cs-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#4C1D95;background:#EDE7FA;border:1px solid #DED6EE;padding:6px 14px;border-radius:999px;margin-bottom:14px}.cs-hero h1{font-family:'Sora',Inter,sans-serif;font-size:clamp(32px,5vw,50px);line-height:1.08;margin:0 0 10px;letter-spacing:-.02em}.cs-tag{color:#5A6272;font-size:17px;margin:0}.cs-dialcard{background:#FFFFFF;border:1px solid #DED6EE;border-radius:28px;padding:30px 24px 22px;box-shadow:0 24px 60px rgba(76,29,149,.10);margin-bottom:22px}.cs-dialflex{display:flex;gap:28px;align-items:center;justify-content:center;flex-wrap:wrap}.cs-dialcap{text-align:center;margin-top:6px}.cs-dialcap b{font-family:'Sora',sans-serif;font-size:22px;color:#4C1D95}.cs-dialcap span{display:block;color:#5A6272;font-size:14px;margin-top:4px}.cs-legend{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px;font-size:13.5px;color:#5A6272}.cs-dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}.cs-controls{background:#FFFFFF;border:1px solid #DED6EE;border-radius:28px;padding:28px;box-shadow:0 24px 60px rgba(76,29,149,.10);margin-bottom:22px}.cs-seg{display:flex;background:#F5F1FB;border:1px solid #DED6EE;border-radius:999px;padding:4px;margin-bottom:20px}.cs-seg button{flex:1;border:none;background:transparent;padding:12px;font-size:15px;font-weight:700;border-radius:999px;cursor:pointer;color:#5A6272;font-family:inherit}.cs-seg button.on{background:#4C1D95;color:#fff;box-shadow:0 4px 12px rgba(76,29,149,.3)}.cs-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:6px}.cs-field label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5A6272;margin-bottom:8px}.cs-field input[type=time]{width:100%;padding:13px 14px;font-size:20px;border:2px solid #DED6EE;border-radius:14px;font-family:inherit;color:#23262F;background:#fff}.cs-field input[type=time]:focus{outline:none;border-color:#4C1D95}.cs-rangeval{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#4C1D95}.cs-field input[type=range]{width:100%;accent-color:#4C1D95;margin-top:8px}.cs-linkbtn{background:none;border:none;color:#4C1D95;font-weight:700;font-size:14px;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit}.cs-results{display:grid;gap:10px;margin-top:20px}.cs-row{display:flex;align-items:center;gap:14px;background:#F5F1FB;border:1px solid #DED6EE;border-radius:16px;padding:14px 18px}.cs-row .cs-cyc{font-family:'Sora',sans-serif;font-weight:700;font-size:17px;min-width:86px}.cs-row .cs-t{font-size:24px;font-weight:700;font-family:'Sora',sans-serif;color:#4C1D95}.cs-row .cs-d{color:#5A6272;font-size:14px}.cs-pill{margin-left:auto;font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;white-space:nowrap}.cs-pill.ideal{background:#4C1D95;color:#fff}.cs-pill.ok{background:#EDE7FA;color:#4C1D95;border:1px solid #DED6EE}.cs-pill.short{background:#fff;color:#5A6272;border:1px dashed #b9aec9}.cs-row.star{border:2px solid #4C1D95;background:#fff;box-shadow:0 8px 24px rgba(76,29,149,.12)}.cs-xgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}.cs-xcard{background:#FFFFFF;border:1px solid #DED6EE;border-radius:22px;padding:24px}.cs-xcard h3{font-family:'Sora',sans-serif;font-size:19px;margin:0 0 10px}.cs-xcard p{font-size:14.5px;color:#5A6272;margin:0 0 12px;line-height:1.65}.cs-table{width:100%;border-collapse:collapse;font-size:14px}.cs-table th,.cs-table td{padding:9px 8px;border-bottom:1px solid #DED6EE;text-align:left}.cs-table th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:#4C1D95}.cs-napbtns{display:flex;gap:10px;flex-wrap:wrap}.cs-napbtns button{border:2px solid #4C1D95;background:#fff;color:#4C1D95;font-weight:700;padding:11px 18px;border-radius:14px;cursor:pointer;font-size:15px;font-family:inherit}.cs-napbtns button:hover{background:#4C1D95;color:#fff}.cs-napout{margin-top:12px;font-size:15px;background:#F5F1FB;border-radius:12px;padding:12px 14px;display:none}.cs-napout.show{display:block}.cs-note{font-size:13px;color:#5A6272;margin-top:16px;line-height:1.6}@media(max-width:640px){.cs-grid2,.cs-xgrid{grid-template-columns:1fr}.cs-wrap{padding:40px 14px 56px}.cs-row .cs-t{font-size:20px}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="CycleSleep home">
+      <span class="fx-logo-tile" aria-hidden="true">🌙</span>
+      <span class="fx-brand">CycleSleep</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-chart-dial" aria-label="CycleSleep tool">
+<section class='cs-wrap'><div class='cs-hero'><span class='cs-eyebrow'>90-minute sleep science</span><h1>Sleep Cycle Calculator</h1><p class='cs-tag'>Wake up at the end of a sleep cycle, not in the middle of one.</p></div><div class='cs-dialcard'><div class='cs-dialflex'><svg id='cs-dial' viewBox='0 0 320 320' width='300' height='300' role='img' aria-label='24 hour sleep dial'></svg></div><div class='cs-dialcap'><b id='cs-capmain'>–</b><span id='cs-capsub'>Set your time below to draw your sleep window.</span></div><div class='cs-legend'><span><span class='cs-dot' style='background:#4C1D95'></span>Sleep window</span><span><span class='cs-dot' style='background:#fff;border:2px solid #4C1D95'></span>Cycle boundary — easiest wake</span><span><span class='cs-dot' style='background:#F59E0B'></span>Wake time</span></div></div><div class='cs-controls'><div class='cs-seg' role='group' aria-label='Mode'><button id='cs-mwake' class='on' type='button'>I know my wake time</button><button id='cs-mbed' type='button'>I know my bedtime</button></div><div class='cs-grid2'><div class='cs-field'><label for='cs-time' id='cs-timelabel'>Alarm time</label><input type='time' id='cs-time' value='07:00'><div style='margin-top:8px'><button class='cs-linkbtn' id='cs-now' type='button'>Use current time</button></div></div><div class='cs-field'><label for='cs-lat'>Time to fall asleep <span class='cs-rangeval' id='cs-latval'>15 min</span></label><input type='range' id='cs-lat' min='5' max='30' step='5' value='15'><p class='cs-note' style='margin-top:6px'>Most adults take about 15 minutes to drift off. Move it to match your reality.</p></div></div><div class='cs-results' id='cs-results' role='status' aria-live='polite'></div></div><div class='cs-xgrid'><div class='cs-xcard'><h3>😴 Power-nap planner</h3><p>Tap when you lie down — we will tell you when to get up.</p><div class='cs-napbtns'><button type='button' data-nap='20'>20-min refresh</button><button type='button' data-nap='90'>90-min full cycle</button></div><div class='cs-napout' id='cs-napout'></div></div><div class='cs-xcard'><h3>📊 How much sleep do you need?</h3><p>Recommended nightly sleep by age (National Sleep Foundation ranges):</p><table class='cs-table'><tr><th>Age</th><th>Sleep</th><th>Cycles</th></tr><tr><td>14–17</td><td>8–10 h</td><td>5–7</td></tr><tr><td>18–25</td><td>7–9 h</td><td>5–6</td></tr><tr><td>26–64</td><td>7–9 h</td><td>5–6</td></tr><tr><td>65+</td><td>7–8 h</td><td>5–6</td></tr></table></div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Why Sleep Comes in Cycles, Not Hours</h2><p>Most of us think about sleep the way we think about charging a phone: hours in, energy out. Eight hours good, six hours bad. But sleep researchers describe something more structured. Across the night, your brain moves through a repeating sequence of stages — light sleep, deep sleep, and REM sleep — and one full pass through that sequence is a <strong>sleep cycle</strong>, lasting about 90 minutes on average. A healthy adult repeats it four to six times a night.</p><p>This matters because the stages are not interchangeable. The first cycles of the night are rich in <strong>deep, slow-wave sleep</strong> (stage N3), when growth hormone is released, tissues repair, and the immune system does heavy work. Later cycles are dominated by <strong>REM sleep</strong>, when most vivid dreaming happens and the brain consolidates memory and learning. Waking up is easiest at the <strong>boundary between cycles</strong>, during light sleep — and hardest from deep sleep, which produces the groggy, hit-by-a-bus feeling called <strong>sleep inertia</strong>.</p><p>That is the entire logic of this calculator: instead of aiming for a round number of hours, aim your alarm at a cycle boundary. Six full cycles (9 hours) or five (7.5 hours) will usually feel dramatically better than, say, 8 hours that lands you in the middle of deep sleep.</p><h2>The 90-Minute Math</h2><p>The formula behind every sleep cycle calculator is simple:</p><p><strong>Bedtime = wake-up time − (number of cycles × 90 minutes) − time to fall asleep</strong></p><p>For example, if your alarm is set for 7:00 AM and you want five complete cycles: 5 × 90 minutes = 7.5 hours of sleep, plus about 15 minutes to drift off. Count back 7 hours 45 minutes from 7:00 AM and you get a bedtime of <strong>11:15 PM</strong>. Want six cycles instead? That is 9 hours plus 15 minutes — bedtime <strong>9:45 PM</strong>.</p><p>The reverse works the same way. If you fall asleep at 11:30 PM, adding cycles of 90 minutes gives wake-up options of 6:00 AM (5 cycles), 7:30 AM (6 cycles), 4:30 AM (4 cycles), and so on. CycleSleep does this arithmetic for you and draws the result on the 24-hour dial above, so you can see your whole sleep window at a glance.</p><h2>Why the Fall-Asleep Buffer Matters</h2><p>Almost every sleep calculator on the internet hard-codes 15 minutes for falling asleep — the average <strong>sleep latency</strong> for healthy adults. But averages hide real people. If you are out in five minutes, a fixed 15-minute buffer pushes every suggestion ten minutes too early; if you toss and turn for half an hour, it pushes them too late, and you will still wake mid-cycle.</p><p>That is why the slider above goes from 5 to 30 minutes. Set it honestly. The best way to calibrate: for a week, note roughly how long you lie awake. Most people overestimate — if you think it takes you 30 minutes, it is often closer to 15. A sleep diary or even a simple notes app entry each morning ('lights out 11:00, asleep ~11:20') beats guessing.</p><h2>How Many Cycles Do You Actually Need?</h2><p>Cycle alignment optimizes <em>when</em> you wake, not <em>how much</em> you sleep — and the amount still matters enormously. Major health guidance converges on <strong>7–9 hours for adults</strong> (5–6 cycles), <strong>8–10 hours for teenagers</strong>, and <strong>7–8 hours for older adults</strong>. The calculator will happily show you 3-cycle options for emergency nights, but taking the short option regularly builds real <strong>sleep debt</strong>: impaired focus, worse mood, weakened immunity, and higher long-term health risks.</p><p>Think of cycles as the fine-tuning on top of sufficiency. Five aligned cycles beat six misaligned ones for morning grogginess, but four aligned cycles do not beat six hours of plain adequate sleep for your health. Get the hours first, then align them.</p><h2>The Stages Inside Each 90 Minutes</h2><p>A single cycle is not a uniform block. It typically unfolds like this:</p><ul><li><strong>N1 (light sleep, ~5 minutes):</strong> the doorway between waking and sleeping. Easy to wake from; that floating, hypnic-jerk feeling lives here.</li><li><strong>N2 (stable sleep, ~20–45 minutes):</strong> heart rate slows, body temperature drops, brain produces sleep spindles. About half the night is N2.</li><li><strong>N3 (deep sleep, ~20–40 minutes in early cycles):</strong> slow-wave sleep. Hardest to wake from; the body repairs tissue, builds bone and muscle, and strengthens the immune system.</li><li><strong>REM (10–60 minutes, growing through the night):</strong> brain highly active, body paralyzed (except eyes and breathing). Dreams, memory consolidation, emotional processing.</li></ul><p>Early in the night, cycles are N3-heavy; toward morning, REM stretches longer and deep sleep nearly disappears. This changing architecture is why the last two hours of sleep feel so different from the first two — and why a 90-minute nap (one full cycle) feels restorative while a 60-minute nap (waking from deep sleep) can feel worse than no nap at all.</p><h2>Consistency Beats Perfection</h2><p>Here is the honest caveat every sleep calculator should carry: 90 minutes is an <em>average</em>. Real cycles run roughly 70–120 minutes and vary through the night and between people. These times are smart starting points, not stopwatch precision. The factor that dwarfs cycle math in the research is <strong>consistency</strong> — going to bed and waking at the same times every day, weekends included.</p><p>A regular schedule anchors your <strong>circadian rhythm</strong>, the internal clock that times melatonin release, cortisol, and body temperature. When the clock is anchored, you start feeling sleepy at the right time and waking just before the alarm — the calculator's suggestions start landing exactly on your real cycle boundaries. When your schedule swings by hours between weekdays and weekends (so-called social jet lag), even perfect cycle math fights an uphill battle.</p><h2>Power Naps: The 20-or-90 Rule</h2><p>Naps follow the same cycle logic in miniature. A <strong>20-minute nap</strong> keeps you in light sleep — you wake easily, with a measurable boost to alertness and mood, and it rarely interferes with nighttime sleep if taken before mid-afternoon. A <strong>90-minute nap</strong> completes one full cycle including REM, which is why it is the choice of shift workers and long-haul crews — but it needs a full 90 minutes, and it can leave you groggy for 10–15 minutes on waking.</p><p>The danger zone is <strong>30–60 minutes</strong>: long enough to sink into deep sleep, too short to complete the cycle. You wake from N3 with full sleep inertia. If you only have 40 minutes, set the alarm for 25 — a short nap beats a deep-sleep interruption every time. The nap planner above applies exactly this rule.</p><h2>Sleep Hygiene: Making the Cycles Count</h2><p>Aligned bedtimes work best on a foundation of good <strong>sleep hygiene</strong>:</p><ul><li><strong>Light discipline:</strong> dim lights 60 minutes before bed; bright light (or daylight) within an hour of waking. Light is the strongest circadian signal.</li><li><strong>Caffeine curfew:</strong> caffeine's half-life is 5–6 hours — an afternoon coffee is still a quarter-strength dose at midnight. Most sleep specialists suggest a cutoff 8 hours before bed.</li><li><strong>Cool and dark:</strong> core body temperature must drop to initiate sleep; a cool room (around 18–19°C / 65–67°F) and blackout conditions help.</li><li><strong>Wind-down ritual:</strong> the same 20–30 minute routine nightly trains your brain that sleep is coming — reading, stretching, or calm music, not scrolling.</li><li><strong>Screen curfew:</strong> not just blue light — the content keeps your brain aroused. Charge the phone outside the bedroom if you can.</li><li><strong>Alcohol honesty:</strong> alcohol shortens sleep latency but fragments the second half of the night and suppresses REM. It feels like it helps; it does not.</li></ul><h2>Shift Work and Irregular Schedules</h2><p>If you work nights or rotating shifts, the standard advice still applies — with one addition: <strong>anchor sleep</strong>. Keep at least one 4-hour block of sleep at the same time every day, even on days off, and add a second shorter block as needed. This 'split sleep' or anchor-plus-nap pattern preserves circadian anchoring far better than one long block that moves around the clock.</p><p>Other shift-work essentials: wear sunglasses on the morning commute home (morning light after a night shift tells your brain to wake up), make the bedroom cave-dark with blackout curtains, keep the room cool, and tell the household your sleep hours are non-negotiable. Strategic napping — 20 minutes before a shift, or a 90-minute anchor nap before a night shift — is a legitimate performance tool, used by hospitals and airlines worldwide.</p><h2>When to See a Doctor</h2><p>No calculator diagnoses sleep disorders. See a sleep physician if you experience loud habitual snoring or witnessed pauses in breathing (possible sleep apnea), persistent insomnia lasting more than three months, overwhelming daytime sleepiness despite adequate time in bed, restless legs that disrupt sleep onset, or sleepwalking/sleep behaviors that risk injury. These are medical conditions with effective treatments — cycle math cannot fix them, but a doctor often can.</p><h2>Tuning the Calculator to Your Body</h2><p>The fastest way to make these times truly yours is a two-week calibration. Each morning, jot down three things: what time you got into bed, roughly how long you lay awake, and how you felt on waking from 1 to 5. After a week, patterns emerge. If you consistently feel great waking at the 5-cycle suggestion but groggy at the 4-cycle one, your real cycle length is close to 90 minutes and the defaults fit you well. If every suggestion feels slightly off — you wake ten minutes before the alarm, or always feel you need a snooze — shift your latency setting: chronic pre-alarm waking usually means your buffer is set too long, while repeated snoozing means it is too short.</p><p>Pay attention to weekends too. If your weekday schedule is anchored but weekends drift two hours later, Monday mornings will punish you regardless of cycle math. The fix is not sleeping in to 'catch up' — it is keeping weekend wake times within an hour of weekdays and, if you are tired, taking a 20-minute early-afternoon nap instead. Small, consistent corrections beat heroic weekend lie-ins every time, and within a fortnight most people find the calculator's suggestions landing exactly on their natural waking moments.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>How long is a sleep cycle really?</summary><p>About 90 minutes on average for adults, but real cycles range from roughly 70 to 120 minutes and vary through the night. The 90-minute figure is a well-supported average used by sleep researchers — treat calculator times as smart starting points and fine-tune by how you actually feel over a week or two.</p></details>
+<details><summary>Is 6 hours of sleep enough if it is 4 complete cycles?</summary><p>It is better than 6 misaligned hours, but it is still short of the 7–9 hours most adults need. Cycle alignment reduces morning grogginess; it does not replace lost sleep. Regularly taking the 4-cycle option builds real sleep debt — use it for occasional short nights, not as a lifestyle.</p></details>
+<details><summary>Why do I feel groggy after 8 hours of sleep sometimes?</summary><p>Because your alarm likely landed in the middle of deep (N3) sleep or REM, producing sleep inertia — that heavy, disoriented feeling. Eight hours is 5.33 cycles, so it often cuts a cycle short. Shifting bedtime by 20–30 minutes to land on a cycle boundary frequently fixes it.</p></details>
+<details><summary>How long does the average person take to fall asleep?</summary><p>Around 15 minutes is typical for healthy adults. Consistently under 5 minutes can actually signal sleep deprivation, while regularly over 30 minutes suggests insomnia worth addressing. Set the calculator's latency slider to your honest average for the most accurate bedtimes.</p></details>
+<details><summary>Are 20-minute power naps actually useful?</summary><p>Yes — research shows 10–20 minute naps boost alertness and mood without entering deep sleep, so you wake easily. The key is keeping it short: at 30–60 minutes you sink into deep sleep and wake groggy. A 90-minute nap works too, because it completes a full cycle.</p></details>
+<details><summary>Does a sleep cycle calculator work for shift workers?</summary><p>The cycle math works the same, but consistency matters more. Use an 'anchor sleep' strategy: keep at least one 4-hour sleep block at the same time daily, even on days off, plus a second block or nap as needed. Anchor your wake time rather than your bedtime when shifts rotate.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">CycleSleep</div>
+    <p>CycleSleep turns your alarm time into cycle-aligned bedtimes using 90-minute sleep science — with adjustable doze-off time, age-based sleep needs and a power-nap planner.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function bedtimeFor(wakeMin,cycles,lat){var t=((wakeMin-cycles*90-lat)%1440+1440)%1440;var h=Math.floor(t/60),m=t%60;return (h<10?'0':'')+h+':'+(m<10?'0':'')+m;}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var mode='wake',timeEl=document.getElementById('cs-time'),latEl=document.getElementById('cs-lat'),latVal=document.getElementById('cs-latval'),mw=document.getElementById('cs-mwake'),mb=document.getElementById('cs-mbed'),res=document.getElementById('cs-results'),dial=document.getElementById('cs-dial'),capM=document.getElementById('cs-capmain'),capS=document.getElementById('cs-capsub'),tl=document.getElementById('cs-timelabel');if(!timeEl||!dial)return;function fmt(mins){var t=((mins%1440)+1440)%1440;var h=Math.floor(t/60),m=t%60,ap=h>=12?'PM':'AM',h12=h%12===0?12:h%12;return h12+':'+(m<10?'0':'')+m+' '+ap;}function toMin(v){var p=v.split(':');return (+p[0])*60+(+p[1]);}function ang(mins){return (mins/1440)*360;}function pt(cx,cy,r,a){var rad=(a-90)*Math.PI/180;return [cx+r*Math.cos(rad),cy+r*Math.sin(rad)];}function drawDial(sleepStart,sleepEnd,wakeMin,bounds){var cx=160,cy=160,r=132,C=2*Math.PI*r,s='';s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#EDE7FA" stroke-width="26"/>';for(var i=0;i<24;i++){var a=i*15,p1=pt(cx,cy,r-17,a),p2=pt(cx,cy,r-9,a);s+='<line x1="'+p1[0].toFixed(1)+'" y1="'+p1[1].toFixed(1)+'" x2="'+p2[0].toFixed(1)+'" y2="'+p2[1].toFixed(1)+'" stroke="#b9aec9" stroke-width="'+(i%6===0?2.5:1)+'"/>';if(i%6===0){var lp=pt(cx,cy,r-30,a);s+='<text x="'+lp[0].toFixed(1)+'" y="'+(lp[1]+4).toFixed(1)+'" text-anchor="middle" font-size="11" fill="#5A6272" font-family="Inter,sans-serif">'+(i===0?'12a':i<12?i+'a':i===12?'12p':(i-12)+'p')+'</text>';}}var len=((sleepEnd-sleepStart+1440)%1440);if(len>0){var frac=len/1440;s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#4C1D95" stroke-width="26" stroke-linecap="round" stroke-dasharray="'+(frac*C).toFixed(1)+' '+C.toFixed(1)+'" transform="rotate('+(ang(sleepStart)-90)+' '+cx+' '+cy+')" opacity="0.92"/>';}for(var b=0;b<bounds.length;b++){var bp=pt(cx,cy,r,ang(bounds[b]));s+='<circle cx="'+bp[0].toFixed(1)+'" cy="'+bp[1].toFixed(1)+'" r="7" fill="#fff" stroke="#4C1D95" stroke-width="3"/>';}if(wakeMin!=null){var wp=pt(cx,cy,r,ang(wakeMin));s+='<circle cx="'+wp[0].toFixed(1)+'" cy="'+wp[1].toFixed(1)+'" r="9" fill="#F59E0B" stroke="#fff" stroke-width="3"/>';}s+='<text x="'+cx+'" y="'+(cy-2)+'" text-anchor="middle" font-family="Sora,sans-serif" font-weight="700" font-size="46" fill="#4C1D95">5</text>';s+='<text x="'+cx+'" y="'+(cy+26)+'" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" fill="#5A6272">cycles · 7.5 h</text>';dial.innerHTML=s;}function badge(c){if(c>=5)return '<span class="cs-pill ideal">Ideal</span>';if(c===4)return '<span class="cs-pill ok">Good</span>';return '<span class="cs-pill short">Short</span>';}function render(){var lat=+latEl.value;latVal.textContent=lat+' min';var t=toMin(timeEl.value||'07:00');var html='',bounds=[],ss,se,wm=null;if(mode==='wake'){wm=t;var best=null;for(var c=6;c>=3;c--){var bt=bedtimeFor(t,c,lat);var btMin=((t-c*90-lat)%1440+1440)%1440;var hrs=(c*90/60);var star=(c===5);html+='<div class="cs-row'+(star?' star':'')+'"><div class="cs-cyc">'+c+' cycles</div><div><div class="cs-t">'+fmt(btMin)+'</div><div class="cs-d">'+hrs.toFixed(1)+' h asleep · in bed by '+fmt(btMin)+'</div></div>'+badge(c)+'</div>';if(c===5){best=btMin;}}ss=((t-5*90-lat)%1440+1440)%1440;se=t;for(var k=1;k<=5;k++)bounds.push((ss+k*90)%1440);capM.textContent='In bed by '+fmt(ss);capS.textContent='5 cycles · 7.5 h asleep · alarm '+fmt(t)+' (includes '+lat+' min to drift off)';}else{var asleep=(t+lat)%1440;ss=asleep;for(var c2=3;c2<=6;c2++){var w2=(asleep+c2*90)%1440;var hrs2=(c2*90/60);var star2=(c2===5);html+='<div class="cs-row'+(star2?' star':'')+'"><div class="cs-cyc">'+c2+' cycles</div><div><div class="cs-t">'+fmt(w2)+'</div><div class="cs-d">'+hrs2.toFixed(1)+' h asleep · alarm '+fmt(w2)+'</div></div>'+badge(c2)+'</div>';if(c2===5)wm=w2;}se=(asleep+6*90)%1440;for(var k2=1;k2<=6;k2++)bounds.push((asleep+k2*90)%1440);capM.textContent='Alarm '+fmt((asleep+5*90)%1440);capS.textContent='5 cycles · 7.5 h asleep · fall asleep ~'+fmt(asleep);}res.innerHTML=html;drawDial(ss,se,wm,bounds);}mw.addEventListener('click',function(){mode='wake';mw.classList.add('on');mb.classList.remove('on');tl.textContent='Alarm time';render();});mb.addEventListener('click',function(){mode='bed';mb.classList.add('on');mw.classList.remove('on');tl.textContent='Bedtime';render();});timeEl.addEventListener('change',render);timeEl.addEventListener('input',render);latEl.addEventListener('input',render);document.getElementById('cs-now').addEventListener('click',function(){var d=new Date();var v=(d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();timeEl.value=v;render();});var napbtns=document.querySelectorAll('[data-nap]');for(var n=0;n<napbtns.length;n++){napbtns[n].addEventListener('click',function(){var mins=+this.getAttribute('data-nap');var now=new Date();var wake=new Date(now.getTime()+mins*60000);var out=document.getElementById('cs-napout');var wh=wake.getHours(),wmin=wake.getMinutes();out.innerHTML='Lie down now — set your alarm for <b>'+((wh%12===0?12:wh%12))+':'+(wmin<10?'0':'')+wmin+' '+(wh>=12?'PM':'AM')+'</b> ('+mins+'-min '+(mins===20?'refresh nap — you wake before deep sleep':'full cycle — you wake at a cycle boundary')+').';out.classList.add('show');});}render();});}
+</script>
+</body>
+</html>
