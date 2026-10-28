@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bike Fit Calculator — Saddle Height, Frame Size &amp; Fit Guide | BikeFit</title>
+<meta name="description" content="Bike fit calculator: saddle height by LeMond and Hamley methods, frame size, handlebar width and fit symptom guide. Free.">
+<link rel="canonical" href="https://health.fixoraa.tech/bikefit/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Bike Fit Calculator — Saddle Height, Frame Size &amp; Fit Guide | BikeFit">
+<meta property="og:description" content="Bike fit calculator: saddle height by LeMond and Hamley methods, frame size, handlebar width and fit symptom guide. Free.">
+<meta property="og:url" content="https://health.fixoraa.tech/bikefit/">
+<meta property="og:type" content="website">
+<script defer src="https://t.fixoraa.tech/track.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "BikeFit",
+      "url": "https://health.fixoraa.tech/bikefit/",
+      "applicationCategory": "Sports Tools",
+      "operatingSystem": "Web",
+      "description": "Bike fit calculator: saddle height by LeMond and Hamley methods, frame size, handlebar width and fit symptom guide. Free.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where exactly do I measure saddle height from?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "From the center of the bottom bracket (the axle the cranks rotate on), along the seat tube, to the top of the saddle where your sit bones rest. Use a tape measure and measure along the tube's angle, not vertically. Re-check after a few rides \u2014 seatposts slip."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "LeMond vs Hamley \u2014 which formula should I trust?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both are respected starting points and they usually agree within millimeters. Start with the lower of the two \u2014 a slightly low saddle costs a little efficiency, while a slightly high one causes rocking hips and knee pain. Then validate with the knee-angle check and adjust in 2\u20133 mm steps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I measure my cycling inseam accurately?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Stand barefoot against a wall, pull a hardcover book firmly up between your legs like a saddle, and measure from the floor to the top of the book. Repeat three times and average. Your jeans inseam is not your cycling inseam \u2014 it sits lower than a saddle presses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I fall between two frame sizes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Size down for an aggressive, racy position or size up for endurance comfort \u2014 but first check the brand's own geometry chart, since sizing varies. Also verify standover clearance (2\u20135 cm over the top tube for road). If you'd need an extreme stem to make a size work, it's the wrong size."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "My knees hurt \u2014 is my saddle too high or too low?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Roughly: pain at the front of the knee often means too low; pain behind the knee, hamstring or Achilles tightness often means too high. But pain has many causes \u2014 cleat position, sudden mileage jumps, and weak glutes all mimic fit problems. Adjust one variable at a time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does crank length change my saddle height?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes \u2014 5 mm shorter cranks effectively raise your foot 5 mm at the bottom of the stroke, so lower the saddle about 5 mm to compensate (and vice versa). Shorter cranks also open the hip angle, which helps smaller riders and anyone with hip discomfort."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+
+:root{
+  --bg:#FAF6EE; --surface:#FFFFFF; --accent:#9A3412; --accent-ink:#FFFFFF;
+  --ink:#292419; --muted:#6A6250; --line:#E7DCC2;
+  --display:'Bricolage Grotesque',serif; --body:'Figtree',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+.fx-container{max-width:72rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+@media(min-width:640px){.fx-container{padding-left:1.5rem;padding-right:1.5rem}}
+/* ad utilities (for the verbatim ad snippets) */
+.no-print{}
+.mx-auto{margin-left:auto;margin-right:auto}.max-w-6xl{max-width:72rem}
+.px-4{padding-left:1rem;padding-right:1rem}.pt-4{padding-top:1rem}.pb-4{padding-bottom:1rem}
+@media(min-width:640px){.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:scale-100{transform:scale(1)}}
+.text-center{text-align:center}.block{display:block}
+.text-\[10px\]{font-size:10px}.tracking-\[0\.18em\]{letter-spacing:.18em}.uppercase{text-transform:uppercase}
+.text-slate-400{color:#94a3b8}.mb-1\.5{margin-bottom:.375rem}
+.flex{display:flex}.justify-center{justify-content:center}.overflow-hidden{overflow:hidden}
+.origin-top{transform-origin:top}.scale-\[0\.44\]{transform:scale(.44)}.shrink-0{flex-shrink:0}
+/* header */
+.fx-header{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.fx-header-in{display:flex;align-items:center;gap:.9rem;padding:.8rem 0;flex-wrap:wrap}
+.fx-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;color:var(--ink)}
+.fx-logo-tile{width:44px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fx-brand{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.fx-nav{margin-left:auto;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fx-btn{display:inline-block;padding:.55rem 1.1rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:.92rem;
+  border:2px solid var(--accent);color:var(--accent);background:transparent;transition:all .18s ease;min-height:44px;line-height:1.5}
+.fx-btn:hover{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid{background:var(--accent);color:var(--accent-ink)}
+.fx-btn.solid:hover{filter:brightness(.94)}
+.fx-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--accent);border:1.5px dashed var(--accent);border-radius:999px;padding:.3rem .8rem;white-space:nowrap}
+/* tool section */
+.tool-sec{padding:2.2rem 0 1rem}
+/* article */
+.article-sec{padding:2.5rem 0;max-width:46rem;margin:0 auto}
+.article-sec h2{font-family:var(--display);font-size:1.55rem;margin:2rem 0 .8rem;line-height:1.25;letter-spacing:-.01em}
+.article-sec h3{font-size:1.15rem;margin:1.5rem 0 .6rem}
+.article-sec p,.article-sec li{margin-bottom:.85rem;color:var(--ink)}
+.article-sec ul,.article-sec ol{padding-left:1.4rem;margin-bottom:1rem}
+.article-sec table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+.article-sec th,.article-sec td{border:1px solid var(--line);padding:.55rem .7rem;text-align:left}
+.article-sec th{background:var(--surface);font-weight:700}
+/* faq */
+.faq-sec{padding:1rem 0 3rem;max-width:46rem;margin:0 auto}
+.faq-sec h2{font-family:var(--display);font-size:1.55rem;margin-bottom:1.2rem}
+.faq-sec details{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:.7rem;overflow:hidden}
+.faq-sec summary{padding:1rem 1.2rem;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:44px}
+.faq-sec summary::-webkit-details-marker{display:none}
+.faq-sec summary::after{content:'+';font-size:1.4rem;color:var(--accent);flex-shrink:0}
+.faq-sec details[open] summary::after{content:'\2013'}
+.faq-sec details p{padding:0 1.2rem 1.1rem;color:var(--muted)}
+/* footer */
+.fx-footer{background:var(--surface);border-top:1px solid var(--line);padding:2.2rem 0;margin-top:1rem}
+.fx-footer .fx-brand{font-size:1.2rem}
+.fx-footer p{color:var(--muted);font-size:.95rem;max-width:44rem;margin:.5rem 0}
+.fx-footer nav{display:flex;gap:1.2rem;margin:1rem 0;flex-wrap:wrap}
+.fx-footer nav a{color:var(--accent);font-weight:600;text-decoration:none}
+.fx-footer nav a:hover{text-decoration:underline}
+.fx-credit{font-size:.9rem;color:var(--muted)}
+.fx-credit a{color:var(--accent);font-weight:700;text-decoration:none}
+@media(max-width:640px){.fx-brand{font-size:1.2rem}.tool-sec{padding:1.4rem 0 .6rem}}
+@media print{.no-print{display:none!important}}
+
+.bf2-wrap{max-width:1060px;margin:0 auto;padding:54px 20px 70px;font-family:'Figtree',system-ui,sans-serif;color:#292419}.bf2-hero{margin-bottom:26px;max-width:760px}.bf2-eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#9A3412;background:#F6E7D7;border:1px solid #E7DCC2;padding:6px 14px;border-radius:999px;margin-bottom:14px}.bf2-hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,4.8vw,50px);line-height:1.05;margin:0 0 10px;letter-spacing:-.01em;font-weight:700}.bf2-tag{color:#6A6250;font-size:17px;margin:0}.bf2-bar{background:#fff;border:1px solid #E7DCC2;border-radius:22px;padding:22px 24px;box-shadow:0 16px 40px rgba(154,52,18,.08);margin-bottom:20px}.bf2-bargrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.bf2-field label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6A6250;margin-bottom:7px}.bf2-field input,.bf2-field select{width:100%;padding:11px 12px;font-size:16px;border:2px solid #E7DCC2;border-radius:12px;font-family:inherit;color:#292419;background:#fff}.bf2-field input:focus{outline:none;border-color:#9A3412}.bf2-seg{display:flex;background:#FAF6EE;border:1px solid #E7DCC2;border-radius:12px;padding:3px}.bf2-seg button{flex:1;border:none;background:transparent;padding:9px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;color:#6A6250;font-family:inherit}.bf2-seg button.on{background:#9A3412;color:#fff}.bf2-duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}.bf2-card{background:#fff;border:1px solid #E7DCC2;border-radius:24px;padding:26px;box-shadow:0 16px 40px rgba(154,52,18,.08);position:relative}.bf2-card h2{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;margin:0 0 4px;font-weight:700}.bf2-dval{font-family:'Bricolage Grotesque',sans-serif;font-size:32px;font-weight:700;margin:2px 0 8px}.bf2-sub{color:#6A6250;font-size:14px;margin:0 0 12px}.bf2-winner{position:absolute;top:18px;right:18px;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#9A3412;color:#fff;border-radius:999px;padding:6px 13px}.bf2-rec{background:#9A3412;color:#fff;border-radius:20px;padding:20px 26px;margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;box-shadow:0 16px 40px rgba(154,52,18,.22)}.bf2-rec .bf2-big{font-family:'Bricolage Grotesque',sans-serif;font-size:40px;font-weight:700;line-height:1}.bf2-rec .bf2-rl{font-size:14.5px;opacity:.92;max-width:560px}.bf2-xgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.bf2-xcard{background:#fff;border:1px solid #E7DCC2;border-radius:22px;padding:24px}.bf2-xcard h3{font-family:'Bricolage Grotesque',sans-serif;font-size:19px;margin:0 0 10px;font-weight:700}.bf2-xcard p,.bf2-xcard li{font-size:14.5px;color:#6A6250;line-height:1.65}.bf2-xcard ul{padding-left:1.2rem;margin:0}.bf2-xcard p{margin:0 0 10px}.bf2-table{width:100%;border-collapse:collapse;font-size:13.5px}.bf2-table th,.bf2-table td{padding:8px 6px;border-bottom:1px solid #E7DCC2;text-align:left}.bf2-table th{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:#9A3412}.bf2-stat{background:#FAF6EE;border:1px solid #E7DCC2;border-radius:14px;padding:12px 14px;margin-bottom:10px}.bf2-stat .bf2-sv{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:700;color:#9A3412}.bf2-stat .bf2-sl{font-size:12.5px;color:#6A6250;font-weight:600}@media(max-width:900px){.bf2-bargrid{grid-template-columns:repeat(2,1fr)}.bf2-duo,.bf2-xgrid{grid-template-columns:1fr}.bf2-wrap{padding:40px 14px 56px}}
+</style>
+</head>
+<body>
+<header class="fx-header">
+  <div class="fx-container fx-header-in">
+    <a class="fx-logo" href="https://fixoraa.tech" aria-label="BikeFit home">
+      <span class="fx-logo-tile" aria-hidden="true">🚴</span>
+      <span class="fx-brand">BikeFit</span>
+    </a>
+    <nav class="fx-nav" aria-label="Site">
+      <a class="fx-btn" href="https://fixoraa.tech">Home</a>
+      <a class="fx-btn solid" href="https://fixoraa.tech">More Tools</a>
+      <span class="fx-badge" aria-label="Free forever">&#8734; Unlimited Free Usage</span>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="fx-container">
+  <section class="tool-sec tpl-chart-dial" aria-label="BikeFit tool">
+<section class='bf2-wrap'><div class='bf2-hero'><span class='bf2-eyebrow'>No studio needed</span><h1>Bike Fit Calculator</h1><p class='bf2-tag'>Your inseam knows your bike fit — let's ask it.</p></div><div class='bf2-bar'><div class='bf2-bargrid'><div class='bf2-field'><label for='bf2-inseam'>Cycling inseam</label><input type='number' id='bf2-inseam' value='84' min='50' max='110' step='0.5'></div><div class='bf2-field'><label>Unit</label><div class='bf2-seg' role='group' aria-label='Unit'><button id='bf2-cm' class='on' type='button'>cm</button><button id='bf2-in' type='button'>in</button></div></div><div class='bf2-field'><label for='bf2-crank'>Crank length (mm)</label><input type='number' id='bf2-crank' value='172.5' min='150' max='180' step='2.5'></div><div class='bf2-field'><label for='bf2-shoulder'>Shoulder width (cm)</label><input type='number' id='bf2-shoulder' value='42' min='34' max='50' step='0.5'></div></div></div><div class='bf2-duo'><div class='bf2-card' id='bf2-cardL'><span class='bf2-winner' id='bf2-winL' style='display:none'>Start here</span><h2>LeMond method</h2><p class='bf2-sub'>Inseam × 0.883 · BB center → saddle top</p><div class='bf2-dval' id='bf2-valL'>–</div><svg id='bf2-dialL' viewBox='0 0 300 190' width='100%' style='max-width:320px;display:block;margin:0 auto' role='img' aria-label='LeMond dial'></svg></div><div class='bf2-card' id='bf2-cardH'><span class='bf2-winner' id='bf2-winH' style='display:none'>Start here</span><h2>Hamley &amp; Thomas</h2><p class='bf2-sub'>Inseam × 1.09 − crank · pedal → saddle top</p><div class='bf2-dval' id='bf2-valH'>–</div><svg id='bf2-dialH' viewBox='0 0 300 190' width='100%' style='max-width:320px;display:block;margin:0 auto' role='img' aria-label='Hamley dial'></svg></div></div><div class='bf2-rec'><div class='bf2-big' id='bf2-recval'>74.2 cm</div><div class='bf2-rl' id='bf2-rectext'>Recommended start: the lower of the two methods. Measure from the bottom-bracket center along the seat tube to the saddle top — then validate with the knee check in the guide below.</div></div><div class='bf2-xgrid'><div class='bf2-xcard'><h3>🚲 Frame size</h3><div class='bf2-stat'><div class='bf2-sv' id='bf2-frame'>56 cm</div><div class='bf2-sl'>Suggested road frame (inseam × 0.67)</div></div><p>Between sizes? <strong>Size down</strong> for aggressive, <strong>up</strong> for endurance. Always cross-check the brand's geometry chart and standover (2–5 cm clearance).</p></div><div class='bf2-xcard'><h3>🎯 Cockpit targets</h3><div class='bf2-stat'><div class='bf2-sv' id='bf2-barw'>42 cm</div><div class='bf2-sl'>Handlebar width ≈ shoulder width</div></div><ul><li><strong>Saddle setback:</strong> 4–7 cm behind BB</li><li><strong>Knee angle:</strong> 140–150° at bottom</li><li><strong>Torso angle:</strong> 40–50° on the hoods</li></ul></div><div class='bf2-xcard'><h3>🩺 Fit symptoms</h3><table class='bf2-table'><tr><th>Symptom</th><th>Likely cause</th></tr><tr><td>Hips rock, reaching at bottom</td><td>Saddle too high</td></tr><tr><td>Front-knee pain, quad burn</td><td>Saddle too low</td></tr><tr><td>Pain behind knee / hamstring</td><td>Saddle too high</td></tr><tr><td>Neck, shoulder, hand numbness</td><td>Too much reach</td></tr><tr><td>Cramped breathing, twitchy bars</td><td>Too little reach</td></tr></table></div></div></section>
+  </section>
+  <article class="article-sec" aria-label="Guide">
+<h2>Saddle Height: The Foundation of Every Bike Fit</h2><p>Ask a professional bike fitter where they start, and the answer is always the same: <strong>saddle height</strong>. It is the single most impactful measurement on a bicycle. Get it wrong and everything downstream suffers — knee tracking goes off, hips rock, power leaks, and pain arrives within weeks. Get it right and the rest of the fit (reach, handlebar height, cleat position) becomes fine-tuning rather than damage control.</p><p>The good news: you do not need a studio, lasers, or motion capture to get close. Two published formulas turn one body measurement — your <strong>cycling inseam</strong> — into a saddle height accurate enough that most riders never need to change it by more than a few millimeters. This calculator runs both, compares them on the twin dials above, and hands you the conservative starting point plus the rest of a basic fit.</p><h2>The LeMond Method: Inseam × 0.883</h2><p>Three-time Tour de France winner Greg LeMond popularized the most widely used formula in cycling:</p><p><strong>Saddle height = inseam × 0.883</strong></p><p>measured from the <strong>center of the bottom bracket</strong> (the axle your cranks rotate around) <strong>to the top of the saddle</strong>, along the seat tube. With an 84 cm inseam: 84 × 0.883 = <strong>74.2 cm</strong>. That is your starting saddle height, set with a tape measure before you ever pedal.</p><p>LeMond's number is a starting point, not gospel. It does not account for crank length, pedal and shoe stack height, flexibility, or riding style. Research testing the formula found it leaves about a third of riders outside the ideal knee-bend range — which is exactly why you validate, not just calculate (more on that below).</p><h2>The Hamley &amp; Thomas Method: The Second Opinion</h2><p>The alternative classic takes 109% of inseam measured from the <strong>pedal surface</strong> (at the bottom of the stroke) to the saddle top:</p><p><strong>Saddle height = inseam × 1.09</strong> (pedal to saddle)</p><p>To compare it with LeMond's bottom-bracket figure, subtract your crank length: for an 84 cm inseam on 172.5 mm cranks, 91.6 − 17.25 = <strong>74.3 cm</strong> — remarkably close to LeMond's 74.2. The two methods usually agree within a few millimeters, which is reassuring; when they disagree by more than 5 mm, something about your proportions (very long or short cranks, unusual leg-to-torso ratio) deserves attention.</p><p>This calculator's recommendation is simple: <strong>start with the lower of the two</strong>. A saddle a touch too low costs a little efficiency; a saddle a touch too high causes rocking hips, strained hamstrings, and knee pain. When in doubt, err low — then validate upward.</p><h2>Measuring Your Inseam Correctly</h2><p>Both formulas are only as good as the inseam number you feed them, and most people measure it wrong the first time. The book method:</p><ol><li>Stand barefoot with your back against a wall, feet 15–20 cm apart.</li><li>Place a hardcover book (or a spirit level) between your legs, spine up, and pull it <strong>firmly</strong> upward — with the pressure of a saddle, not gently.</li><li>Mark where the top of the book meets the wall. Measure floor to mark.</li><li>Repeat three times and average. Even 5 mm matters here.</li></ol><p>Measure in the morning if you can (spines compress slightly through the day), wear thin socks or bare feet, and have a helper check the book is level. Your trouser inseam is <em>not</em> your cycling inseam — jeans sit lower than a saddle presses.</p><h2>Validating With Your Knee</h2><p>Formulas get you close; your knee confirms it. The gold-standard check is <strong>knee angle at the bottom of the pedal stroke</strong> with your foot flat: target <strong>140–150°</strong> (where 180° would be a perfectly straight leg). Below 140° the saddle is too low; above 150° it is too high. You can eyeball this with a phone video from the side, or use the classic heel method: with your <em>heel</em> on the pedal at the bottom, your leg should be just straight — switching to the ball of the foot then gives the correct slight bend automatically.</p><p>Then ride. Give any new height two to three weeks and 200+ km before judging — your body needs time to adapt, and day-one impressions lie. Adjust in 2–3 mm steps, never big jumps.</p><h2>Reading the Twin Dials</h2><p>The dials above draw both methods as gauges so you can see the comparison, not just read numbers. The highlighted <strong>recommended start</strong> is the lower of the two heights — the safe first setting. Set it with a tape measure from the bottom bracket center, along the seat tube, to the top of the saddle where your sit bones rest (not the nose, not the tail). Then ride, validate with the knee check, and fine-tune in millimeters.</p><h2>Frame Size: Buying the Right Bike</h2><p>Fitting an existing bike and buying a new one are different problems. For purchasing, the classic starting point is:</p><p><strong>Road frame size ≈ inseam (cm) × 0.67</strong></p><p>An 84 cm inseam suggests roughly a 56 cm frame. Between sizes? <strong>Size down</strong> for an aggressive, racy position (more seatpost showing, longer stem possible) or <strong>size up</strong> for endurance comfort (taller head tube, more relaxed). And check <strong>standover clearance</strong>: straddling the top tube in cycling shoes, you want 2–5 cm of space for a road bike. Modern geometry varies wildly between brands — always check the manufacturer's own chart with your height and inseam before ordering, and treat the 0.67 rule as the sanity check, not the verdict.</p><h2>Cockpit: Handlebar Width, Setback, and Reach</h2><p>With saddle height set, the cockpit comes next. <strong>Handlebar width</strong> should roughly match your shoulder width (measured joint to joint across the front): 38–40 cm for narrower shoulders, 42 cm the common middle, 44 cm for broad shoulders. Bars far wider than your shoulders splay your arms and catch wind; far narrower cramp your chest and breathing.</p><p><strong>Saddle setback</strong> — how far behind the bottom bracket the saddle sits — typically lands 4–7 cm for road riding (measured horizontally from BB to saddle nose, though fitters measure to the sit-bone point). The old KOPS check (knee over pedal spindle: drop a plumb line from the front of your knee with cranks level — it should roughly hit the pedal axle) is a decent starting point, though modern fitting treats it as a guideline, not a law. Set setback before fine-tuning reach: moving the saddle changes your distance to the bars.</p><p><strong>Reach and stack</strong> (handlebar distance and height) are adjusted with stem length/angle and headset spacers. Targets: a torso angle of 40–50° from horizontal on the hoods, elbows softly bent at 85–95°, no numb hands, no neck craning. If you need a stem shorter than 80 mm or longer than 120 mm to get there, the frame size is probably wrong.</p><h2>Symptoms: What Wrong Feels Like</h2><p>Your body reports fit errors reliably if you know the language. <strong>Saddle too high:</strong> hips rock side to side, you reach for the pedals at the bottom, pain behind the knee or in the hamstrings/Achilles, numb feet, lower-back ache from pelvic tilt. <strong>Saddle too low:</strong> pain at the <em>front</em> of the knee, quads burning disproportionately, feeling of pedaling 'squares,' cramped hip angle at the top. <strong>Too much reach:</strong> neck and shoulder pain, numb hands, lower-back ache. <strong>Too little reach:</strong> cramped breathing, twitchy handling, knee-to-elbow interference when climbing.</p><p>The table in the tool condenses this into a quick diagnostic. Fix in order: saddle height first, then setback, then cockpit — changing reach before height is rearranging deck chairs.</p><h2>Cleats, Cranks, and the Details</h2><p>Two details punch above their weight. <strong>Cleat position:</strong> the ball of your foot should sit over the pedal axle — too far forward overloads the calves, too far back dulls the pedal feel. Set cleats before judging saddle height, since fore-aft foot position changes effective leg extension. <strong>Crank length:</strong> 170–175 mm suits most adults; shorter cranks (165 mm) help smaller riders and anyone with hip impingement open the hip angle at the top, while very tall riders may suit 175 mm. Changing crank length by 5 mm should move the saddle the same 5 mm in the opposite direction to preserve leg extension.</p><h2>Road, Gravel, MTB, Triathlon: Different Fits</h2><p>The numbers above target <strong>road riding</strong>. Adjust by discipline: <strong>gravel</strong> runs the saddle 5–10 mm lower and bars slightly higher/wider for control on rough surfaces. <strong>Mountain bikes</strong> prioritize standover and maneuverability — saddle height matters less because you stand constantly, but set it right for the seated climbs between descents. <strong>Triathlon/time-trial</strong> bikes rotate the whole position forward around the bottom bracket: steeper seat angle, lower front end, more weight on the arms — never copy road numbers onto a tri bike. <strong>Commuters and tourers</strong> should bias everything toward comfort: saddle a touch lower, bars higher and closer. Speed you cannot sustain is not speed.</p><h2>When to See a Professional Fitter</h2><p>This calculator replaces the guesswork, not the fitter. Book a professional fit if you have persistent pain despite sensible adjustments, a big asymmetry (one knee tracks differently, old injuries), are buying an expensive bike (a fit first prevents buying the wrong size), or are chasing performance seriously — a good fitter finds watts in positions a formula cannot see. Bring your current measurements, your shoes and pedals, and the shorts you actually ride in. A fit is a collaboration: the fitter brings the method, you bring the feedback about what your body feels.</p>
+  </article>
+  <section class="faq-sec" aria-label="Frequently asked questions">
+    <h2>Frequently asked questions</h2>
+<details><summary>Where exactly do I measure saddle height from?</summary><p>From the center of the bottom bracket (the axle the cranks rotate on), along the seat tube, to the top of the saddle where your sit bones rest. Use a tape measure and measure along the tube's angle, not vertically. Re-check after a few rides — seatposts slip.</p></details>
+<details><summary>LeMond vs Hamley — which formula should I trust?</summary><p>Both are respected starting points and they usually agree within millimeters. Start with the lower of the two — a slightly low saddle costs a little efficiency, while a slightly high one causes rocking hips and knee pain. Then validate with the knee-angle check and adjust in 2–3 mm steps.</p></details>
+<details><summary>How do I measure my cycling inseam accurately?</summary><p>Stand barefoot against a wall, pull a hardcover book firmly up between your legs like a saddle, and measure from the floor to the top of the book. Repeat three times and average. Your jeans inseam is not your cycling inseam — it sits lower than a saddle presses.</p></details>
+<details><summary>What if I fall between two frame sizes?</summary><p>Size down for an aggressive, racy position or size up for endurance comfort — but first check the brand's own geometry chart, since sizing varies. Also verify standover clearance (2–5 cm over the top tube for road). If you'd need an extreme stem to make a size work, it's the wrong size.</p></details>
+<details><summary>My knees hurt — is my saddle too high or too low?</summary><p>Roughly: pain at the front of the knee often means too low; pain behind the knee, hamstring or Achilles tightness often means too high. But pain has many causes — cleat position, sudden mileage jumps, and weak glutes all mimic fit problems. Adjust one variable at a time.</p></details>
+<details><summary>Does crank length change my saddle height?</summary><p>Yes — 5 mm shorter cranks effectively raise your foot 5 mm at the bottom of the stroke, so lower the saddle about 5 mm to compensate (and vice versa). Shorter cranks also open the hip angle, which helps smaller riders and anyone with hip discomfort.</p></details>
+  </section>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:300px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script>
+      (function(grnp){
+      var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+      s.settings = grnp || {};
+      s.src = "\/\/peacefulbicycle.com\/bnXtVJsnd.GElF0oYVWQcY\/Qe\/mf9qu-ZqUtlZk\/PzTHcx1LM\/jWIZwkMTj\/U\/t-NrzmUnyOMsj\/AzydO\/Qx";
+      s.async = true;
+      s.referrerPolicy = 'no-referrer-when-downgrade';
+      l.parentNode.insertBefore(s, l);
+      })({})
+      </script>
+    </div>
+  </div>
+</div>
+<footer class="fx-footer">
+  <div class="fx-container">
+    <div class="fx-brand">BikeFit</div>
+    <p>BikeFit turns your inseam into a complete starting bike fit: saddle height by two proven methods, frame size, handlebar width and setback guidance.</p>
+    <nav aria-label="Footer">
+      <a href="https://fixoraa.tech">Home</a>
+      <a href="https://fixoraa.tech">More Tools</a>
+    </nav>
+    <p class="fx-credit">Made by <a href="https://fixoraa.tech">Fixoraa</a> &middot; Free forever, no signup.</p>
+  </div>
+</footer>
+<script>
+function saddleHeight(i){return Math.round(i*0.883*10)/10;}
+if(typeof document!=='undefined'){document.addEventListener('DOMContentLoaded',function(){var unit='cm';var insEl=document.getElementById('bf2-inseam'),crankEl=document.getElementById('bf2-crank'),shoEl=document.getElementById('bf2-shoulder');var dialL=document.getElementById('bf2-dialL'),dialH=document.getElementById('bf2-dialH');if(!insEl||!dialL)return;function inseamCm(){var v=parseFloat(insEl.value)||0;return unit==='cm'?v:v*2.54;}function drawDial(svg,val,label,isWin){var cx=150,cy=160,r=120;var lo=55,hi=90;var frac=Math.max(0,Math.min(1,(val-lo)/(hi-lo)));var s='';s+='<path d="M 30 160 A 120 120 0 0 1 270 160" fill="none" stroke="#EFE4CC" stroke-width="24" stroke-linecap="round"/>';s+='<path d="'+arcFrac(cx,cy,r,frac)+'" fill="none" stroke="#9A3412" stroke-width="24" stroke-linecap="round"/>';for(var t=55;t<=90;t+=5){var a=Math.PI-(t-lo)/(hi-lo)*Math.PI;var x1=cx+Math.cos(a)*(r-18),y1=cy-Math.sin(a)*(r-18),x2=cx+Math.cos(a)*(r+18),y2=cy-Math.sin(a)*(r+18);s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#6A6250" stroke-width="'+(t%10===0?2.5:1.2)+'"/>';}var na=Math.PI-frac*Math.PI;var nx=cx+Math.cos(na)*(r-40),ny=cy-Math.sin(na)*(r-40);s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+nx.toFixed(1)+'" y2="'+ny.toFixed(1)+'" stroke="#292419" stroke-width="4" stroke-linecap="round"/><circle cx="'+cx+'" cy="'+cy+'" r="9" fill="#292419"/>';svg.innerHTML=s;}function arcFrac(cx,cy,r,frac){var a0=Math.PI,a1=Math.PI-frac*Math.PI;var x0=cx+r*Math.cos(a0),y0=cy-r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy-r*Math.sin(a1);return 'M '+x0.toFixed(1)+' '+y0.toFixed(1)+' A '+r+' '+r+' 0 0 1 '+x1.toFixed(1)+' '+y1.toFixed(1);}function render(){var ins=inseamCm();var crank=parseFloat(crankEl.value)||172.5;var lemond=saddleHeight(ins);var hamley=Math.round((ins*1.09-crank/10)*10)/10;var rec=Math.min(lemond,hamley);var winL=lemond<=hamley;drawDial(dialL,lemond,'LeMond',winL);drawDial(dialH,hamley,'Hamley',!winL);var vL=document.getElementById('bf2-valL'),vH=document.getElementById('bf2-valH');var dsp=function(v){return unit==='cm'?v.toFixed(1)+' cm':(v/2.54).toFixed(1)+' in';};vL.textContent=dsp(lemond);vH.textContent=dsp(hamley);vL.style.color=winL?'#9A3412':'#292419';vH.style.color=winL?'#292419':'#9A3412';document.getElementById('bf2-winL').style.display=winL?'':'none';document.getElementById('bf2-winH').style.display=winL?'none':'';var rv=document.getElementById('bf2-recval');rv.textContent=unit==='cm'?rec.toFixed(1)+' cm':(rec/2.54).toFixed(1)+' in';var frame=Math.round(ins*0.67);document.getElementById('bf2-frame').textContent=frame+' cm';var sho=parseFloat(shoEl.value)||42;var bw=sho<40?'38':(sho<=43?'42':'44');document.getElementById('bf2-barw').textContent=bw+' cm';}document.getElementById('bf2-cm').addEventListener('click',function(){unit='cm';this.classList.add('on');document.getElementById('bf2-in').classList.remove('on');render();});document.getElementById('bf2-in').addEventListener('click',function(){unit='in';this.classList.add('on');document.getElementById('bf2-cm').classList.remove('on');render();});[insEl,crankEl,shoEl].forEach(function(el){el.addEventListener('input',render);el.addEventListener('change',render);});render();});}
+</script>
+</body>
+</html>
